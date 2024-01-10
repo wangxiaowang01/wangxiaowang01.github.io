@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一 关机1.1 关机重启相关操作命令1234567shutdown -h nowshutdown -h 5poweroff # 重启shutdown -r now shutdown -r 5reboot   二 目录操作命令2.1 增删改查1234567891011cd  # 进入ls # 查看mkdir # 增 创建rm -rf # 删除mv [选项] [源文件路径][目标文件路径]#源目录 #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【other】Linux常用命令">
+<meta property="og:url" content="http://example.com/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="一 关机1.1 关机重启相关操作命令1234567shutdown -h nowshutdown -h 5poweroff # 重启shutdown -r now shutdown -r 5reboot   二 目录操作命令2.1 增删改查1234567891011cd  # 进入ls # 查看mkdir # 增 创建rm -rf # 删除mv [选项] [源文件路径][目标文件路径]#源目录 #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/marek.jpg">
+<meta property="article:published_time" content="2024-01-09T03:45:04.000Z">
+<meta property="article:modified_time" content="2024-01-10T06:43:31.821Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="other">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/marek.jpg">
+  
+  
+  
+  <title>【other】Linux常用命令 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bing_2022_OHR.TwoJackLake.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【other】Linux常用命令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-09 11:45" pubdate>
+          2024年1月9日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【other】Linux常用命令</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一-关机"><a href="#一-关机" class="headerlink" title="一 关机"></a>一 关机</h1><h2 id="1-1-关机重启相关操作命令"><a href="#1-1-关机重启相关操作命令" class="headerlink" title="1.1 关机重启相关操作命令"></a>1.1 关机重启相关操作命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">shutdown -h now<br>shutdown -h 5<br>poweroff <br><span class="hljs-meta prompt_"># </span><span class="language-bash">重启</span><br>shutdown -r now <br>shutdown -r 5<br>reboot <br></code></pre></td></tr></table></figure>
+
+<h1 id="二-目录操作命令"><a href="#二-目录操作命令" class="headerlink" title="二 目录操作命令"></a>二 目录操作命令</h1><h2 id="2-1-增删改查"><a href="#2-1-增删改查" class="headerlink" title="2.1 增删改查"></a>2.1 增删改查</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd  # 进入<br>ls # 查看<br>mkdir # 增 创建<br>rm -rf # 删除<br>mv [选项] [源文件路径][目标文件路径]#源目录 #新目录  #还有重命名 移动功能<br>cp [选项] [源文件路径][目标文件路径] #源文件 #目标目录文件<br>scp [选项] [源文件路径][目标文件路径]<br>scp user@remote:/path/on/remote /path/to/local/directory # 远程到本地 加-r是递归<br>scp /path/to/local/file user@remote:/path/on/remote  # 从本地复制文件到远程主机：<br>find [目录] [参数] [文件名称]<br>find /usr/tmp -name &#x27;a*&#x27;    查找/usr/tmp目录下的所有以a开头的目录或文件<br></code></pre></td></tr></table></figure>
+
+<h1 id="三-文件操作命令"><a href="#三-文件操作命令" class="headerlink" title="三 文件操作命令"></a>三 文件操作命令</h1><h2 id="3-1-增删改查"><a href="#3-1-增删改查" class="headerlink" title="3.1 增删改查"></a>3.1 增删改查</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">toch 文件名 # 创建，不过一般用vim创建<br>rm -rf [文件名] # 删<br>vim 改<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-1-2-vim"><a href="#3-1-2-vim" class="headerlink" title="3.1.2 vim"></a>3.1.2 vim</h2><ul>
+<li>模式：</li>
+<li>命令模式（command mode ）：命令模式就是最开始啥都不按的模式，光标移动，查看文件的<ul>
+<li>可以控制屏幕光标的移动，字符、字或者行的查找删除和移动 也可以在指定光标下进入插入模式</li>
+<li><strong>控制光标移动：↑，↓，</strong><ul>
+<li><strong>h 左j 上k 下l 右</strong></li>
+<li><strong>Ctrl + f上翻页Ctrl + b下翻页 Ctrl + u&#96;上翻半页Ctrl + d下翻半页</strong></li>
+</ul>
+</li>
+<li><strong>改：按 i 进入插入模式 改也是一个意思</strong></li>
+<li><strong>删除： 按dd 删除当前行</strong></li>
+<li><strong>复制：按yy复制当前行</strong></li>
+<li><strong>粘贴：按pp 粘贴刚刚复制的文本</strong></li>
+<li><strong>撤销：按uu撤销上一步</strong></li>
+</ul>
+</li>
+<li><strong>插入模式（insert mode）</strong>：<ul>
+<li>i  ：在光标字符前开始插入</li>
+<li><strong>a ：在光标字符后开始插入</strong></li>
+<li><strong>o ： 在光标所在的行下面</strong></li>
+</ul>
+</li>
+<li>底行模式： 冒号q和wq和！</li>
+</ul>
+<h2 id="3-1-3-文件查看"><a href="#3-1-3-文件查看" class="headerlink" title="3.1.3 文件查看"></a>3.1.3 文件查看</h2><ul>
+<li><p>cat 直接看</p>
+</li>
+<li><p>more ：会显示百分比。跟vim的命令模式差不多，可以Ctrl +f b u d 翻页 </p>
+<ul>
+<li><strong>也可以回车空格向下翻【这个好用】</strong></li>
+</ul>
+</li>
+<li><p>less：未找到命令，要安装的，先不学</p>
+</li>
+<li><p>taill ： 指定行数或者动态查看 </p>
+<ul>
+<li>一般看日志用的，tail -f 100 [文件名]</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-权限的解读跟修改及用户管理"><a href="#3-2-权限的解读跟修改及用户管理" class="headerlink" title="3.2 权限的解读跟修改及用户管理"></a>3.2 权限的解读跟修改及用户管理</h2><p>查看详情：ll或者 ls -l</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">ll # 或者ls -l <br>-rw-r--r-- 1 user group  4096 Jan  1 10:00 file.txt<br>drwxr-xr-x 2 user group  4096 Jan  1 10:00 directory<br>d # 代表是目录<br>rwx #第一组（rwx） 表示所有者的权限，r读 w写 x执行<br>xr # 第二组（xr）同组用户的权限<br>x # 第三组(x) 表示其他用户，非同组用户的权限<br>user # 所属用户<br>group # 用户所属组<br>chmod +x # 添加执行权限<br>chmod 777  # 添加所有权限<br></code></pre></td></tr></table></figure>
+
+<p>添加管理用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">useradd user1 # 添加用户1<br>id user1 # 查看用户所属信息<br>uid=1001(user1) gid=1001(user1) 组=1001(user1),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),122(lpadmin),135(lxd),1000(wang),136(sambashare)<br>useradd -g root user2 # 为新添加的用户添加组<br>useradd -d /etc/nologin -g apache -s /bin/false user1<br>passwd user3 # 更改或者设置用户密码<br></code></pre></td></tr></table></figure>
+
+<h1 id="四、压缩文件操作"><a href="#四、压缩文件操作" class="headerlink" title="四、压缩文件操作"></a>四、压缩文件操作</h1><h2 id="4-1-打包和压缩"><a href="#4-1-打包和压缩" class="headerlink" title="4.1 打包和压缩"></a>4.1 打包和压缩</h2><p>linux 中一般都是打包tar 文件  压缩就是gz文件</p>
+<p>而一般情况下打包盒压缩是一起进行的，打包并且压缩后的文件的后缀名一般是.tar.gz</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -zcvf [打包后的文件名.tar] [要打包的文件] # 打包<br>	-z # z就是gz 调用gzip 压缩命令进行压缩<br>	-c # 打包文件 就是tar的作用<br>	-v # 显示打包运行的过程（跑代码）<br>	-f # 指定文件名<br>tar -zcvf test.tar test.py<br><span class="hljs-meta prompt_"># </span><span class="language-bash">解压</span><br>tar -zxvf [压缩文件名] <br>	-x # x 就是解压缩质量<br></code></pre></td></tr></table></figure>
+
+<h1 id="五、查找命令及三剑客【重点】"><a href="#五、查找命令及三剑客【重点】" class="headerlink" title="五、查找命令及三剑客【重点】"></a>五、查找命令及三剑客【重点】</h1><h2 id="5-1-grep-强大的文本搜索工具"><a href="#5-1-grep-强大的文本搜索工具" class="headerlink" title="5.1 grep 强大的文本搜索工具"></a>5.1 grep 强大的文本搜索工具</h2><h2 id="5-2-sed-（Stream-Editor）简单介绍"><a href="#5-2-sed-（Stream-Editor）简单介绍" class="headerlink" title="5.2 sed （Stream Editor）简单介绍"></a>5.2 sed （Stream Editor）简单介绍</h2><p>Stream Editor 流编辑器 ，用于对文本进行转换、替换、删除、插入和打印</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">sed 有两种模式 -e 不修改生产新文本 -i修改文件内容</span><br>sed -e &#x27;旧内容 新内容&#x27; xx文件 # 不修改文件内容 用-e<br>sed -i &#x27;旧内容 新内容&#x27; xx文件 # 修改文件内容 用-i<br>sed -e 后面可以接指令<br>	a # 新增<br>	c # 取代<br>	d #　删除	<br>	i # 插入<br>	p # 打印<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-3-awk-切片，强大的文本处理【重点】"><a href="#5-3-awk-切片，强大的文本处理【重点】" class="headerlink" title="5.3 awk  切片，强大的文本处理【重点】"></a>5.3 <strong>awk  切片，强大的文本处理【重点】</strong></h2><p>主要用来将数据进行切片输出的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">awk &#x27;&#123;print $1&#125;&#x27; # 用awk对内容进行进行切片，每一行，取第一个字段，以空格进行分隔<br>address: cosmos1g920yuxdmqtfxg4w8a0j9sgaazfryr2cx0d755<br><span class="hljs-meta prompt_"># </span><span class="language-bash">取出address的值</span><br>awk ‘/address/&#123;print $2&#125;’  #得到cosmos1g920yuxdmqtfxg4w8a0j9sgaazfryr2cx0d755<br>原理是：其中 `/address/` 表示匹配包含 `address` 的行，`&#123;print $2&#125;` 表示输出该行的第二个字段。输出结果为 `cosmos1g920yuxdmqtfxg4w8a0j9sgaazfryr2cx0d755`<br><span class="hljs-meta prompt_">$</span><span class="language-bash">2 里面的2可以换成1、3、4等任何数字，数字表示你匹配到的字段的后几位开始的数据，例如你匹配到的cosmosxxxxxx是在address的后面的3个字符后才出现的，那就是<span class="hljs-variable">$3</span> 第四个字符出现的就是<span class="hljs-variable">$4</span>，以此类推</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker ps <br>CONTAINER ID   IMAGE                             COMMAND                   CREATED       STATUS                  PORTS                                                           NAMES<br>a7a584dfd04a   django-vue-admin_dvadmin-django   &quot;/backend/docker_sta…&quot;   13 days ago   Up Less than a second   0.0.0.0:8000-&gt;8000/tcp, :::8000-&gt;8000/tcp                       dvadmin-django<br>286cc8be5d9f   mysql:5.7                         &quot;docker-entrypoint.s…&quot;   13 days ago   Up Less than a second   0.0.0.0:3306-&gt;3306/tcp, :::3306-&gt;3306/tcp, 33060/tcp            dvadmin-mysql<br>1cb7df749dec   mysql:8.0.30                      &quot;docker-entrypoint.s…&quot;   2 weeks ago   Up Less than a second   33060/tcp, 0.0.0.0:3307-&gt;3306/tcp, :::3307-&gt;3306/tcp            django_mysql<br>93b06a5f97a1   portainer/portainer-ce:latest     &quot;/portainer&quot;              2 weeks ago   Up Less than a second   8000/tcp, 9443/tcp, 0.0.0.0:1009-&gt;9000/tcp, :::1009-&gt;9000/tcp   portainer<br><br>docker ps | awk &#x27;&#123;print $1&#125;&#x27; # 使用 awk 工具对前一个命令的输出进行处理，提取每行的第一个字段（以空格为分隔符），并将其打印出来<br>CONTAINER<br>a7a584dfd04a<br>286cc8be5d9f<br>1cb7df749dec<br>93b06a5f97a1<br>docker ps | awk &#x27;&#123;print $1&#125;&#x27;|tail +2  # 从第二个开始取<br>a7a584dfd04a<br>286cc8be5d9f<br>1cb7df749dec<br>93b06a5f97a1<br>docker stop $(docker ps | awk &#x27;&#123;print $1&#125;&#x27;|tail +2) # 停止容器<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-4-find-找文件"><a href="#5-4-find-找文件" class="headerlink" title="5.4 find 找文件"></a>5.4 find 找文件</h2><p>find命令再目录结构中搜索文件，并对搜索结果进行知道的操作</p>
+<p>find 默认搜索当前目录机器子目录，并且<strong>不过滤任何结果（也就是返回所有文件）</strong>将它们全部显示再公屏上</p>
+<p>所以使用find的时候最好要跟一下目标目录 一般用**-ls查找当前目录**</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">find . -name &quot;*.log&quot; -ls  在当前目录查找以.log结尾的文件，并显示详细信息。 <br>find /root/ -perm 600   查找/root/目录下权限为600的文件 <br>find . -type f -name &quot;*.log&quot;  查找当目录，以.log结尾的普通文件 <br>find . -type d | sort   查找当前所有目录并排序 <br>find . -size +100M  查找当前目录大于100M的文件<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-5-which"><a href="#5-5-which" class="headerlink" title="5.5 which"></a>5.5 which</h2><p>which命令的作用实在PATH变量指定的路径钟，搜索某一个系统命令的位置，并且返回第一个搜索结果一般用于查找某个指令所在的位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">which pwd # 查找pwd 命令所在的路径<br>which java # 查找PATH中java所在的路径<br>which python # 查找PATH中python所在的路径<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-6whereis-没用过"><a href="#5-6whereis-没用过" class="headerlink" title="5.6whereis 没用过"></a>5.6whereis 没用过</h2><p>whereis命令是定位可执行文件、源代码文件、帮助文件在文件系统中的位置。这些文件的属性应属于原始代码，二进制文件，或是帮助文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">whereis ls    将和ls文件相关的文件都查找出来<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-7-locate-没用过-记笔记"><a href="#5-7-locate-没用过-记笔记" class="headerlink" title="5.7 locate 没用过 记笔记"></a>5.7 locate 没用过 记笔记</h2><h1 id="六-su-和sudo"><a href="#六-su-和sudo" class="headerlink" title="六 su 和sudo"></a>六 su 和sudo</h1><h1 id="七、系统服务"><a href="#七、系统服务" class="headerlink" title="七、系统服务"></a>七、系统服务</h1><h2 id="7-1-systemctl"><a href="#7-1-systemctl" class="headerlink" title="7.1 systemctl"></a>7.1 systemctl</h2><p><code>systemctl</code> 命令用于管理 systemd 系统和服务管理器。它可以启动、停止、重启、重新加载和查询系统服务的状态。一些常用的 <code>systemctl</code> 命令包括：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl start service_name # 启动服务<br>systemctl stop service_name # 停止服务<br>systemctl restart service_name # 重启服务<br>systemctl status service_name # 查看服务信息<br></code></pre></td></tr></table></figure>
+
+<p>也可以用 service ，一样的意思</p>
+<h2 id="7-2-service"><a href="#7-2-service" class="headerlink" title="7.2 service"></a>7.2 service</h2><h2 id="7-3-ps"><a href="#7-3-ps" class="headerlink" title="7.3 ps"></a>7.3 ps</h2><p>ps 查看当前正在运行的进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">ps -e | grep process_name # 查看指定进程名<br>ps -ef  # 列出当前的所有进程，静态的<br>ps -aux | grep  process_name # aux 显示所有进程及其详情信息包括其他用户的进程，一般配合grep 	 <br><span class="hljs-meta prompt_"># </span><span class="language-bash">三个命令一样的</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="7-4-端口"><a href="#7-4-端口" class="headerlink" title="7.4 端口"></a>7.4 端口</h2><p><code>netstat</code>：<code>netstat</code> 命令用于显示网络连接、路由表和网络接口信息。你可以使用不同的选项来过滤和显示特定的网络信息。一些常用的 <code>netstat</code> 命令选项包括：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">netstat -tuln # 显示所有正在监听的tcp 和 udp 端口 可以配合grep port_number 查找特定端口的监听进程<br></code></pre></td></tr></table></figure>
+
+<p><strong>lsof</strong>： <code>losf</code>命令用于列出打开文件和网络链接的进程 【常用】</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">lsof -i:8000 # 查看8000端口有没有被占用，谁占用，显示端口详细信息<br>losf -i TCP:prot_number # 显示对应的TCP端口详情<br>losf -i UDP:prot_number # 显示对应的UDP端口详情<br></code></pre></td></tr></table></figure>
+
+<p>ss:<code>ss</code>命令用户显示套接字统计信息，包括监听端口和与之相关的进程。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ss -tuln # 显示所有正在监听的TCP和UDP端口<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-4-内存-CPU监控之top或者htop（彩色）"><a href="#7-4-内存-CPU监控之top或者htop（彩色）" class="headerlink" title="7.4 内存&#x2F;CPU监控之top或者htop（彩色）"></a>7.4 内存&#x2F;CPU监控之top或者htop（彩色）</h2><p><code>top</code>强大的实时监控系统工具，用于查看和管理正在运行的进程以及系统的性能指标，</p>
+<p>解读所展示参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">top <br>进程号 USER      PR  NI    VIRT    RES    SHR    %CPU  %MEM     TIME+ COMMAND<br> 87753 wang      20   0   48.8g 240336  79328 R  10.9   0.7   1141:51 com.ali+ <br> VIRT # 虚拟内存占用大小<br> RES # 物理内存占用大小<br> SHR # 共享内存占用大小<br><span class="hljs-meta prompt_"> % </span><span class="language-bash"><span class="hljs-comment"># 占用百分比</span></span><br> TIME+ # 进程累计CPU时间<br> <br></code></pre></td></tr></table></figure>
+
+<p>【重点】top -p PID_number 查看指定的进程的实时占用情况</p>
+<h2 id="7-5-内存-CPU监控之free-和vmstat"><a href="#7-5-内存-CPU监控之free-和vmstat" class="headerlink" title="7.5 内存&#x2F;CPU监控之free 和vmstat"></a>7.5 内存&#x2F;CPU监控之free 和vmstat</h2><p>free :<code>free</code>命令用于显示系统的内存使用情况，它会显示总内存、已使用内存、空闲内存等信息。</p>
+<p>可以使用free -h 以更友好的方式显示内存大小（单位用G，默认单位是M）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">free<br>          total        used        free      shared  buff/cache   available<br>内存：   32595208    18936688     1550264     2450668    12108256    10649300<br>交换：   15999996     2212136    13787860<br>free -h <br>           total        used        free      shared  buff/cache   available<br>内存：       31Gi        17Gi       1.5Gi       2.4Gi        11Gi        10Gi<br>交换：       15Gi       2.1Gi        13Gi<br><br></code></pre></td></tr></table></figure>
+
+<p><code>vmstat</code>：<code>vmstat</code> 命令用于显示虚拟内存的统计信息，包括内存、CPU、磁盘、交换等。运行 <code>vmstat 1</code> 可以每秒更新一次统计信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">vmstat<br>-----------memory---------- ---swap-- -----io---- -system-- ------cpu-----<br> r  b 交换 空闲 缓冲 缓存   si   so    bi    bo   in   cs us sy id wa st<br> 0  0 2212136 1595296 1335748 10787504    0    0     2    14    2    1  3  1 96  0  0<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-6-使用网络流量统计"><a href="#7-6-使用网络流量统计" class="headerlink" title="7.6 使用网络流量统计"></a>7.6 使用网络流量统计</h2><p>ifconfig : <code>ifconfig</code>用于查看网络接口配置信息，也可以查看发送【上传】和接收【下载】数据包的值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs shell">ifconfig<br>enp4s0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.0.120  netmask 255.255.255.0  broadcast 192.168.0.255<br>        inet6 fe80::5a11:22ff:fe47:c52e  prefixlen 64  scopeid 0x20&lt;link&gt;<br>        ether 58:11:22:47:c5:2e  txqueuelen 1000  (以太网)<br>        RX packets 22011398  bytes 12495616225 (12.4 GB)<br>        RX errors 0  dropped 154785  overruns 0  frame 0<br>        TX packets 11342485  bytes 5780291167 (5.7 GB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br>enp4s0 # 网络接口名称，网卡名称<br>flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; <br><span class="hljs-meta prompt_">#</span><span class="language-bash">4163标志 up启动，BROADCAST广播，RUNNING运行，MULTICAST接口支持多广播</span><br>inet 192.168.0.120 # 本机ip 也就是接口的IPv4地址<br>netmask 255.255.255.0 # 接口子望掩码，用于确定网络地址和主机地址的界限<br>broadcast 192.168.0.255 # 接口的广播地址，用于向同一子网中的所有主机发送广播消息。<br>ether 58:11:22:47:c5:2e  # 本机mac地址，物理地址<br>txqueuelen 1000(以太网)：# 发送队列长度，指定接口发送数据包的队列的最大长度<br>RX packets 22011398  # RX是接收，接收包的数量 接收就是【下载】<br>bytes 12495616225 (12.4 GB) # 接受包的字节数，也就是接收包耗流量 【下载】<br>RX errors 0  # 接收过程中的错误数<br>dropped 154785 # 接收过程中的丢包数<br>overruns 0 # 接收过程中的溢出数据包数<br>frame 0 # 接收过程中的帧错误数量<br>TX packets 11342485  # TX是发送，发送包的数量 【上传】<br>bytes 5780291167 (5.7 GB) # 接受包的字节数，也就是接受包耗流量【上传】<br>TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br><br><br></code></pre></td></tr></table></figure>
+
+<p><strong>netstat -i</strong> ： <code>netstat -i</code> 用于显示网络接口的统计信息。它会列出系统上所有网络接口的详细信息，包括接口名称、MTU（最大传输单元）、接收和发送的数据包数量、错误数量等【重点】【统计用】</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">netstat -i  # 这个看的更直观<br>Kernel Interface table<br>Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg<br>br-0bc39  1500        0      0      0 0            73      0      0      0 BMU<br>br-31a15  1500        0      0      0 0             0      0      0      0 BMU<br>br-701c9  1500        0      0      0 0             0      0      0      0 BMU<br>br-cbf44  1500        0      0      0 0            71      0      0      0 BMU<br>docker0   1500    23665      0      0 0         41823      0      0      0 BMRU<br>enp4s0    1500 22050803      0 155200 0      11352806      0      0      0 BMRU<br>lo       65536  8078343      0      0 0       8078343      0      0      0 LRU<br>veth9712  1500    18992      0      0 0         35983      0      0      0 BMRU<br></code></pre></td></tr></table></figure>
+
+
+
+<p>ip a 现在不用ifconfig 这个命令比较老，用ip a 也是一样的，因为ip 集成了很多东西在里面</p>
+<p>nethogs : <code>nethogs</code>可以实时监控网络流量，会像抓包一样实时的显示每个进程的网络使用情况，这个要装的</p>
+<p>iftop:<code>iftop</code>工具可以实时监听当前网络流量和统计发送接收总量</p>
+<p>sudo iftop -P -F <process_id > :实时监听对应进程的网络流量和统计发送接收总量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo iftop  # 监听和统计全部流量<br>sudo iftop -P -F 4785 # 监听和统计单个进程的流程数据<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>tcpdump ：<code>tcpdump</code> 抓包本机所有网络请求接收，如果要抓包筛选的话，可以用Wireshark工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">tshark -r capture.pcap -Y &quot;&lt;filter_expression&gt;&quot;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">将 `&lt;filter_expression&gt;` 替换为你想要使用的过滤表达式，例如 `http.request` 或 `tcp.port == 80`。你还可以添加进程名称或进程 ID 过滤条件，以限制结果只包含特定进程的流量。</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="流畅度-【这个要去看一下详解后做笔记】"><a href="#流畅度-【这个要去看一下详解后做笔记】" class="headerlink" title="流畅度 【这个要去看一下详解后做笔记】"></a>流畅度 【这个要去看一下详解后做笔记】</h3><h3 id="功耗-【这个要去看一下详解后做笔记】"><a href="#功耗-【这个要去看一下详解后做笔记】" class="headerlink" title="功耗 【这个要去看一下详解后做笔记】"></a>功耗 【这个要去看一下详解后做笔记】</h3><h3 id="网络抓包tcpdump【这个要去看一下详解后做笔记】"><a href="#网络抓包tcpdump【这个要去看一下详解后做笔记】" class="headerlink" title="网络抓包tcpdump【这个要去看一下详解后做笔记】"></a>网络抓包tcpdump【这个要去看一下详解后做笔记】</h3><h1 id="八、网络管理"><a href="#八、网络管理" class="headerlink" title="八、网络管理"></a>八、网络管理</h1><h1 id="九、定时任务"><a href="#九、定时任务" class="headerlink" title="九、定时任务"></a>九、定时任务</h1><h1 id="十、其他"><a href="#十、其他" class="headerlink" title="十、其他"></a>十、其他</h1><p><img src="/../img/pexels.jpg" srcset="/img/loading.gif" lazyload alt="pexels"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/linux/ubuntu/" class="category-chain-item">ubuntu</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/other/" class="print-no-link">#other</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【other】Linux常用命令</div>
+      <div>http://example.com/2024/01/09/Linux常用基础命令/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" title="【other】docker相关基础介绍">
+                        <span class="hidden-mobile">【other】docker相关基础介绍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
