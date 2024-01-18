@@ -18,14 +18,14 @@
   
     <meta name="description" content="FastApi学习一、快速上手第一个FastApi123456789101112131415161718192021222324# main.pyimport uvicornfrom fastapi import FastAPIapp &#x3D; FastAPI()@app.get(&quot;&#x2F;&quot;)async def root():    return &#123;&quot;message&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【python】FastAPI学习记录">
-<meta property="og:url" content="http://example.com/2024/01/15/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="【python】FastAPI学习记录1简单学习和路径参数">
+<meta property="og:url" content="http://example.com/2024/01/15/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="FastApi学习一、快速上手第一个FastApi123456789101112131415161718192021222324# main.pyimport uvicornfrom fastapi import FastAPIapp &#x3D; FastAPI()@app.get(&quot;&#x2F;&quot;)async def root():    return &#123;&quot;message&amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/bing_2020_OHR.HuntsMesa.jpg">
 <meta property="article:published_time" content="2024-01-15T06:21:57.000Z">
-<meta property="article:modified_time" content="2024-01-16T02:45:46.912Z">
+<meta property="article:modified_time" content="2024-01-16T02:56:51.470Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="编程，web开发">
@@ -34,7 +34,7 @@
   
   
   
-  <title>【python】FastAPI学习记录 - Wang</title>
+  <title>【python】FastAPI学习记录1简单学习和路径参数 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【python】FastAPI学习记录"></span>
+            <span id="subtitle" data-typed-text="【python】FastAPI学习记录1简单学习和路径参数"></span>
           
         </div>
 
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          9.3k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          74 分钟
+          78 分钟
         
       </span>
     
@@ -271,7 +271,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【python】FastAPI学习记录</h1>
+            <h1 id="seo-header">【python】FastAPI学习记录1简单学习和路径参数</h1>
             
             
               <div class="markdown-body">
@@ -419,7 +419,7 @@
 <li><p><strong>只要形参的名字出现在路径装饰器中定义的参数，则肯定是路径参数，即使使用了Query()</strong></p>
 </li>
 </ul>
-<h1 id="2-9-阶段总结"><a href="#2-9-阶段总结" class="headerlink" title="2-9 阶段总结"></a>2-9 阶段总结</h1><ul>
+<h2 id="2-9-阶段总结"><a href="#2-9-阶段总结" class="headerlink" title="2-9 阶段总结"></a>2-9 阶段总结</h2><ul>
 <li>结论1：路径指的就是路由或者说URL，分静态路由和动态路由</li>
 <li>结论2：动态路由中的参数，就是路径参数；只要定义在路径函数的形参和路径装饰器中的参数同名，则该形参就会被是被为路径参数</li>
 <li>结论3：<strong>路径参数默认是必须的</strong>，且参数类型默认是字符串，可以使用路径转化器或者类型提示的方式做类型转换</li>
@@ -429,6 +429,8 @@
 <li>结论7：查询参数和路过参数的定义顺序无关，FastAPI能都自动是被它们</li>
 <li>结论8：定义在路径函数内形参的顺序，需要遵循：<strong>没有默认值的放在前面，有默认值的放在后面（python的语法要求）</strong></li>
 </ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 简单说：路径参数是从 URL 路径中提取的参数，在路由路径中使用花括号 &#123;&#125; 包围参数名称来定义。例如，/users/&#123;user_id&#125; 中的 user_id 就是一个路径参数。在处理函数中，你可以像普通函数参数一样声明路径参数，并指定其类型。FastAPI 将自动从请求 URL 中提取参数的值，并将其传递给相应的处理函数。</span><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/users/&#123;user_id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_user</span>(<span class="hljs-params">user_id: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;user_id&quot;</span>: user_id&#125;<br><span class="hljs-comment"># 查询参数是，查询参数是附加在 URL 后面的参数，使用 ? 分隔 URL 和查询参数，然后以 key=value 的形式添加到 URL 中。FastAPI 会自动解析查询参数，并将其传递给处理函数。</span><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/items/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_items</span>(<span class="hljs-params">page: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span>, limit: <span class="hljs-built_in">int</span> = <span class="hljs-number">10</span></span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;page&quot;</span>: page, <span class="hljs-string">&quot;limit&quot;</span>: limit&#125;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -447,7 +449,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  <a href="/categories/python/" class="category-chain-item">python</a>
   
   
 
@@ -476,8 +478,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【python】FastAPI学习记录</div>
-      <div>http://example.com/2024/01/15/FastAPI学习记录/</div>
+      <div>【python】FastAPI学习记录1简单学习和路径参数</div>
+      <div>http://example.com/2024/01/15/FastAPI学习记录1简单学习和路径参数/</div>
     </div>
     <div class="license-meta">
       
@@ -520,6 +522,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/01/16/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%952%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BD%93/" title="【python】FastAPI学习记录2请求头体">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】FastAPI学习记录2请求头体</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
