@@ -18,23 +18,23 @@
   
     <meta name="description" content="7-1 什么是依赖注入场景：  你的一个网站有两个查询接口，一个是图书列表借口，一个是用户列表借口，两个接口有相同的分页查询逻辑，此时你该如何实现？ 看看下面的普通代码实现方式 12345678910111213141516171819from fastapi import FastAPIapp &#x3D; FastAPI()BOOKS &#x3D; [&#123;&quot;id&quot;: i, &quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FastAPI学习记录4依赖注入">
+<meta property="og:title" content="【python】FastAPI学习记录4依赖注入">
 <meta property="og:url" content="http://example.com/2024/01/18/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%954%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="7-1 什么是依赖注入场景：  你的一个网站有两个查询接口，一个是图书列表借口，一个是用户列表借口，两个接口有相同的分页查询逻辑，此时你该如何实现？ 看看下面的普通代码实现方式 12345678910111213141516171819from fastapi import FastAPIapp &#x3D; FastAPI()BOOKS &#x3D; [&#123;&quot;id&quot;: i, &quot;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/bing_2022_OHR.CelebratingSurfing">
+<meta property="og:image" content="http://example.com/img/bing_2022_OHR.CelebratingSurfing.jpg">
 <meta property="article:published_time" content="2024-01-18T06:10:48.000Z">
-<meta property="article:modified_time" content="2024-01-18T07:20:50.836Z">
+<meta property="article:modified_time" content="2024-01-18T07:57:14.297Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="编程，web开发">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/bing_2022_OHR.CelebratingSurfing">
+<meta name="twitter:image" content="http://example.com/img/bing_2022_OHR.CelebratingSurfing.jpg">
   
   
   
-  <title>FastAPI学习记录4依赖注入 - Wang</title>
+  <title>【python】FastAPI学习记录4依赖注入 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="FastAPI学习记录4依赖注入"></span>
+            <span id="subtitle" data-typed-text="【python】FastAPI学习记录4依赖注入"></span>
           
         </div>
 
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9k 字
+          9.5k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          76 分钟
+          80 分钟
         
       </span>
     
@@ -271,7 +271,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">FastAPI学习记录4依赖注入</h1>
+            <h1 id="seo-header">【python】FastAPI学习记录4依赖注入</h1>
             
             
               <div class="markdown-body">
@@ -343,7 +343,7 @@
 <li><strong>在一个请求中，如果依赖注入条件被使用了多次，则只有第一次会真正执行内部代码，然后将其返回值缓存起来，后面再次使用它则直接获取缓存结果，不会再次执行其内部代码。</strong></li>
 <li><strong>如果不想使用依赖注入缓存，则可以在这个依赖条件第二次被使用时，设置 <code>use_cache=False</code>即可。</strong></li>
 </ul>
-<h1 id="7-4-路径装饰器和全局依赖注入"><a href="#7-4-路径装饰器和全局依赖注入" class="headerlink" title="7-4 路径装饰器和全局依赖注入"></a>7-4 路径装饰器和全局依赖注入</h1><p>有的时候，我们想使用依赖注入，但并不希望它有返回值，那此时就不能在路径函数内使用<code>Depends()</code>了，那该如何呢？</p>
+<h1 id="7-4-路径装饰器和全局依赖注入【有用】"><a href="#7-4-路径装饰器和全局依赖注入【有用】" class="headerlink" title="7-4 路径装饰器和全局依赖注入【有用】"></a>7-4 路径装饰器和全局依赖注入【有用】</h1><p>有的时候，我们想使用依赖注入，但并不希望它有返回值，那此时就不能在路径函数内使用<code>Depends()</code>了，那该如何呢？</p>
 <p>不需要返回值的依赖注入，可以直接在路径装饰器中使用</p>
 <p><strong>FastAPI的解决方式</strong></p>
 <p>不需要返回值的依赖注入，可以在路径装饰器中使用。</p>
@@ -365,7 +365,7 @@
 
 
 
-<h1 id="7-5-基于类的依赖注入"><a href="#7-5-基于类的依赖注入" class="headerlink" title="7-5 基于类的依赖注入"></a>7-5 基于类的依赖注入</h1><p>在7-1节中，我们通过定义依赖条件，解决了通用查询参数重复定义的问题。其中，我们定义的依赖条件是普通的函数。</p>
+<h1 id="7-5-基于类的依赖注入【有点用】"><a href="#7-5-基于类的依赖注入【有点用】" class="headerlink" title="7-5 基于类的依赖注入【有点用】"></a>7-5 基于类的依赖注入【有点用】</h1><p>在7-1节中，我们通过定义依赖条件，解决了通用查询参数重复定义的问题。其中，我们定义的依赖条件是普通的函数。</p>
 <p>但其实，只要是可调用的对象，都可以当做依赖条件，比如类。<strong>类实例化其实就是类的调用</strong>。</p>
 <p>示例1：类形式的依赖条件</p>
 <ul>
@@ -383,7 +383,7 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义依赖条件</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonQueryParams</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, page: <span class="hljs-built_in">int</span>, size: <span class="hljs-built_in">int</span>, status: <span class="hljs-built_in">bool</span></span>):<br>        self.page = page<br>        self.size = size<br>        self.status = status<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/api/books&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_books</span>(<span class="hljs-params">commons: CommonQueryParams = Depends(<span class="hljs-params"></span>)</span>): <span class="hljs-comment">#简单一点写就是直接类的实例化对象，CommonQueryParams = Depends()就是在实例化这个类</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
 
-<h1 id="7-6-基于对象的依赖注入"><a href="#7-6-基于对象的依赖注入" class="headerlink" title="7-6 基于对象的依赖注入"></a>7-6 基于对象的依赖注入</h1><p>上面我们可以定义基于函数，或者基于类形式的依赖条件，但是他们有一个共同的缺点：<strong>写死不可变的，不支持参数化</strong>。</p>
+<h1 id="7-6-基于对象的依赖注入【分支】"><a href="#7-6-基于对象的依赖注入【分支】" class="headerlink" title="7-6 基于对象的依赖注入【分支】"></a>7-6 基于对象的依赖注入【分支】</h1><p>上面我们可以定义基于函数，或者基于类形式的依赖条件，但是他们有一个共同的缺点：<strong>写死不可变的，不支持参数化</strong>。</p>
 <p>比如，我们有一个需求，要<strong>求我们检查查询参数中</strong>的字段是否包含指定的文本，并且被检查的文本可以通过参数的形式调整。</p>
 <p>示例1：检查指定的文本是否在查询参数q中</p>
 <ul>
@@ -409,6 +409,17 @@
 <li>对象或者变量，只有实现了call方法，才是可调用对象，才可以被执行，否则就会报错， object is not callable</li>
 <li>定义了call后，你实例化的对象可以像函数一样被调用，</li>
 </ul>
+<h1 id="7-7-依赖注入使用yield【好玩】"><a href="#7-7-依赖注入使用yield【好玩】" class="headerlink" title="7-7 依赖注入使用yield【好玩】"></a>7-7 依赖注入使用yield【好玩】</h1><ul>
+<li>fastapi的依赖注入非常强大，它还可以具备上下文管理器的功能。</li>
+<li>想要在依赖注入中实现上下文管理器，我们可以使用 <code>yield</code></li>
+<li>比如，我们想要在进入路径操作函数时通过依赖获取一个操作数据库的连接，请求结束后关闭这个db连接</li>
+</ul>
+<p>示例1：依赖注入中使用yield</p>
+<ul>
+<li>这样写的好处是，在路径操作函数结束时，会自动关闭db连接回收资源。及时在路径函数会出现异常报错，最终也会关闭连接。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> Depends, FastAPI<br><br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_db</span>():<br>    db = DBSession()<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">yield</span> db<br>    <span class="hljs-keyword">finally</span>:<br>        db.close()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/books/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">books</span>(<span class="hljs-params">db: Depend(<span class="hljs-params">get_db</span>)</span>): <span class="hljs-comment"># 和pytest的fixture类似使用，yield函数就是迭代器</span><br>    <span class="hljs-comment"># db.execute(&quot;select * form books&quot;)   db操作</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -456,7 +467,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>FastAPI学习记录4依赖注入</div>
+      <div>【python】FastAPI学习记录4依赖注入</div>
       <div>http://example.com/2024/01/18/FastAPI学习记录4依赖注入/</div>
     </div>
     <div class="license-meta">
@@ -505,8 +516,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/18/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%953%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="FastAPI学习记录3表单和文件上传">
-                        <span class="hidden-mobile">FastAPI学习记录3表单和文件上传</span>
+                      <a href="/2024/01/18/FastAPI%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%953%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="【python】FastAPI学习记录3表单和文件上传">
+                        <span class="hidden-mobile">【python】FastAPI学习记录3表单和文件上传</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
