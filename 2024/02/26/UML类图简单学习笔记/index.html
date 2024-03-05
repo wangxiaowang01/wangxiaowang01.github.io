@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【other】UML类图简单学习笔记">
+<meta property="og:url" content="http://example.com/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
+<meta property="article:published_time" content="2024-02-26T02:48:21.000Z">
+<meta property="article:modified_time" content="2024-02-27T06:09:08.600Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="UML">
+<meta property="article:tag" content="视野">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
+  
+  
+  
+  <title>【other】UML类图简单学习笔记 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bing_2017_RotenbergVineyards.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【other】UML类图简单学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-26 10:48" pubdate>
+          2024年2月26日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【other】UML类图简单学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。</p>
+<p>常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hzxll/p/16190230.html">九种常见UML图</a> </p>
+<p>本文是最常用的UML类图的笔记</p>
+</blockquote>
+<h2 id="一、UML类图简介"><a href="#一、UML类图简介" class="headerlink" title="一、UML类图简介"></a><strong>一、UML类图简介</strong></h2><p>类图以反映类的结构(<strong>属性、操作</strong>)以及类之间的关系为主要目的，描述了软件系统的结构，是一种静态建模方法。类图用来<strong>描述系统中有意义的概念</strong>，包括具体的概念、抽象的概念、实现方面的概念等，是对现实世界中事物的<strong>抽象</strong>。类图的主要作用是对系统的词汇进行建模、对简单的协作进行建模和对逻辑数据库模式进行建模。</p>
+<h1 id="二-、类图的基本属性"><a href="#二-、类图的基本属性" class="headerlink" title="二 、类图的基本属性"></a>二 、类图的基本属性</h1><p>类图概括起来主要由两部分组成：类和类之间的关系，</p>
+<p>其中对类的定义如下图所示</p>
+<p>主要由三部分组成，它们分别是<strong>类名</strong>、<strong>类的属性</strong>、<strong>类的方法</strong>，对应图中的三个分区内容。</p>
+<p><img src="/img/uml/1.jpg" srcset="/img/loading.gif" lazyload alt="1"> </p>
+<ul>
+<li><p><strong>类名</strong>：图中最上面的矩形框中为类名。如果字体为<em>斜体</em>，表示为抽象类</p>
+</li>
+<li><p><strong>类的属性</strong>：类名下方的区域<strong>·类的方法</strong>：图中的下面部分</p>
+</li>
+<li><p>*<strong>符号解释</strong> 说明：属性和方法前面的“+” “-” 和 “#” 表示访问级别，以下对这些符号进行解释说明。</p>
+<ul>
+<li>‘+’ ： public，公用的，对所有类可见</li>
+<li>‘-’ ： private，私有的，只对该类本身可用</li>
+<li>‘#’： protected，受保护的，对该类的子孙可见</li>
+<li>‘~’：package，包的，只对同一包声明的其他类可见</li>
+<li>‘&#x3D;’：表示默认值</li>
+<li>下划线：static</li>
+<li>斜体：抽象 (注意也可以用两个尖括号包裹来表示抽象，比如 —— &lt;&lt;我是抽象类or接口&gt;&gt;)</li>
+<li>冒号前是方法名&#x2F;变量名（根据有无括号区分），冒号后是返回参数&#x2F;变量类型（根据有无括号区分），如果没有冒号的话表示方法返回空（也有人通过：void表示返空）</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、类之间的关系"><a href="#三、类之间的关系" class="headerlink" title="三、类之间的关系"></a>三、类之间的关系</h1><p>类之间的关系主要包括泛化（继承）、依赖、关联、聚合、组合和实现6种关系，下面对它们进行一一阐释。</p>
+<p><img src="/img/uml/2.jpg" srcset="/img/loading.gif" lazyload alt="2"></p>
+<h2 id="1、泛化关系"><a href="#1、泛化关系" class="headerlink" title="1、泛化关系"></a><strong>1、泛化关系</strong></h2><p>泛化关系是一种<strong>继承</strong>关系，子类继承父类的所有行为和属性，子类可以新增新的功能或者重写父类功能，表示的方式为：<strong>空心三角+实线，箭头端指向父类</strong></p>
+<p><img src="/img/uml/3.jpg" srcset="/img/loading.gif" lazyload alt="3"></p>
+<h2 id="2、依赖关系"><a href="#2、依赖关系" class="headerlink" title="2、依赖关系"></a><strong>2、依赖关系</strong></h2><p>依赖关系表示一个类使用（依赖）另一个类的服务或信息。当一个类的改变会影响到另一个类时，两个类之间存在依赖关系。一般来说，依赖总是单向的，不应该存在双向依赖。表示方式为：<strong>尖括号+虚线</strong>，</p>
+<p><img src="/img/uml/4.jpg" srcset="/img/loading.gif" lazyload alt="4"></p>
+<h2 id="3、关联关系"><a href="#3、关联关系" class="headerlink" title="3、关联关系"></a><strong>3、关联关系</strong></h2><p>关联关系是一种拥有的关系，他使一个类知道另一个类的属性和方法。它体现不同类的一种强依赖关系，比如我和我的朋友，这种关系依赖更强，不存在依赖关系中的偶然性，关系也不是临时的，一般是长期性的。</p>
+<p>关联关系分为单向关联或双向关联，也可以有多重性（一对多），双向的关联可以有两个箭头或者没有剪头，单向的关联有一个箭头，</p>
+<p>表示方法：<strong>尖括号+实线，箭头指向被拥有者</strong></p>
+<p><img src="/img/uml/5.jpg" srcset="/img/loading.gif" lazyload alt="5"></p>
+<h2 id="4、聚合关系"><a href="#4、聚合关系" class="headerlink" title="4、聚合关系"></a><strong>4、聚合关系</strong></h2><p>聚合关系是关联关系的一种，表示一种  “<strong>弱</strong>” 的 <strong>“拥有”</strong> 关系，<strong>是整体与部分的关系</strong>，且<strong>部分可以离开整体而单独存在</strong>，如车和轮胎是整体和部分的关系，轮胎离开车仍然可以单独存在，</p>
+<p>表示方法：<strong>空心菱形+实线，菱形指向整体</strong> </p>
+<p><img src="/img/uml/6.jpg" srcset="/img/loading.gif" lazyload alt="6"></p>
+<h2 id="5、组合关系"><a href="#5、组合关系" class="headerlink" title="5、组合关系"></a><strong>5、组合关系</strong></h2><p>组合关系也是<strong>关联关系</strong>的一种，是比聚合关系还要强的关系，<strong>是整体与个体的关系</strong>，但<strong>个体不能离开整体而单独存在</strong>，如公司和部门是整体和部分的关系，没有公司就不存在部门，它要求普通的聚合关系钟代表整体的对象负责代表部分的对象的生命周期。 </p>
+<p>表示方法：<strong>实心菱形+实线</strong></p>
+<p><img src="/img/uml/7.jpg" srcset="/img/loading.gif" lazyload alt="7"></p>
+<h2 id="6、实现关系"><a href="#6、实现关系" class="headerlink" title="6、实现关系"></a><strong>6、实现关系</strong></h2><p>实现关系是一种类与接口的关系，表示类是接口所有特征和行为的实现。</p>
+<p>表示方法：<strong>空心三角+虚线</strong></p>
+<p><img src="/img/uml/8.jpg" srcset="/img/loading.gif" lazyload alt="8"></p>
+<h1 id="四、类图模板案例"><a href="#四、类图模板案例" class="headerlink" title="四、类图模板案例"></a><strong>四、类图模板案例</strong></h1><p>为了更好的理解类之间的6种关系，下面使用例子辅助学习和消化吸收</p>
+<h3 id="1、汽车类图案例"><a href="#1、汽车类图案例" class="headerlink" title="1、汽车类图案例"></a>1、汽车类图案例</h3><p><img src="/img/uml/9.jpg" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p>汽车类图说明：</p>
+<ul>
+<li>车与小汽车和自行车之间是「实现」 关系，使用带空心箭头的虚线表示；</li>
+<li>小汽车与SUV之间的关系为泛化关系，使用带空心箭头的实线表示；</li>
+<li>小汽车与发动机和轮胎之间是「组合」 关系，使用实心菱形箭头的实线表示；</li>
+<li>学生上学需要用到自行车，与自行车是一种「依赖」 关系，使用带箭头的虚线表示。</li>
+<li>学生与班级之间是「聚合」 关系，使用带空心菱形箭头的实线表示；</li>
+<li>学生与身份证之间为「关联」 关系，使用尖箭头的实线表示；</li>
+</ul>
+<h3 id="2、动物UML类图案例"><a href="#2、动物UML类图案例" class="headerlink" title="2、动物UML类图案例"></a>2、动物UML类图案例</h3><p><img src="/img/uml/10.jpg" srcset="/img/loading.gif" lazyload alt="10"></p>
+<h3 id="3、学生上网UML类图案例"><a href="#3、学生上网UML类图案例" class="headerlink" title="3、学生上网UML类图案例"></a>3、学生上网UML类图案例</h3><p><img src="/img/uml/11.jpg" srcset="/img/loading.gif" lazyload alt="11"></p>
+<h3 id="4、微信支付类图案例"><a href="#4、微信支付类图案例" class="headerlink" title="4、微信支付类图案例"></a>4、微信支付类图案例</h3><p><img src="/img/uml/12.jpg" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p>如果你能快速的看懂并理解以上案例，说明你基本上已经把类图弄懂了，再去多结合一些代码和对应的类图巩固一下，以后再看到类图就不会懵了。</p>
+<h2 id="五、如何绘制类图？"><a href="#五、如何绘制类图？" class="headerlink" title="五、如何绘制类图？"></a><strong>五、如何绘制类图？</strong></h2><p>新手推荐 ProcessOn （浏览器就可以免费使用）</p>
+<p>mac用户推荐下载：astah professional</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/other/" class="category-chain-item">other</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/UML/" class="print-no-link">#UML</a>
+      
+        <a href="/tags/%E8%A7%86%E9%87%8E/" class="print-no-link">#视野</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【other】UML类图简单学习笔记</div>
+      <div>http://example.com/2024/02/26/UML类图简单学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" title="【python】FastAPI5之数据库操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】FastAPI5之数据库操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="【python】python设计模式">
+                        <span class="hidden-mobile">【python】python设计模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

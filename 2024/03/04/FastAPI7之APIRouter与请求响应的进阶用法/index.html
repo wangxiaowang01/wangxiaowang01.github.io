@@ -1,0 +1,801 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="10-1 APIRouter基本使用【重点】场景： 如果我们写一个网站，或者写一个APP，那整个项目是比较复杂的，此时不应该把所有代码放在一个文件中。 前面我们通过把代码拆分到不同文件的方式，可以解决一些代码混乱的问题，但是却不能更好的解决。 比如一个项目中可能含有不同的模块，那不同的模块应该分开管理，这样项目才便于维护和管理。 FastAPI的解决方式 APIRouter就是FastAPI为了此">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI7之APIRouter与请求响应的进阶用法">
+<meta property="og:url" content="http://example.com/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="10-1 APIRouter基本使用【重点】场景： 如果我们写一个网站，或者写一个APP，那整个项目是比较复杂的，此时不应该把所有代码放在一个文件中。 前面我们通过把代码拆分到不同文件的方式，可以解决一些代码混乱的问题，但是却不能更好的解决。 比如一个项目中可能含有不同的模块，那不同的模块应该分开管理，这样项目才便于维护和管理。 FastAPI的解决方式 APIRouter就是FastAPI为了此">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/david-becker-z8wovoRIZwo-unsplash.jpg">
+<meta property="article:published_time" content="2024-03-04T09:51:53.000Z">
+<meta property="article:modified_time" content="2024-03-05T06:01:08.146Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="编程，web开发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/david-becker-z8wovoRIZwo-unsplash.jpg">
+  
+  
+  
+  <title>FastAPI7之APIRouter与请求响应的进阶用法 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/spacex-OHOU-5UVIYQ-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FastAPI7之APIRouter与请求响应的进阶用法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-04 17:51" pubdate>
+          2024年3月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">FastAPI7之APIRouter与请求响应的进阶用法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="10-1-APIRouter基本使用【重点】"><a href="#10-1-APIRouter基本使用【重点】" class="headerlink" title="10-1 APIRouter基本使用【重点】"></a>10-1 APIRouter基本使用【重点】</h1><p><strong>场景：</strong></p>
+<p>如果我们写一个网站，或者写一个APP，那整个项目是<strong>比较复杂</strong>的，此时不应该把所有代码放在一个文件中。</p>
+<p>前面我们通过把代码拆分到不同文件的方式，可以解决一些代码混乱的问题，但是却不能更好的解决。</p>
+<p>比如一个项目中可能含有不同的模块，那不同的模块应该分开管理，这样项目才便于维护和管理。</p>
+<p><strong>FastAPI的解决方式</strong></p>
+<p>APIRouter就是FastAPI为了此需求场景提供了一种解决方式，它类似 <strong>Flask中的蓝图</strong>，<strong>Django中的app</strong></p>
+<p>示例1：APIRouter的基本使用</p>
+<ul>
+<li>main.py 非常简洁，主要负责注册管理</li>
+<li>使用 <code>app.include_router(blog.router, prefix=&quot;/blog&quot;, tags=[&quot;Blog&quot;])</code> 注册模块，同时可以指定及api的前缀(prefix)和标签(tags)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> routers <span class="hljs-keyword">import</span> blog, user<br><br>app = FastAPI()<br>app.include_router(blog.router, prefix=<span class="hljs-string">&quot;/blog&quot;</span>, tags=[<span class="hljs-string">&quot;Blog&quot;</span>])<br>app.include_router(user.router)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>routers&#x2F;blog.py 主要负责和blog模块有关的业务</li>
+<li><code>router = APIRouter()</code>得到的 router对象和main.py中的app对象使用方式一样</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> APIRouter<br>router = APIRouter()<br><br><span class="hljs-meta">@router.get(<span class="hljs-params"><span class="hljs-string">&quot;/blogs&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">blogs</span>():<br>    <span class="hljs-keyword">return</span> [&#123;<span class="hljs-string">&quot;id&quot;</span>: i, <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">f&quot;blog<span class="hljs-subst">&#123;i&#125;</span>&quot;</span>&#125; <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)]<br><br><span class="hljs-meta">@router.get(<span class="hljs-params"><span class="hljs-string">&quot;/&#123;blog_id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_blog</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;id&quot;</span>: blog_id, <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">f&quot;blog<span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span>&#125;<br><br><span class="hljs-meta">@router.delete(<span class="hljs-params"><span class="hljs-string">&quot;/&#123;blog_id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">delete</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">f&quot;Done blog_id: <span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>routers&#x2F;user.py，负责和用户相关的模块</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> APIRouter, Form<br>router = APIRouter(tags=[<span class="hljs-string">&quot;User&quot;</span>], prefix=<span class="hljs-string">&quot;/user&quot;</span>)<br><br><span class="hljs-meta">@router.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span> = Form(<span class="hljs-params"></span>), pwd: <span class="hljs-built_in">str</span> = Form(<span class="hljs-params"></span>)</span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;name&quot;</span>: name&#125;<br><br><br><span class="hljs-meta">@router.get(<span class="hljs-params"><span class="hljs-string">&quot;/me&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">info</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;info&quot;</span>:  <span class="hljs-string">&quot;this is a cute boy&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>目的：</li>
+</ul>
+<p>让所有的API文件指向一个同一个实例化的FastAPI()对象 也就是同一个app对象</p>
+<h1 id="11-1-直接使用Request对象"><a href="#11-1-直接使用Request对象" class="headerlink" title="11-1 直接使用Request对象"></a>11-1 直接使用Request对象</h1><ul>
+<li><p>关于请求的操作，比如从URL中提取路径参数，获取查询参数，获取请求头，获取Cookie，获取请求体中的数据；这些参数和值的获取非常方便，这是因为FastAPI帮我们创造便利。</p>
+</li>
+<li><p>FastAPI底层依赖Starlette，本质上是FastAPI帮我们做了一些操作，从Starlette的Request对象解析出上述各个参数。</p>
+</li>
+<li><p>所以，对于上面这些常用的请求参数，我们可以直接使用FastAPI给我们提供的工具，并且有了数据校验、类型转化、OPenAPI文档等功能。</p>
+</li>
+<li><p>当然了，你不使用FastAPI提供的便捷工具，直接从Request对象中解析数据也是可以的，但就没由数据校验、类型转化、OPenAPI文档等功能。</p>
+</li>
+<li><p>不过，有些场景，比如说获取请求的IP，请求的client host等等，那我们就必须直接使用Request对象。</p>
+</li>
+</ul>
+<p>示例1：使用使用Request获取一些常见参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Request<br><span class="hljs-keyword">from</span> starlette.requests <span class="hljs-keyword">import</span> Request<br>app = FastAPI()<br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&#123;item_id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">req: Request</span>):<br>    item_id = req.path_params.get(<span class="hljs-string">&quot;item_id&quot;</span>) <span class="hljs-comment"># 从请求的路径参数获取item_id</span><br>    page = req.query_params.get(<span class="hljs-string">&quot;page&quot;</span>, <span class="hljs-number">0</span>) <span class="hljs-comment"># 从请求的查询参数获取分页信息</span><br>    size = req.query_params.get(<span class="hljs-string">&quot;size&quot;</span>, <span class="hljs-number">10</span>)<br>    x_token = req.headers.get(<span class="hljs-string">&quot;x-token&quot;</span>) <span class="hljs-comment"># 从 请求头从获取x-token</span><br>    x_token_cookie = req.cookies.get(<span class="hljs-string">&quot;x_token&quot;</span>) <span class="hljs-comment"># 从 请求的cookies从获取x-token</span><br><br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;item_id&quot;</span>: item_id,<br>        <span class="hljs-string">&quot;page&quot;</span>: page,<br>        <span class="hljs-string">&quot;size&quot;</span>: size,<br>        <span class="hljs-string">&quot;x-token&quot;</span>: x_token,<br>        <span class="hljs-string">&quot;cookie&quot;</span>: x_token_cookie,<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>示例2：使用Request获取客户端host</p>
+<ul>
+<li>从fastapi导入 <code>Request</code>对象，或者直接从 starlette.requests导入 <code>Request</code>， 两者是一样的效果。</li>
+<li>本例中，路径参数 <code>item_id</code>是用的FastAPI提供的便捷方式，所以具有类型转换、类型校验、openapi文档等附加功能。</li>
+<li>第二个形参 <code>req</code> 的类型是 <code>Request</code>，那FastAPI就知道要直接从Request中获取参数，就没有上述附加功能。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Request<br><span class="hljs-keyword">from</span> starlette.requests <span class="hljs-keyword">import</span> Request		<br>app = FastAPI()<br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/item/&#123;item_id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">item_id: <span class="hljs-built_in">int</span>, req: Request</span>):<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;item_id&quot;</span>: item_id,<br>        <span class="hljs-string">&quot;client_host&quot;</span>: req.client.host<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>补充：直接从Request中获取请求体参数，需要使用async&#x2F;await语法，在下一章我们再详细介绍。</strong></p>
+<h1 id="11-2-直接使用Response对象"><a href="#11-2-直接使用Response对象" class="headerlink" title="11-2 直接使用Response对象"></a>11-2 直接使用Response对象</h1><ul>
+<li><p>关于响应的操作，在前面的章节有涉及到，比如设置<strong>响应状态码</strong>，设置<strong>响应头</strong>，在路径函数内返回数据就可以当做响应体。</p>
+</li>
+<li><p>这些都是FastAPI给我们提供的便捷方式，使用了这些方式，几乎帮助我们处理了大部分常见的需求。</p>
+</li>
+<li><p>不过，在一些<strong>特殊</strong>常场景下，我们需要更加灵活的处理响应。</p>
+</li>
+<li><p>比如，我们已经使用过了，通过Response对象来设置Cookie, 设置响应头等等。</p>
+</li>
+<li><p><strong>本质上，FastAPI借用了Starlette框架的Response对象，即我们使用的Response对象都是Starlette的</strong>。</p>
+</li>
+<li><p><strong>Response对象还有很多其他高进的用法，比如处理重定向、响应其他格式的数据：纯文本&#x2F;HTML&#x2F;XML&#x2F;下载文件等等</strong>。</p>
+</li>
+</ul>
+<p>示例1：使用Response设置状态码&#x2F;响应头&#x2F;cookie</p>
+<ul>
+<li>从FastAPI导入的Response，等价于从starlette.responses导入的Response</li>
+<li>在路径函数中定义的形参<code>response</code>的类型是Response，FastAPI可以是被出来你要手动使用Response对象</li>
+<li>但是，这样的使用方式，本质上依然使用了FastAPI的便捷方式，因为你返回的是”123”，但其实响应格式是”application&#x2F;json”</li>
+<li>这是因为，FastAPI的默认响应方式是JSONResponse，即所有的返回给客户端的数据都会被json序列化</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Response <span class="hljs-comment"># 等价</span><br><span class="hljs-keyword">from</span> starlette.responses <span class="hljs-keyword">import</span> Response <span class="hljs-comment"># 等价</span><br>app = FastAPI()<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">response: Response</span>):<br>    response.status_code = <span class="hljs-number">201</span> <span class="hljs-comment"># 设置响应码</span><br>    response.headers[<span class="hljs-string">&quot;x-token&quot;</span>] = <span class="hljs-string">&quot;12345&quot;</span> <span class="hljs-comment"># 设置响应头</span><br>    response.set_cookie(<span class="hljs-string">&quot;token&quot;</span>, <span class="hljs-string">&quot;111111&quot;</span>, <span class="hljs-number">100</span>) <span class="hljs-comment"># 设置响应cookies</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;123&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例2：直接返回Response对象</p>
+<ul>
+<li>Response类初始化对象一般需要<strong>四个参数</strong></li>
+<li><code>content</code>是响应体的数据，必须是支持编码的字符串。如果要返回的数据是字段，则要使用json序列化</li>
+<li><code>status_code</code> 设置响应的状态码</li>
+<li><code>headers</code> 设置响应头</li>
+<li><code>media_type</code> 设置响应类型，比如说是json格式的数据则值为 <code>application/json</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Response <span class="hljs-comment"># 等价下面的</span><br><span class="hljs-keyword">from</span> starlette.responses <span class="hljs-keyword">import</span> Response <span class="hljs-comment"># 等价上面的</span><br>app = FastAPI()<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, </span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>():<br>    response = Response(<br>        content=json.dumps(&#123;<span class="hljs-string">&quot;hello&quot;</span>: <span class="hljs-string">&quot;world&quot;</span>&#125;), <span class="hljs-comment"># 序列化响应体数据</span><br>        status_code=<span class="hljs-number">201</span>, <span class="hljs-comment"># 设定响应状态码</span><br>        headers=&#123;<span class="hljs-string">&quot;x-token&quot;</span>: <span class="hljs-string">&quot;qqqqqq&quot;</span>&#125;, <span class="hljs-comment"># 设定响应头</span><br>        media_type=<span class="hljs-string">&quot;application/json&quot;</span> <span class="hljs-comment"># 设定响应类型</span><br>    ) <span class="hljs-comment"># response=Response(四个参数) 实例化一个Response对象</span><br><br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+
+<h1 id="11-3-默认响应方式"><a href="#11-3-默认响应方式" class="headerlink" title="11-3 默认响应方式"></a>11-3 默认响应方式</h1><p>基于上面我们知道，可以直接返回Response对象，使用起来也比较简单，只需要在<strong>实例化对象是按照要求传参即可</strong>。</p>
+<p>但是你会发现，不同类型的响应数据，<strong>都需要手动传参</strong>，这是比较麻烦的。</p>
+<p>其实，FastAPI提供了多种内置的响应方式，比如<strong>对于JSON格式的响应数据</strong>，提供了<code>JSONResponse</code>这种响应类型。</p>
+<p>本质上JSONResponse类是Response这个类的子类，并且JSONResponse是FastAPI中的<strong>默认响应方式</strong>。</p>
+<p>示例1:</p>
+<ul>
+<li>此时直接返回的是字典，但FastAPI内部帮我们处理，返回的数据格式是json的。</li>
+<li>想要修改内置响应方式，可修改FastAPI()中或的APIRouter()中的 <code>default_response_class</code></li>
+<li>还可以对于指定接口，通过 <code>response_class</code>设置响应方式</li>
+<li>优先级：接口 &gt; router &gt; app</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, APIRouter<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> JSONResponse<br><br><br>app = FastAPI(default_response_class=JSONResponse)			<span class="hljs-comment"># 设置全局的默认响应方式</span><br>router = APIRouter(default_response_class=JSONResponse)		 <span class="hljs-comment"># 设置APIRouter所有接口的默认响应方式</span><br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, response_class=JSONResponse</span>)					</span><span class="hljs-comment"># 设置这个接口的默认响应方式</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;liixu&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>示例2：源码阅读</p>
+<ul>
+<li>JSONResponse是Response的子类，m默认写死 <code>media_type = &quot;application/json&quot;</code></li>
+<li>并重写了<code>render</code>方法，该方法会在示实例化响应对象时触发，用来把我们传进去的 <code>content</code>序列化。</li>
+<li>因此使用手动JSONResponse时需要保证content是可序列化的，否则报错。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">JSONResponse</span>(<span class="hljs-title class_ inherited__">Response</span>):			<br>    media_type = <span class="hljs-string">&quot;application/json&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params"></span><br><span class="hljs-params">        self,</span><br><span class="hljs-params">        content: typing.<span class="hljs-type">Any</span>,</span><br><span class="hljs-params">        status_code: <span class="hljs-built_in">int</span> = <span class="hljs-number">200</span>,</span><br><span class="hljs-params">        headers: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">dict</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        media_type: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        background: typing.<span class="hljs-type">Optional</span>[BackgroundTask] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">    </span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-built_in">super</span>().__init__(content, status_code, headers, media_type, background)<br><span class="hljs-comment"># 重写父类方法</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">render</span>(<span class="hljs-params">self, content: typing.<span class="hljs-type">Any</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>        <span class="hljs-keyword">return</span> json.dumps(<br>            content,<br>            ensure_ascii=<span class="hljs-literal">False</span>,<br>            allow_nan=<span class="hljs-literal">False</span>,<br>            indent=<span class="hljs-literal">None</span>,<br>            separators=(<span class="hljs-string">&quot;,&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>),<br>        ).encode(<span class="hljs-string">&quot;utf-8&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="11-4-文本相关的Response"><a href="#11-4-文本相关的Response" class="headerlink" title="11-4 文本相关的Response"></a>11-4 文本相关的Response</h1><p>和文本相关的有<strong>两种</strong>响应方式：</p>
+<ul>
+<li><p><strong>PlainTextResponse</strong></p>
+</li>
+<li><p><strong>HTMLResponse</strong></p>
+</li>
+</ul>
+<p>示例1：PlainTextResponse用来<strong>响应纯文本</strong>的数据</p>
+<ul>
+<li>PlainTextResponse是Response的子类，<strong>重写了</strong>media_type &#x3D; “text&#x2F;plain”，对应响应头中的 <code>content-type: text/plain</code>，此时网页上显示纯文本信息。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> PlainTextResponse<br>app = FastAPI()<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, response_class=PlainTextResponse</span>) </span><span class="hljs-comment"># 定义response_class</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello World&quot;</span><br><span class="hljs-comment"># 源码</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">PlainTextResponse</span>(<span class="hljs-title class_ inherited__">Response</span>): <span class="hljs-comment"># 继承</span><br>    media_type = <span class="hljs-string">&quot;text/plain&quot;</span> <span class="hljs-comment"># 重写属性</span><br></code></pre></td></tr></table></figure>
+
+<p>示例2：HTMLResponse用来响应HTML页面</p>
+<ul>
+<li>HTMLResponse是Response的子类，重写media_type &#x3D; “text&#x2F;html”</li>
+<li>就可以直接返回HTMLResponse对象，网页渲染HTML样式。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> HTMLResponse<br><br>app = FastAPI()<br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    html_content = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    &lt;html&gt;</span><br><span class="hljs-string">        &lt;head&gt;</span><br><span class="hljs-string">            &lt;title&gt;Some HTML in here&lt;/title&gt;</span><br><span class="hljs-string">        &lt;/head&gt;</span><br><span class="hljs-string">        &lt;body&gt;</span><br><span class="hljs-string">            &lt;h1&gt;Look ma! HTML!&lt;/h1&gt;</span><br><span class="hljs-string">        &lt;/body&gt;</span><br><span class="hljs-string">    &lt;/html&gt;</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> HTMLResponse(content=html_content, status_code=<span class="hljs-number">200</span>)<br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, response_class=HTMLResponse</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    &lt;html&gt;</span><br><span class="hljs-string">        &lt;head&gt;</span><br><span class="hljs-string">            &lt;title&gt;Some HTML in here&lt;/title&gt;</span><br><span class="hljs-string">        &lt;/head&gt;</span><br><span class="hljs-string">        &lt;body&gt;</span><br><span class="hljs-string">            &lt;h1&gt;Look ma! HTML!&lt;/h1&gt;</span><br><span class="hljs-string">        &lt;/body&gt;</span><br><span class="hljs-string">    &lt;/html&gt;</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><span class="hljs-comment"># 源码</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HTMLResponse</span>(<span class="hljs-title class_ inherited__">Response</span>): <span class="hljs-comment"># 继承</span><br>    media_type = <span class="hljs-string">&quot;text/html&quot;</span><span class="hljs-comment"># 重写属性</span><br>    <br></code></pre></td></tr></table></figure>
+
+<h1 id="11-5-下载文件相关的Response"><a href="#11-5-下载文件相关的Response" class="headerlink" title="11-5 下载文件相关的Response"></a>11-5 下载文件相关的Response</h1><p>下载文件相关的响应类有两个：</p>
+<ul>
+<li>StreamingResponse</li>
+<li>FileResponse</li>
+</ul>
+<p>示例1：StreamingResponse支持文件类型的操作，下载文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> StreamingResponse<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">iterfile</span>():  <span class="hljs-comment">#</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;mybook.zip&quot;</span>, mode=<span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:  <span class="hljs-comment">#</span><br>            <span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> f<br><br>    <span class="hljs-keyword">return</span> StreamingResponse(iterfile(), media_type=<span class="hljs-string">&quot;application/zip&quot;</span>)<br><span class="hljs-comment"># StreamingResponse也是Response 的子类</span><br></code></pre></td></tr></table></figure>
+
+<p>示例2：使用FileResponse</p>
+<ul>
+<li>更加直接，文件下载</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> FileResponse<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> FileResponse(<span class="hljs-string">&quot;mybook.zip&quot;</span>, filename=<span class="hljs-string">&quot;book.zip&quot;</span>)	<span class="hljs-comment"># 第一个参数文件路径，filename指定下载下来的文件名</span><br><span class="hljs-comment"># FileResponse也是Response 的子类</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="11-6-其他Response"><a href="#11-6-其他Response" class="headerlink" title="11-6 其他Response"></a>11-6 其他Response</h1><p>示例1：重定向Response</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> RedirectResponse<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">go_to_baidu</span>():<br>    <span class="hljs-keyword">return</span> RedirectResponse(<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>示例2：ORJSONResponse</p>
+<ul>
+<li>ORJSONResponse是一个基于orjson序列化的响应类，它在性能上要由于JSONResponse</li>
+<li>使用是需要安装 <code>pip3 install orjson</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> ORJSONResponse<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>, response_class=ORJSONResponse</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">go_to_baidu</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;liuxu&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>补充：继承Response， 模仿者其他响应类，定义自己的响应类（自己实现吧）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/" class="print-no-link">#编程，web开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>FastAPI7之APIRouter与请求响应的进阶用法</div>
+      <div>http://example.com/2024/03/04/FastAPI7之APIRouter与请求响应的进阶用法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" title="FastAPI8之异步async-await">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">FastAPI8之异步async-await</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" title="【python】FastAPI6之登录认证">
+                        <span class="hidden-mobile">【python】FastAPI6之登录认证</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

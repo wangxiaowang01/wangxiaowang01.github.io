@@ -1,0 +1,905 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="3-1使用Header 接收请求头参数需求场景：假设现在我们有个图书网站，需要客户端在请求头上携带有效的token，才可以获取图书数据，那FastAPI该如何获取客户端传过来的请求头参数呢？ 示例1：FastAPI获取，指定请求头的值（比如，请求头的key 是token） 123456789101112from fastapi import FastAPI, Header # 引入Header类a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【python】FastAPI2请求头体">
+<meta property="og:url" content="http://example.com/2024/01/16/FastAPI2%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BD%93/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="3-1使用Header 接收请求头参数需求场景：假设现在我们有个图书网站，需要客户端在请求头上携带有效的token，才可以获取图书数据，那FastAPI该如何获取客户端传过来的请求头参数呢？ 示例1：FastAPI获取，指定请求头的值（比如，请求头的key 是token） 123456789101112from fastapi import FastAPI, Header # 引入Header类a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/wUyMk7ziLT0.jpg">
+<meta property="article:published_time" content="2024-01-16T02:52:24.000Z">
+<meta property="article:modified_time" content="2024-03-05T06:01:56.487Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="编程，web开发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/wUyMk7ziLT0.jpg">
+  
+  
+  
+  <title>【python】FastAPI2请求头体 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/derksen.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【python】FastAPI2请求头体"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-16 10:52" pubdate>
+          2024年1月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          139 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【python】FastAPI2请求头体</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="3-1使用Header-接收请求头参数"><a href="#3-1使用Header-接收请求头参数" class="headerlink" title="3-1使用Header 接收请求头参数"></a>3-1使用Header 接收请求头参数</h1><p><strong>需求场景：</strong>假设现在我们有个图书网站，需要客户端在请求头上携带有效的token，才可以获取图书数据，那FastAPI该如何获取客户端传过来的请求头参数呢？</p>
+<p>示例1：FastAPI获取，指定请求头的值（比如，请求头的key 是<code>token</code>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Header <span class="hljs-comment"># 引入Header类</span><br><br>app = FastAPI()<br>books = &#123;i: <span class="hljs-string">f&quot;图书<span class="hljs-subst">&#123;i&#125;</span>&quot;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)&#125;<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/books/&#123;id&#125;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_book_by_id</span>(<span class="hljs-params"><span class="hljs-built_in">id</span>: <span class="hljs-built_in">int</span>, token: <span class="hljs-built_in">str</span> = Header(<span class="hljs-params"></span>)</span>):<span class="hljs-comment"># token=Header() token是Header 的实例化对象</span><br>    <span class="hljs-keyword">if</span> token == <span class="hljs-string">&quot;this-is-token&quot;</span>:<br>        <span class="hljs-keyword">return</span> books.get(<span class="hljs-built_in">id</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;invalid token&quot;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1、Header和Path() Query()类似，也具有基本的请求头参数校验和API文档设置</p>
+<p>2、如果定义的参数是请求头参数，则必须使用Header() 否则FastAPI默认会把这个参数识别的查询参数</p>
+</blockquote>
+<h1 id="3-2-使用请求体提交数据【重点】"><a href="#3-2-使用请求体提交数据【重点】" class="headerlink" title="3-2 使用请求体提交数据【重点】"></a>3-2 使用请求体提交数据【重点】</h1><p>向服务器提交数据，可以通过之前咱们学的路径参数、查询参数、也可以在请求体中携带数据（推荐用法）</p>
+<p>推荐使用请求体向服务器提交数据的原因：</p>
+<ul>
+<li>路径参数和查询参数携带的数据量有限</li>
+<li>路径参数和查询参数携带数据不安全</li>
+</ul>
+<p>那我们该如何使用请求体向服务端提交数据呢？一般有两种方式：【二选一】</p>
+<ul>
+<li><p>使用POST请求，在请求体中使用JSON格式的数据；PUT&#x2F;PATCH等也可以在请求体中使用JSON格式数据</p>
+</li>
+<li><p>使用POST请求，在请求体中使用form-data格式的数据，提交数据（即前端的form表单，第6章详细介绍）</p>
+</li>
+</ul>
+<p>实现方式： 使用Pydantic 来接收请求体数据</p>
+<p>第一步：继承Pydantic的<code>BaseModel</code>,定义模型类User,再类钟定义两个和请求体字段同名的类数学并做类型提示</p>
+<p>第二步：再路径函数钟定义形参user ,设置类型未User</p>
+<p>第三步：通过对象<code>user</code>属性<code>username</code>和<code>password</code>获取请求体字段的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel <span class="hljs-comment"># 引用基础模型</span><br>app  = FastAPI()<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">str</span><br>    password: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">user: User</span>):<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;username&quot;</span>: user.username,<br>        <span class="hljs-string">&quot;password&quot;</span>: user.password<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样可以帮我们获取到请求体参数并赋值到参数<code>user</code>，同时：</p>
+<ul>
+<li>1、按照json格式来读取请求体数据</li>
+<li>2、把类型转换且进行类型校验（类型必须符合User格式）</li>
+<li>3、把请求体中每个字段的值赋值到模型类对象的每个属性（赋值到User类，基础自基础模型类）</li>
+<li>4、API文档可以看到类型提示</li>
+</ul>
+<p><strong>结论</strong>：</p>
+<ul>
+<li>如果请求体参数是JSON格式，就通过继承Pydantic的 <code>BaseModel</code> 的方式来获取数据</li>
+<li><code>BaseModel</code>的子类中定义的类属性是用来匹配请求体对应的字段值，所以名字包保持一致，字段的顺序没有要求</li>
+<li>只要路径函数式中形参的类型是<code>BaseModel</code>的子类，则FastAPI会默认会把请求体数据保存在这个变量中</li>
+<li>定义的模型类的属性，可以有默认值</li>
+</ul>
+<h1 id="3-4-多请求体-入参-不常用"><a href="#3-4-多请求体-入参-不常用" class="headerlink" title="3-4 多请求体 入参 不常用"></a>3-4 多请求体 入参 不常用</h1><p>原理是一样的，就是多定义一个模型而已，不常用拉</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">str</span><br>    password: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span><br>    description: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 选填类型，Optional可选的意思</span><br>    price: <span class="hljs-built_in">float</span><br>    tax: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">float</span>] = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 选填类型，Optional可选的意思</span><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login_double&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">post_login_double</span>(<span class="hljs-params">user: User, item: Item</span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;user&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;username&quot;</span>: user.username,<br>            <span class="hljs-string">&quot;password&quot;</span>: user.password,<br>        &#125;,<span class="hljs-string">&quot;item&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;name&quot;</span>: item.name,<br>            <span class="hljs-string">&quot;description&quot;</span>: item.description,<br>            <span class="hljs-string">&quot;price&quot;</span>: item.price,<br>            <span class="hljs-string">&quot;tax&quot;</span>: item.tax,&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-5-使用Body接收请求体数据"><a href="#3-5-使用Body接收请求体数据" class="headerlink" title="3-5 使用Body接收请求体数据"></a>3-5 使用Body接收请求体数据</h1><p>当你需要和其他入参一起发出请求的时候，比如说</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;<br>    <span class="hljs-string">&quot;item&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Foo&quot;</span>,<br>        <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;The pretender&quot;</span>,<br>        <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">42.0</span>,<br>        <span class="hljs-string">&quot;tax&quot;</span>: <span class="hljs-number">3.2</span><br>    &#125;,<br>    <span class="hljs-string">&quot;user&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;liuxu&quot;</span>,<br>        <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;liuxu&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;importance&quot;</span>: <span class="hljs-number">5</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的两种情况，直接使用继承Pydantic的BaseModel定义模型类的方式行不通，需要借助<code>Body()</code>函数来帮忙</p>
+<p>示例1：使用Body()获取请求体中单一字段变量，比如需求1中的 <code>&quot;importance&quot;: 5</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">int</span><br>    password: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span><br>    description: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span><br>    price: <span class="hljs-built_in">float</span><br>    tax: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">float</span>] = <span class="hljs-literal">None</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">user: User, item: Item, importance: <span class="hljs-built_in">int</span> = Body(<span class="hljs-params"></span>)</span>):	<span class="hljs-comment"># 定义和请求体字段同名的形参并使用Body()</span><br>    <span class="hljs-keyword">return</span> importance<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1、 Body()函数的室友和前面的Path() Query(),Header()基本一致</p>
+<p>2、如果你仅仅需要从请求体中获取importance，其他字段不需要，可直接：<code>def login(importance: int = Body()):</code></p>
+</blockquote>
+<h1 id="3-6-请求体使用Body校验"><a href="#3-6-请求体使用Body校验" class="headerlink" title="3.6 请求体使用Body校验"></a>3.6 请求体使用Body校验</h1><ul>
+<li><p>Body和前面接收的 Path、Query、Header一样，都可以做数值校验和字符串的基本校验</p>
+</li>
+<li><p>只不过Body校验的是请求体中的<strong>单一数据</strong>，比如请求体中只有一个数字或者一个字符串才可以</p>
+</li>
+<li><p>除此之外，还可以设置请求体的类型，默认是<code>application/json</code>，即JSON格式</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Body<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span> = Body(<span class="hljs-params">min_length=<span class="hljs-number">3</span></span>), age: <span class="hljs-built_in">int</span> = Body(<span class="hljs-params">ge=<span class="hljs-number">18</span></span>)</span>):<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;name&quot;</span>: name, <span class="hljs-string">&quot;age&quot;</span>: age&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-7-模型类嵌套"><a href="#3-7-模型类嵌套" class="headerlink" title="3.7 模型类嵌套"></a>3.7 模型类嵌套</h1><p>客户端传过来的请求体数据结构是复杂的嵌套结构，比如下面这种，此时后端该如何接收数据呢？</p>
+<p>需求3：嵌套列表中的模型类</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Foo&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;The pretender&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">42.0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;tax&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3.2</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;images&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example.com/baz.jpg&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;The Foo live&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example.com/dave.jpg&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;The Baz&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例3：解决 嵌套列表中的模型类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span>, <span class="hljs-type">Optional</span><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Image</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    url: <span class="hljs-built_in">str</span><br>    name: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span><br>    price: <span class="hljs-built_in">float</span><br>    images: <span class="hljs-type">Optional</span>[<span class="hljs-type">List</span>[Image]] = <span class="hljs-literal">None</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: Item</span>):<br>    <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-8-请求体字段使用Filed校验"><a href="#3-8-请求体字段使用Filed校验" class="headerlink" title="3.8 请求体字段使用Filed校验"></a>3.8 请求体字段使用Filed校验</h1><p>请求体的每个字段可以单独做校验吗，比如：</p>
+<ul>
+<li><code>name</code>的长度最少是3，</li>
+<li><code>price</code>不少于10</li>
+<li>&#96;tags字段限制元素不重复，限制元素的个数等等</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Foo&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;The pretender&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">42.0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;tax&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3.2</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;tags&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;rock&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;metal&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;bar&quot;</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例1：使用 <code>Field</code>来校验每个请求体字段，注意，<code>Field</code>不是从FastAPI导入的，而是直接从Pydantic导入的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Optional</span>, <span class="hljs-type">List</span><br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel, Field<br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span> = Field(min_length=<span class="hljs-number">5</span>)<br>    description: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = Field(default=<span class="hljs-literal">None</span>, max_length=<span class="hljs-number">300</span>)<br>    price: <span class="hljs-built_in">float</span> = Field(gt=<span class="hljs-number">0</span>, multiple_of=<span class="hljs-number">2</span>)<br>    tax: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>] = Field(min_items=<span class="hljs-number">2</span>, max_items=<span class="hljs-number">5</span>, unique_items=<span class="hljs-literal">True</span>)<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: Item</span>):<br>    <span class="hljs-keyword">return</span> item<br><br></code></pre></td></tr></table></figure>
+
+<p>校验参数总结：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">gt/ge/lt/le:				<span class="hljs-comment"># 数值大小校验(float)</span><br>min_length/max_length	    <span class="hljs-comment"># 字符串长度校验(int)</span><br>min_items/max_items			<span class="hljs-comment"># 集合元素数量校验（int）</span><br>unique_items				<span class="hljs-comment"># 集合元素是否可以重复(布尔值)</span><br>multiple_of					<span class="hljs-comment"># 限制值的某个数字的倍数（float）</span><br><br>max_digits					<span class="hljs-comment"># 最长多少位数字【bug】</span><br>decimal_places				<span class="hljs-comment">#　最多几位小数【bug】</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="3-9-总结获取请求体数据的3种方式"><a href="#3-9-总结获取请求体数据的3种方式" class="headerlink" title="3.9 总结获取请求体数据的3种方式"></a>3.9 总结获取请求体数据的3种方式</h1><p><strong>使用Pydantic</strong>【主要】</p>
+<ul>
+<li>定义模型类BaseModle，和请求体中的字段保持一致，定义模型类的属性并做<strong>类型提示</strong>（支持类型校验和类型转换）</li>
+</ul>
+<p><strong>使用Body()</strong></p>
+<ul>
+<li>有个特殊的请求体格式，使用Body()显示获取，比如，单一字段的值，内嵌字段的值</li>
+<li>可以与其他参数一起使用：<code>Body()</code> 函数可以与其他参数（如路径参数、查询参数等）一起使用，以便更灵活地定义请求处理函数的参数。</li>
+<li>支持更多的参数配置：<code>Body()</code> 函数支持传递更多参数配置，如数据类型、默认值等。</li>
+</ul>
+<p><strong>使用Python的字典类型和列表类型</strong></p>
+<ul>
+<li>定义在路径函数内的特殊字段会默认被视为请求体参数，比如列表，集合，元祖，字典（容器型数据）</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: typing.<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">str</span>]</span>): <span class="hljs-comment"># 直接在路径上</span><br>    <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>也可以通过@dataclasses.dataclass类装饰器转装饰成数据类</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@dataclasses.dataclass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>:<br>    username: <span class="hljs-built_in">str</span><br>    password: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">user: User</span>):<br>    <span class="hljs-keyword">return</span> user<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-10-给请求体提供范例"><a href="#3-10-给请求体提供范例" class="headerlink" title="3.10 给请求体提供范例"></a>3.10 给请求体提供范例</h1><p>提供范例后，再阅读API文档的时候更方便</p>
+<p>FastAPI提供了多种为请求体提供范例的方式</p>
+<p>示例1：在模型类中定义 <code>Config</code>类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Union</span><br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span><br>    description: <span class="hljs-type">Union</span>[<span class="hljs-built_in">str</span>, <span class="hljs-literal">None</span>] = <span class="hljs-literal">None</span><br>    price: <span class="hljs-built_in">float</span><br>    tax: <span class="hljs-type">Union</span>[<span class="hljs-built_in">float</span>, <span class="hljs-literal">None</span>] = <span class="hljs-literal">None</span><br><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>:<br>        schema_extra = &#123;<br>            <span class="hljs-string">&quot;example&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Foo&quot;</span>,<br>                <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;A very nice Item&quot;</span>,<br>                <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">35.4</span>,<br>                <span class="hljs-string">&quot;tax&quot;</span>: <span class="hljs-number">3.2</span>,<br>            &#125;<br>        &#125;<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: Item</span>):<br>    <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
+
+<p>示例2：使用 <code>Field(example=&quot;xxx&quot;)</code>为每个字段提供例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Union</span><br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel, Field<br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span> = Field(example=<span class="hljs-string">&quot;Foo&quot;</span>)<br>    description: <span class="hljs-type">Union</span>[<span class="hljs-built_in">str</span>, <span class="hljs-literal">None</span>] = Field(default=<span class="hljs-literal">None</span>, example=<span class="hljs-string">&quot;A very nice Item&quot;</span>)<br>    price: <span class="hljs-built_in">float</span> = Field(example=<span class="hljs-number">35.4</span>)<br>    tax: <span class="hljs-type">Union</span>[<span class="hljs-built_in">float</span>, <span class="hljs-literal">None</span>] = Field(default=<span class="hljs-literal">None</span>, example=<span class="hljs-number">3.2</span>)<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: Item</span>):<br>    <span class="hljs-keyword">return</span> item<br><br></code></pre></td></tr></table></figure>
+
+<p>示例3：使用 <code>Body(example=&quot;一个例子&quot;, examples=&quot;多组例子&quot;)</code>，这种方式也适用：<code>Path\Query\Header</code>等等 【不常用】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Union</span><br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> Body, FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><br>app = FastAPI()<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    name: <span class="hljs-built_in">str</span><br>    description: <span class="hljs-type">Union</span>[<span class="hljs-built_in">str</span>, <span class="hljs-literal">None</span>] = <span class="hljs-literal">None</span><br>    price: <span class="hljs-built_in">float</span><br>    tax: <span class="hljs-type">Union</span>[<span class="hljs-built_in">float</span>, <span class="hljs-literal">None</span>] = <span class="hljs-literal">None</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params"></span><br><span class="hljs-params">    *,</span><br><span class="hljs-params">    item: Item = Body(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-params">        examples=&#123;</span></span><br><span class="hljs-params"><span class="hljs-params">            <span class="hljs-string">&quot;normal&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;summary&quot;</span>: <span class="hljs-string">&quot;A normal example&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;A **normal** item works correctly.&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;value&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Foo&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;A very nice Item&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">35.4</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;tax&quot;</span>: <span class="hljs-number">3.2</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">            &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">            <span class="hljs-string">&quot;converted&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;summary&quot;</span>: <span class="hljs-string">&quot;An example with converted data&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;FastAPI can convert price `strings` to actual `numbers` automatically&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;value&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Bar&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-string">&quot;35.4&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">            &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">            <span class="hljs-string">&quot;invalid&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;summary&quot;</span>: <span class="hljs-string">&quot;Invalid data is rejected with an error&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                <span class="hljs-string">&quot;value&quot;</span>: &#123;</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Baz&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                    <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-string">&quot;thirty five point four&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-params">                &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">            &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">        &#125;,</span></span><br><span class="hljs-params"><span class="hljs-params">    </span>),</span><br><span class="hljs-params"></span>):<br>    <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
+
+<h1 id="本章学习总结，"><a href="#本章学习总结，" class="headerlink" title="本章学习总结，"></a>本章学习总结，</h1><ul>
+<li><p>主要是在与对请求头Header()和请求体Body()的定义</p>
+</li>
+<li><p>这里的<code>Header</code>的定义只是一个简单的定义，还没有注入依赖项（token令牌等）</p>
+</li>
+<li><p>请求体的话主要使用<code>Pydantic</code>模型类BoseModel定义,在路径函数上做类型提示更方便</p>
+</li>
+</ul>
+<h1 id="4-1-设置响应状态码"><a href="#4-1-设置响应状态码" class="headerlink" title="4-1 设置响应状态码"></a>4-1 设置响应状态码</h1><p>示例1：<strong>直接给status_code字段一个状态码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span>, status_code=<span class="hljs-number">200</span></span>)	</span><span class="hljs-comment"># 直接指定一个响应码</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">user: User</span>):<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;username&quot;</span>: user.username,<br>        <span class="hljs-string">&quot;password&quot;</span>: user.password<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>示例3：<strong>status_code使用常量</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Path, Header,status<br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span>, status_code=status.HTTP_200_OK</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>():<br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="4-2-设置响应头"><a href="#4-2-设置响应头" class="headerlink" title="4-2 设置响应头"></a>4-2 设置响应头</h1><p>有的时候，在响应客户端请求的时候，需要在响应头中给客户端返回一些数据，此时该如何设置响应头呢？</p>
+<p>示例1：在路径函数中使用 <code>Response</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Response<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">response: Response</span>):<br>    response.headers[<span class="hljs-string">&quot;x-jwt-token&quot;</span>] = <span class="hljs-string">&quot;this_is_jwt_token&quot;</span><br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello World&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>示例2：直接使用返回一个<code>Response</code>，比如使用FastAPI的默认响应方式JSONResponse</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> JSONResponse<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>():<br>    response = JSONResponse(<br>        content=&#123;<span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Hello World&quot;</span>&#125;,<br>        headers=&#123;<span class="hljs-string">&quot;x-jwt-token&quot;</span>: <span class="hljs-string">&quot;this_is_jwt_token&quot;</span>&#125;,<br>    )<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+
+<p>扩展：使用返回Response的方式，也可以设置响应状态码，手动设置响应体，操作cookie等等</p>
+<h1 id="4-3-响应体数据"><a href="#4-3-响应体数据" class="headerlink" title="4-3 响应体数据"></a>4-3 响应体数据</h1><p>FastAPI响应数据时，默认响应是json的格式，具体使用的响应类是 <code>JSONResponse</code></p>
+<p>举两个响应示例：一个<code>Pydantic</code>模型类，一个<code>Response</code>对象或 <code>Response</code>的子类</p>
+<p>示例3：响应 基于Pydantic的模型类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><span class="hljs-keyword">from</span> fastapi.responses <span class="hljs-keyword">import</span> JSONResponse<br><br>app = FastAPI(default_response_class=JSONResponse) <span class="hljs-comment"># 默认响应类JSONResponse</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">str</span><br>    password: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/login&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">user: User</span>):<br>    <span class="hljs-keyword">return</span> user<br></code></pre></td></tr></table></figure>
+
+<p>示例4：直接响应一个 <code>Response</code>对象或 <code>Response</code>的子类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, Response<br><span class="hljs-keyword">import</span> json<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/books&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_books</span>():<br>    response = Response(<br>        content=json.dumps([&#123;<span class="hljs-string">&quot;id&quot;</span>: i, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">f&quot;图书<span class="hljs-subst">&#123;i&#125;</span>&quot;</span>&#125; <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>)]),<br>        media_type=<span class="hljs-string">&quot;application/json&quot;</span><br>    )<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+
+<h1 id="4-4-使用响应模型response-model"><a href="#4-4-使用响应模型response-model" class="headerlink" title="4-4 使用响应模型response_model"></a>4-4 使用响应模型response_model</h1><p><strong>需求场景</strong></p>
+<ul>
+<li>需求1：用户注册接口（需要用户名和密码），后端完成注册后一般会将用户信息返回，但此时不能返回用户密码，该如何操作？</li>
+<li>需求2：想让接口返回的字段按照一定的规范来，有数据格式校验和转换等功能，该怎么办？</li>
+<li>需求3：API文档展示响应字段和类型</li>
+</ul>
+<p>FastAPI提供了<strong>响应模型</strong>（<code>response_model</code>）的概念，就像定义模型类用来接收请求体数据，响应模型用来处理响应数据。</p>
+<p>利用响应模型，可以实现返回字段的动态过滤，类型校验和类型转换等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">str</span><br>    password: <span class="hljs-built_in">str</span><br>    email: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserOut</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    username: <span class="hljs-built_in">str</span><br>    email: <span class="hljs-built_in">str</span><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/registe&quot;</span>, response_model=UserOut</span>)		</span><span class="hljs-comment"># 指定了响应模型是UserOut，则只返回username和email两个字段 过滤掉了</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">registe</span>(<span class="hljs-params">user: User</span>):<br>    <span class="hljs-keyword">return</span> user<br></code></pre></td></tr></table></figure>
+
+<p>示例3：使用response_model做类型校验和类型转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> typing<br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/demo&quot;</span>, response_model=typing.<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-built_in">int</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">demo</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;code&quot;</span>: <span class="hljs-number">200</span>, <span class="hljs-string">&quot;value&quot;</span>: <span class="hljs-string">&quot;100&quot;</span>&#125;		<span class="hljs-comment"># 像一个数据的值，会自动转换为Int类型 这里就做了强制的类型转换</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="4-5-用于过滤响应数据的五个参数"><a href="#4-5-用于过滤响应数据的五个参数" class="headerlink" title="4-5 用于过滤响应数据的五个参数"></a>4-5 用于过滤响应数据的五个参数</h1><p>很多时候，我们需要对响应模型中的某些字段做一个过滤操作，比如，</p>
+<ul>
+<li>没有赋值的字段过滤掉</li>
+<li>使用默认值的字段过滤掉</li>
+<li>指定某些字段过滤掉</li>
+<li>保留指定的字段等等</li>
+</ul>
+<p>FastAPI提供了5个配合响应模型一块使用的字段：</p>
+<ul>
+<li>response_model_include，只展示选中的字段</li>
+<li>response_model_exclude，选中的字段不展示</li>
+<li>response_model_exclude_unset，过滤掉没有赋值的字段</li>
+<li>response_model_exclude_defaults，过滤掉使用默认值的字段</li>
+<li>response_model_exclude_none，排序没有值的字段</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-meta">    <span class="hljs-string">&quot;/items/&#123;name&#125;&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model=Item,</span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model_include=&#123;<span class="hljs-string">&quot;name&quot;</span>&#125;, <span class="hljs-comment"># 只展示选中的</span></span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model_exclude=&#123;<span class="hljs-string">&quot;tax&quot;</span>&#125;, <span class="hljs-comment"># 选中的不展示的</span></span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model_exclude_unset=<span class="hljs-literal">True</span>, <span class="hljs-comment"># 过滤，过滤掉没有赋值的字段</span></span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model_exclude_defaults=<span class="hljs-literal">True</span>, <span class="hljs-comment"># 过滤，过滤掉使用了默认值得字段</span></span></span><br><span class="hljs-params"><span class="hljs-meta">    response_model_exclude_none=<span class="hljs-literal">True</span>, <span class="hljs-comment"># 排序，排序没有值的字段</span></span></span><br><span class="hljs-params"><span class="hljs-meta"></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_item_name</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span></span>):<br>    <span class="hljs-keyword">return</span> items[name]<br></code></pre></td></tr></table></figure>
+
+<h1 id="4-6-Pydantic模型类对象的dict方法"><a href="#4-6-Pydantic模型类对象的dict方法" class="headerlink" title="4-6 Pydantic模型类对象的dict方法"></a>4-6 Pydantic模型类对象的dict方法</h1><p>这个方法好像弃用了</p>
+<h1 id="4-7-jsonable-encoder【可能是重点】"><a href="#4-7-jsonable-encoder【可能是重点】" class="headerlink" title="4-7 jsonable_encoder【可能是重点】"></a>4-7 jsonable_encoder【可能是重点】</h1><p>客户端向服务端提交的数据需要永久存储保存数据库，那么此时就需要保证数据都是可序列化的，如何保证待序列化的数据都是可序列化的呢?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Union</span><br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> fastapi.encoders <span class="hljs-keyword">import</span> jsonable_encoder<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><br>fake_db = &#123;&#125;<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Item</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    title: <span class="hljs-built_in">str</span><br>    timestamp: datetime<br>    description: <span class="hljs-type">Union</span>[<span class="hljs-built_in">str</span>, <span class="hljs-literal">None</span>] = <span class="hljs-literal">None</span><br><br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/item&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_item</span>(<span class="hljs-params">item: Item</span>):<br>    json_compatible_item_data = jsonable_encoder(item) <span class="hljs-comment"># 转化json可序列化</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(json_compatible_item_data))<br>    <span class="hljs-built_in">print</span>(json_compatible_item_data)<br>    json.dumps(json_compatible_item_data)<br>    <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
+
+<h1 id="4-8-响应部分总结"><a href="#4-8-响应部分总结" class="headerlink" title="4-8 响应部分总结"></a>4-8 响应部分总结</h1><ul>
+<li><p>如何设置状态码：statuc_code、Response及其子类</p>
+</li>
+<li><p>如何设置响应头：Response及其子类</p>
+</li>
+<li><p>如何设置响应体：默认响应类是JSONResponse，也可以手动返回Response及其子类的对象</p>
+</li>
+<li><p>使用响应模型做字段过滤</p>
+</li>
+<li><p>关于不同类型的响应（下载文件等）在11章响应介绍</p>
+</li>
+</ul>
+<h1 id="5-、阶段性总结"><a href="#5-、阶段性总结" class="headerlink" title="5 、阶段性总结"></a>5 、阶段性总结</h1><h2 id="关于博客的增删改查练习"><a href="#关于博客的增删改查练习" class="headerlink" title="关于博客的增删改查练习"></a>关于博客的增删改查练习</h2><ul>
+<li><p>5个请求方式的使用规范</p>
+</li>
+<li><p>错误处理</p>
+</li>
+<li><p>Restful风格api设计</p>
+<blockquote>
+<p>RESTful是Web API接口的设计规范风格，这种风格的理念认为后端开发任务就是提供数据的，对外提供的是数据资源的访问接口，尤其适用于前后端分离的应用模式中。所以在定义接口时，客户端访问的URL路径就表示这种要操作的数据资源。</p>
+<p>任何一个框架都可以实现符合restful规范的API接口。</p>
+<p>RESTful十条规范：</p>
+<p>1 数据的安全保障：url链接一般都采用https协议进行传输 </p>
+<p>2 接口特征表现，一看就知道是个api接口</p>
+<ul>
+<li>用api关键字标识接口url：<a target="_blank" rel="noopener" href="https://www.baidu.com/api">https://www.baidu.com/api</a></li>
+</ul>
+<p>3 多数据版本共存，在url链接中标识数据版本</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/v1">https://api.baidu.com/v1</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/v2">https://api.baidu.com/v2</a></li>
+</ul>
+<p>!!!4 数据即是资源，均使用名词（可复数）</p>
+<ul>
+<li>接口一般都是完成前后台数据的交互，交互的数据我们称之为资源</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/users">https://api.baidu.com/users</a><br> 注：一般提倡用资源的复数形式，在url链接中奖励不要出现操作资源的动词</li>
+<li>特殊的接口可以出现动词，因为这些接口一般没有一个明确的资源，或是动词就是接口的核心含义</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/place/search">https://api.baidu.com/place/search</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/login">https://api.baidu.com/login</a></li>
+</ul>
+<p>!!!5 资源操作由请求方式决定（method）</p>
+<ul>
+<li>操作资源一般都会涉及到增删改查，使用请求方式确定操作类型<ul>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books">https://api.baidu.com/books</a> - get请求：获取所有书</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books/1">https://api.baidu.com/books/1</a> - get请求：获取主键为1的书</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books">https://api.baidu.com/books</a> - post请求：新增一本书书</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books/1">https://api.baidu.com/books/1</a> - put请求：整体修改主键为1的书</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books/1">https://api.baidu.com/books/1</a> - patch请求：局部修改主键为1的书</li>
+<li><a target="_blank" rel="noopener" href="https://api.baidu.com/books/1">https://api.baidu.com/books/1</a> - delete请求：删除主键为1的书</li>
+</ul>
+</li>
+</ul>
+<p>6 过滤，通过在url上传参的形式传递搜索条件，或者说查询参数(query_params)</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://api.example.com/v1/zoos?limit=10%EF%BC%9A%E6%8C%87%E5%AE%9A%E8%BF%94%E5%9B%9E%E8%AE%B0%E5%BD%95%E7%9A%84%E6%95%B0%E9%87%8F">https://api.example.com/v1/zoos?limit=10：指定返回记录的数量</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.example.com/v1/zoos?offset=10%EF%BC%9A%E6%8C%87%E5%AE%9A%E8%BF%94%E5%9B%9E%E8%AE%B0%E5%BD%95%E7%9A%84%E5%BC%80%E5%A7%8B%E4%BD%8D%E7%BD%AE">https://api.example.com/v1/zoos?offset=10：指定返回记录的开始位置</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.example.com/v1/zoos?page=2&per_page=100%EF%BC%9A%E6%8C%87%E5%AE%9A%E7%AC%AC%E5%87%A0%E9%A1%B5%EF%BC%8C%E4%BB%A5%E5%8F%8A%E6%AF%8F%E9%A1%B5%E7%9A%84%E8%AE%B0%E5%BD%95%E6%95%B0">https://api.example.com/v1/zoos?page=2&amp;per_page=100：指定第几页，以及每页的记录数</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.example.com/v1/zoos?sortby=name&order=asc%EF%BC%9A%E6%8C%87%E5%AE%9A%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E6%8C%89%E7%85%A7%E5%93%AA%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%8E%92%E5%BA%8F%EF%BC%8C%E4%BB%A5%E5%8F%8A%E6%8E%92%E5%BA%8F%E9%A1%BA%E5%BA%8F">https://api.example.com/v1/zoos?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序</a></li>
+<li><a target="_blank" rel="noopener" href="https://api.example.com/v1/zoos?animal_type_id=1%EF%BC%9A%E6%8C%87%E5%AE%9A%E7%AD%9B%E9%80%89%E6%9D%A1%E4%BB%B6">https://api.example.com/v1/zoos?animal_type_id=1：指定筛选条件</a></li>
+</ul>
+<p>7 响应状态码</p>
+<p>8 错误处理<br>9 返回结果，针对不同操作，服务器向用户返回的结果应该符合以下规范<br>  GET &#x2F;collection：返回资源对象的列表（数组）<br>  GET &#x2F;collection&#x2F;resource：返回单个资源对象<br>  POST &#x2F;collection：返回新生成的资源对象<br>  PUT &#x2F;collection&#x2F;resource：返回完整的资源对象<br>  PATCH &#x2F;collection&#x2F;resource：返回完整的资源对象<br>  DELETE &#x2F;collection&#x2F;resource：返回一个空文档<br>10 需要url请求的资源需要访问资源的请求链接</p>
+<ul>
+<li>Hypermedia API，RESTful API最好做到Hypermedia，</li>
+<li>即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"> &gt;<span class="hljs-punctuation">&#123;</span><br><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;msg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;results&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;肯德基(罗餐厅)&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;img&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://image.baidu.com/kfc/001.png&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">]</span><br> &gt;<span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<p>源码示例：模拟RESTFul风格的api</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> typing<br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI, HTTPException, status<br><span class="hljs-keyword">from</span> fastapi.encoders <span class="hljs-keyword">import</span> jsonable_encoder<br><span class="hljs-keyword">from</span> pydantic <span class="hljs-keyword">import</span> BaseModel<br><br>app = FastAPI(title=<span class="hljs-string">&quot;Blog CRUD&quot;</span>)<br><br><br><span class="hljs-comment"># mock db</span><br>blogs = &#123;<br>    <span class="hljs-number">1</span>: &#123;<br>        <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;blog1&quot;</span>,<br>        <span class="hljs-string">&quot;body&quot;</span>: <span class="hljs-string">&quot;this is blog1&quot;</span>,<br>        <span class="hljs-string">&quot;desc&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>    &#125;,<br>    <span class="hljs-number">2</span>: &#123;<br>        <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">2</span>,<br>        <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;blog2&quot;</span>,<br>        <span class="hljs-string">&quot;body&quot;</span>: <span class="hljs-string">&quot;this is blog2&quot;</span>,<br>        <span class="hljs-string">&quot;desc&quot;</span>: <span class="hljs-string">&quot;desc&quot;</span><br>    &#125;<br>&#125;<br><span class="hljs-comment"># blogs = [</span><br><span class="hljs-comment">#     &#123;</span><br><span class="hljs-comment">#         &quot;id&quot;: 1,</span><br><span class="hljs-comment">#         &quot;title&quot;: &quot;blog1&quot;,</span><br><span class="hljs-comment">#         &quot;body&quot;: &quot;this is blog1&quot;,</span><br><span class="hljs-comment">#         &quot;desc&quot;: &quot;desc&quot;</span><br><span class="hljs-comment">#     &#125;,</span><br><span class="hljs-comment">#     &#123;</span><br><span class="hljs-comment">#         &quot;id&quot;: 2,</span><br><span class="hljs-comment">#         &quot;title&quot;: &quot;blog2&quot;,</span><br><span class="hljs-comment">#         &quot;body&quot;: &quot;this is blog2&quot;,</span><br><span class="hljs-comment">#         &quot;desc&quot;: &quot;desc&quot;</span><br><span class="hljs-comment">#     &#125;</span><br><span class="hljs-comment"># ]</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Blog</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    title: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span><br>    body: typing.<span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span><br>    desc: <span class="hljs-built_in">str</span><br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/blogs&quot;</span>, tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_blogs</span>(<span class="hljs-params">page: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span>, size: <span class="hljs-built_in">int</span> = <span class="hljs-number">10</span></span>):<br>    blogs_list = <span class="hljs-built_in">list</span>(blogs.values())<br>    <span class="hljs-keyword">return</span> blogs_list[(page - <span class="hljs-number">1</span>) * size:page * size]<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/blog&quot;</span>,  tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_blog_by_id</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span></span>):<br>    blog = blogs.get(blog_id)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> blog:<br>        <span class="hljs-keyword">raise</span> HTTPException(<br>            status_code=status.HTTP_404_NOT_FOUND,<br>            detail=<span class="hljs-string">f&quot;Not found the blog with id: <span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span><br>        )<br>    <span class="hljs-keyword">return</span> blog<br><br><br><span class="hljs-meta">@app.post(<span class="hljs-params"><span class="hljs-string">&quot;/blog&quot;</span>,  tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_blog</span>(<span class="hljs-params">blog: Blog</span>):<br>    blog_id = <span class="hljs-built_in">len</span>(blogs) + <span class="hljs-number">1</span><br>    blogs[blog_id] = &#123;<span class="hljs-string">&quot;id&quot;</span>: blog_id, **jsonable_encoder(blog)&#125;<br>    <span class="hljs-keyword">return</span> blogs[blog_id]<br><br><br><span class="hljs-meta">@app.put(<span class="hljs-params"><span class="hljs-string">&quot;/blog&quot;</span>,  tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">update_blog</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span>, blog: Blog</span>):<br>    to_update_blog = blogs.get(blog_id)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> to_update_blog:<br>        <span class="hljs-keyword">raise</span> HTTPException(<br>            status_code=status.HTTP_404_NOT_FOUND,<br>            detail=<span class="hljs-string">f&quot;Not found the blog with id: <span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span><br>        )<br>    to_update_blog.update(jsonable_encoder(blog))<br>    blogs[blog_id] = to_update_blog<br>    <span class="hljs-keyword">return</span> to_update_blog<br><br><br><span class="hljs-meta">@app.patch(<span class="hljs-params"><span class="hljs-string">&quot;/blog&quot;</span>,  tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">update_blog2</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span>, blog: Blog</span>):<br>    to_update_blog = blogs.get(blog_id)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> to_update_blog:<br>        <span class="hljs-keyword">raise</span> HTTPException(<br>            status_code=status.HTTP_404_NOT_FOUND,<br>            detail=<span class="hljs-string">f&quot;Not found the blog with id: <span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span><br>        )<br>    to_update_blog.update(**jsonable_encoder(blog, exclude_unset=<span class="hljs-literal">True</span>))<br>    blogs[blog_id] = to_update_blog<br>    <span class="hljs-keyword">return</span> to_update_blog<br><br><br><span class="hljs-meta">@app.delete(<span class="hljs-params"><span class="hljs-string">&quot;/blog&quot;</span>,  tags=[<span class="hljs-string">&quot;Blog&quot;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">delete_blog</span>(<span class="hljs-params">blog_id: <span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> blogs.get(blog_id):<br>        <span class="hljs-keyword">raise</span> HTTPException(<br>            status_code=status.HTTP_404_NOT_FOUND,<br>            detail=<span class="hljs-string">f&quot;Not found the blog with id: <span class="hljs-subst">&#123;blog_id&#125;</span>&quot;</span><br>        )<br>    <span class="hljs-keyword">return</span> blogs.pop(blog_id, <span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/joshua.jpg" srcset="/img/loading.gif" lazyload alt="joshua"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/" class="print-no-link">#编程，web开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【python】FastAPI2请求头体</div>
+      <div>http://example.com/2024/01/16/FastAPI2请求头体/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/18/FastAPI3%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="【python】FastAPI3表单和文件上传">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】FastAPI3表单和文件上传</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/15/FastAPI1%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0/" title="【python】FastAPI1简单学习和路径参数">
+                        <span class="hidden-mobile">【python】FastAPI1简单学习和路径参数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

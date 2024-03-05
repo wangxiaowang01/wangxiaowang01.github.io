@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="12-1 fastapi是异步Web框架【重点】FastAPI这个web框架是异步框架，那它到底是如何体现异步的呢？ 本质上，实现异步的方式有三种：多进程、多线程和协程，FastAPI实现异步使用了多线程(线程池)和协程的方式。  当我们写普通形式的代码时：即使用 def 定义路径函数，FastAPI内部帮我们使用多线程（线程池）实现异步并发 当我们写async形式的代码时：即使用 async d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI8之异步async-await">
+<meta property="og:url" content="http://example.com/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="12-1 fastapi是异步Web框架【重点】FastAPI这个web框架是异步框架，那它到底是如何体现异步的呢？ 本质上，实现异步的方式有三种：多进程、多线程和协程，FastAPI实现异步使用了多线程(线程池)和协程的方式。  当我们写普通形式的代码时：即使用 def 定义路径函数，FastAPI内部帮我们使用多线程（线程池）实现异步并发 当我们写async形式的代码时：即使用 async d">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/nasa-hubble-space-telescope-um9l5devkQw-unsplash.jpg">
+<meta property="article:published_time" content="2024-03-04T12:33:55.000Z">
+<meta property="article:modified_time" content="2024-03-05T06:02:17.099Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="编程，web开发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/nasa-hubble-space-telescope-um9l5devkQw-unsplash.jpg">
+  
+  
+  
+  <title>FastAPI8之异步async-await - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bing_2022_OHR.MangroveDay.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FastAPI8之异步async-await"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-04 20:33" pubdate>
+          2024年3月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          62 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">FastAPI8之异步async-await</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="12-1-fastapi是异步Web框架【重点】"><a href="#12-1-fastapi是异步Web框架【重点】" class="headerlink" title="12-1 fastapi是异步Web框架【重点】"></a>12-1 fastapi是异步Web框架【重点】</h1><p>FastAPI这个web框架是异步框架，那它到底是如何体现异步的呢？</p>
+<p>本质上，<strong>实现异步的方式有三种：多进程、多线程和协程，FastAPI实现异步使用了多线程(线程池)和协程的方式</strong>。</p>
+<ul>
+<li>当我们写普通形式的代码时：即使用 <code>def</code> 定义路径函数，FastAPI内部帮我们使用多线程（线程池）实现异步并发</li>
+<li>当我们写async形式的代码时：即使用 <code>async def</code>定义路径函数，FastAPI内部使用协程的方式实现异步并发。</li>
+<li>在一个项目中，我们可以同时普通函数定义的路径函数（api），和async def 形式定义的路径函数（api）</li>
+<li>但是要记得，在async def 形式定义的函数内，不能使用同步的代码，否则接口的响应速度极慢。</li>
+</ul>
+<h1 id="12-2-比较同步和异步代码【重点】"><a href="#12-2-比较同步和异步代码【重点】" class="headerlink" title="12-2 比较同步和异步代码【重点】"></a>12-2 比较同步和异步代码【重点】</h1><p>在FastAPI中可以使用普通函数定义的接口，也可以使用async def 实行定义的接口。但是使用是需要注意，否则会导致程序极慢。</p>
+<p>示例1：普通函数形式定义的接口，会按照多线程（线程池）的方式异步执行</p>
+<ul>
+<li>比如这个接口，使用<code>time.sleep(5)</code>模拟耗时5s</li>
+<li>当两个客户端同时访问该接口时，服务端就会收到两个请求，因为FastAPI内部使用多线程的方式来处理，一个请求会被一个线程来处理，两个线程几乎同时执行。于是5秒后，两个请求都得到了响应。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    time.sleep(<span class="hljs-number">5</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例2：async def 形式的定义的接口，使用单线程协程的形式异步执行</p>
+<ul>
+<li><p>因为使用了协程的方式，当有两个客户端发请求时，单线程内代码块级别的切换，最终5秒后两个客户端都会得到响应。</p>
+</li>
+<li><p>注意：协程时不能使用同步阻塞的time模块，**需要使用<code>asyncio.sleep()</code>*<em>。又因为它是协程对象，所以需要使用<code>await</code>才能被执行。注意：不可以</em>time.sleep()*</p>
+</li>
+<li><p>另外，<code>await</code>必须使用在<code>async</code>定义的函数内，否则报错。</p>
+</li>
+<li><p>同时注意，在async def 内部不能使用同步模块，否则就会变成单线程同步执行的方式。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> asyncio<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">await</span> asyncio.sleep(<span class="hljs-number">5</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例3：在<strong>协程函数内错误使用同步模块</strong></p>
+<ul>
+<li>因为使用<code>async def</code>定义的函数，所以FadtAPI内部使用单线程的协程方式运行代码，所以当两个客户端发请求时，服务端只有一个线程处理两个请求。</li>
+<li>但因为是同步阻塞5秒，所以只能等第一个请求5秒后处理完，才能开始执行第二个请求。所以第二个请求等待了10秒才能得到响应。(同理，多个客户端发请求就是多个5秒等待)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI()<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    time.sleep(<span class="hljs-number">5</span>)		<span class="hljs-comment"># 不能在async def 函数内使用同步阻塞模块。</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>【注意】</p>
+<ul>
+<li>演示上述代码时，不要在一个浏览器上开两个tab页，可能无法演示出效果。这是因为有些浏览器有设置，一个host之后一个连接，所以打开的两个tab也通用一个和服务端通信的连接，此时的效果就是第一个请求得到响应后才开始第二个响应。</li>
+<li>你可以使用两个不同的浏览器演示示例；或者开两个cmd窗口，使用 curl命令来发请求。</li>
+</ul>
+<p><img src="/img/fastapi/image-20220731111456693.png" srcset="/img/loading.gif" lazyload alt="image-20220731111456693"></p>
+<h1 id="12-3-同步异步如何选择【重点】"><a href="#12-3-同步异步如何选择【重点】" class="headerlink" title="12-3 同步异步如何选择【重点】"></a>12-3 同步异步如何选择【重点】</h1><p>FastAPI非常灵活，支持你写普通的函数，也支持你写async def 形式的函数，那到底该如何选择？</p>
+<p>下面有几个原则，可以帮助大家做选择：</p>
+<ul>
+<li>你需要使用一个普通的，内部有<strong>IO等待</strong>的<strong>第三方库</strong>，此时使用 <code>def</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">results</span>():<br>    results = some_library()<br>    <span class="hljs-keyword">return</span> results<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>你需要使用的一个<strong>第三方库</strong>，需要使用 <code>await</code>调用时，此时使用 <code>async def</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">read_results</span>():<br>    results = <span class="hljs-keyword">await</span> some_library()<br>    <span class="hljs-keyword">return</span> results<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>你自己编写的工具库或者第三方工具库，代码执行过程中不涉及IO等待，此时直接调用即可，不用 <code>await</code></li>
+<li>当你的函数内部只要有一处使用 <code>await</code>， 该函数必须使用 <code>async def </code>定义</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">read_results</span>():<br>    results1 = some_library1()<br>    results2 = <span class="hljs-keyword">await</span> some_library()<br>    <span class="hljs-keyword">return</span> results<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>当你对协程&#x2F;async&#x2F;await&#x2F;asyncio这些概念不清楚的时候，就使用普通函数。</p>
+</li>
+<li><p>你需要使用的一个第三方库是同步库，但是你需要它支持协程异步，那需要自己使用线程池的方式运行，参考视频：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.51zxw.net/Show.aspx?cid=1054&id=121502">线程池和协程混合实现并发案例</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="12-4-fastapi集成aiohttp"><a href="#12-4-fastapi集成aiohttp" class="headerlink" title="12-4 fastapi集成aiohttp"></a>12-4 fastapi集成aiohttp</h1><p>传统python代码中发请求（如爬虫）我们一般使用requests模块，但是这个模块是同步阻塞的。</p>
+<p>所以在异步asyncio体系中，我们不再使用requests模块，一般会使用异步的 <code>aiohttp</code> 模块。（httpx）</p>
+<ul>
+<li>使用前现在安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip3 install aiohttp<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>简介：<strong>异步支持客户端和服务端，功能强大</strong>。网址：<a target="_blank" rel="noopener" href="https://docs.aiohttp.org/en/stable/">https://docs.aiohttp.org/en/stable/</a></li>
+</ul>
+<p>示例1：基本使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> asyncio<br><span class="hljs-keyword">import</span> aiohttp<br><br><span class="hljs-comment"># 协程函数</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">aiohttp_demo</span>():<br>    <span class="hljs-comment"># 获取一个连接session</span><br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> aiohttp.ClientSession() <span class="hljs-keyword">as</span> session:<br>        <span class="hljs-comment"># 基于连接发送一个get请求并获取像一个response</span><br>        <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> session.get(<span class="hljs-string">&#x27;http://www.baidu.com&#x27;</span>) <span class="hljs-keyword">as</span> response:<br>            <span class="hljs-comment"># 从response中获取响应的各种结果</span><br>            <span class="hljs-comment"># 因为基于上下文管理器，所以出自动关闭连接</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Status:&quot;</span>, response.status)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Content-type:&quot;</span>, response.headers[<span class="hljs-string">&#x27;content-type&#x27;</span>])<br><br>            html = <span class="hljs-keyword">await</span> response.text()<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Body:&quot;</span>, html[:<span class="hljs-number">15</span>], <span class="hljs-string">&quot;...&quot;</span>)<br><br>     <br><span class="hljs-comment"># 获取事件循环，在事件循环中执行协程函数</span><br><span class="hljs-comment"># loop = asyncio.get_event_loop()</span><br><span class="hljs-comment"># loop.run_until_complete(aiohttp_demo())</span><br><br><br><span class="hljs-comment"># 上面两行代码的简写，Python3.7以后的版本才可以使用</span><br>asyncio.run(aiohttp_demo())<br></code></pre></td></tr></table></figure>
+
+<p>示例2：在fastapi中使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> aiohttp<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br><br>app = FastAPI(title=<span class="hljs-string">&quot;使用aiohttp&quot;</span>)<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">baidu_index</span>():<br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> aiohttp.ClientSession() <span class="hljs-keyword">as</span> session:<br>        <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> session.get(<span class="hljs-string">&#x27;http://www.baidu.com&#x27;</span>) <span class="hljs-keyword">as</span> response:<br>            <span class="hljs-keyword">return</span> &#123;<br>                <span class="hljs-string">&quot;status&quot;</span>: response.status,<br>                <span class="hljs-string">&quot;content-type&quot;</span>: response.headers[<span class="hljs-string">&#x27;content-type&#x27;</span>],<br>                <span class="hljs-string">&quot;body&quot;</span>: <span class="hljs-keyword">await</span> response.text()<br>            &#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>或者将爬取百度页面的代码封装成一个协程函数，在接口中直接调用该协程函数即可</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> aiohttp<br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br><br>app = FastAPI(title=<span class="hljs-string">&quot;使用aiohttp&quot;</span>)<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">baidu_html</span>():<br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> aiohttp.ClientSession() <span class="hljs-keyword">as</span> session:<br>        <span class="hljs-keyword">async</span> <span class="hljs-keyword">with</span> session.get(<span class="hljs-string">&#x27;http://www.baidu.com&#x27;</span>) <span class="hljs-keyword">as</span> response:<br>            <span class="hljs-keyword">return</span> &#123;<br>                <span class="hljs-string">&quot;status&quot;</span>: response.status,<br>                <span class="hljs-string">&quot;content-type&quot;</span>: response.headers[<span class="hljs-string">&#x27;content-type&#x27;</span>],<br>                <span class="hljs-string">&quot;body&quot;</span>: <span class="hljs-keyword">await</span> response.text()<br>            &#125;<br><br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> baidu_html()		<span class="hljs-comment"># 需要使用await 才能执行baidu_html 这个协程函数</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="12-5-fastapi集成aiomysql"><a href="#12-5-fastapi集成aiomysql" class="headerlink" title="12-5 fastapi集成aiomysql"></a>12-5 fastapi集成aiomysql</h1><p>在python中操作mysql我们通常使用pymysql作为数据库驱动，但是在异步的世界中我们使用aiomysql当驱动。</p>
+<p>官网：<a target="_blank" rel="noopener" href="https://aiomysql.readthedocs.io/en/latest/index.html">https://aiomysql.readthedocs.io/en/latest/index.html</a></p>
+<p>示例1：aiomysql简单使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> aiomysql<br><span class="hljs-keyword">from</span> aiomysql.cursors <span class="hljs-keyword">import</span> DictCursor<br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><br>app = FastAPI(title=<span class="hljs-string">&quot;使用aiomysql&quot;</span>)<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">aiomysql_demo</span>():<br>    <span class="hljs-comment"># 获取连接对象</span><br>    conn = <span class="hljs-keyword">await</span> aiomysql.connect(<br>        host=<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>        port=<span class="hljs-number">3306</span>,<br>        user=<span class="hljs-string">&quot;root&quot;</span>,<br>        password=<span class="hljs-string">&quot;12345&quot;</span>,<br>        db=<span class="hljs-string">&quot;db&quot;</span>,<br>        cursorclass=DictCursor      <span class="hljs-comment"># 返回字典格式的数据</span><br>    )<br>    <span class="hljs-comment"># 创建游标</span><br>    cur = <span class="hljs-keyword">await</span> conn.cursor()<br>    <span class="hljs-comment"># 执行SQL</span><br>    <span class="hljs-keyword">await</span> cur.execute(<span class="hljs-string">&quot;SELECT * from users;&quot;</span>)<br>    <span class="hljs-comment"># 获取SQL结果</span><br>    result = <span class="hljs-keyword">await</span> cur.fetchall()<br>    <span class="hljs-comment"># 关闭CURSOR</span><br>    <span class="hljs-keyword">await</span> cur.close()<br>    <span class="hljs-comment"># 关闭连接</span><br>    conn.close()<br><br>    <span class="hljs-keyword">return</span> result<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> aiomysql_demo()<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="12-6-fastapi集成databases"><a href="#12-6-fastapi集成databases" class="headerlink" title="12-6 fastapi集成databases"></a>12-6 fastapi集成databases</h1><p>在异步世界中操作数据库，比如MySQL，我们需要只用 aiomysql，且需要自己手写SQL语句。</p>
+<p>使用其他类型的数据库，比如PostgreSQL，则需要基于asyncpg或aiopg。</p>
+<p>那样的就有一个问题，当我们的应用需要换一个数据库时，就需要调整基础代码，使用不灵活。</p>
+<p>此时出现了一个工具，它封装了不同类型的数据库，我们只需要在使用它提供的接口操作数据库就行了，而不用关心底层的数据库驱动，它就是encode出品的 <code>databases</code>。</p>
+<p><img src="/img/fastapi/image-20220731215718389.png" srcset="/img/loading.gif" lazyload alt="image-20220731215718389"></p>
+<p>官网简介</p>
+<ul>
+<li><p>Databases gives you simple asyncio support for a range of databases.</p>
+</li>
+<li><p>It allows you to make queries using the powerful <a target="_blank" rel="noopener" href="https://docs.sqlalchemy.org/en/latest/core/">SQLAlchemy Core</a> expression language, and provides support for PostgreSQL, MySQL, and SQLite.</p>
+</li>
+<li><p>Databases is suitable for integrating against any async Web framework, such as <a target="_blank" rel="noopener" href="https://github.com/encode/starlette">Starlette</a>, <a target="_blank" rel="noopener" href="https://github.com/huge-success/sanic">Sanic</a>, <a target="_blank" rel="noopener" href="https://github.com/kennethreitz/responder">Responder</a>, <a target="_blank" rel="noopener" href="https://gitlab.com/pgjones/quart">Quart</a>, <a target="_blank" rel="noopener" href="https://github.com/aio-libs/aiohttp">aiohttp</a>, <a target="_blank" rel="noopener" href="https://github.com/tornadoweb/tornado">Tornado</a>, or <a target="_blank" rel="noopener" href="https://github.com/tiangolo/fastapi">FastAPI</a>.</p>
+</li>
+<li><p><strong>Documentation</strong>: <a target="_blank" rel="noopener" href="https://www.encode.io/databases/">https://www.encode.io/databases/</a></p>
+</li>
+<li><p><strong>Requirements</strong>: Python 3.7+</p>
+</li>
+<li><p>下载：<code> pip install databases</code></p>
+</li>
+</ul>
+<p>示例：在fastapi中使用databases操作MySQL（依赖aiomysql）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> databases <span class="hljs-keyword">import</span> Database<br><br>app = FastAPI(title=<span class="hljs-string">&quot;使用databases&quot;</span>)<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">databases_demo</span>():<br>    <span class="hljs-comment"># 实例化一个db连接并建立连接</span><br>    database = Database(<span class="hljs-string">&#x27;mysql://root:12345@localhost:3306/db&#x27;</span>)<br>    <span class="hljs-keyword">await</span> database.connect()<br><br>    <span class="hljs-comment"># Run a database query.</span><br>    query = <span class="hljs-string">&quot;SELECT * FROM users&quot;</span><br>    rows = <span class="hljs-keyword">await</span> database.fetch_all(query=query)<br>    <span class="hljs-keyword">return</span> rows<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> databases_demo()<br></code></pre></td></tr></table></figure>
+
+<h1 id="12-7-fastapi集成乌龟ORM"><a href="#12-7-fastapi集成乌龟ORM" class="headerlink" title="12-7 fastapi集成乌龟ORM"></a>12-7 fastapi集成乌龟ORM</h1><p>想要使用ORM操作数据，使用了SQLAlchemy，</p>
+<p>同样的在基于协程的异步代码中，操作数据库时也可以使用ORM，但此时就不能在使用SQLAlchemy（因为它不支持异步）</p>
+<p>asyncio世界中，我们也有可以选择的ORM，比如： <a href="tortoise.github.io">tortoise-orm</a> 翻译过来就乌龟ORM</p>
+<p>乌龟ORM简介</p>
+<ul>
+<li><p>官网：<a target="_blank" rel="noopener" href="https://tortoise.github.io/">https://tortoise.github.io/</a></p>
+</li>
+<li><p>Tortoise ORM is an easy-to-use <code>asyncio</code> ORM <em>(Object Relational Mapper)</em> inspired by Django.</p>
+</li>
+<li><p>Tortoise ORM was build with relations in mind and admiration for the excellent and popular Django ORM.</p>
+</li>
+<li><p>Tortoise ORM is supported on CPython &gt;&#x3D; 3.7 for SQLite, MySQL and PostgreSQL.</p>
+</li>
+<li><p>下载安装：<code>pip3 install tortoise-orm</code></p>
+</li>
+</ul>
+<p>示例：fastapi简单集成乌龟ORM</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># main.py</span><br><br><span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI<br><span class="hljs-keyword">from</span> tortoise <span class="hljs-keyword">import</span> fields<br><span class="hljs-keyword">from</span> tortoise.models <span class="hljs-keyword">import</span> Model<br><span class="hljs-keyword">from</span> tortoise.contrib.fastapi <span class="hljs-keyword">import</span> register_tortoise<br><br>app = FastAPI(title=<span class="hljs-string">&quot;使用tortoise orm&quot;</span>)<br><br><span class="hljs-comment"># 定义模型表</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span>(<span class="hljs-title class_ inherited__">Model</span>):<br>    <span class="hljs-built_in">id</span> = fields.IntField(pk=<span class="hljs-literal">True</span>)<br>    username = fields.CharField(max_length=<span class="hljs-number">255</span>)<br>    password = fields.CharField(max_length=<span class="hljs-number">255</span>)<br>    email = fields.CharField(max_length=<span class="hljs-number">255</span>)<br><br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Meta</span>:<br>        table = <span class="hljs-string">&quot;users&quot;</span>		<span class="hljs-comment"># 表示这个表对应数据库中的表名</span><br><br><span class="hljs-comment"># 使用register_tortoise 注册数据库信息</span><br>register_tortoise(<br>    app,<br>    db_url=<span class="hljs-string">&quot;mysql://root:12345@127.0.0.1:3306/db&quot;</span>,<br>    modules=&#123;<span class="hljs-string">&quot;models&quot;</span>: [<span class="hljs-string">&quot;main&quot;</span>]&#125;,	<span class="hljs-comment"># 指定模型表所在的文本，&quot;main&quot; 表示mian.py中定义了User模型表</span><br>)<br><br><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    user = <span class="hljs-keyword">await</span> User.<span class="hljs-built_in">filter</span>(username=<span class="hljs-string">&quot;liuxu&quot;</span>).first()<br>    user.email = <span class="hljs-string">&quot;1111&quot;</span><br>    <span class="hljs-keyword">await</span> user.save()<br>	<br>    <span class="hljs-comment"># 常用的CRUD方法</span><br>    <span class="hljs-comment"># fake_user = await User.create(username=&quot;111&quot;, password=&quot;111&quot;, email=&quot;111&quot;)</span><br>    <span class="hljs-comment"># await User.filter(id=fake_user.id).update(username=&quot;Updated name&quot;)</span><br>    <span class="hljs-comment"># await User.filter(id=1).delete()</span><br><br>    <span class="hljs-keyword">return</span> user<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/" class="print-no-link">#编程，web开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>FastAPI8之异步async-await</div>
+      <div>http://example.com/2024/03/04/FastAPI8之异步async-await/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" title="FastAPI7之APIRouter与请求响应的进阶用法">
+                        <span class="hidden-mobile">FastAPI7之APIRouter与请求响应的进阶用法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
