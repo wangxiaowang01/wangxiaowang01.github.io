@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
 <meta property="article:published_time" content="2024-03-18T12:18:03.000Z">
-<meta property="article:modified_time" content="2024-03-18T12:54:37.304Z">
+<meta property="article:modified_time" content="2024-03-19T05:40:07.892Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
@@ -283,7 +283,7 @@
 <p>Key值访问（映射关系）：字典 </p>
 <h2 id="2-2-深浅拷贝"><a href="#2-2-深浅拷贝" class="headerlink" title="2.2 深浅拷贝"></a>2.2 深浅拷贝</h2><p>【什么是拷贝】：原封不动地复制一份新的，在不同的内存地址上，修改旧的不会影响新的。</p>
 <p>变量赋值不是拷贝</p>
-<p><img src="/home/wang/code/blogwang/source/img/python/image-20220419175739670.png" srcset="/img/loading.gif" lazyload alt="image-20220419175739670.png"></p>
+<p><img src="/../img/python/image-20220419175739670.png" srcset="/img/loading.gif" lazyload alt="image-20220419175739670.png"></p>
 <ul>
 <li><p>变量赋值不是拷贝操作，因为变量名<code>list1</code>和变量名<code>list2</code>指向的是一块相同的内存地址</p>
 </li>
@@ -294,7 +294,7 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">11</span>, <span class="hljs-number">22</span>]]<br>list2 = list1.copy()		<span class="hljs-comment"># 使用列表的copy方法或使用copy模块中的copy方法，都是浅拷贝</span><br><br><span class="hljs-comment"># 浅拷贝后：id(list1) 不等于 id(list2)，说明拷贝了一个新列表。</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/home/wang/code/blogwang/source/img/python/image-20220419180226331.png" srcset="/img/loading.gif" lazyload alt="image-20220419180226331"></p>
+<p><img src="/../img/python/image-20220419180226331.png" srcset="/img/loading.gif" lazyload alt="image-20220419180226331"></p>
 <ul>
 <li>执行浅拷贝操作，将在开辟一块新的内存空间，然后将<code>list2</code>绑定到这块内存空间上。</li>
 <li>新内存空间中有三个位置用来存放其三个元素的内存地址。</li>
@@ -304,7 +304,7 @@
 <p>【深拷贝】：使用copy.deepcopy()</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> copy			<span class="hljs-comment"># 导入内置copy模块</span><br>list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">11</span>, <span class="hljs-number">22</span>]]<br>list2 = copy.deepcopy(list1)	<span class="hljs-comment"># 调用deepcopy()实现深拷贝</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="/home/wang/code/blogwang/source/img/python/image-20220419180757393.png" srcset="/img/loading.gif" lazyload alt="image-20220419180757393"></p>
+<p><img src="/./img/python/image-20220419180757393.png" srcset="/img/loading.gif" lazyload alt="image-20220419180757393"></p>
 <ul>
 <li>深拷贝时，当元素是可变数据类型时，会重新开辟一块内存空间，存放这个元素对象的内存地址，且该元素内部的可变数据类型也会再重新开辟内存空间，层层检测，层层拷贝。</li>
 <li>此时，新旧列表的子元素都不会共享内存地址，所有不会相互影响。</li>
@@ -372,7 +372,7 @@
 <p>缺点：要求被查列表必须有序、递归占用空间、不适合动态数据</p>
 <p>应用场景：有序列表、静态数据、快速查找</p>
 <h2 id="2-9-冒泡排序"><a href="#2-9-冒泡排序" class="headerlink" title="2.9 冒泡排序"></a>2.9 冒泡排序</h2><p>实现的逻辑：从第一个元素开始，逐个比对每一个元素，如果自己比对比的元素大，那么自己的索引就前进一个</p>
-<p><img src="/home/wang/code/blogwang/source/img/python/image-20220419211719385.png" srcset="/img/loading.gif" lazyload alt="image-20220419211719385"></p>
+<p><img src="/./img/python/image-20220419211719385.png" srcset="/img/loading.gif" lazyload alt="image-20220419211719385"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_sort</span>(<span class="hljs-params">test_list</span>):<br>    n=<span class="hljs-built_in">len</span>(test_list) <span class="hljs-comment"># n是数组长度</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n): <span class="hljs-comment"># 遍历循环n遍</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-i-<span class="hljs-number">1</span>): <span class="hljs-comment"># 遍历内遍历，次数是n遍-当前次-1 自己是确定的，所以排除</span><br>            <span class="hljs-keyword">if</span> test_list[j]&gt;test_list[j+<span class="hljs-number">1</span>]: <span class="hljs-comment"># 如果自己比后面的大</span><br>                test[j],test[j+<span class="hljs-number">1</span>]=test[j+<span class="hljs-number">1</span>],test[j] <span class="hljs-comment"># 那么自己跟后面的交换顺序</span><br></code></pre></td></tr></table></figure>
 
 <p>优点：简单易懂，稳定，<strong>原地排序，不会生成新的列表</strong>，不改变相等值的位置</p>
