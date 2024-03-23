@@ -16,26 +16,25 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一">
+    <meta name="description" content="python 闭包函数 的用途闭包函数在Python中有多种用途，下面是一些常见的应用场景：  封装数据：闭包函数可以用于创建对象的私有变量，将变量隐藏在函数内部，只能通过特定的函数访问和修改。这样可以避免全局变量的污染，并增加代码的封装性和安全性。 保留状态：闭包函数可以捕获并保留其定义时的上下文环境。这意味着函数可以记住其被创建时的状态，可以在后续调用中继续使用这些状态。这在需要保持持久状态的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【other】UML类图简单学习笔记">
-<meta property="og:url" content="http://example.com/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="【python】闭包之回调函数异步应用场景">
+<meta property="og:url" content="http://example.com/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一">
+<meta property="og:description" content="python 闭包函数 的用途闭包函数在Python中有多种用途，下面是一些常见的应用场景：  封装数据：闭包函数可以用于创建对象的私有变量，将变量隐藏在函数内部，只能通过特定的函数访问和修改。这样可以避免全局变量的污染，并增加代码的封装性和安全性。 保留状态：闭包函数可以捕获并保留其定义时的上下文环境。这意味着函数可以记住其被创建时的状态，可以在后续调用中继续使用这些状态。这在需要保持持久状态的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
-<meta property="article:published_time" content="2024-02-26T02:48:21.000Z">
-<meta property="article:modified_time" content="2024-03-23T01:51:50.989Z">
+<meta property="og:image" content="http://example.com/img/neom(2).jpg">
+<meta property="article:published_time" content="2024-03-05T07:04:31.000Z">
+<meta property="article:modified_time" content="2024-03-23T10:36:58.968Z">
 <meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
-<meta property="article:tag" content="UML">
-<meta property="article:tag" content="视野">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
+<meta name="twitter:image" content="http://example.com/img/neom(2).jpg">
   
   
   
-  <title>【other】UML类图简单学习笔记 - Wang</title>
+  <title>【python】闭包之回调函数异步应用场景 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,13 +194,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/bing_2017_RotenbergVineyards.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/marek.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【other】UML类图简单学习笔记"></span>
+            <span id="subtitle" data-typed-text="【python】闭包之回调函数异步应用场景"></span>
           
         </div>
 
@@ -212,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-26 10:48" pubdate>
-          2024年2月26日 上午
+        <time datetime="2024-03-05 15:04" pubdate>
+          2024年3月5日 下午
         </time>
       </span>
     
@@ -224,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -235,7 +234,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -272,75 +271,23 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【other】UML类图简单学习笔记</h1>
+            <h1 id="seo-header">【python】闭包之回调函数异步应用场景</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。</p>
-<p>常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hzxll/p/16190230.html">九种常见UML图</a> </p>
-<p>本文是最常用的UML类图的笔记</p>
-</blockquote>
-<h2 id="一、UML类图简介"><a href="#一、UML类图简介" class="headerlink" title="一、UML类图简介"></a><strong>一、UML类图简介</strong></h2><p>类图以反映类的结构(<strong>属性、操作</strong>)以及类之间的关系为主要目的，描述了软件系统的结构，是一种静态建模方法。类图用来<strong>描述系统中有意义的概念</strong>，包括具体的概念、抽象的概念、实现方面的概念等，是对现实世界中事物的<strong>抽象</strong>。类图的主要作用是对系统的词汇进行建模、对简单的协作进行建模和对逻辑数据库模式进行建模。</p>
-<h1 id="二-、类图的基本属性"><a href="#二-、类图的基本属性" class="headerlink" title="二 、类图的基本属性"></a>二 、类图的基本属性</h1><p>类图概括起来主要由两部分组成：类和类之间的关系，</p>
-<p>其中对类的定义如下图所示</p>
-<p>主要由三部分组成，它们分别是<strong>类名</strong>、<strong>类的属性</strong>、<strong>类的方法</strong>，对应图中的三个分区内容。</p>
-<p><img src="/img/uml/1.jpg" srcset="/img/loading.gif" lazyload alt="1"> </p>
-<ul>
-<li><p><strong>类名</strong>：图中最上面的矩形框中为类名。如果字体为<em>斜体</em>，表示为抽象类</p>
-</li>
-<li><p><strong>类的属性</strong>：类名下方的区域<strong>·类的方法</strong>：图中的下面部分</p>
-</li>
-<li><p>*<strong>符号解释</strong> 说明：属性和方法前面的“+” “-” 和 “#” 表示访问级别，以下对这些符号进行解释说明。</p>
-<ul>
-<li>‘+’ ： public，公用的，对所有类可见</li>
-<li>‘-’ ： private，私有的，只对该类本身可用</li>
-<li>‘#’： protected，受保护的，对该类的子孙可见</li>
-<li>‘~’：package，包的，只对同一包声明的其他类可见</li>
-<li>‘&#x3D;’：表示默认值</li>
-<li>下划线：static</li>
-<li>斜体：抽象 (注意也可以用两个尖括号包裹来表示抽象，比如 —— &lt;&lt;我是抽象类or接口&gt;&gt;)</li>
-<li>冒号前是方法名&#x2F;变量名（根据有无括号区分），冒号后是返回参数&#x2F;变量类型（根据有无括号区分），如果没有冒号的话表示方法返回空（也有人通过：void表示返空）</li>
-</ul>
-</li>
-</ul>
-<h1 id="三、类之间的关系"><a href="#三、类之间的关系" class="headerlink" title="三、类之间的关系"></a>三、类之间的关系</h1><p>类之间的关系主要包括泛化（继承）、依赖、关联、聚合、组合和实现6种关系，下面对它们进行一一阐释。</p>
-<p><img src="/img/uml/2.jpg" srcset="/img/loading.gif" lazyload alt="2"></p>
-<h2 id="1、泛化关系"><a href="#1、泛化关系" class="headerlink" title="1、泛化关系"></a><strong>1、泛化关系</strong></h2><p>泛化关系是一种<strong>继承</strong>关系，子类继承父类的所有行为和属性，子类可以新增新的功能或者重写父类功能，表示的方式为：<strong>空心三角+实线，箭头端指向父类</strong></p>
-<p><img src="/img/uml/3.jpg" srcset="/img/loading.gif" lazyload alt="3"></p>
-<h2 id="2、依赖关系"><a href="#2、依赖关系" class="headerlink" title="2、依赖关系"></a><strong>2、依赖关系</strong></h2><p>依赖关系表示一个类使用（依赖）另一个类的服务或信息。当一个类的改变会影响到另一个类时，两个类之间存在依赖关系。一般来说，依赖总是单向的，不应该存在双向依赖。表示方式为：<strong>尖括号+虚线</strong>，</p>
-<p><img src="/img/uml/4.jpg" srcset="/img/loading.gif" lazyload alt="4"></p>
-<h2 id="3、关联关系"><a href="#3、关联关系" class="headerlink" title="3、关联关系"></a><strong>3、关联关系</strong></h2><p>关联关系是一种拥有的关系，他使一个类知道另一个类的属性和方法。它体现不同类的一种强依赖关系，比如我和我的朋友，这种关系依赖更强，不存在依赖关系中的偶然性，关系也不是临时的，一般是长期性的。</p>
-<p>关联关系分为单向关联或双向关联，也可以有多重性（一对多），双向的关联可以有两个箭头或者没有剪头，单向的关联有一个箭头，</p>
-<p>表示方法：<strong>尖括号+实线，箭头指向被拥有者</strong></p>
-<p><img src="/img/uml/5.jpg" srcset="/img/loading.gif" lazyload alt="5"></p>
-<h2 id="4、聚合关系"><a href="#4、聚合关系" class="headerlink" title="4、聚合关系"></a><strong>4、聚合关系</strong></h2><p>聚合关系是关联关系的一种，表示一种  “<strong>弱</strong>” 的 <strong>“拥有”</strong> 关系，<strong>是整体与部分的关系</strong>，且<strong>部分可以离开整体而单独存在</strong>，如车和轮胎是整体和部分的关系，轮胎离开车仍然可以单独存在，</p>
-<p>表示方法：<strong>空心菱形+实线，菱形指向整体</strong> </p>
-<p><img src="/img/uml/6.jpg" srcset="/img/loading.gif" lazyload alt="6"></p>
-<h2 id="5、组合关系"><a href="#5、组合关系" class="headerlink" title="5、组合关系"></a><strong>5、组合关系</strong></h2><p>组合关系也是<strong>关联关系</strong>的一种，是比聚合关系还要强的关系，<strong>是整体与个体的关系</strong>，但<strong>个体不能离开整体而单独存在</strong>，如公司和部门是整体和部分的关系，没有公司就不存在部门，它要求普通的聚合关系钟代表整体的对象负责代表部分的对象的生命周期。 </p>
-<p>表示方法：<strong>实心菱形+实线</strong></p>
-<p><img src="/img/uml/7.jpg" srcset="/img/loading.gif" lazyload alt="7"></p>
-<h2 id="6、实现关系"><a href="#6、实现关系" class="headerlink" title="6、实现关系"></a><strong>6、实现关系</strong></h2><p>实现关系是一种类与接口的关系，表示类是接口所有特征和行为的实现。</p>
-<p>表示方法：<strong>空心三角+虚线</strong></p>
-<p><img src="/img/uml/8.jpg" srcset="/img/loading.gif" lazyload alt="8"></p>
-<h1 id="四、类图模板案例"><a href="#四、类图模板案例" class="headerlink" title="四、类图模板案例"></a><strong>四、类图模板案例</strong></h1><p>为了更好的理解类之间的6种关系，下面使用例子辅助学习和消化吸收</p>
-<h3 id="1、汽车类图案例"><a href="#1、汽车类图案例" class="headerlink" title="1、汽车类图案例"></a>1、汽车类图案例</h3><p><img src="/img/uml/9.jpg" srcset="/img/loading.gif" lazyload alt="9"></p>
-<p>汽车类图说明：</p>
-<ul>
-<li>车与小汽车和自行车之间是「实现」 关系，使用带空心箭头的虚线表示；</li>
-<li>小汽车与SUV之间的关系为泛化关系，使用带空心箭头的实线表示；</li>
-<li>小汽车与发动机和轮胎之间是「组合」 关系，使用实心菱形箭头的实线表示；</li>
-<li>学生上学需要用到自行车，与自行车是一种「依赖」 关系，使用带箭头的虚线表示。</li>
-<li>学生与班级之间是「聚合」 关系，使用带空心菱形箭头的实线表示；</li>
-<li>学生与身份证之间为「关联」 关系，使用尖箭头的实线表示；</li>
-</ul>
-<h3 id="2、动物UML类图案例"><a href="#2、动物UML类图案例" class="headerlink" title="2、动物UML类图案例"></a>2、动物UML类图案例</h3><p><img src="/img/uml/10.jpg" srcset="/img/loading.gif" lazyload alt="10"></p>
-<h3 id="3、学生上网UML类图案例"><a href="#3、学生上网UML类图案例" class="headerlink" title="3、学生上网UML类图案例"></a>3、学生上网UML类图案例</h3><p><img src="/img/uml/11.jpg" srcset="/img/loading.gif" lazyload alt="11"></p>
-<h3 id="4、微信支付类图案例"><a href="#4、微信支付类图案例" class="headerlink" title="4、微信支付类图案例"></a>4、微信支付类图案例</h3><p><img src="/img/uml/12.jpg" srcset="/img/loading.gif" lazyload alt="12"></p>
-<p>如果你能快速的看懂并理解以上案例，说明你基本上已经把类图弄懂了，再去多结合一些代码和对应的类图巩固一下，以后再看到类图就不会懵了。</p>
-<h2 id="五、如何绘制类图？"><a href="#五、如何绘制类图？" class="headerlink" title="五、如何绘制类图？"></a><strong>五、如何绘制类图？</strong></h2><p>新手推荐 ProcessOn （浏览器就可以免费使用）</p>
-<p>mac用户推荐下载：astah professional</p>
+                <h1 id="python-闭包函数-的用途"><a href="#python-闭包函数-的用途" class="headerlink" title="python 闭包函数 的用途"></a>python 闭包函数 的用途</h1><p>闭包函数在Python中有多种用途，下面是一些常见的应用场景：</p>
+<ol>
+<li>封装数据：闭包函数可以用于创建对象的私有变量，将变量隐藏在函数内部，只能通过特定的函数访问和修改。这样可以避免全局变量的污染，并增加代码的封装性和安全性。</li>
+<li>保留状态：闭包函数可以捕获并保留其定义时的上下文环境。这意味着函数可以记住其被创建时的状态，可以在后续调用中继续使用这些状态。这在需要保持持久状态的场景中非常有用，比如计数器、缓存、历史记录等。</li>
+<li>实现装饰器：闭包函数常用于实现装饰器，装饰器是一种修改函数行为的技术。通过在函数定义前使用装饰器语法，可以在不修改原始函数代码的情况下，为函数添加额外的功能，比如日志记录、性能分析、输入验证等。</li>
+<li>实现回调函数：闭包函数可以用作回调函数，即将一个函数作为参数传递给另一个函数，以在适当的时候进行调用。回调函数常用于异步编程、事件处理和触发器等场景，通过闭包函数可以方便地传递上下文和状态信息。</li>
+<li>延迟计算：闭包函数可以用于实现延迟计算，即将计算推迟到稍后的时候再进行。闭包函数可以捕获所需的变量和表达式，并在需要时进行计算。这对于处理大数据集或复杂计算的情况下，可以提高效率和性能。</li>
+</ol>
+<p>总之，闭包函数提供了一种灵活而强大的编程工具，可以用于实现许多有用的功能和模式。它们能够捕获上下文环境并保留状态，使得函数能够具有更多的能力和特性。</p>
+<p>闭包概念与回调函数在异步上传文件时的应用场景代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> asyncio<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">upload_file</span>(<span class="hljs-params">file_path</span>):<br>    <span class="hljs-comment"># 模拟上传文件的操作</span><br>    <span class="hljs-comment"># 实际应该调用上传文件的方法，返回任务ID</span><br>    <span class="hljs-keyword">await</span> asyncio.sleep(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 模拟上传的耗时操作</span><br>    task_id = file_path  <span class="hljs-comment"># 这里假设任务ID就是文件路径</span><br>    <span class="hljs-keyword">return</span> task_id<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_file</span>(<span class="hljs-params">task_id</span>):<br>    <span class="hljs-comment"># 模拟解析文件的操作</span><br>    <span class="hljs-comment"># 实际应该根据任务ID执行相应的解析操作</span><br>    <span class="hljs-keyword">await</span> asyncio.sleep(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 模拟解析的耗时操作</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;解析文件 <span class="hljs-subst">&#123;task_id&#125;</span>&#x27;</span>)<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">upload_worker</span>(<span class="hljs-params">queue, result_queue</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        file_path = <span class="hljs-keyword">await</span> queue.get()<br>        task_id = <span class="hljs-keyword">await</span> upload_file(file_path)<br>        <span class="hljs-keyword">await</span> result_queue.put(task_id)<br>        queue.task_done()<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_worker</span>(<span class="hljs-params">result_queue</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        task_id = <span class="hljs-keyword">await</span> result_queue.get()<br>        <span class="hljs-keyword">await</span> parse_file(task_id)<br>        result_queue.task_done()<br><br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    file_paths = [<span class="hljs-string">f&#x27;/path/to/file<span class="hljs-subst">&#123;i&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>)]  <span class="hljs-comment"># 文件路径列表</span><br><br>    queue = asyncio.Queue()<br>    result_queue = asyncio.Queue()<br><br>    <span class="hljs-comment"># 创建上传任务</span><br>    upload_tasks = []<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):  <span class="hljs-comment"># 可根据需求调整并发数</span><br>        task = asyncio.create_task(upload_worker(queue, result_queue))<br>        upload_tasks.append(task)<br><br>    <span class="hljs-comment"># 创建解析任务</span><br>    parse_tasks = []<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):  <span class="hljs-comment"># 可根据需求调整并发数</span><br>        task = asyncio.create_task(parse_worker(result_queue))<br>        parse_tasks.append(task)<br><br>    <span class="hljs-comment"># 将文件路径放入队列</span><br>    <span class="hljs-keyword">for</span> file_path <span class="hljs-keyword">in</span> file_paths:<br>        <span class="hljs-keyword">await</span> queue.put(file_path)<br><br>    <span class="hljs-comment"># 等待所有文件上传完成</span><br>    <span class="hljs-keyword">await</span> queue.join()<br><br>    <span class="hljs-comment"># 结束上传任务</span><br>    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> upload_tasks:<br>        task.cancel()<br><br>    <span class="hljs-comment"># 等待所有解析任务完成</span><br>    <span class="hljs-keyword">await</span> result_queue.join()<br><br>    <span class="hljs-comment"># 结束解析任务</span><br>    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> parse_tasks:<br>        task.cancel()<br><br>asyncio.run(main())<br><br><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -359,7 +306,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/other/" class="category-chain-item">other</a>
+  <a href="/categories/python/" class="category-chain-item">python</a>
   
   
 
@@ -374,11 +321,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
         <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
-      
-        <a href="/tags/UML/" class="print-no-link">#UML</a>
-      
-        <a href="/tags/%E8%A7%86%E9%87%8E/" class="print-no-link">#视野</a>
       
     </div>
   
@@ -390,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【other】UML类图简单学习笔记</div>
-      <div>http://example.com/2024/02/26/UML类图简单学习笔记/</div>
+      <div>【python】闭包之回调函数异步应用场景</div>
+      <div>http://example.com/2024/03/05/python之闭包之回调函数异步应用场景/</div>
     </div>
     <div class="license-meta">
       
@@ -403,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月26日</div>
+          <div>2024年3月5日</div>
         </div>
       
       
@@ -435,9 +380,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" title="【python】FastAPI之数据库操作（五）">
+                      <a href="/2024/03/14/python%E4%BD%BF%E7%94%A8gRPC/" title="【python】之使用gRPC">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【python】FastAPI之数据库操作（五）</span>
+                        <span class="hidden-mobile">【python】之使用gRPC</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -445,8 +390,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="【python】之设计模式【未完】">
-                        <span class="hidden-mobile">【python】之设计模式【未完】</span>
+                      <a href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" title="【python】之装饰器的基础实现和常见装饰器">
+                        <span class="hidden-mobile">【python】之装饰器的基础实现和常见装饰器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
