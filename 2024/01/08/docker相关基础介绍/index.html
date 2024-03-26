@@ -16,16 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="【other】docker相关基础介绍介绍docker(后续有空补充)docker file（后续有空补充）docker compose （简单介绍）docker compose介绍docker compose 最开始是一个插件，后来官方采纳了这个开发者开发的开源插件  用于定义和运行多容器docker 应用程序的工具，它使用YAML文件来配置应用程序的服务、网络和数据卷等组件，并通过一些简单的命">
+    <meta name="description" content="一、docker基础介绍1.1 docker 是什么？ docker 是一个开源的应用容器引擎 docker 诞生于2013年，基于Go语言实现， docker可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，现在也支持Windows 和 Mac OS 容器是完全使用沙箱机制，相互隔离 容器性能开销极低  1.2 docker 安装123456">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【other】docker相关基础介绍">
 <meta property="og:url" content="http://example.com/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="【other】docker相关基础介绍介绍docker(后续有空补充)docker file（后续有空补充）docker compose （简单介绍）docker compose介绍docker compose 最开始是一个插件，后来官方采纳了这个开发者开发的开源插件  用于定义和运行多容器docker 应用程序的工具，它使用YAML文件来配置应用程序的服务、网络和数据卷等组件，并通过一些简单的命">
+<meta property="og:description" content="一、docker基础介绍1.1 docker 是什么？ docker 是一个开源的应用容器引擎 docker 诞生于2013年，基于Go语言实现， docker可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，现在也支持Windows 和 Mac OS 容器是完全使用沙箱机制，相互隔离 容器性能开销极低  1.2 docker 安装123456">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/bing_2019_OHR.MeerkatMob.jpg">
 <meta property="article:published_time" content="2024-01-08T06:48:50.000Z">
-<meta property="article:modified_time" content="2024-03-06T10:14:48.560Z">
+<meta property="article:modified_time" content="2024-03-26T07:01:34.067Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="other">
 <meta property="article:tag" content="docker">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          7.7k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          23 分钟
+          65 分钟
         
       </span>
     
@@ -276,7 +276,206 @@
             
               <div class="markdown-body">
                 
-                <h1 id="【other】docker相关基础介绍介绍"><a href="#【other】docker相关基础介绍介绍" class="headerlink" title="【other】docker相关基础介绍介绍"></a>【other】docker相关基础介绍介绍</h1><h2 id="docker-后续有空补充"><a href="#docker-后续有空补充" class="headerlink" title="docker(后续有空补充)"></a>docker(后续有空补充)</h2><h2 id="docker-file（后续有空补充）"><a href="#docker-file（后续有空补充）" class="headerlink" title="docker file（后续有空补充）"></a>docker file（后续有空补充）</h2><h2 id="docker-compose-（简单介绍）"><a href="#docker-compose-（简单介绍）" class="headerlink" title="docker compose （简单介绍）"></a>docker compose （简单介绍）</h2><h3 id="docker-compose介绍"><a href="#docker-compose介绍" class="headerlink" title="docker compose介绍"></a>docker compose介绍</h3><p>docker compose 最开始是一个插件，后来官方采纳了这个开发者开发的开源插件</p>
+                <h1 id="一、docker基础介绍"><a href="#一、docker基础介绍" class="headerlink" title="一、docker基础介绍"></a>一、docker基础介绍</h1><h2 id="1-1-docker-是什么？"><a href="#1-1-docker-是什么？" class="headerlink" title="1.1 docker 是什么？"></a>1.1 docker 是什么？</h2><ul>
+<li>docker 是一个开源的应用容器<code>引擎</code></li>
+<li>docker 诞生于2013年，基于Go语言实现，</li>
+<li>docker可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，现在也支持Windows 和 Mac OS</li>
+<li>容器是完全使用沙箱机制，相互隔离</li>
+<li>容器性能开销极低</li>
+</ul>
+<h3 id="1-2-docker-安装"><a href="#1-2-docker-安装" class="headerlink" title="1.2 docker 安装"></a>1.2 docker 安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs shell">1. 先卸载旧版本的docke<br>sudo apt-get remove docker docker-engine docker.io<br>2. 更新一下apt-get源<br>sudo apt-get update<br>3. 安装GPG证书<br><span class="hljs-meta prompt_">#</span><span class="language-bash">别忘了最后的“-”</span><br>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -<br>4. 写入软件源信息<br>sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;<br>5. 列出可用版本<br>sudo apt-cache madison docker-ce<br>6. 更新并安装 Docker-CE<br>sudo apt-get update<br>sudo apt-get install docker-ce=5:23.0.5-1~ubuntu.20.04~focal<br>sudo apt-get install docker-ce=5:24.0.9-1~ubuntu.22.04~jammy<br>7. 开启docker服务，查看docker状态<br>sudo service docker start<br>sudo service docker status<br>systemctl restart docker<br>8.使用docker的命令，查看现有镜像和正在运行的容器<br>docker images<br>docker ps<br><span class="hljs-meta prompt_"># </span><span class="language-bash">docker compose安装</span><br>curl -L &quot;https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose<br><br>sudo apt-get update<br>sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common<br>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -<br>sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;<br><br><br>sudo apt-get update<br>sudo apt-get install docker-ce docker-ce-cli containerd.io<br><br>docker -v<br></code></pre></td></tr></table></figure>
+
+<p>2、换源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">[root@localhost henryhzy]# vim /etc/docker/daemon.json  # 创建或修改 /etc/docker/daemon.json 文件，修改为如下形式<br>&#123;<br>    &quot;registry-mirrors&quot; : [<br>    &quot;https://docker.mirrors.ustc.edu.cn&quot;,<br>    &quot;http://hub-mirror.c.163.com&quot;,<br>    &quot;https://cr.console.aliyun.com/&quot;<br>  ]<br>&#125;<br><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl daemon-reload</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">systemctl restart docker</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker info</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-3-Docker-架构"><a href="#1-3-Docker-架构" class="headerlink" title="1.3 Docker 架构"></a>1.3 Docker 架构</h3><ul>
+<li>镜像（Image）：Docker镜像（Image），就相当于是一个root文件系统。比如官方镜像 ubuntu:16.04就包含了完整的一套Ubuntu16.04最小系统的root文件系统</li>
+<li>容器（Container）：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和对象一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等</li>
+<li>仓库（Repository）：仓库可以看成一个代码控制中心，用来保存镜像</li>
+</ul>
+<p>拉取镜像下来，相当于拉了这个系统，然后启动容器，就是运行这个镜像，一个镜像可以启动多个容器，容器必须要基与镜像去启动。</p>
+<p>仓库，就比如说docker官方仓库，你也可以私人新建一个仓库。</p>
+<h3 id="1-4-docker-内的网络通信，四种网络模式"><a href="#1-4-docker-内的网络通信，四种网络模式" class="headerlink" title="1.4 docker 内的网络通信，四种网络模式"></a>1.4 docker 内的网络通信，四种网络模式</h3><table>
+<thead>
+<tr>
+<th align="left">Docker 网络模式</th>
+<th>配置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">host 模式</td>
+<td>-net&#x3D;host</td>
+<td>主机网络模式，容器和书主机共享Network name</td>
+</tr>
+<tr>
+<td align="left">container模式</td>
+<td>-net&#x3D;container&#x3D;NAME_or_ID</td>
+<td>容器网络模式，容器和另外一个容器共享Network namespace。kubernetes中pod就是多个容器共享一个Network namespace。</td>
+</tr>
+<tr>
+<td align="left">none 模式</td>
+<td>-net&#x3D;none</td>
+<td>容器有独立的Network namespace,但病灭有对齐进行任何网络设置，如分配vetn pair和网桥链接 ip等</td>
+</tr>
+<tr>
+<td align="left">bridge 模式 （桥）默认</td>
+<td>-net&#x3D;bridge</td>
+<td>桥接网络模式 这个是默认模式，</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>桥接网络模式（Bridge Network Mode）：—-<code>比较通用比较常规的方式，默认使用</code></p>
+<ul>
+<li>默认情况下，Docker容器使用桥接网络模式。</li>
+<li>在桥接网络模式下，Docker守护进程会为每个容器创建一个虚拟网桥，并将容器连接到该网桥上。</li>
+<li>容器可以通过桥接网络相互通信，也可以与宿主机进行通信。</li>
+<li>桥接网络模式<strong>适用于多个容器需要在相同的网络中进行通信的场景</strong>，<strong>比如应用程序的分布式部署</strong>。</li>
+</ul>
+</li>
+<li><p>主机网络模式（Host Network Mode）：—-<code>与主机同网，性能高</code></p>
+<ul>
+<li>在主机网络模式下，<strong>容器与宿主机共享相同的网络命名空间</strong>，容器直接使用宿主机的网络栈。</li>
+<li><strong>容器与宿主机之间没有网络隔离</strong>，容器的网络操作与宿主机一致。</li>
+<li>主机网络模式<strong>适用于对网络性能要求较高的场景</strong>，比如<strong>需要容器与宿主机共享网络端口</strong>或者<strong>需要最大化网络吞吐量</strong>的应用。</li>
+</ul>
+</li>
+<li><p>容器网络模式（<strong>Container</strong> Network Mode）：—–<code>更适合适合容器之间通讯</code></p>
+<ul>
+<li>在容器网络模式下，<strong>多个容器可以共享同一个网络栈</strong>。</li>
+<li><strong>容器可以通过容器名称进行通信</strong>，而无需使用IP地址。</li>
+<li><strong>容器网络模式适用于需要在多个容器之间建立专用网络的场景</strong>，<strong>比如多个应用容器需要与数据库容器进行通信。</strong></li>
+</ul>
+</li>
+<li><p>无网络模式（None Network Mode）：</p>
+<ul>
+<li>在无网络模式下，容器没有任何网络连接。</li>
+<li>容器无法通过网络访问外部系统，也无法从外部系统访问容器。</li>
+<li>无网络模式适用于对网络完全隔离的场景，比如安全性要求高的容器环境。</li>
+</ul>
+</li>
+</ol>
+<p>这些网络模式提供了不同的网络配置选项，可以根据具体的应用需求选择合适的网络模式。通过适当选择网络模式，可以满足容器之间的通信需求，提供网络隔离和安全性，并优化网络性能。</p>
+<h1 id="二、Docker-命令"><a href="#二、Docker-命令" class="headerlink" title="二、Docker  命令"></a>二、Docker  命令</h1><h3 id="2-1-Docker-服务相关命令"><a href="#2-1-Docker-服务相关命令" class="headerlink" title="2.1 Docker 服务相关命令"></a>2.1 Docker 服务相关命令</h3><ul>
+<li><p>启动docker 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl start docker<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>停止docker 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl stop docker<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重启docker 服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl restart docker<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看docker 服务状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl status docker<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机启动docker：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl enable docker<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>其他docker 命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker version<br>docker info<br>docker --help<br>docker pull --help<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-2-Docker-镜像相关命令"><a href="#2-2-Docker-镜像相关命令" class="headerlink" title="2.2 Docker 镜像相关命令"></a>2.2 Docker 镜像相关命令</h3><ul>
+<li><p>查看镜像：查看本地所有的镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker images<br>docker images -q #查看所有镜像的id<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>搜索镜像：从网络中查找需要的镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker search 镜像名称<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>拉取镜像：从Docker 仓库下载镜像到本地，镜像名称格式为<code>名称:版本号</code>，如果版本号不指定则是最新的版本。如果不知道镜像版本，可以去docker hub 搜索对应镜像查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull 镜像名称<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除镜像：删除本地镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker rmi 镜像id/名称号:版本号 #删除指定本地镜像<br>docker rmi &#x27;docker images -q&#x27; #删除所有本地镜像<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>保存镜像：将我们的镜像 保存为tar 压缩文件 这样方便镜像转移和保存 ,然后 可以在任何一台安装了docker的服务器上 加载这个镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker save 镜像名/镜像ID -o 镜像保存在哪个位置与名字<br>docker save tomcat -o /myimg.tar<br><span class="hljs-meta prompt_"># </span><span class="language-bash">加载镜像</span><br>docker load -i 镜像保存文件位置<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-3-Docker-容器相关命令"><a href="#2-3-Docker-容器相关命令" class="headerlink" title="2.3 Docker 容器相关命令"></a>2.3 Docker 容器相关命令</h3><ul>
+<li><p>查看容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker ps #查看正在运行的容器<br>docker ps -a #查看所有容器<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建并启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run 参数 版本:版本号 &lt;/bin/bash&gt;#默认为/bin/bash<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>参数说明：</p>
+<ul>
+<li><code>-i</code>：保持容器运行。通常与<code>-t</code>同时使用。加入<code>it</code>这两个参数后，容器创建后自动进入容器中，退出容器后，容器自动关闭</li>
+<li><code>-t</code>：为容器重新分配一个伪输入终端，通常与<code>-i</code>同时使用</li>
+<li><code>-d</code>：以守护（后台）模式运行容器。创建一个容器在后台运行，需要使用<code>docker exec</code>进入容器<code>docker exec -it c2 /bin/bash</code>。退出后，容器不会关闭</li>
+<li><code>-it</code>创建的容器一般称为交互式容器；<code>-id</code>创建的容器一般称为守护式容器</li>
+<li><code>--name</code>：为创建的容器命名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker exec 参数 #退出容器，容器不会关闭<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>停止容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker stop 容器名称 <br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker start 容器名称<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除容器：如果容器是运行状态则删除失败，需要停止容器参能删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker rm 容器名称<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看容器信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker inspect 容器名称<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="三、-Docker-容器的数据卷"><a href="#三、-Docker-容器的数据卷" class="headerlink" title="三、 Docker 容器的数据卷"></a>三、 Docker 容器的数据卷</h1><h3 id="3-1-数据卷概念及作用"><a href="#3-1-数据卷概念及作用" class="headerlink" title="3.1 数据卷概念及作用"></a>3.1 数据卷概念及作用</h3><p><strong>试着想一下：</strong></p>
+<ul>
+<li>Docker 容器删除后，在容器中产生的数据还在吗？—是持久化的存储吗？</li>
+<li>Docker 容器和外部机器可以交换文件吗？  ——–容器与外部通讯 ？</li>
+<li>容器之间想要进行数据交互？————容器与容器之间通讯 ？</li>
+</ul>
+<p><strong>这里就有一个<code>数据卷</code>的概念了：</strong></p>
+<ul>
+<li>数据卷是宿主机（运行的物理设备）中的一个目录或文件</li>
+<li>当容器目录和数据卷目录绑定后，对方的修改会立即同步——绑定本机对应目录</li>
+<li>一个数据卷可以被多个容器同时挂载———一个目录映射多个容器</li>
+<li>一个容器也可以被挂载多个数据卷———-一个容器映射多个目录</li>
+</ul>
+<p><strong>数据卷的作用就出来了：</strong></p>
+<ul>
+<li>容器数据持久化</li>
+<li>外部计价器和容器间接通信</li>
+<li>容器之间数据交换</li>
+</ul>
+<h3 id="3-2-配置数据卷"><a href="#3-2-配置数据卷" class="headerlink" title="3.2 配置数据卷"></a>3.2 配置数据卷</h3><ul>
+<li><p>创建启动容器时，使用<code>-v</code>参数 设置数据卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run ... -v 宿主机目录(文件):容器内目录(文件) ...<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>-v 就是 -Volumes 卷的意思</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<ol>
+<li>目录必须是绝对路径—-&#x2F;home&#x2F;user&#x2F;user1&#x2F;docker&#x2F;mysql</li>
+<li>如果目录不存在，会自动创建</li>
+<li>可以挂载多个数据卷</li>
+</ol>
+</li>
+</ul>
+<h3 id="3-3-配置数据卷容器"><a href="#3-3-配置数据卷容器" class="headerlink" title="3.3 配置数据卷容器"></a>3.3 配置数据卷容器</h3><p>​    多容器进行数据交换：</p>
+<ol>
+<li>多个容器挂载同一个数据卷</li>
+<li>数据卷容器</li>
+</ol>
+<p>​    <strong>配置数据卷容器：</strong></p>
+<ol>
+<li><p>创建启动c3数据卷容器，使用<code>-v</code>参数 设置数据卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it --name=c3 -v /volume centos:7 /bin/bash<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建启动c1 c2容器，使用<code>--volumes-from</code>参数 设置数据卷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it --name=c1 --volumes-from c3 centos:7 /bin/bash<br>docker run -it --name=c2 --volumes-from c3 centos:7 /bin/bash<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="四、Docker-应用部署…-后续有空补充"><a href="#四、Docker-应用部署…-后续有空补充" class="headerlink" title="四、Docker 应用部署….后续有空补充"></a>四、Docker 应用部署….后续有空补充</h1><h1 id="五、docker-file（后续有空补充）"><a href="#五、docker-file（后续有空补充）" class="headerlink" title="五、docker file（后续有空补充）"></a>五、docker file（后续有空补充）</h1><h1 id="六、docker-compose-（简单介绍）"><a href="#六、docker-compose-（简单介绍）" class="headerlink" title="六、docker compose （简单介绍）"></a>六、docker compose （简单介绍）</h1><h2 id="6-1-docker-compose介绍"><a href="#6-1-docker-compose介绍" class="headerlink" title="6.1 docker compose介绍"></a>6.1 docker compose介绍</h2><p>docker compose 最开始是一个插件，后来官方采纳了这个开发者开发的开源插件</p>
 <ol>
 <li>用于定义和运行多容器docker 应用程序的工具，它使用YAML文件来配置应用程序的服务、网络和数据卷等组件，并通过一些简单的命令提供一种统一的方式来管理和操作这些容器</li>
 <li>多容器应用：Docker Compose适用于构建和管理多容器的应用程序。你可以在同一个Compose文件中定义和管理应用程序中的多个服务，这些服务可以相互通信和协作。</li>
@@ -290,7 +489,7 @@
 <p> 简单说就是：将你的某个应用程序所需要的服务，都编排到一个队列上去，通过docker compose来同一管理，这个时候你的这个compose内的容器都会处于同一个bridge桥网络下，</p>
 <p>提供了一种简单且一致的方式来组织和操作容器化的应用程序，并使得在不同环境钟部署和运行应用程序变得更加容易</p>
 </blockquote>
-<h3 id="docker-compose-相关命令"><a href="#docker-compose-相关命令" class="headerlink" title="docker compose 相关命令"></a>docker compose 相关命令</h3><p>构建镜像：</p>
+<h3 id="6-1-1-docker-compose-相关命令"><a href="#6-1-1-docker-compose-相关命令" class="headerlink" title="6.1.1 docker compose 相关命令"></a>6.1.1 docker compose 相关命令</h3><p>构建镜像：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker-compose build<br>```<br>这个命令将根据Compose文件中定义的服务构建镜像。如果镜像已经存在，它将跳过构建步骤。<br></code></pre></td></tr></table></figure>
 
 <p>启动容器：</p>
@@ -314,11 +513,11 @@
 <p>查看Compose服务日志：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看Compose的服务日志：</span><br>docker-compose logs<br>```<br>这个命令将显示Compose文件中定义的所有服务的日志输出。<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看Compose的实时日志：</span><br>docker-compose logs -f<br>```<br>这个命令将以实时方式显示Compose文件中定义的所有服务的日志输出。你可以通过按下`Ctrl + C`来停止实时日志输出。<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看特定服务的日志</span><br>docker-compose logs &lt;service_name&gt;<br>```<br>这个命令将显示指定服务的日志输出。你可以替换`&lt;service_name&gt;`为Compose文件中定义的服务名称。<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看指定服务的实时日志：</span><br>docker-compose logs -f &lt;service_name&gt;<br>```<br>这个命令将以实时方式显示指定服务的日志输出。你可以替换`&lt;service_name&gt;`为Compose文件中定义的服务名称。<br></code></pre></td></tr></table></figure>
 
-<h2 id="Kubernetes-K8S-简单介绍"><a href="#Kubernetes-K8S-简单介绍" class="headerlink" title="Kubernetes(K8S)简单介绍"></a>Kubernetes(K8S)简单介绍</h2><blockquote>
+<h2 id="6-2-Kubernetes-K8S-简单介绍"><a href="#6-2-Kubernetes-K8S-简单介绍" class="headerlink" title="6.2 Kubernetes(K8S)简单介绍"></a>6.2 Kubernetes(K8S)简单介绍</h2><blockquote>
 <p>开发只负责开发（拔掉开发的网线），其他杂七杂八的服务有运维通过K8S统一管理</p>
 <p>比如说：开发连接数据库查询数据：只负责127.0.0.1本地连接即可，运维会在路由那里统一配置</p>
 </blockquote>
-<h3 id="Kubernetes介绍"><a href="#Kubernetes介绍" class="headerlink" title="Kubernetes介绍"></a>Kubernetes介绍</h3><p>Kubernetes（通常简称为K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它提供了一个强大的工具集，用于管理和编排容器化应用程序的各个方面，如部署、扩缩容、负载均衡、服务发现、自愈性等。</p>
+<h3 id="6-2-2-Kubernetes介绍"><a href="#6-2-2-Kubernetes介绍" class="headerlink" title="6.2.2 Kubernetes介绍"></a>6.2.2 Kubernetes介绍</h3><p>Kubernetes（通常简称为K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它提供了一个强大的工具集，用于管理和编排容器化应用程序的各个方面，如部署、扩缩容、负载均衡、服务发现、自愈性等。</p>
 <p>以下是网上抄的Kubernetes的一些关键概念和特点：</p>
 <ol>
 <li>容器编排：Kubernetes设计用于管理容器化应用程序。它可以自动部署和管理容器，确保它们在集群中正确运行，并根据需要进行扩展和收缩。</li>
