@@ -1,0 +1,827 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python 读书笔记之代码的坏味道2 、文件系统2.1.1文件系统 在Windows上，文件夹和文件名使用反斜杠（\）分隔；在macOS和Linux上，则是使用正斜杠（&#x2F;）分隔。为了使Python脚本跨平台兼容，可以使用pathlib模块和&#x2F;运算符。 导入pathlib的典型方法是使用语句from pathlib import Path。因为Path是pathlib中最常用的类，所以使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【python】读书笔记之代码的坏味道">
+<meta property="og:url" content="http://example.com/2024/01/02/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="Python 读书笔记之代码的坏味道2 、文件系统2.1.1文件系统 在Windows上，文件夹和文件名使用反斜杠（\）分隔；在macOS和Linux上，则是使用正斜杠（&#x2F;）分隔。为了使Python脚本跨平台兼容，可以使用pathlib模块和&#x2F;运算符。 导入pathlib的典型方法是使用语句from pathlib import Path。因为Path是pathlib中最常用的类，所以使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-02T07:01:15.000Z">
+<meta property="article:modified_time" content="2024-04-02T08:00:11.156Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+  
+  <title>【python】读书笔记之代码的坏味道 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/44.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【python】读书笔记之代码的坏味道"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-02 15:01" pubdate>
+          2024年1月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          121 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【python】读书笔记之代码的坏味道</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Python-读书笔记之代码的坏味道"><a href="#Python-读书笔记之代码的坏味道" class="headerlink" title="Python 读书笔记之代码的坏味道"></a>Python 读书笔记之代码的坏味道</h1><h1 id="2-、文件系统"><a href="#2-、文件系统" class="headerlink" title="2 、文件系统"></a>2 、文件系统</h1><p>2.1.1文件系统</p>
+<p>在Windows上，文件夹和文件名使用反斜杠（\）分隔；在macOS和Linux上，则是使用正斜杠（&#x2F;）分隔。为了使Python脚本跨平台兼容，可以使用<code>pathlib</code>模块和<code>/</code>运算符。</p>
+<p>导入<code>pathlib</code>的典型方法是使用语句<code>from pathlib import Path</code>。因为<code>Path</code>是<code>pathlib</code>中最常用的类，所以使用这种形式导入可以让你在后续只需要输入<code>Path</code>，而不是<code>pathlib.Path</code>。在表达式最左边输入一个<code>Path</code>对象，在后面使用<code>/</code>把<code>Path</code>对象或字符串连接成一条完整路径。在交互式shell中输入以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from pathlib import Path</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path(<span class="hljs-string">&#x27;spam&#x27;</span>) / <span class="hljs-string">&#x27;bacon&#x27;</span> / <span class="hljs-string">&#x27;eggs&#x27;</span></span><br>WindowsPath(&#x27;spam/bacon/eggs&#x27;)<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path(<span class="hljs-string">&#x27;spam&#x27;</span>) / Path(<span class="hljs-string">&#x27;bacon/eggs&#x27;</span>)</span><br>WindowsPath(&#x27;spam/bacon/eggs&#x27;)<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path(<span class="hljs-string">&#x27;spam&#x27;</span>) / Path(<span class="hljs-string">&#x27;bacon&#x27;</span>, <span class="hljs-string">&#x27;eggs&#x27;</span>)</span><br>WindowsPath(&#x27;spam/bacon/eggs&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>请注意，因为我是在Windows机器上运行这段代码的，所以<code>Path</code>返回了<code>WindowsPath</code>对象。而在macOS和Linux上则会返回<code>PosixPath</code>对象。（POSIX是类Unix操作系统的一组标准，关于它的内容不在本书讨论范围内。）对我们而言，无须理解两者的区别。</p>
+<p>　　可以将<code>Path</code>对象传递给Python标准库中任何一个以文件名作为参数的函数。例如，函数调用<code>open(Path(&#39;C:\\&#39;) / &#39;Users&#39; / &#39;Al&#39; / &#39;Desktop&#39; / &#39;spam.py&#39;)</code>等同于<code>open(r&#39;C:\Users\Al\ Desktop\spam.py&#39;)</code>。</p>
+<h3 id="2-1-2主目录"><a href="#2-1-2主目录" class="headerlink" title="2.1.2主目录"></a>2.1.2主目录</h3><p>所有用户在计算机上都有一个被称为<strong>主目录</strong>或<strong>主文件夹</strong>的文件夹，用于存放该用户自己的文件。可以通过调用<code>Path.home()</code>来获取主目录的<code>Path</code>对象。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path.home()</span><br>WindowsPath(&#x27;C:/Users/Al&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>主目录的位置取决于操作系统。</p>
+<ul>
+<li>在Windows上，主目录位于C:\Users下。</li>
+<li>在macOS上，主目录位于&#x2F;Users下。</li>
+<li>在Linux上，主目录通常位于&#x2F;home下。</li>
+</ul>
+<h2 id="2-1-3-当前工作目录"><a href="#2-1-3-当前工作目录" class="headerlink" title="2.1.3 当前工作目录"></a>2.1.3 当前工作目录</h2><p>计算机运行的每个程序都有自己的<strong>当前工作目录</strong>（英文为cwd，是current working directory的首字母缩写）。任何不以根目录开头的文件名或路径都是相对于当前工作目录而言的相对路径。尽管“目录”是“文件夹”的过时说法，但“当前工作目录”（也可以简称为工作目录）是标准术语，不能使用“当前工作文件夹”代替。</p>
+<p>可以使用<code>Path.cwd()</code>函数将cwd作为一个<code>Path</code>对象来获取，并使用<code>os.chdir()</code>修改它。在交互式shell中输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from pathlib import Path</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; import os</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path.cwd() ❶</span><br>WindowsPath(&#x27;C:/Users/Al/AppData/Local/Programs/Python/Python38&#x27;)<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; os.chdir(<span class="hljs-string">&#x27;C:\\Windows\\System32&#x27;</span>) ❷</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; Path.cwd()</span><br>WindowsPath(&#x27;C:/Windows/System32&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>在这段代码中，cwd被设置为<code>C:\Users\Al\AppData\Local\Programs\Python\Python38</code>❶，所以文件名project.docx实际指向C:\Users\Al\AppData\Local\Programs\Python\Python38\project.docx。如果把cwd修改为C:\Windows\System32❷，文件名project.docx则指向C:\Windows\System32\project.docx。</p>
+<p>在<code>pathlib</code>模块出现之前，人们常使用<code>os</code>模块中的<code>os.getcwd()</code>函数获取cwd路径字符串</p>
+<h3 id="2-1-4-绝对路径和相对路径"><a href="#2-1-4-绝对路径和相对路径" class="headerlink" title="2.1.4　绝对路径和相对路径"></a>2.1.4　绝对路径和相对路径</h3><p>指定文件路径有两种方法。</p>
+<ul>
+<li>绝对路径，是以根目录为起点的路径</li>
+<li>相对路径，是相对于程序的当前工作目录的路径</li>
+</ul>
+<p>　　值得一提的还有<code>.</code>文件夹和<code>..</code>文件夹，它们并非真正的文件夹，而是可以在路径中使用的特殊标记符。一个点（<code>.</code>）指代当前目录，两个点（<code>..</code>）指代父目录。</p>
+<h1 id="第-4-章-选择易懂的名称"><a href="#第-4-章-选择易懂的名称" class="headerlink" title="第 4 章　选择易懂的名称"></a>第 4 章　选择易懂的名称</h1><blockquote>
+<p>“计算机科学中有两大难题：命名、缓存失效和差一错误。”这个经典笑话是Leon Bambrick根据Phil Karlton说的话改编的，它揭示了一个真理——为变量、函数、类等编程中的元素起名（正式的说法叫作标识符）很难。简洁而有描述意义的名称能够大大提升程序代码的可读性。</p>
+</blockquote>
+<p>　　但是起名字说起来容易做起来难。假如你要搬家，把粘贴在所有包装箱上的标签写成“物品”虽然很简洁，但不具备描述性。而将一本编程书起名为《用Python发明你自己的计算机游戏》虽然具备了描述性，但又太过啰唆。</p>
+<p>　　除非编写的代码是“一次性”的，仅需运行一次，不需要长期维护，否则应该在命名这件事上花些工夫。如果只是简单地用<code>a</code>、<code>b</code>、<code>c</code>作为变量名，将来会花费不必要的心力回忆当初这些变量的作用。</p>
+<p>　　命名是必须要做的一个主观选择，而自动格式化工具（比如第3章介绍的Black）无法为变量起名。本章提供了一些指导原则，帮助你选择好的名字，规避糟糕的名字。当然，这些原则并非金规铁律，你可以根据自己的判断决定什么时候应用它们。</p>
+<h2 id="4-1-命名风格"><a href="#4-1-命名风格" class="headerlink" title="4.1　命名风格"></a>4.1　命名风格</h2><p>Python的标识符区分大小写，且不能包含空格。当标识符中存在多个单词时，程序员可以应用以下几种命名风格。</p>
+<ul>
+<li>蛇形命名法（<code>snake_case</code>）：用下划线分隔单词，两个单词之间的连接看起来像蛇一样。这种情况下，所有字母都是小写的，但常量名经常采用大写，类似于<code>UPPER_SNAKE_CASE</code>。</li>
+<li>驼峰命名法（<code>camelCase</code>）：从第二个单词开始，每个单词使用首字母大写进行分隔。也就是说，第一个单词首字母小写，后面的单词的大写字母看起来像驼峰。</li>
+<li>Pascal命名法（<code>PascalCase</code>）：因其在Pascal编程语言中的使用而得名。它跟驼峰命名法类似，但第一个单词的首字母也要大写。</li>
+</ul>
+<p>　　最常见的是蛇形命名法和驼峰命名法。选择哪一种都无关紧要，只要不在项目中混用就好。</p>
+<h2 id="4-2-PEP-8的命名风格"><a href="#4-2-PEP-8的命名风格" class="headerlink" title="4.2　PEP 8的命名风格"></a>4.2　PEP 8的命名风格</h2><p>第3章中介绍的PEP 8文档对Python的命名规则提出了一些建议。</p>
+<ul>
+<li>所有的字母应是ASCII字母，也就是没有重音符号的大写和小写的英文字母。</li>
+<li>模块名应该简短，都是小写字母。</li>
+<li>类名应使用Pascal命名法。</li>
+<li>常量名应使用大写字母的蛇形命名法。</li>
+<li>函数名、方法名和变量名应使用小写字母的蛇形命名法。</li>
+<li>方法的第一个参数应总是命名为小写的<code>self</code>。</li>
+<li>类方法的第一个参数应总是命名为小写的<code>cls</code>。</li>
+<li>类中的私有属性应总是以下划线（<code>_</code>）开头。</li>
+<li>类中的公共属性不应以下划线（<code>_</code>）开头。</li>
+</ul>
+<h2 id="4-3-适当的名称长度"><a href="#4-3-适当的名称长度" class="headerlink" title="4.3　适当的名称长度"></a>4.3　适当的名称长度</h2><p>显然，名称的长度应该适中。长的变量名输入起来很麻烦，短的变量名则可能让人产生困惑。因为代码被阅读的次数比被编写的次数要多，所以相比之下，宁愿名称偏长也不要偏短。下面将列举一些名称太短或者太长的例子。</p>
+<h3 id="4-3-1-太短的名称"><a href="#4-3-1-太短的名称" class="headerlink" title="4.3.1　太短的名称"></a>4.3.1　太短的名称</h3><p>最常见的命名错误是选择太短的名称。在刚起名的时候，你还能记得住短名称的含义，几天或者几周后可能就记不起来了。短名称有以下几种常见类型。</p>
+<ul>
+<li>名称为一个或两个字母，像是<code>g</code>，本意是用来指代以<code>g</code>开头的某个单词，但这样的单词太多了。只有一两个字母的首字母略缩词对写代码的人而言很省事，但对别人而言很难读懂。</li>
+<li>缩写名称比如<code>mon</code>，可以用来代表监视器、月份、怪物等单词。</li>
+<li>单个词语像是<code>start</code>，意思比较模糊——是什么的开始？此类名称可能是其他人在阅读时没有注意到的与上下文相关的隐含意思。</li>
+</ul>
+<p>　　一个或两个字母、缩写、单个词语对你而言可能好理解，但请始终牢记，其他程序员（甚至是几周后的自己）很难理解它们的含义。</p>
+<p>　　有些例外情况可以采用简短的变量名。例如使用<code>for</code>循环遍历数字范围或表示列表的索引时，通常会使用<code>i</code>（index的缩写，指代索引）作为变量名。如果出现嵌套循环，会依此使用<code>j</code>、<code>k</code>（因为在字母序列中，j和k排在i之后）：</p>
+<p><strong>DN’T DRP LTTRS FRM YR SRC CD</strong></p>
+<p>Don’t drop letters from your source code（不要从源代码中删减某些字母）。尽管像是<code>memcpy</code>（memory copy）和<code>strcmp</code>（string compare）这种删减字母的写法在20世纪90年代前的C语言中很流行，但如今它们被视为不可读的命名风格，不该再被使用。这类不容易发音的名称很难被理解。</p>
+<p>　　此外，可以大胆使用通俗易懂的英语短语作为代码文字，比如<code>number_of_trials</code>就比仅仅写成<code>number_trials</code>更具可读性。</p>
+<h3 id="4-3-2-太长的名称"><a href="#4-3-2-太长的名称" class="headerlink" title="4.3.2　太长的名称"></a>4.3.2　太长的名称</h3><p>名称越长，描述性通常也越强。像<code>payment</code>这样的短名称在单一、较短的函数中作为局部变量是不错的。但如果是作为一个长达10 000行的程序中的全局变量，那<code>payment</code>的描述性就不太够了，因为这样一个庞大的程序可能会处理多种支付数据。一个更具描述性的名称，比如<code>salesClientMonthlyPayment</code>或<code>annual_electric_bill_payment</code>可能更合适。名称中的附加词提供了更多的语境信息，可以避免歧义。过度描述总比不描述要好。这里提供了一些用于判断名称是否过长的准则。</p>
+<ol>
+<li><p><strong>名称中的前缀</strong></p>
+<p>在名称中使用常见的前缀可能会提供不必要呈现的细节信息。对于类的特性名称而言，前缀可能会提供不需要在变量名中出现的信息。比如一个包含重量特性的猫的类，显然重量指的就是猫的体重。因此<code>catWeight</code>这个名称就显得描述性过强，且过长。</p>
+<p>同样，一个过时的做法是使用匈牙利命名法，也就是在名称中包含数据类型缩写的做法。例如<code>strName</code>这个名称表明变量类型是字符串，而<code>iVacationDays</code>表明变量类型是整数。现代编程语言和IDE可以向程序员传达数据类型信息，不再需要这些前缀，这使得匈牙利命名法如今已经没有使用的必要性。所以，如果名称中有数据类型前缀，还请删除。</p>
+<p>对于包含布尔值的变量或者返回布尔值的函数和方法，<code>is</code>和<code>has</code>前缀能够增强名称的可读性。思考以下使用名为<code>is_vehicle</code>的变量和名为<code>has_key()</code>的方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">if item_under_repair.has_key(&#x27;tires&#x27;):<br>  is_vehicle = True<br><br></code></pre></td></tr></table></figure>
+
+<p><code>has_key()</code>方法和<code>is_vehicle</code>变量可以帮助读者对代码进行通俗的英文解读：“如果被修理的物品有一个名为轮胎的属性，那么该物品就是一辆车。”</p>
+<p>同样，在名称中加入计量单位可以提供有用的信息。一个存储浮点数的重量变量会存在歧义：重量的单位是磅、公斤，还是吨？计量单位信息不是上文所说的数据类型，所以包含<code>kg</code>、<code>lbs</code>、<code>tons</code>的前缀或者后缀并不同于匈牙利命名法。如果没有使用包含单位信息的特定重量的数据类型，可将变量命名为<code>weight_kg</code>之类的名称，这样做可能更慎重一些。事实上，由于1999年洛克希德·马丁公司提供的软件使用了英制标准单位的计算结果，而NASA系统使用的是公制计量单位，因此数据换算错误导致了轨道错误，造成火星气候轨道飞行器丢失。据报道，该航天器的造价高达1.25亿美元。</p>
+</li>
+<li><p><strong>名称中的连续数字后缀</strong></p>
+<p>名称中的连续数字后缀表明可能需要改变变量的数据类型，或者在名称中添加不同的细节描述。单纯的数字往往不能提供足够的信息来区别这些名称。</p>
+<p>像<code>payment1</code>、<code>payment2</code>、<code>payment3</code>这样的变量名称并没有告诉你这些值之间的区别。也许这3个变量名应该被重构为一个名为<code>payments</code>的变量，包含3个值的列表或者元组。</p>
+<p>像<code>makePayment1(amount)</code>、<code>makePayment2(amount)</code>这样的函数也许该被重构为接受整数参数的单个函数：<code>makePayment(1, amount)</code>、<code>makePayment(2, amount)</code>等。如果这些函数的行为是不同的，确实要使用不同的函数，则应该在名称中说明数字背后的意义，例如<code>makeLowPriorityPayment(amount)</code>和<code>makeHighPriorityPayment(amount)</code>，或<code>make1stQuarterPayment(amount)</code>和<code>make2ndQuarterPayment(amount)</code>。</p>
+<p>如果有充分的理由选择带有连续数字后缀的名称，也并非不可以。但是，如果仅仅是因为偷懒，还请慎重考虑。</p>
+</li>
+</ol>
+<h2 id="4-4-起易于搜索的名称"><a href="#4-4-起易于搜索的名称" class="headerlink" title="4.4　起易于搜索的名称"></a>4.4　起易于搜索的名称</h2><p>　　除非是非常小的程序，否则可能需要使用编辑器或者IDE的CTRL-F查找功能来定位变量或者函数被引用的位置。如果变量名较短且常见，比如<code>num</code>或<code>a</code>，那么会得到很多错误的匹配。为了能快速搜索，请使用包含具体细节的较长且特殊的名称。</p>
+<p>　　一些IDE带有重构功能，可以根据程序对变量的使用方式识别不同的名称。比如，一个常见的功能是重命名工具，它可以区分名为<code>num</code>和<code>number</code>的变量，以及局部变量<code>num</code>和全局变量<code>num</code>。但起名字时不要想着依赖这些工具。</p>
+<p>　　牢记这一原则可以帮助你挑选描述性强的名称，而非常见的名称。<code>email</code>这个名称过于模糊，所以应该考虑更具描述性的名称，比如<code>emailAddress</code>、<code>downloadEmailAttachment</code>、<code>emailMessage</code>或<code>replyToAddress</code>。这样的名称不仅更准确，而且在源代码文件中也更容易被搜到。</p>
+<h2 id="4-5-避免笑话、双关语和需要文化背景才能理解的词汇"><a href="#4-5-避免笑话、双关语和需要文化背景才能理解的词汇" class="headerlink" title="4.5　避免笑话、双关语和需要文化背景才能理解的词汇"></a>4.5　避免笑话、双关语和需要文化背景才能理解的词汇</h2><h2 id="4-6-不要覆盖内置名称"><a href="#4-6-不要覆盖内置名称" class="headerlink" title="4.6　不要覆盖内置名称"></a>4.6　不要覆盖内置名称</h2><p>一些常被覆盖的Python名称有：<code>all</code>、<code>any</code>、<code>date</code>、<code>email</code>、<code>file</code>、<code>format</code>、<code>hash</code>、<code>id</code>、<code>input</code>、<code>list</code>、<code>min</code>、<code>max</code>、<code>object</code>、<code>open</code>、<code>random</code>、<code>set</code>、<code>str</code>、<code>sum</code>、<code>test</code>和<code>type</code>。不要使用这些名称作为标识符。</p>
+<p>　　<code>data</code>是一个糟糕的变量名，因为所有变量都包含数据。给变量命名为<code>var</code>也是一样，这好比你给宠物狗起名叫“狗”。<code>temp</code>这个名称对于临时持有数据的变量而言很常见，但这也非良选。毕竟从某种角度来看，所有的变量都是临时的。遗憾的是，尽管这些命名含糊不清，但还是经常出现。请不要在代码中使用它们了。</p>
+<p>　　当需要一个变量来保存温度数据的统计方差时，请使用<code>temperatureVariance</code>这个名称。毫无疑问，<code>tempVarData</code>不是一个好选择。</p>
+<h2 id="4-8-小结"><a href="#4-8-小结" class="headerlink" title="4.8　小结"></a>4.8　小结</h2><p>　　命名与算法或者计算机科学无关，但它是能否编写可读代码的一个重要因素。代码中使用什么名称的最终决定权在你手里，但要注意现有的一些准则。PEP 8文档推荐了几个命名规则，比如模块的名称用小写，类的名称用Pascal命名法。名称长度应该适中。通常情况下，宁愿提供过多描述性信息，也不要信息过少。</p>
+<p>　　名称应当简洁，但要兼具描述性。能否使用CTRL-F搜索功能快速找到某个名称是衡量它是否具备特殊性和描述性的标志。想一想你起的名称便于搜索的程度，这可以帮助你判断是否使用了太过常见的名称。此外，还要考虑英语不流利的程序员能否理解这个名称。避免在名称中使用笑话、双关语和需要有文化背景知识才能理解的词汇，而是要选择礼貌、直接、不搞怪的名称。</p>
+<p>　　尽管本章的许多建议只是推荐做法，但应该避免使用Python标准库已经使用过的名称，比如<code>all</code>、<code>any</code>、<code>date</code>、<code>email</code>、<code>file</code>、<code>format</code>、<code>hash</code>、<code>id</code>、<code>input</code>、<code>list</code>、<code>min</code>、<code>max</code>、<code>object</code>、<code>open</code>、<code>random</code>、<code>set</code>、<code>str</code>、<code>sum</code>、<code>test</code>和<code>type</code>。使用这些名称可能导致代码中出现难以定位的错误。</p>
+<p>　　计算机并不在乎名称是言简意赅还是语焉不详。名称的作用是让人更容易阅读，而不是让计算机更容易运行。如果代码的可读性很强，就很容易被理解；如果容易被理解，那就容易进行修改；如果容易修改，那就意味着容易修复错误或者增加新功能。所以，使用可理解的名称是生产高质量软件的前提。</p>
+<h1 id="第-5-章-揪出代码的坏味道"><a href="#第-5-章-揪出代码的坏味道" class="headerlink" title="第 5 章　揪出代码的坏味道"></a>第 5 章　揪出代码的坏味道</h1><blockquote>
+<p>导致程序崩溃的代码显然是错了，但崩溃并不是衡量程序问题的唯一指标。其他迹象也会表明程序中存在着难以察觉的漏洞或者不可读的代码。就像嗅到的一股怪味儿告诉你煤气可能正在泄漏，闻到的烟味儿提示你哪里着火了一样，代码的坏味道指的是一种揭示潜在问题的代码模式。这种坏味道并不意味着一定存在问题，但它说明该是检查程序的时候了。</p>
+</blockquote>
+<p>　　本章列举了几种常见的代码坏味道。预防错误花费的时间和精力要比遇到错误、理解错误然后修复错误少得多。每个程序员都曾碰上过这样的事情：花了几小时调试来调试去，最终发现只需要修改一行代码就可以修复。出于这个原因，即使遇到一点儿潜在的错误，你也应该停下来，仔细检查是否在为未来的工作“挖坑”。</p>
+<p>　　当然，代码的坏味道不一定都是问题。究竟是处理还是忽略要依靠你自己的判断。</p>
+<h2 id="5-1-重复的代码"><a href="#5-1-重复的代码" class="headerlink" title="5.1　重复的代码"></a>5.1　重复的代码</h2><p>　最常见的代码坏味道是重复的代码。重复的代码是指通过在程序中复制粘贴产生的源代码。例如下面这个简短的程序中就包含了重复的代码，它询问了3次用户的感觉如何：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">print(&#x27;Good morning!&#x27;)<br>print(&#x27;How are you feeling?&#x27;)<br>feeling = input()<br>print(&#x27;I am happy to hear that you are feeling &#x27; + feeling + &#x27;.&#x27;)<br>print(&#x27;Good afternoon!&#x27;)<br>print(&#x27;How are you feeling?&#x27;)<br>feeling = input()<br>print(&#x27;I am happy to hear that you are feeling &#x27; + feeling + &#x27;.&#x27;)<br>print(&#x27;Good evening!&#x27;)<br>print(&#x27;How are you feeling?&#x27;)<br>feeling = input()<br>print(&#x27;I am happy to hear that you are feeling &#x27; + feeling + &#x27;.&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>解决重复代码的方法是去重，简单地说，通过把代码放在一个函数或者循环中，使其在代码中只出现一次。在下面的示例中，重复代码被移动到一个函数中，通过反复调用函数以达到同样的效果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">def askFeeling():<br>    print(&#x27;How are you feeling?&#x27;)<br>    feeling = input()<br>    print(&#x27;I am happy to hear that you are feeling &#x27; + feeling + &#x27;.&#x27;)<br><br>print(&#x27;Good morning!&#x27;)<br>askFeeling()<br>print(&#x27;Good afternoon!&#x27;)<br>askFeeling()<br>print(&#x27;Good evening!&#x27;)<br>askFeeling()<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-2-魔数"><a href="#5-2-魔数" class="headerlink" title="5.2　魔数"></a>5.2　魔数</h2><p>程序包含数字很正常，但代码中出现的一些数字可能会让其他程序员（或者几周前写下这串数字的你）感到困惑。例如接下来这行代码中的数字604800：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">expiration = time.time() + <span class="hljs-number">604800</span><br></code></pre></td></tr></table></figure>
+
+<p><code>time.time()</code>函数返回一个代表当前时间的整数。猜得出来，<code>expiration</code>变量代表的是未来的某个时间点。但<code>604800</code>相当神秘：这个过期日期的意义是什么？可以添加一行注释进行解释：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">expiration = time.time() + <span class="hljs-number">604800</span> <span class="hljs-comment"># 一周后过期</span><br></code></pre></td></tr></table></figure>
+
+<p>这个写法是可行的，但更好的做法是使用常量代替这些“神奇”的数字。常量是一类用大写字母书写的量，其数值在初始赋值后不应该改变。通常，在源代码文件的顶部来定义作为全局变量的常量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 设置不同时间量的常量：</span><br>SECONDS_PER_MINUTE = <span class="hljs-number">60</span><br>SECONDS_PER_HOUR   = <span class="hljs-number">60</span> * SECONDS_PER_MINUTE<br>SECONDS_PER_DAY    = <span class="hljs-number">24</span> * SECONDS_PER_HOUR<br>SECONDS_PER_WEEK   = <span class="hljs-number">7</span>  * SECONDS_PER_DAY<br><br>--snip--<br><br>expiration = time.time() + SECONDS_PER_WEEK <span class="hljs-comment"># 一周后过期</span><br></code></pre></td></tr></table></figure>
+
+<p>即使数值相同，也应该为有着不同目的的魔数采用不同的常量。比如一副扑克牌有52张，一年也有52周。但如果程序中同时存在这两种量，那么正确的做法应该是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">NUM_CARDS_IN_DECK = <span class="hljs-number">52</span><br>NUM_WEEKS_IN_YEAR = <span class="hljs-number">52</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;This deck contains&#x27;</span>, NUM_CARDS_IN_DECK, <span class="hljs-string">&#x27;cards.&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;The 2-year contract lasts for&#x27;</span>, <span class="hljs-number">2</span> * NUM_WEEKS_IN_YEAR, <span class="hljs-string">&#x27;weeks.&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这段代码运行后的输出是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">This deck contains <span class="hljs-number">52</span> cards.<br>The <span class="hljs-number">2</span>-year contract lasts <span class="hljs-keyword">for</span> <span class="hljs-number">104</span> weeks.<br></code></pre></td></tr></table></figure>
+
+<p>　　使用不同的常量有利于将来对它们进行独立的修改。注意，在程序运行时不应该改变常量的数值，但这不意味着程序员不能在代码中对常量进行更新。比如，当代码的未来某个版本中只有一张小丑牌<strong>1</strong>时，只需要改变扑克牌数量的常量，而不影响周数量的常量：</p>
+<p><strong>1</strong>也叫作小王牌。——译者注</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">NUM_CARDS_IN_DECK = <span class="hljs-number">53</span><br>NUM_WEEKS_IN_YEAR = <span class="hljs-number">52</span><br></code></pre></td></tr></table></figure>
+
+<p>　　<strong>魔数</strong>这个术语也可以用来指代非数字值，比如，你也许使用字符串类型的值作为常量。下面这个程序要求用户输入一个方向，如果方向是“north”则显示一个警告。“north”被错误拼写成“nrth”导致了一个bug，使程序无法显示警告：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Set solar panel direction:&#x27;</span>)<br>    direction = <span class="hljs-built_in">input</span>().lower()<br>    <span class="hljs-keyword">if</span> direction <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;north&#x27;</span>, <span class="hljs-string">&#x27;south&#x27;</span>, <span class="hljs-string">&#x27;east&#x27;</span>, <span class="hljs-string">&#x27;west&#x27;</span>):<br>        <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Solar panel heading set to:&#x27;</span>, direction)<br><span class="hljs-keyword">if</span> direction == <span class="hljs-string">&#x27;nrth&#x27;</span>: ❶<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Warning: Facing north is inefficient for this panel.&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　这个bug可能很难被发现：错误的拼写“nrth”❶在Python语法中仍然是一个正确的字符串，程序不会崩溃，也没有警示信息，让人难以察觉。但如果我们使用常量，错误拼写就会导致程序崩溃，因为Python会注意到<code>NRTH</code>常量并不存在：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 为每个基本方向设置常量：</span><br>NORTH = <span class="hljs-string">&#x27;north&#x27;</span><br>SOUTH = <span class="hljs-string">&#x27;south&#x27;</span><br>EAST = <span class="hljs-string">&#x27;east&#x27;</span><br>WEST = <span class="hljs-string">&#x27;west&#x27;</span><br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Set solar panel direction:&#x27;</span>)<br>    direction = <span class="hljs-built_in">input</span>().lower()<br>    <span class="hljs-keyword">if</span> direction <span class="hljs-keyword">in</span> (NORTH, SOUTH, EAST, WEST):<br>        <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Solar panel heading set to:&#x27;</span>, direction)<br><span class="hljs-keyword">if</span> direction == NRTH: ❶<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Warning: Facing north is inefficient for this panel.&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　运行代码时，带有<code>NRTH</code>错误❶的代码行抛出了<code>NameError</code>，错误会被立刻展示出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-type">Set</span> solar panel direction:<br>west<br>Solar panel heading <span class="hljs-built_in">set</span> to: west<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;panelset.py&quot;</span>, line <span class="hljs-number">14</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>    <span class="hljs-keyword">if</span> direction == NRTH:<br>NameError: name <span class="hljs-string">&#x27;NRTH&#x27;</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined<br></code></pre></td></tr></table></figure>
+
+<p>　　魔数是一种代码的坏味道，因为它们没有表明数字的目的，降低了代码的可读性，使其难以维护，而且容易出现难以察觉的拼写错误。解决方法是使用常量替代魔数。</p>
+<h2 id="5-3-注释掉的代码和死代码"><a href="#5-3-注释掉的代码和死代码" class="headerlink" title="5.3　注释掉的代码和死代码"></a>5.3　注释掉的代码和死代码</h2><p>用注释掉代码的方法使代码不能运行，这作为临时手段是可行的。你可能想跳过一些代码行来测试其他功能，而注释掉代码的好处在于之后容易找到并恢复它们。但如果注释掉的代码一直保留着，后面阅读代码的人就会困惑为什么要删除这段代码，什么情况下会再使用它。请看下面这个示例：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">doSomething</span><span class="hljs-params">()</span></span><br><span class="hljs-selector-id">#doAnotherThing</span>()<br><span class="hljs-function"><span class="hljs-title">doSomeImportantTask</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">doAnotherThing</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+
+<p>　　这段代码让人产生很多疑惑：为什么<code>doAnotherThing()</code>被注释掉了？还能再加入它吗？为什么<code>doAnotherThing()</code>的第2次调用没有被注释掉？是原本就有两次<code>doAnotherThing()</code>调用，还是最初只有一次调用，后来被移到<code>doSomeImportantTask()</code>之后了？不删除注释掉的代码是有什么原因吗？这些疑惑没有得到解答。</p>
+<p>　　死代码是指无法到达或者逻辑上永远无法运行的代码。比如，函数中返回语句之后的代码，在条件永远为假的<code>if</code>语句块中的代码，或者从未被调用的函数代码。在交互式shell中输入以下内容看一下：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">import</span> random</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">coinFlip</span>():</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">if</span> random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Heads!&#x27;</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">else</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Tails!&#x27;</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;The coin landed on its edge!&#x27;</span></span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(coinFlip())</span><br>Tails!<br></code></pre></td></tr></table></figure>
+
+<p>　　<code>return &#39;The coin landed on its edge!&#39;</code>这一行是死代码，因为代码在<code>if</code>和<code>else</code>块中就已经返回了。死代码具有误导性，程序员在阅读时会认为它们是程序中的有效部分，但实际上它们和注释掉的代码无异。</p>
+<p>　　桩代码是上述代码的坏味道规则的一个例外。它们是一些未来出现的代码的占位符，比如尚未实现的函数或者类。为了代替真正的代码，桩代码包含一个<code>pass</code>语句，它什么也不做（也被称为no operation或者no-op）。<code>pass</code>语句存在的意义是对在语法上需要有代码的地方打桩：</p>
+<h2 id="5-5-带有数字后缀的变量"><a href="#5-5-带有数字后缀的变量" class="headerlink" title="5.5　带有数字后缀的变量"></a>5.5　带有数字后缀的变量</h2><p>在编写程序时，偶尔需要存储多个相同数据类型的变量，你可能想通过添加数字后缀来重复使用一个变量名。比如在处理一个要求用户输入两次密码以防打错字的注册表单时，你可能会将这些密码字符串存储在名为<code>password1</code>和<code>password2</code>的变量中。这些数字后缀并不能很好地描述这些变量所包含的内容以及它们之间的差异。它们也没有说明这类变量究竟有多少个，是否还有<code>password3</code>或<code>password4</code>？请尝试创建特殊的名称，而不是仅仅添加数字后缀。对于这两个密码命名的例子而言，更好的变量名是<code>password</code>和<code>confirm_password</code>。</p>
+<p>　　再来看另外一个例子，假设有一个处理起点坐标和终点坐标的函数，参数可能会被命名为<code>x1</code>、<code>x2</code>、<code>y1</code>和<code>y2</code>。但数字后缀的名字并不像<code>start_x</code>、<code>start_y</code>、<code>end_x</code>、<code>end_y</code>这些名字那样能传达很多信息。与<code>x1</code>和<code>y1</code>相比，<code>start_x</code>和<code>start_y</code>这两个变量之间的关系更明显。如果数字后缀超过了2，可能需要使用列表或者set数据结构将数据存储为一个集合。比如可以将<code>pet1Name</code>、<code>pet2Name</code>、<code>pet3Name</code>的值存储在一个名为<code>petNames</code>的列表中。</p>
+<p>　　这种代码的坏味道并不能简单地套用在每个以数字结尾的变量上。比如名为<code>enableIPv6</code>的变量是完全可取的，因为6是<code>IPv6</code>本名的一部分，而非一个数字后缀。但如果在一系列的变量中使用数字后缀，那么可以考虑用某种数据结构代替它们，比如列表或字典。</p>
+<h2 id="5-6-本该是函数或者模块的类"><a href="#5-6-本该是函数或者模块的类" class="headerlink" title="5.6　本该是函数或者模块的类"></a>5.6　本该是函数或者模块的类</h2><p>使用Java等语言的程序员习惯通过创建类来组织代码。例如示例中的<code>Dice</code>类，包含一个<code>roll()</code>方法：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">import</span> random</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dice</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, sides=<span class="hljs-number">6</span></span>):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">        self.sides = sides</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">roll</span>(<span class="hljs-params">self</span>):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">        <span class="hljs-keyword">return</span> random.randint(<span class="hljs-number">1</span>, self.sides)</span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">d = Dice()</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;You rolled a&#x27;</span>, d.roll())</span><br>You rolled a 1<br></code></pre></td></tr></table></figure>
+
+<p>　　这看起来是条理清晰的代码，但想想实际的需求是什么呢？给出一个1到6的随机数。其实，用一个简单的函数就可以代替整个类：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;You rolled a&#x27;</span>, random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))</span><br>You rolled a 6<br></code></pre></td></tr></table></figure>
+
+<p>　　同其他语言相比，Python用来组织代码的方法更加随意，它的代码不需要存在于类或者其他模板结构中。如果发现创建对象只是为了进行单一的函数调用，或者类中只包含静态方法，那么这些都是代码的坏味道，警示我们最好还是编写函数。</p>
+<p>　　Python中的函数是通过模块而非类组合在一起的，因为无论怎样，类都必须放在一个模块中，把这些代码放在类中只是给代码增加了一个不必要的壳子。第15~17章将详细地讨论这些面向对象的设计原则。Jack Diederich的PyCon 2012演讲“Stop Writing Classes”（停止编写类）涵盖了其他可能使你的Python代码过于复杂的方式。</p>
+<h2 id="5-9-代码坏味道的谬误"><a href="#5-9-代码坏味道的谬误" class="headerlink" title="5.9　代码坏味道的谬误"></a>5.9　代码坏味道的谬误</h2><p>有些代码的坏味道根本不是真正的坏味道。在学习编程的过程中，你经常会听到一些一知半解的糟糕建议，它们或是断章取义，或是早就过时。那些试图把自己的主观意见当作最佳实践的技术书作者应该为此负责。</p>
+<p>　　你可能已经了解以下这些做法是代码的坏味道，但其实大多数没什么问题，我称之为“代码坏味道的谬误”。它们是你能够且应该忽略的警告，让我们看看其中几个。</p>
+<h3 id="5-9-1-谬误：函数应该仅在末尾处有一个return语句"><a href="#5-9-1-谬误：函数应该仅在末尾处有一个return语句" class="headerlink" title="5.9.1　谬误：函数应该仅在末尾处有一个return语句"></a>5.9.1　谬误：函数应该仅在末尾处有一个<code>return</code>语句</h3><p>这种“一进一出”的想法来自对汇编语言和Fortran语言编程时代的误解。这些语言允许你在子例程（一种类似于函数的结构）的任何一个位置进入（包括程序中间），使得调试子例程的执行部分很困难。函数则没有这个问题（因为执行总是从函数的开头开始的），但这个建议一直被保留了下来，并改编成了“函数和方法应该只有一个<code>return</code>语句，位置在其末尾”。想要保证每个函数或方法只有一个<code>return</code>语句往往需要一系列错综复杂的<code>if-else</code>语句，这可比使用多个<code>return</code>语句要麻烦得多。在一个函数或方法中有多个<code>return</code>语句并无不妥</p>
+<h3 id="5-9-2-谬误：函数最多只能有一个try语句"><a href="#5-9-2-谬误：函数最多只能有一个try语句" class="headerlink" title="5.9.2　谬误：函数最多只能有一个try语句"></a>5.9.2　谬误：函数最多只能有一个<code>try</code>语句</h3><p>　　在通常情况下，“函数和方法应该只做一件事情”是个好建议，但如果把这句话理解为每个异常处理应该放在一个单独的函数中，那就过头了。来看一个函数的例子，它的功能是确认要删除的文件已经不存在：</p>
+<h3 id="5-9-3-谬误：使用flag参数不好"><a href="#5-9-3-谬误：使用flag参数不好" class="headerlink" title="5.9.3　谬误：使用flag参数不好"></a>5.9.3　谬误：使用<code>flag</code>参数不好</h3><p>　　函数调用或者方法调用中的布尔型参数有时被称为<code>flag</code>参数。在编程中，<code>flag</code>是指一个表示二元设置的值，比如“启用”和“禁用”通常用布尔值表示。它可以表示为设置（<code>True</code>）或者清除（<code>False</code>）。</p>
+<p>　　认为函数调用中的<code>flag</code>参数不好是基于这样一个想法：根据<code>flag</code>值的控制，函数包含了两种截然不同的功能，比如下面这个示例：</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">def someFunction(flagArgument)</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">if flagArgument</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-comment"># 运行代码……</span><br>    <span class="hljs-attribute">else</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-comment"># 运行截然不同的代码……</span><br></code></pre></td></tr></table></figure>
+
+<p>　　事实上，如果你的函数真是这样，那应该创建两个函数，而不是让一个参数来决定运行函数的哪一部分代码。但大多数带有<code>flag</code>参数的函数并非如此。比如你可以为<code>sorted()</code>函数的<code>reverse</code>参数传递一个布尔类型的值来决定是正序还是反序。把这个函数分成名为<code>sorted()</code>和<code>reverseSorted()</code>的两个函数并无益处，反而增加了不必要的代码量。所以，认为使用<code>flag</code>参数不好的想法是个谬误。</p>
+<h3 id="5-9-4-谬误：全局变量不好"><a href="#5-9-4-谬误：全局变量不好" class="headerlink" title="5.9.4　谬误：全局变量不好"></a>5.9.4　谬误：全局变量不好</h3><p>　　函数像是程序中的“程序”：它们包含代码，有局部变量，当函数返回时局部变量就不复存在。这跟程序结束后变量就会被遗忘的情况类似。函数是相对隔离的，它们的代码执行结果正确与否仅仅取决于被调用时传递的参数。</p>
+<p>　　但对使用全局变量的函数而言，这种有用的隔离性有所削弱。在函数中使用的每个全局变量都是函数的一个输入，就像参数一样。更多的参数意味着更多的复杂性，也意味着更多的潜在bug。如果程序运行出错是由全局变量中的某个值的异常引起的，那么问题排查会很困难，因为难以确定这个异常值被设定的位置，它可能存在于程序中的任何地方。为了寻找这个异常值出现的原因，你不能只分析函数内部的代码或者函数调用的那行代码，而是必须查看整个程序的代码。出于这个原因，应该限制对全局变量的使用。</p>
+<h3 id="5-9-5-谬误：注释是不必要的"><a href="#5-9-5-谬误：注释是不必要的" class="headerlink" title="5.9.5　谬误：注释是不必要的"></a>5.9.5　谬误：注释是不必要的</h3><p>糟糕的注释确实比没有注释更糟糕。带有过时或者误导性信息的注释不仅不能帮助理解代码，反而会增加程序员的工作量。上述这个潜在的问题有时候被拿来证明“所有注释都是不好的”这一观点。该观点认为，应该尽量使用更具可读性的代码替代注释，甚至代码中压根儿就不该有注释。</p>
+<p>　注释是用英文（或者是程序员所使用的任何语言）编写的，通过它们传递变量、函数和类等名称所不能传递的信息。但编写简明有效的注释并非易事。注释同代码一样，需要重写和多次迭代才能达到完美。在写代码时，程序员是能够同步理解代码的，所以写注释看起来像是画蛇添足。因此，他们倾向于接受“注释是不必要的”这种观点。</p>
+<p>　　而通常情况是程序中的注释太少或者就没有注释，这比注释太多或者具有误导性的情况多得多。拒绝注释就如同在说：“坐飞机飞越大西洋只有99.999991%的安全性，所以我打算游泳。</p>
+<p>可以看下篇</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【python】读书笔记之代码的坏味道</div>
+      <div>http://example.com/2024/01/02/python读书笔记之代码的坏味道/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/03/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8Bpython%E4%B9%8B%E7%A6%85/" title="python读书笔记之python之禅">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python读书笔记之python之禅</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/25/Python%E4%B9%8BUI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%88%9D%E7%AA%A5/" title="【python】之UI自动化初窥">
+                        <span class="hidden-mobile">【python】之UI自动化初窥</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
