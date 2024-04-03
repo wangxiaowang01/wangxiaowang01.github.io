@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="十　编写高效的函数 　　函数就像是程序中的程序，通过拆分函数可以将代码分解成更小的单元。它能让我们不必编写重复的代码，减少错误的发生。但编写高效的函数要求我们在命名、大小、参数和复杂性等方面做出很多决策。本章将讲解编写函数的不同方法，分析各种取舍的利弊，深入探讨如何在函数的大小之间进行权衡，参数数量如何影响函数的复杂度，以及如何使用运算符*和**编写可变参数函数。本章还将讨论函数式编程范式以及按这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python读书笔记之编写高效函数（十）">
+<meta property="og:url" content="http://example.com/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88%E5%87%BD%E6%95%B0%EF%BC%88%E5%8D%81%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="十　编写高效的函数 　　函数就像是程序中的程序，通过拆分函数可以将代码分解成更小的单元。它能让我们不必编写重复的代码，减少错误的发生。但编写高效的函数要求我们在命名、大小、参数和复杂性等方面做出很多决策。本章将讲解编写函数的不同方法，分析各种取舍的利弊，深入探讨如何在函数的大小之间进行权衡，参数数量如何影响函数的复杂度，以及如何使用运算符*和**编写可变参数函数。本章还将讨论函数式编程范式以及按这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-09T07:01:15.000Z">
+<meta property="article:modified_time" content="2024-04-03T05:46:17.359Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+  
+  <title>python读书笔记之编写高效函数（十） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/neom-El92hmAt91o-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python读书笔记之编写高效函数（十）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-09 15:01" pubdate>
+          2024年1月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          170 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">python读书笔记之编写高效函数（十）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="十-编写高效的函数"><a href="#十-编写高效的函数" class="headerlink" title="十　编写高效的函数"></a>十　编写高效的函数</h1><blockquote>
+<p>　　函数就像是程序中的程序，通过拆分函数可以将代码分解成更小的单元。它能让我们不必编写重复的代码，减少错误的发生。但编写高效的函数要求我们在命名、大小、参数和复杂性等方面做出很多决策。本章将讲解编写函数的不同方法，分析各种取舍的利弊，深入探讨如何在函数的大小之间进行权衡，参数数量如何影响函数的复杂度，以及如何使用运算符<code>*</code>和<code>**</code>编写可变参数函数。本章还将讨论函数式编程范式以及按这种范式编写函数有何益处。</p>
+</blockquote>
+<h2 id="10-1-函数名"><a href="#10-1-函数名" class="headerlink" title="10.1　函数名"></a>10.1　函数名</h2><p>　　函数名称应该遵循一般标识符遵循的惯例，正如第4章所述。它通常包括一个动词，因为函数经常被用来执行某些动作。它也可以包含一个名词，用来描述被操作的事物，比如<code>refreshConnection()</code>、<code>setPassword()</code>和<code>extract_version()</code>，这些名字说明了函数的作用和目的。</p>
+<p>　　对于类和模块中的方法而言，名称可能不需要名词。<code>SatelliteConnection</code>中的<code>reset()</code>方法和<code>webbrowser</code>模块中的<code>open()</code>函数都已经提供了必要的信息，能让人明白reset的对象是卫星连接，open的对象是网页浏览器。</p>
+<p>　　尽量使用长的、具有描述性的名字，而不是缩写或者太短的名字。一个数学家也许能够立刻知道名为<code>gcd()</code>的函数会返回两个数字的最大公分母，但其他人会觉得<code>getGreatestCommonDenominator()</code>更容易理解。记住，不要使用Python内置的任何函数名或模块名，例如<code>all</code>、<code>any</code>、<code>date</code>、<code>email</code>、<code>file</code>、<code>format</code>、<code>hash</code>、<code>id</code>、<code>input</code>、<code>list</code>、<code>min</code>、<code>max</code>、<code>object</code>、<code>open</code>、<code>random</code>、<code>set</code>、<code>str</code>、<code>sum</code>、<code>test</code>和<code>type</code>。</p>
+<h2 id="10-2-函数大小的权衡"><a href="#10-2-函数大小的权衡" class="headerlink" title="10.2　函数大小的权衡"></a>10.2　函数大小的权衡</h2><p>　　有些程序员说，函数应该尽可能简短，不要超过屏幕能容纳的长度。与长达几百行的函数相比，只有十几行的函数确实比较容易理解，但将大函数拆分成多个小函数也有缺点。</p>
+<p>　　让我们先看看小函数的优点：</p>
+<ul>
+<li>函数的代码更容易理解；</li>
+<li>函数可能需要较少的参数；</li>
+<li>函数不太可能有副作用，如10.4.1节所述；</li>
+<li>函数更容易测试和调试；</li>
+<li>函数引发的不同种类的异常数量要少。</li>
+</ul>
+<p>　　但小函数也有缺点：</p>
+<ul>
+<li>编写简短的函数往往意味着程序中会有更多的函数；</li>
+<li>拥有更多的函数意味着程序更加复杂；</li>
+<li>拥有更多的函数也意味着必须想出更多的具有描述性的、准确的名称，这是一个难题；</li>
+<li>使用更多的函数需要写更多的文档进行说明；</li>
+<li>函数之间的关系会更复杂。</li>
+</ul>
+<p>　　有些人把“越短越好”的准则发挥到了极致，他们声称所有的函数最多只能有三四行代码。这太疯狂了。</p>
+<h2 id="10-3-函数的形参和实参"><a href="#10-3-函数的形参和实参" class="headerlink" title="10.3　函数的形参和实参"></a>10.3　函数的形参和实参</h2><p>　　函数的形参是<code>def</code>语句括号中的变量名称，实参则是函数调用括号中的数值。函数的参数越多，代码的可配置性和通用性就越强，但更多的参数也意味着函数更复杂。</p>
+<p>　　一个合适的准则是保持0～3个参数，参数超过6个可能就偏多了。当函数过于复杂时，最好考虑将其拆分成参数较少的多个小函数。</p>
+<h3 id="10-3-1-默认参数"><a href="#10-3-1-默认参数" class="headerlink" title="10.3.1　默认参数"></a>10.3.1　默认参数</h3><p>　　降低参数复杂性的一个方法是为函数提供默认参数。默认参数是指在函数调用时如果没有指定参数，会用来代替参数的默认值。将大多数函数调用时使用的参数值作为默认参数可以避免在函数调用时重复输入。</p>
+<p>　　默认参数的设定位置是在<code>def</code>语句中的参数名称和等号后。例如，在下面的<code>introduction()</code>函数中，如果函数调用时没有指定<code>greeting</code>参数的值，它的值就是默认参数值<code>&#39;Hello&#39;</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">introduction</span>(<span class="hljs-params">name, greeting=<span class="hljs-string">&#x27;Hello&#x27;</span></span>):<br><span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(greeting + <span class="hljs-string">&#x27;, &#x27;</span> + name)<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>introduction(<span class="hljs-string">&#x27;Alice&#x27;</span>)<br>Hello, Alice<br><span class="hljs-meta">&gt;&gt;&gt; </span>introduction(<span class="hljs-string">&#x27;Hiro&#x27;</span>, <span class="hljs-string">&#x27;Ohiyo gozaimasu&#x27;</span>)<br>Ohiyo gozaimasu, Hiro<br></code></pre></td></tr></table></figure>
+
+<p>　　在调用<code>introduction()</code>时，如果不指定第2个参数，那么函数会默认使用字符串<code>&#39;Hello&#39;</code>。注意，带有默认值的参数需要排列在其他没有默认值的参数之后。</p>
+<h3 id="10-3-2-使用-和-向函数传参"><a href="#10-3-2-使用-和-向函数传参" class="headerlink" title="10.3.2　使用*和**向函数传参"></a>10.3.2　使用<code>*</code>和<code>**</code>向函数传参</h3><p>　　可以使用<code>*</code>和<code>**</code>语法（通常读作star和star star）向函数传递一组参数。<code>*</code>语法允许你将一个可迭代对象（比如列表或元组）中的项作为参数逐个传入，<code>**</code>语法允许你将映射对象（如字典）中的键−值对作为参数逐个传入。</p>
+<h3 id="10-3-3-使用-创建可变参数函数"><a href="#10-3-3-使用-创建可变参数函数" class="headerlink" title="10.3.3　使用*创建可变参数函数"></a>10.3.3　使用<code>*</code>创建可变参数函数</h3><p>　　在<code>def</code>语句中使用<code>*</code>语法可以创建可变参数函数，它可以接受不定数量的位置参数。举例来说，<code>print()</code>就是一个可变参数函数，因为你可以向它传递任意数量的字符串，比如<code>print(&#39;Hello!&#39;)</code>或<code>print(&#39;My name is&#39;，name)</code>。注意，10.3.2节是在函数调用中使用<code>*</code>语法，而本节是在函数定义中使用<code>*</code>语法。</p>
+<p>来看一个示例，我们创建一个<code>product()</code>函数，它接受任意数量的参数，需要返回它们的乘积：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">product</span>(<span class="hljs-params">*args</span>)：<br><span class="hljs-meta">... </span>    result = <span class="hljs-number">1</span><br><span class="hljs-meta">... </span>    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> args：<br><span class="hljs-meta">... </span>        result *= num<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> result<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>product(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)<br><span class="hljs-number">9</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>product(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><span class="hljs-number">12</span><br></code></pre></td></tr></table></figure>
+
+<p>在函数内部，<code>args</code>只是一个包含所有位置参数的普通Python元组。从技术角度讲，这个参数可以叫任何名字，只要以<code>*</code>开头即可，但惯例是将其命名为<code>args</code>。</p>
+<p>　　什么时候使用<code>*</code>语法是需要思考的，毕竟创建可变参数函数还有另一个替代方案，即接受一个列表类型（或者其他可迭代数据类型）作为单一参数，列表内部包含数量不定的项。内置的<code>sum()</code>函数就是这样一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sum</span>([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br><span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+
+<p>　　<code>sum()</code>函数接受一个可迭代参数，传递多个参数时会出现异常：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sum</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>TypeError: <span class="hljs-built_in">sum</span>() takes at most <span class="hljs-number">2</span> arguments (<span class="hljs-number">4</span> given)<br></code></pre></td></tr></table></figure>
+
+<p>　　而内置函数<code>min()</code>和<code>max()</code>（分别用来寻找多个值中的最小值和最大值）既可以接受一个可迭代参数，也可以接受多个独立的参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">min</span>([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>])<br><span class="hljs-number">1</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">min</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>)<br><span class="hljs-number">1</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">max</span>([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>])<br><span class="hljs-number">8</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">max</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>)<br><span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+
+<p>这些函数都接受不定数量的参数，为什么它们的参数设计成不同的模式？什么时候应该把函数设计成只接受一个可迭代参数，什么时候又该使用<code>*</code>语法接受多个独立参数呢？</p>
+<p>　　如何设计参数取决于我们预测程序员会如何使用我们的代码。<code>print()</code>函数之所以需要多个参数，是因为程序员经常向它传递一连串的字符串或包含字符串的变量，比如<code>print(&#39;My name is&#39;, name)</code>。把这些字符串归纳成一个列表，再将列表传递给<code>print()</code>的做法并不常见。<code>print()</code>已经被设计成在接受列表作为参数时完整地打印该列表的值，所以不能把它设计成逐个打印列表中的单个值。</p>
+<p>　　<code>sum()</code>函数没理由接受独立的参数，因为Python提供的<code>+</code>运算符可以达到同样的目的。你可以直接写<code>2 + 4 + 8</code>这样的代码，而不必写<code>sum(2, 4, 8)</code>。不定数量的参数只能作为列表传递给<code>sum()</code>是合理的。</p>
+<p>　　<code>min()</code>函数和<code>max()</code>函数允许两种风格的传参。如果只传递了一个参数，该函数会假定它是一个待检查的列表或元组；如果传递了多个参数，则假定它们是待检查的值。这两个函数既需要用于程序运行时处理值的列表，如函数调用<code>min(allExpenses)</code>，也需要处理程序员挑选的多个参数，比如<code>max(0, someNumber)</code>。所以这些函数被设计成接受两种参数。下面的<code>myMinFunction()</code>是我对<code>min()</code>函数的另一种实现，它展示了如何同时处理两种风格的传参：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">myMinFunction</span>(<span class="hljs-params">*args</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(args) == <span class="hljs-number">1</span>:<br>       values = args[<span class="hljs-number">0</span>] ❶<br>    <span class="hljs-keyword">else</span>:<br>       values = args ❷<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(values) == <span class="hljs-number">0</span>:<br>       <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&#x27;myMinFunction() args is an empty sequence&#x27;</span>) ❸<br><br>    <span class="hljs-keyword">for</span> i, value <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(values): ❹<br>        <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> value &lt; smallestValue:<br>            smallestValue = value<br>    <span class="hljs-keyword">return</span> smallestValue<br></code></pre></td></tr></table></figure>
+
+<p><code>myMinFunction()</code>使用<code>*</code>语法接受元组形式且数量不定的参数。如果这个元组只有一个值，那么我们假定这个值是待检查的值的序列❶。否则，假定<code>args</code>是待检查的元组❷。无论何种情况，<code>values</code>变量都将包含一个值序列，供后续代码检查。与真实的<code>min()</code>函数一样，如果调用者没有传递任何参数或者传递了空序列，函数就会抛出<code>ValueError</code>❸。剩余代码的作用是遍历序列并返回找到的最小值❹。简单地说，<code>myMinFunction()</code>只接受列表或元组这两类序列，而不接受任何可迭代的值。</p>
+<p>　　你可能会疑惑为什么我们不总是将函数设计为接受两种传递不定参数的方式。我的回答是，函数应该尽量简单。除非两种调用方式都很常见，否则应该只支持一种而放弃另一种。如果函数通常接受的是程序运行时创建的数据结构，那么最好设计成接受单个参数。如果通常接受的是程序员在编写代码时指定的参数，那么最好使用<code>*</code>语法接受不定数量的参数。</p>
+<h3 id="10-3-4-使用-创建可变参数函数"><a href="#10-3-4-使用-创建可变参数函数" class="headerlink" title="10.3.4　使用**创建可变参数函数"></a>10.3.4　使用<code>**</code>创建可变参数函数</h3><p>　　<code>**</code>语法也可用于创建可变参数函数。<code>def</code>语句中的<code>*</code>语法表示不定数量的位置参数，而<code>**</code>语法表示不定数量的可选关键字参数。如果不使用<code>**</code>语法定义接受多个关键字参数（其中有多个参数是可选的）的函数，就很难编写<code>def</code>语句。假设有一个<code>formMolecule()</code>函数，它接受已经发现的118种化学元素作为参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">formMolecule</span>(<span class="hljs-params">hydrogen, helium, lithium, beryllium, boron, --snip--</span><br></code></pre></td></tr></table></figure>
+
+<p>　　如果指定<code>hydrogen</code>的参数为2，<code>oxygen</code>的参数为1以返回<code>water</code>，按照这种写法会比较麻烦，可读性差，因为其他的无关元素必须被设置为0：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>formMolecule(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span> --snip--<br><span class="hljs-string">&#x27;water&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>　　使用命名的关键字参数可以更容易管理函数，每个参数都可以设置默认值，而不必在函数调用中传递参数。</p>
+<blockquote>
+<p><strong>注意</strong>　尽管术语“实参”和“形参”的定义很清楚，但程序员更倾向于将“关键字形参”和“关键字实参”统称为“关键字参数”。</p>
+</blockquote>
+<h3 id="10-3-5-使用-和-创建包装函数"><a href="#10-3-5-使用-和-创建包装函数" class="headerlink" title="10.3.5　使用*和**创建包装函数"></a>10.3.5　使用<code>*</code>和<code>**</code>创建包装函数</h3><p>　　在<code>def</code>语句中，<code>*</code>和<code>**</code>语法的一个常见用途是创建包装函数。包装函数用来将接受的参数传递给另一个函数并返回该函数的结果。使用<code>*</code>和<code>**</code>语法可以向被包装的函数转发任何参数。比如，创建一个<code>printLowercase()</code>函数来包装内置的<code>print()</code>函数。<code>printLowercase()</code>函数依靠<code>print()</code>完成实际工作，但会先将字符串参数转换为小写形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">printLower</span>(<span class="hljs-params">*args, **kwargs</span>): ❶<br><span class="hljs-meta">... </span>    args = <span class="hljs-built_in">list</span>(args) ❷<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">for</span> i, value <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(args):<br><span class="hljs-meta">... </span>        args[i] = <span class="hljs-built_in">str</span>(value).lower()<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">print</span>(*args, **kwargs) ❸<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>name = <span class="hljs-string">&#x27;Albert&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>printLower(<span class="hljs-string">&#x27;Hello,&#x27;</span>, name)<br>hello, albert<br><span class="hljs-meta">&gt;&gt;&gt; </span>printLower(<span class="hljs-string">&#x27;DOG&#x27;</span>, <span class="hljs-string">&#x27;CAT&#x27;</span>, <span class="hljs-string">&#x27;MOOSE&#x27;</span>, sep=<span class="hljs-string">&#x27;, &#x27;</span>)<br>dog, cat, moose<br></code></pre></td></tr></table></figure>
+
+<p>　　<code>printLower()</code>函数通过<code>*</code>语法接受<code>args</code>参数对应的元组❶，其中包含了不定数量的位置参数。<code>**</code>语法则将所有关键字参数整理成一个字典分配给<code>kwargs</code>参数。如果一个函数同时使用<code>*args</code>和<code>**kwargs</code>，那么<code>*args</code>参数必须位于<code>**kwargs</code>参数之前。我们创建的函数需要首先修改一些参数，再将参数传递给被包装的<code>print()</code>函数，所以<code>args</code>元组可以转换为列表形式❷。</p>
+<p>　　在将<code>args</code>中的字符串改为小写后，使用<code>*</code>和<code>**</code>语法将<code>args</code>中的项和<code>kwargs</code>中的键−值对作为不同参数逐个传递给<code>print()</code>❸。<code>printLower()</code>会将<code>print()</code>的返回值作为自己的返回值。这些步骤有效地包装了<code>print()</code>函数。</p>
+<h2 id="10-4-函数式编程"><a href="#10-4-函数式编程" class="headerlink" title="10.4　函数式编程"></a>10.4　函数式编程</h2><p>　　<strong>函数式编程</strong>是一种编程范式，它强调在不修改全局变量和任何外界状态（如硬盘上的文件、互联网连接或数据库）的情况下编写函数进行计算。Erlang、Lisp、Haskell等编程语言在很大程度上是围绕着函数式编程的概念设计的。尽管Python并不完全遵循函数式编程范式，但也有一些函数式编程的特性。Python程序能使用的主要特性有：无副作用的函数、高阶函数和lambda函数。</p>
+<h3 id="10-4-1-副作用"><a href="#10-4-1-副作用" class="headerlink" title="10.4.1　副作用"></a>10.4.1　副作用</h3><p>　　副作用是指函数对自身代码和局部变量之外的其他部分所做的任何改变。为了说明白这一点，我们创建一个<code>subtract()</code>函数，实现Python减法运算符的功能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">subtract</span>(<span class="hljs-params">number1, number2</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> number1 - number2<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>subtract(<span class="hljs-number">123</span>, <span class="hljs-number">987</span>)<br>-<span class="hljs-number">864</span><br></code></pre></td></tr></table></figure>
+
+<p>这个<code>subtract()</code>函数没有副作用。换言之，它不会影响程序中任何该函数代码之外的部分。从程序或者计算机的状态中没办法推测出<code>subtract()</code>是被调用了1次、2次还是100万次。无副作用的函数是可以修改其内部的局部变量的，因为这些变化与程序中的其他部分是隔离的。</p>
+<p>　　假设有一个<code>addToTotal()</code>函数，它的功能是将数字参数添加到名为<code>TOTAL</code>的全局变量中：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">TOTAL = <span class="hljs-number">0</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">addToTotal</span>(<span class="hljs-params">amount</span>):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">global</span> TOTAL</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    TOTAL += amount</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">return</span> TOTAL</span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">addToTotal(<span class="hljs-number">10</span>)</span><br>10<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">addToTotal(<span class="hljs-number">10</span>)</span><br>20<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">addToTotal(<span class="hljs-number">9999</span>)</span><br>10019<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">TOTAL</span><br>10019<br></code></pre></td></tr></table></figure>
+
+<p><code>addToTotal()</code>函数有一个副作用，它修改了存在于函数之外的元素，即<code>TOTAL</code>这个全局变量。副作用不仅仅指对全局变量的修改，还包括更新或删除文件、在屏幕上显示文本、打开数据库连接、服务器鉴权或者对函数本身以外做的任何修改。函数调用在返回后留下的任何痕迹都是副作用。</p>
+<p>　　副作用也可以包括对函数外使用的可变对象进行的原地改变。比如，下面的<code>removeLastCatFromList()</code>函数原地修改了列表参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">removeLastCatFromList</span>(<span class="hljs-params">petSpecies</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(petSpecies) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> petSpecies[-<span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;cat&#x27;</span>:<br><span class="hljs-meta">... </span>        petSpecies.pop()<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>myPets = [<span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;bird&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>removeLastCatFromList(myPets)<br><span class="hljs-meta">&gt;&gt;&gt; </span>myPets<br>[<span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;bird&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>myPets</code>变量和<code>petSpecies</code>参数持有对同一个列表的引用。在函数中对列表对象所做的任何原地修改也会存在于函数外，所以这种修改会产生副作用。</p>
+<p>　　一个相关概念是<strong>确定性函数</strong>，指在给定相同参数的情况下总是返回相同值的函数。比如<code>subtract(123, 987)</code>函数调用总是返回<code>-864</code>，Python内置的<code>round()</code>函数在传递<code>3.14</code>作为参数时总是返回<code>3</code>。</p>
+<p>　　<strong>非确定性函数</strong>则在传递相同参数时不会总是返回相同的值。例如，调用<code>random.randint(1, 10)</code>会返回一个1和10之间的随机整数。<code>time.time()</code>函数虽然没有参数，但它的返回值取决于调用函数时所在计算机的时钟设置。时钟是一种外部资源，跟参数一样都属于函数的输入。依赖于函数外部资源（包括全局变量、硬盘上的文件、数据库和互联网连接）的函数，都被认为是非确定性函数。</p>
+<p>　　确定性函数的一个好处是它们的值可以被缓存。如果<code>subtract()</code>能够记住第一次调用时的返回值，那就没必要重复计算123和987的差值。因此，确定性函数允许我们牺牲空间换取时间，即通过使用内存空间缓存之前的结果来缩短函数运行时间。</p>
+<p>　　无副作用的确定性函数被称为<strong>纯函数</strong>。函数式程序员尽量在程序中只编写纯函数。除了上文提到的，纯函数还有以下好处：</p>
+<ul>
+<li>适合单元测试，因为不需要设置任何外部资源；</li>
+<li>通过相同参数调用纯函数，很容易复现纯函数中的错误；</li>
+<li>纯函数内调用其他纯函数，仍然保持为纯函数；</li>
+<li>在多线程程序中，纯函数式线程是安全的，可以安全地同时运行（多线程不在本书讨论范畴内）；</li>
+<li>对纯函数的多次调用可以同时在并行的CPU核或者在多线程程序上运行，因为它们不依赖于对其运行顺序有要求的外部资源。</li>
+</ul>
+<p>　　你可以在Python中编写纯函数，而且应该尽量这样做。在Python中编写纯函数仅是一个习惯做法，没有任何设置让Python解释器强制要求程序员编写纯函数。编写纯函数的最常见的方法是避免在函数内部使用全局变量，并确保不与文件、互联网、系统时钟、随机数或其他外部资源交互。</p>
+<h3 id="10-4-2-高阶函数"><a href="#10-4-2-高阶函数" class="headerlink" title="10.4.2　高阶函数"></a>10.4.2　高阶函数</h3><p>　　高阶函数可以接受函数作为参数或者使用参数作为返回值。例如，定义一个名为<code>callItTwice()</code>的函数，它将两次调用给定的函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">callItTwice</span>(<span class="hljs-params">func, *args, **kwargs</span>):<br><span class="hljs-meta">... </span>    func(*args, **kwargs)<br><span class="hljs-meta">... </span>    func(*args, **kwargs)<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>callItTwice(<span class="hljs-built_in">print</span>, <span class="hljs-string">&#x27;Hello, world!&#x27;</span>)<br>Hello, world!<br>Hello, world!<br></code></pre></td></tr></table></figure>
+
+<p><code>callItTwice()</code>可以接受任何传递进来的函数。在Python中，函数是头等对象，这意味着它具备其他任何对象都有的功能：可以把函数存储在变量中，作为参数传递，或者把它作为返回值使用。</p>
+<h3 id="10-4-3-lambda函数"><a href="#10-4-3-lambda函数" class="headerlink" title="10.4.3　lambda函数"></a>10.4.3　lambda函数</h3><p>　　<strong>lambda函数</strong>也被称为<strong>匿名函数</strong>或者<strong>无名函数</strong>，是没有名字的简化版函数，其代码仅包含一条返回语句。在将函数作为参数传递给其他函数时，我们经常会用到lambda函数。</p>
+<p>　　比如，我们可以创建一个常规函数，它接受由矩形的宽高组成的列表，具体来说，矩形规格为4乘10：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">rectanglePerimeter</span>(<span class="hljs-params">rect</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> (rect[<span class="hljs-number">0</span>] * <span class="hljs-number">2</span>) + (rect[<span class="hljs-number">1</span>] * <span class="hljs-number">2</span>)<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>myRectangle = [<span class="hljs-number">4</span>, <span class="hljs-number">10</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>rectanglePerimeter(myRectangle)<br><span class="hljs-number">28</span><br></code></pre></td></tr></table></figure>
+
+<p>等效的lambda函数是这样的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">lambda</span> rect: (rect[<span class="hljs-number">0</span>] * <span class="hljs-number">2</span>) + (rect[<span class="hljs-number">1</span>] * <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　在Python中定义lambda函数，需要以<code>lambda</code>关键字开头，后面是一个以逗号分隔的参数列表（如果有参数的话），紧接着是一个冒号，最后是一个作为返回值的表达式。由于函数是头等对象，因此你可以把lambda函数赋值给一个变量，相当于<code>def</code>语句的快捷副本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>rectanglePerimeter = <span class="hljs-keyword">lambda</span> rect: (rect[<span class="hljs-number">0</span>] * <span class="hljs-number">2</span>) + (rect[<span class="hljs-number">1</span>] * <span class="hljs-number">2</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>rectanglePerimeter([<span class="hljs-number">4</span>, <span class="hljs-number">10</span>])<br><span class="hljs-number">28</span><br></code></pre></td></tr></table></figure>
+
+<p>这个lambda函数被赋值给了名为<code>rectanglePerimeter</code>的变量，本质上是提供了一个<code>rectanglePerimeter()</code>函数。如你所见，由<code>lambda</code>创建的函数和由<code>def</code>语句创建的函数是一样的。</p>
+<blockquote>
+<p><strong>注意</strong>　在实际的代码中，应该使用<code>def</code>语句，而非将lambda函数赋值给常量。lambda函数的正确用法仅是用来创建匿名函数。</p>
+</blockquote>
+<p>　　lambda函数的语法便于将小函数指定为其他函数调用的参数。比如，<code>sorted()</code>函数有一个名为<code>key</code>的关键字参数，需要指定一个函数作为实参。当传入<code>key</code>时，<code>sorted()</code>函数将会根据函数的返回值而非项本身的值对列表中的项进行排序。在下面这个示例中，我们传递给<code>sorted()</code>函数一个lambda函数，函数的功能是返回给定矩形的周长。这样<code>sorted()</code>函数将基于每个列表项<code>[width, height]</code>所计算得到的周长进行排序：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>rects = [[<span class="hljs-number">10</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">9</span>], [<span class="hljs-number">10</span>, <span class="hljs-number">7</span>], [<span class="hljs-number">9</span>, <span class="hljs-number">9</span>]]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sorted</span>(rects, key=<span class="hljs-keyword">lambda</span> rect: (rect[<span class="hljs-number">0</span>] * <span class="hljs-number">2</span>) + (rect[<span class="hljs-number">1</span>] * <span class="hljs-number">2</span>))<br>[[<span class="hljs-number">2</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">6</span>], [<span class="hljs-number">10</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">9</span>], [<span class="hljs-number">10</span>, <span class="hljs-number">7</span>], [<span class="hljs-number">9</span>, <span class="hljs-number">9</span>]]<br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，该函数不是对数值<code>[10, 2]</code>和<code>[3, 6]</code>进行排序，而是根据返回的周长整数值24和18进行排序。lambda表达式是一种便捷的语法缩写形式：你可以指定一个小的lambda函数（只有一行长），而非使用<code>def</code>语句定义一个命名函数。</p>
+<h3 id="10-4-4-在列表推导式中进行映射和过滤"><a href="#10-4-4-在列表推导式中进行映射和过滤" class="headerlink" title="10.4.4　在列表推导式中进行映射和过滤"></a>10.4.4　在列表推导式中进行映射和过滤</h3><p>　　<code>map()</code>函数和<code>filter()</code>函数是Python早期版本中常见的高阶函数，二者可以转换和过滤列表，通常会结合lambda函数使用。映射（map）可以根据原列表的值创建新列表，过滤（filter）则可以创建一个只包含原列表中符合某种标准的值的新列表。</p>
+<p>　　如果你想将整数列表<code>[8, 16，18，19，12，1，6，7]</code>转换为字符串类型的新列表，那么可以把这个列表和<code>lambda n: str(n)</code>传递给<code>map()</code>函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>mapObj = <span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> n: <span class="hljs-built_in">str</span>(n), [<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>])<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(mapObj)<br>[<span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;16&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>, <span class="hljs-string">&#x27;19&#x27;</span>, <span class="hljs-string">&#x27;12&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p><code>map()</code>函数返回一个<code>map</code>对象，将其传递给<code>list()</code>函数即可得到列表。映射后的列表包含与原列表中整数值相对应的字符串值。<code>filter()</code>函数与之类似，但其中作为参数的lambda函数的作用是决定列表中的哪些项会被保留（当lambda函数返回<code>True</code>时），哪些会被过滤（当lambda函数返回<code>False</code>时）。例如，我们可以通过<code>lambda n: n % 2 == 0</code>过滤掉数组中的奇数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>filterObj = <span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> n: n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>, [<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>])<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(filterObj)<br>[<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">12</span>, <span class="hljs-number">6</span>]<br></code></pre></td></tr></table></figure>
+
+<p><code>filter()</code>函数返回一个过滤器对象，将其传递给<code>list()</code>函数，即可得到仅包含偶数的列表。</p>
+<p>　　但使用<code>map()</code>函数和<code>filter()</code>函数来创建映射列表和过滤列表已经是Python的过时做法了。更好的方法是使用列表推导式创建。列表推导式不仅不必编写lambda函数，还比<code>map()</code>和<code>filter()</code>更快。这里给出一个等效于<code>map()</code>函数的列表推导式示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>[<span class="hljs-built_in">str</span>(n) <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> [<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>]]<br>[<span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;16&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>, <span class="hljs-string">&#x27;19&#x27;</span>, <span class="hljs-string">&#x27;12&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>注意，列表推导式的<code>str(n)</code>部分与<code>lambda n: str(n)</code>相似。</p>
+<p>　　在此，我们给出一个等效于<code>filter()</code>函数的列表推导式示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>[n <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> [<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">19</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>]  <span class="hljs-keyword">if</span> n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>]<br>[<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, <span class="hljs-number">18</span>, <span class="hljs-number">12</span>, <span class="hljs-number">6</span>]<br></code></pre></td></tr></table></figure>
+
+<p>注意，列表推导式的<code>if n % 2 == 0</code>部分与<code>lambda n: n % 2 == 0</code>相似。</p>
+<p>　　许多语言有“函数是头等对象”的概念，也有诸如映射函数和过滤函数的高阶函数。</p>
+<h2 id="10-5-返回值的数据类型应该不变"><a href="#10-5-返回值的数据类型应该不变" class="headerlink" title="10.5　返回值的数据类型应该不变"></a>10.5　返回值的数据类型应该不变</h2><p>　　Python是动态数据类型语言，这意味着Python中的函数和方法可以自由地返回任何数据类型的值。但为了让函数具备更好的可预测性，应该尽量仅返回单一数据类型的值。</p>
+<p>　　比如这里有一个函数，它随机地返回整数值或者字符串值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> random<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">returnsTwoTypes</span>():<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) == <span class="hljs-number">1</span>:<br><span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> <span class="hljs-number">42</span><br><span class="hljs-meta">... </span>    <span class="hljs-keyword">else</span>:<br><span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;forty two&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>　　在编写该函数的调用代码时，很可能忘记需要处理多种可能的数据类型。在下面这个例子中，假设我们调用<code>returnsTwoTypes()</code>并希望把它返回的数字转换为十六进制数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>hexNum = <span class="hljs-built_in">hex</span>(returnsTwoTypes())<br><span class="hljs-meta">&gt;&gt;&gt; </span>hexNum<br><span class="hljs-string">&#x27;0x2a&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>Python的内置函数<code>hex()</code>接受一个整数，返回的是该整数对应的十六进制数的字符串。当<code>returnsTwoTypes()</code>返回整数时，这段代码能够正常执行，没什么问题。但当<code>returnsTwoTypes()</code>返回字符串时，就会抛出异常：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>hexNum = <span class="hljs-built_in">hex</span>(returnsTwoTypes())<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>TypeError: <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-built_in">object</span> cannot be interpreted <span class="hljs-keyword">as</span> an integer<br></code></pre></td></tr></table></figure>
+
+<p>　　当然，我们应该始终记得处理任何一种数据类型的返回值，但在现实中经常会忘记。为了避免此类错误，应该尽量使函数的返回值只有一种数据类型。这不是一个死规定，在不得已的情况下，函数可以返回不同数据类型的值。但返回的数据类型越少，函数就越简单，也越不易出错。</p>
+<p>　　有一种情况要特别注意——除非函数的返回值总是<code>None</code>，否则不要在某些情况下返回<code>None</code>。<code>None</code>值是<code>NoneType</code>数据类型的唯一值。人们很容易通过返回<code>None</code>来说明函数发生了错误（10.6节将讨论返回错误码），但正确的做法是尽量只在函数无法返回有意义的值时才返回<code>None</code>。</p>
+<p>　　通过返回<code>None</code>表示错误通常是造成不易捕获的<code>&#39;NoneType&#39; object has no attribute</code>这一异常的根源：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> random<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">sometimesReturnsNone</span>():<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> random.randint(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) == <span class="hljs-number">1</span>:<br><span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello!&#x27;</span><br><span class="hljs-meta">... </span>    <span class="hljs-keyword">else</span>:<br><span class="hljs-meta">... </span>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>returnVal = sometimesReturnsNone()<br><span class="hljs-meta">&gt;&gt;&gt; </span>returnVal.upper()<br><span class="hljs-string">&#x27;HELLO!&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>returnVal = sometimesReturnsNone()<br><span class="hljs-meta">&gt;&gt;&gt; </span>returnVal.upper()<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>AttributeError: <span class="hljs-string">&#x27;NoneType&#x27;</span> <span class="hljs-built_in">object</span> has no attribute <span class="hljs-string">&#x27;upper&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这段错误信息非常模糊，需要花些精力才能定位到通常会返回预期结果的函数上，而问题出在这个函数在发生错误时返回了<code>None</code>。问题发生的原因是<code>sometimesReturnsNone()</code>返回<code>None</code>，然后我们将其赋值给了<code>returnVal</code>变量。但是，错误信息会让你误以为问题发生在对<code>upper()</code>方法的调用中。</p>
+<p>　　在2009年的一次会议上，计算机科学家Tony Hoare为他在1965年发明了<code>null</code>引用（跟Python中的<code>None</code>值类似）而道歉。他说：“我把<code>null</code>引用称为自己的十亿美元错误……我没能抵制诱惑，加入了<code>null</code>引用，仅仅是因为它实现起来非常容易。但是，它导致了无数的错误、漏洞和系统崩溃，可能在之后的40年中造成了十亿美元的损失。”</p>
+<h2 id="10-6-抛出异常和返回错误码"><a href="#10-6-抛出异常和返回错误码" class="headerlink" title="10.6　抛出异常和返回错误码"></a>10.6　抛出异常和返回错误码</h2><p>　　在Python中，“异常”和“错误”这两个词的含义相差无几，都是指程序中的异常情况，表明程序存在问题。在20世纪八九十年代，随着C++和Java的出现，“异常”成为流行的编程语言特性，它们取代了错误码。错误码是从函数中返回的值，说明代码有问题。使用“异常”一词的好处是，函数返回值只与函数的目的有关，而不必同时用来表明存在错误。</p>
+<p>　　错误码有时也会导致程序问题。比如，Python的<code>find()</code>通常会返回子串的索引，在找不到时则返回<code>-1</code>作为错误码。但<code>-1</code>也可以用来表示字符串末尾的索引，无意中使用<code>-1</code>作为错误码可能会引发错误。在交互式shell中输入以下内容：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&gt;&gt;&gt; <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Letters after b in &quot;Albert&quot;:&#x27;</span>, <span class="hljs-string">&#x27;Albert&#x27;</span>[<span class="hljs-string">&#x27;Albert&#x27;</span>.<span class="hljs-built_in">find</span>(<span class="hljs-string">&#x27;b&#x27;</span>) + 1:])<br>Letters after b <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;Albert&quot;</span>: ert<br>&gt;&gt;&gt; <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Letters after x in &quot;Albert&quot;:&#x27;</span>, <span class="hljs-string">&#x27;Albert&#x27;</span>[<span class="hljs-string">&#x27;Albert&#x27;</span>.<span class="hljs-built_in">find</span>(<span class="hljs-string">&#x27;x&#x27;</span>) + 1:])<br>Letters after x <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;Albert&quot;</span>: Albert<br></code></pre></td></tr></table></figure>
+
+<p>代码中的<code>Albert&#39;.find(&#39;x&#39;)</code>被计算为错误码<code>-1</code>，这导致表达式<code>&#39;Albert&#39;[&#39;Albert&#39;.find(&#39;x&#39;) + 1:]</code>被推导为<code>&#39;Albert&#39;[-1 + 1: ]</code>，接着推导为<code>Albert&#39;[0:]</code>，最终等于<code>Albert</code>。很显然，这并不符合预期。调用<code>index()</code>而非<code>find()</code>，就像<code>&#39;Albert&#39;[&#39;Albert&#39;.index(&#39;x&#39;) + 1:]</code>这样，会导致异常，使不可忽略的问题暴露出来。</p>
+<p>　　字符串的<code>index()</code>方法在找不到子串时会抛出<code>ValueError</code>异常。如果不处理这个异常，程序就会崩溃，所以最好不要忽略错误。</p>
+<p>　　当异常表示一个实际错误时，异常类的名称往往以Error结尾，比如<code>ValueError</code>、<code>NameError</code>或<code>SyntaxError</code>。表示在特殊情况下不一定是错误的异常类有<code>StopIteration</code>、<code>KeyboardInterrupt</code>和<code>SystemExit</code>。</p>
+<h1 id="十一-注释、文档字符串和类型提示"><a href="#十一-注释、文档字符串和类型提示" class="headerlink" title="十一　注释、文档字符串和类型提示"></a>十一　注释、文档字符串和类型提示</h1><blockquote>
+<p>代码的注释与文档的重要性不亚于代码本身，因为软件永远不会彻底完成，你总是需要修改，要么添加新功能，要么修复错误。如果你对代码不够了解，就无法进行修改，所以代码的可读性很重要。正如计算机科学家Harold Abelson、Gerald Jay Sussman和Julie Sussman曾写的那样：“代码是用来让人读的，只是顺便让机器执行而已。”</p>
+</blockquote>
+<p>　　<strong>注释</strong>、<strong>文档字符串</strong>和<strong>类型提示****1</strong>有助于维护代码的可读性。<strong>注释</strong>是写在代码中、会被计算机忽略的简短解释。注释的作用是为除编写者之外的人提供有价值的说明、警告和提醒，有时候甚至会对写这段代码的人起到同样的作用。几乎每个程序员都曾暗自吐槽：“到底是谁写的这堆乱七八糟的东西？”结果发现答案竟然是“自己”。</p>
+<h2 id="11-1-注释"><a href="#11-1-注释" class="headerlink" title="11.1　注释"></a>11.1　注释</h2><p>和大多数编程语言一样，Python支持单行注释和多行注释。以<code>#</code>开始，直到行尾的所有文本都是单行注释。尽管Python没有专门的多行注释语法，但使用三引号的多行字符串可以用于多行注释。毕竟，一个字符串值不会导致Python解释器做任何事情。</p>
+<h3 id="11-1-1-注释风格"><a href="#11-1-1-注释风格" class="headerlink" title="11.1.1　注释风格"></a>11.1.1　注释风格</h3><p>来看看一些遵循了优秀注释风格的实践：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 这是对下面一行代码的注释： ❶</span><br>someCode()<br><br><span class="hljs-comment"># 这是一个更长的块注释，它分散在多行，并使用 ❷</span><br><span class="hljs-comment"># 多个单行注释</span><br><span class="hljs-comment"># ❸</span><br><span class="hljs-comment"># 它们被称为块注释</span><br><br><span class="hljs-keyword">if</span> someCondition:<br>   <span class="hljs-comment"># 这是关于其他代码的注释： ❹</span><br>   someOtherCode() <span class="hljs-comment"># 这是一个单行注释 ❺</span><br></code></pre></td></tr></table></figure>
+
+<p>　　注释通常应该独立成行，而不是放在代码行的末尾。多数情况下，它们应该是大小写正确且带有标点符号的完整句子，而非短语或者单词❶，除非受限于代码行长的限制。多行的注释❷可以连续使用多个单行注释，也叫作块注释。空白单行注释可以用于划分块注释中的段落❸。注释的缩进水平应该跟被注释的代码一致❹。跟在代码行内的注释被称为“内联注释”❺，这种情况下，代码和注释之间应该至少保留两个空格。</p>
+<h3 id="11-1-2-内联注释"><a href="#11-1-2-内联注释" class="headerlink" title="11.1.2　内联注释"></a>11.1.2　内联注释</h3><p>内联注释的一个常见且适宜的用途是解释变量的作用，或为其提供其他背景信息。这些内联注释写在创建变量的赋值语句后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">month = <span class="hljs-number">2</span> <span class="hljs-comment"># 月份的取值范围从0（1月）到11（12月）</span><br>catWeight = <span class="hljs-number">4.9</span> <span class="hljs-comment"># 重量的单位是千克</span><br>website = <span class="hljs-string">&#x27;ituring.cn&#x27;</span> <span class="hljs-comment"># 字符串不要以&quot;https://&quot;开头</span><br></code></pre></td></tr></table></figure>
+
+<p>　　除非是通过类型提示的形式，否则内联注释不应该指定变量的数据类型，因为显然可以从赋值语句中得知这一点，11.3.4节也将有相关描述。</p>
+<h3 id="11-1-3-说明性的注释"><a href="#11-1-3-说明性的注释" class="headerlink" title="11.1.3　说明性的注释"></a>11.1.3　说明性的注释</h3><p>一般来说，注释应该解释为什么代码要这样写，而不是解释代码做了什么或怎么做的。即使满足了良好的代码风格和第3、4章提及的有用的命名约束，代码也不能很好地解释最初编写者的意图。即使是你自己写的代码，几周后也可能忘记其中的细节。你应该写翔实的代码注释，而不是让以后的你“骂”过去的自己。</p>
+<p>　　比如，这里有一个没意义的注释，它解释了代码做了什么（这是显而易见的），但并没有说明代码的动机：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>currentWeekWages *= <span class="hljs-number">1.5</span> <span class="hljs-comment"># 将currentWeekWages乘以1.5</span><br></code></pre></td></tr></table></figure>
+
+<p>　　这条注释还不如没有。从代码中就能看出变量<code>currentWeekWages</code>被乘以1.5，直接删除这行注释会让代码更简洁。下面的注释要好得多：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>currentWeekWages *= <span class="hljs-number">1.5</span> <span class="hljs-comment"># 是工资的1.5倍</span><br></code></pre></td></tr></table></figure>
+
+<p>　　这行注释解释了代码背后的意图，而不是重述代码要做什么。无论代码写得多好，也无法提供这样的背景信息。</p>
+<h3 id="11-1-4-总结性的注释"><a href="#11-1-4-总结性的注释" class="headerlink" title="11.1.4　总结性的注释"></a>11.1.4　总结性的注释</h3><p>　　注释不仅仅可以用于说明程序员的意图，使用简短的注释总结多行代码还可以使阅读者不看代码就能对它的作用有大概的认识。程序员经常用空行划分代码的“段落”，而总结性的注释通常在这些段落的起始行。不同于解释单行代码的单行注释，总结性注释在更高的抽象层次上起到解释代码的作用。</p>
+<p>　　比如，通过阅读以下4行代码，可以得知它们将<code>playerTurn</code>变量设置为代表对面玩家的值。简洁的注释可以使读者不必阅读和推敲代码就能理解代码的目的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 轮到对手：</span><br><span class="hljs-keyword">if</span> playerTurn == PLAYER_X:<br>    playerTurn = PLAYER_O<br><span class="hljs-keyword">elif</span> playerTurn == PLAYER_O:<br>    playerTurn = PLAYER_X<br></code></pre></td></tr></table></figure>
+
+<p>　　在代码中放置这些总结性注释可以增强代码的可读性。程序员可以借由它们跳到感兴趣的地方做深入了解。总结性注释也可以防止程序员对代码的作用产生误解。一个简洁的总结性注释可以确保开发人员正确理解代码的工作原理。</p>
+<h3 id="11-1-5-“经验之谈”的注释"><a href="#11-1-5-“经验之谈”的注释" class="headerlink" title="11.1.5　“经验之谈”的注释"></a>11.1.5　“经验之谈”的注释</h3><p>　　之前在软件公司工作时，我有一次被要求适配一个图形库，使其支持包含数百万数据点的图表实时更新。我们当时使用的库可以实时更新图表，也可以支持有数百万数据点的图表，但不能同时做到两者。一开始，我以为用几天时间就能完成这项任务。但是到了第3周，我仍然感觉还要过几天才能完成。每天，我都觉得解决方案已经近在眼前了，但直到第5周，我才弄出了一个能用得上的原型。</p>
+<p>　　在整个过程中，我了解了大量的图形库工作原理、其能力及限制。我花了几小时把这些细节写成了一整页的注释，并把它放在了代码中。我知道任何一个对代码进行后续修改的人都会像我一样，遇到看似简单实际上棘手的问题，而我写的这份文档将节省他们数周的工作量。</p>
+<p>　　我将此类注释称为“经验之谈”的注释，它们可能长达几段，以至于在代码文件中看起来很突兀。但它们包含的信息对于任何需要维护这些代码的人而言都是宝藏。不要害怕在代码文件中写大段的用于解释某些工作原理的详细注释。对于程序员而言，很多细节是未知的，可能被误解或者被忽略。如果开发人员不需要这些注释，那跳过它们就好，而需要它们的开发人员会谢天谢地。请记住，“经验之谈”的注释跟上面两类注释不一样，它不同于模块或者函数文档（这是文档字符串要做的），它也不是针对软件用户的教程或操作指南，而是提供给开发人员的。</p>
+<p>　　我的“经验之谈”注释与开源图形库有关，可能会对其他人有帮助，所以我花了些时间将其整理为一条答案发布到公共问答网站上了，以便有类似问题的人可以找到。</p>
+<h3 id="11-1-8-代码标签和TODO注释"><a href="#11-1-8-代码标签和TODO注释" class="headerlink" title="11.1.8　代码标签和TODO注释"></a>11.1.8　代码标签和TODO注释</h3><p>　　程序员有时候会留下简短的注释，提醒自己还有哪些工作要做，通常是以代码标签的形式：以全大写字母标签开头，后面是简短描述的注释。理想情况下，你会使用项目管理工具来追踪这类问题，而不只是写在代码中。但对于没有使用这些工具的小型个人项目而言，少量的TODO注释可以起到提醒的作用。请看下面这个示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">_chargeIonFluxStream() <span class="hljs-comment"># TODO：排查为什么每周二都会失败</span><br></code></pre></td></tr></table></figure>
+
+<p>　　可以使用以下标签以起到不同类型的提醒作用。</p>
+<blockquote>
+<p>　　TODO：提示需要完成的工作。</p>
+<p>　　FIXME：提示这部分代码还不能正常工作。</p>
+<p>　　HACK：提示这部分代码可以工作，但可能有些勉强，需要做出改进。</p>
+<p>　　XXX：通常用于提示高度严重的问题。</p>
+</blockquote>
+<p>　　你应该在这些总是大写的标签后加上对手头任务或问题更加具体的描述。稍后，可以在源代码中搜索这些标签，找到需要修正的代码。缺点是它们很容易被遗忘，除非你正好在阅读它们所处的代码段落。代码标签不应该取代正式的问题跟踪工具或者错误报告工具。如果你确实想在代码中使用代码标签，我建议把这个工作处理得简单一些：只使用TODO，放弃别的标签。</p>
+<h2 id="11-2-文档字符串"><a href="#11-2-文档字符串" class="headerlink" title="11.2　文档字符串"></a>11.2　文档字符串</h2><p>　　<strong>文档字符串</strong>是出现在模块的.py源代码文件顶部或者在类或<code>def</code>语句之后的多行注释。它们提供关于被定义的模块、类、函数或方法的文档。自动文档生成工具可以使用这些文档字符串生成外部文档，比如帮助文档或网页。</p>
+<p>　文档字符串必须使用三引号的多行注释，不能使用以<code>#</code>开头的单行注释。文档字符串应该始终使用3个双引号，而非3个单引号进行包裹。例如，这里是流行的<code>requests</code>模块中session.py文件的一部分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*- ❶</span><br><br><span class="hljs-string">&quot;&quot;&quot; ❷</span><br><span class="hljs-string">requests.session</span><br><span class="hljs-string">~~~~~~~~~~~~~~~~</span><br><span class="hljs-string"></span><br><span class="hljs-string">This module provides a Session object to manage and persist settings across requests (cookies, auth,</span><br><span class="hljs-string">proxies).</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br>--snip—<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Session</span>(<span class="hljs-title class_ inherited__">SessionRedirectMixin</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;A Requests session. ❸</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Provides cookie persistence, connection-pooling, and configuration.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Basic Usage::</span><br><span class="hljs-string"></span><br><span class="hljs-string">      &gt;&gt;&gt; import requests</span><br><span class="hljs-string">      &gt;&gt;&gt; s = requests.Session()</span><br><span class="hljs-string">      &gt;&gt;&gt; s.get(&#x27;https://httpbin.org/get&#x27;)</span><br><span class="hljs-string">      &lt;Response [200]&gt;</span><br><span class="hljs-string">--snip--</span><br><span class="hljs-string"></span><br><span class="hljs-string">    def get(self, url, **kwargs):</span><br><span class="hljs-string">        r&quot;&quot;&quot;</span>Sends a GET request. Returns :<span class="hljs-keyword">class</span>:`Response` <span class="hljs-built_in">object</span>. ❹<br><br>        :param url: URL <span class="hljs-keyword">for</span> the new :<span class="hljs-keyword">class</span>:`Request` <span class="hljs-built_in">object</span>.<br>        :param \*\*kwargs: <span class="hljs-type">Optional</span> arguments that request takes.<br>        :rtype: requests.Response<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">--snip--</span><br></code></pre></td></tr></table></figure>
+
+<p>　　session.py文件包括该模块本身的文档字符串❷、<code>Session</code>类❸及其<code>get()</code>方法❹的文档字符串。注意，尽管模块的文档字符串应该是模块中出现的第一个字符串，但还是应该跟在神奇的注释之后，比如shebang行或者编码定义行❶。</p>
+<p>一般而言，文档字符串应该包含一个用于概述模块、类或者函数的行，后面有一个空行，空行后再提供更详细的信息。对于函数和方法，可以包含关于参数、返回值、副作用的信息。我们编写的文档说明不是给软件的使用者看的，而是给程序员看的。因此，它们应该包含技术信息，而非使用教程。</p>
+<p>　　文档字符串的另一个重要优点是它们将文档集成到了源代码中。分开编写文档和代码时，很容易直接忘记编写文档这回事。但由于文档字符串被放置在模块、类和函数的顶部，因此这些信息很容易被注意到，也方便更新。</p>
+<p>　　当代码还未写完时，你不一定能写出用来描述它的文档字符串。这种情况下，可以在文档字符串中加入一个TODO注释，提醒之后填补剩余的细节。比如，下面这个虚构的<code>reverseCatPolarity()</code>函数有一个不太好的文档字符串，它呈现了显而易见的事：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">reverseCatPolarity</span>(<span class="hljs-params">catId, catQuantumPhase, catVoltage</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Reverses the polarity of a cat.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    TODO Finish this docstring.&quot;&quot;&quot;</span><br>--snip--<br></code></pre></td></tr></table></figure>
+
+<p>　　由于每个类、函数和方法都要求有文档字符串，因此你可能想尽可能少写文档，先推进整体工作进度。如果没有TODO注释，很容易忘记需要后期重写这个文档字符串。</p>
+<p>　　PEP 257包含了更多关于文档字符串的说明，可以在Python官网上查阅。</p>
+<h2 id="11-3-类型提示"><a href="#11-3-类型提示" class="headerlink" title="11.3　类型提示"></a>11.3　类型提示</h2><p>　　许多编程语言是<strong>静态类型</strong>，也就是说，程序员必须在代码中声明所有变量、参数、返回值的数据类型。它的作用是允许解释器或编译器在程序运行前检查代码是否正确使用了所有对象。Python是<strong>动态类型</strong>：变量、参数和返回值可以是任何数据类型，甚至可以在程序运行时改变数据类型。动态语言通常更容易编程，因为它们不需要遵循很多限制，但动态语言缺乏静态语言所具有的避免运行时错误的优势。比如，写了一行Python代码<code>round(&#39;42&#39;)</code>，你可能没注意到把字符串传递给了只接受<code>int</code>参数或<code>float</code>参数的函数，直到运行代码出错时才意识到这一点。当你赋了错误类型的值，或传递了错误类型的参数时，静态类型的语言会在运行前发出警告。</p>
+<p>　　Python通过<strong>类型提示</strong>提供了可选的静态类型支持。在下面的示例中，类型提示用粗体标注：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">describeNumber</span>(<span class="hljs-params">number: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-keyword">if</span> number % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;An odd number. &#x27;</span><br>    <span class="hljs-keyword">elif</span> number == <span class="hljs-number">42</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;The answer. &#x27;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Yes, that is a number. &#x27;</span><br><br>myLuckyNumber: <span class="hljs-built_in">int</span> = <span class="hljs-number">42</span><br><span class="hljs-built_in">print</span>(describeNumber(myLuckyNumber))<br></code></pre></td></tr></table></figure>
+
+<p>　　正如你看到的，类型提示使用冒号来分隔参数和变量的名称与类型。对于返回值，类型提示使用箭头（<code>-&gt;</code>）分隔<code>def</code>语句的闭合括号和类型。<code>describeNumber()</code>的类型提示显示它的<code>number</code>参数需要整数值，返回值是字符串。</p>
+<p>　　不必为程序中的每一条数据都加上类型提示。可以采用渐进式类型化方法，只对某些变量、参数和返回值设置类型提示，这是动态类型的灵活性和静态类型的安全性之间的一个折中。但程序中的类型提示越多，静态代码分析工具就能有更多的信息发现程序中的潜在错误。</p>
+<p>　　注意在前面的例子中，指定类型的名称与<code>int()</code>和<code>str()</code>构造函数的名称一致。在Python中，类、类型和数据类型的含义相同。对于任何由类构成的实例，都应该使用类的名称作为类型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> datetime<br>noon: datetime.time = datetime.time(<span class="hljs-number">12</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>) ❶<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CatTail</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, length: <span class="hljs-built_in">int</span>, color: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.length = length<br>        self.color = color<br><br>zophieTail: CatTail = CatTail(<span class="hljs-number">29</span>, <span class="hljs-string">&#x27;grey&#x27;</span>) ❷<br></code></pre></td></tr></table></figure>
+
+<p>　　<code>noon</code>变量的类型提示是<code>datetime.time</code>❶，因为它是一个时间对象（在<code>datetime</code>模块中定义）。同样，<code>zophieTail</code>对象的类型提示是<code>CatTail</code>❷，因为它是我们用类语句创建的<code>CatTail</code>类的一个对象。类型提示适用于指定类型的所有子类。例如，一个具有类型提示<code>dict</code>的变量可以被设置为任何字典类型的值，也可以被设置为<code>collections.OrderedDict</code>类型或者<code>collections.defaultdict</code>类型的值，因为这些类是<code>dict</code>的子类。</p>
+<h3 id="11-3-2-为多种类型设置类型提示"><a href="#11-3-2-为多种类型设置类型提示" class="headerlink" title="11.3.2　为多种类型设置类型提示"></a>11.3.2　为多种类型设置类型提示</h3><p>　　Python的变量、参数和返回值可以有多种可能的数据类型。对于这种情况，可以从内置的<code>typing</code>模块导入<code>Union</code>以指定多类型的类型提示。在<code>Union</code>类名称后面的中括号内指定类型范围：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Union</span><br>spam: <span class="hljs-type">Union</span>[<span class="hljs-built_in">int</span>, <span class="hljs-built_in">str</span>, <span class="hljs-built_in">float</span>] = <span class="hljs-number">42</span><br>spam = <span class="hljs-string">&#x27;hello&#x27;</span><br>spam = <span class="hljs-number">3.14</span><br></code></pre></td></tr></table></figure>
+
+<p>　　在这个示例中，类型提示<code>Union[int, str, float]</code>指定<code>spam</code>可以被设置为整数、字符串或浮点数。注意，最好使用<code>from typing import *X*</code>的形式，而非<code>import typing</code>的形式，这样在进行类型提示时就不必到处写成冗长的<code>typing.*X*</code>。</p>
+<p>　　在指定变量或返回值有多种数据类型时，如果想在除普通类型之外还包括<code>NoneType</code>，也就是<code>None</code>值的类型，需要在中括号内添加<code>None</code>，而非<code>NoneType</code>。（从技术上讲，<code>NoneType</code>与<code>int</code>或<code>str</code>不同，它不是内置标识符。）</p>
+<p>　　更好的方式是从<code>typing</code>模块中引入<code>Optional</code>，使用<code>Optional[str]</code>的写法替代<code>Union[str, None]</code>。这种类型提示意味着函数或方法除了返回预期类型的值，还可以返回<code>None</code>。这里有一个示例：</p>
+<p><code>typing</code>模块对于每种容器类型都有单独的类型别名。以下列出了Python中常见的容器类型的类型别名：</p>
+<ul>
+<li><code>List</code>指列表（<code>list</code>）数据类型；</li>
+<li><code>Tuple</code>指元组（<code>tuple</code>）数据类型；</li>
+<li><code>Dict</code>指字典（<code>dict</code>）数据类型；</li>
+<li><code>Set</code>指集合（<code>set</code>）数据类型；</li>
+<li><code>FrozenSet</code>指不可变集合（<code>frozenset</code>）数据类型；</li>
+<li><code>Sequence</code>指列表、元组或任何其他序列数据类型；</li>
+<li><code>Mapping</code>指字典、集合、不可变集合或者任何其他映射数据类型；</li>
+<li><code>ByteString</code>指<code>bytes</code>、<code>bytearray</code>和<code>memoryview</code>类型。</li>
+</ul>
+<p>　　你可以在Python官网上找到这些类型的完整列表。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>python读书笔记之编写高效函数（十）</div>
+      <div>http://example.com/2024/01/09/python读书笔记之编写高效函数（十）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%80%A7%E8%83%BD%E6%B5%8B%E7%AE%97%E5%92%8C%E5%A4%A7O%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/" title="python读书笔记之性能测算和大O算法分析（十三）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python读书笔记之性能测算和大O算法分析（十三）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" title="【other】Linux常用命令">
+                        <span class="hidden-mobile">【other】Linux常用命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
