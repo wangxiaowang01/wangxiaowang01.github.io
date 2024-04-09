@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python之pytest命令行调用（二）">
+<meta property="og:url" content="http://example.com/2024/01/20/python%E4%B9%8Bpytest%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This w">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
+<meta property="article:modified_time" content="2024-04-09T08:51:46.011Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="pytest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+  
+  <title>python之pytest命令行调用（二） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/marek.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python之pytest命令行调用（二）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-20 10:41" pubdate>
+          2024年1月20日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">python之pytest命令行调用（二）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="如何用命令行调用pytest"><a href="#如何用命令行调用pytest" class="headerlink" title="如何用命令行调用pytest"></a>如何用命令行调用pytest</h1><p>See also</p>
+<p><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#command-line-flags">Complete pytest command-line flag reference</a></p>
+<p>也可以点击链接查看完整的命令行介绍（那可太全面了）</p>
+<blockquote>
+<p>In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This will execute all tests in all files whose names follow the form test_*.py or *_test.py in the current directory and its subdirectories.  More generally, pytest follows standard test discovery rules.</p>
+</blockquote>
+<p>通常，pytest是用命令pytest调用的(参见下面的其他调用pytest的方法)。这将执行当前目录及其子目录中所有文件名以test_*.py或*_test.py形式结尾的文件中的所有测试。更一般地说，pytest遵循标准的<code>测试发现规则</code>。</p>
+<h2 id="指定要运行的测试"><a href="#指定要运行的测试" class="headerlink" title="指定要运行的测试"></a>指定要运行的测试</h2><p>Pytest 支持多种从命令行运行和选择测试的方法。</p>
+<p><strong>Run tests in a module：在模块中运行测试 （模块就是py文件）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pytest test_mod.py<br></code></pre></td></tr></table></figure>
+
+<p><strong>Run tests in a directory：在目录中运行测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pytest testing/<br></code></pre></td></tr></table></figure>
+
+<p><strong>Run tests by keyword expressions：通过关键字表达式运行测试</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pytest -k <span class="hljs-string">&#x27;MyClass and not method&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>This will run tests which contain names that match the given string expression (case-insensitive), which can include Python operators that use filenames, class names and function names as variables. The example above will run TestMyClass.test_something but not TestMyClass.test_method_simple. Use “” instead of ‘’ in expression when running this on Windows</p>
+<p>这将运行包含与给定名称匹配的名称的测试 <em>字符串表达式</em> （不区分大小写），它可以包括使用文件名、类名和函数名作为变量的Python运算符。上面的例子将运行 <code>TestMyClass.test_something</code> 但不是 <code>TestMyClass.test_method_simple</code> .</p>
+<p>（这个用的少）</p>
+</blockquote>
+<p><strong>Run tests by collection arguments：通过集合参数运行测试</strong></p>
+<p>Pass the module filename relative to the working directory, followed by specifiers like the class name and function name separated by <code>::</code> characters, and parameters from parameterization enclosed in <code>[]</code>.</p>
+<p>传递相对于工作目录的模块文件名，后跟由 :: 字符分隔的类名和函数名等说明符，以及包含在 [ ] 中的参数化参数。（下面让我们看看 :: 的用法）</p>
+<p>To run a specific test within a module:要在模块内运行特定测试：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">pytest tests/test_mod.py::test_func<br></code></pre></td></tr></table></figure>
+
+<p>To run all tests in a class: 要运行类中的所有测试：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">pytest tests/test_mod.py::TestClass<br></code></pre></td></tr></table></figure>
+
+<p>Specifying a specific test method: 指定具体的测试方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">pytest tests/test_mod.py::TestClass::test_method<br></code></pre></td></tr></table></figure>
+
+<p>Specifying a specific parametrization of a test: 指定测试的特定参数化：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">pytest tests/test_mod<span class="hljs-selector-class">.py</span>::test_func<span class="hljs-selector-attr">[x1,y2]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>Run tests by marker expressions：通过标记表达式运行测试</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pytest -m slow <br></code></pre></td></tr></table></figure>
+
+<p>Will run all tests which are decorated with the <code>@pytest.mark.slow</code> decorator.</p>
+<p>For more information see <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/how-to/mark.html#mark">marks</a>.</p>
+<p>将运行所有用 @pytest.mark.slow 装饰器装饰的测试。 有关更多信息，请参阅标记（关于mark标记，后面会讲…）。</p>
+<p><strong>Run tests from packages：从包运行测试</strong></p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">pytest <span class="hljs-comment">--pyargs pkg.testing</span><br></code></pre></td></tr></table></figure>
+
+<p>This will import <code>pkg.testing</code> and use its filesystem location to find and run tests from.</p>
+<p>这将导入 pkg.testing 并使用其文件系统位置来查找并运行测试。（这个用的少）</p>
+<h2 id="获取有关版本、选项名称、环境变量的帮助"><a href="#获取有关版本、选项名称、环境变量的帮助" class="headerlink" title="获取有关版本、选项名称、环境变量的帮助"></a>获取有关版本、选项名称、环境变量的帮助</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">pytest --version   <span class="hljs-comment"># shows where pytest was imported from 版本</span><br>pytest --fixtures  <span class="hljs-comment"># show available builtin function arguments显示可用的内置函数参数</span><br>pytest -h | --<span class="hljs-built_in">help</span> <span class="hljs-comment"># show help on command line and config file options显示帮助</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="分析测试执行持续时间"><a href="#分析测试执行持续时间" class="headerlink" title="分析测试执行持续时间"></a>分析测试执行持续时间</h2><p><em>6.0版本更改</em></p>
+<p>To get a list of the slowest 10 test durations over 1.0s long要获取长度超过 1.0 秒的最慢 10 个测试持续时间的列表：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">pytest <span class="hljs-attribute">--durations</span>=10 <span class="hljs-attribute">--durations-min</span>=1.0 # durations持续时间<br></code></pre></td></tr></table></figure>
+
+<p>By default, pytest will not show test durations that are too small (&lt;0.005s) unless <code>-vv</code> is passed on the command-line.</p>
+<p>默认情况下，pytest 不会显示太短（&lt;0.005s）的测试持续时间，除非在命令行上传递 -vv。</p>
+<h2 id="管理插件的加载"><a href="#管理插件的加载" class="headerlink" title="管理插件的加载"></a>管理插件的加载</h2><h3 id="早期加载插件"><a href="#早期加载插件" class="headerlink" title="早期加载插件"></a>早期加载插件</h3><p>You can early-load plugins (internal and external) explicitly in the command-line with the <code>-p</code> option:</p>
+<p>可以使用 -p 选项在命令行中显式提前加载插件（内部和外部）：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">pytest -<span class="hljs-selector-tag">p</span> mypluginmodule<br></code></pre></td></tr></table></figure>
+
+<p>The option receives a <code>name</code> parameter, which can be:</p>
+<p>该选项接收一个名称参数，该参数可以是：</p>
+<ul>
+<li><p>A full module dotted name, for example <code>myproject.plugins</code>. This dotted name must be importable.</p>
+</li>
+<li><p>完整的模块点名称，例如 myproject.plugins。这个点名称必须是可导入的。</p>
+</li>
+<li><p>The entry-point name of a plugin. This is the name passed to <code>setuptools</code> when the plugin is registered. For example to early-load the <a target="_blank" rel="noopener" href="https://pypi.org/project/pytest-cov/">pytest-cov</a> plugin you can use:</p>
+</li>
+<li><p>插件的入口点名称。这是注册插件时传递给 setuptools 的名称。例如，要提前加载 pytest-cov 插件，您可以使用：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">pytest -<span class="hljs-selector-tag">p</span> pytest_cov<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="禁用插件"><a href="#禁用插件" class="headerlink" title="禁用插件"></a>禁用插件</h3><p>To disable loading specific plugins at invocation time, use the <code>-p</code> option together with the prefix <code>no:</code>.</p>
+<p>要禁止在调用时加载特定插件，请使用 -p 选项和前缀 no:。</p>
+<p>示例：要禁用加载插件 doctest（该插件负责从文本文件执行 doctest 测试），请像这样调用 pytest：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">pytest</span> -p <span class="hljs-literal">no</span>:doctest<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="调用-pytest-的其他方式"><a href="#调用-pytest-的其他方式" class="headerlink" title="调用 pytest 的其他方式"></a>调用 pytest 的其他方式</h2><h3 id="过-python-m-pytest-调用-pytest"><a href="#过-python-m-pytest-调用-pytest" class="headerlink" title="过 python -m pytest 调用 pytest"></a>过 python -m pytest 调用 pytest</h3><p>可以从命令行通过 Python 解释器调用测试</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python</span> -m pytest<span class="hljs-meta"> [...]</span><br></code></pre></td></tr></table></figure>
+
+<p>This is almost equivalent to invoking the command line script <code>pytest [...]</code> directly, except that calling via <code>python</code> will also add the current directory to <code>sys.path</code>.</p>
+<p>这几乎相当于直接调用命令行脚本 pytest […]，只不过通过 python 调用还会将当前目录添加到 sys.path 中。</p>
+<h3 id="从-Python-代码调用-pytest【常用】"><a href="#从-Python-代码调用-pytest【常用】" class="headerlink" title="从 Python 代码调用 pytest【常用】"></a>从 Python 代码调用 pytest【常用】</h3><p>可以直接从Python代码调用pytest：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">retcode</span> <span class="hljs-operator">=</span> pytest.main()<br></code></pre></td></tr></table></figure>
+
+<p>this acts as if you would call “pytest” from the command line. It will not raise <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/exceptions.html#SystemExit"><code>SystemExit</code></a> but return the <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/exit-codes.html#exit-codes">exit code</a> instead. If you don’t pass it any arguments, <code>main</code> reads the arguments from the command line arguments of the process (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/sys.html#sys.argv"><code>sys.argv</code></a>), which may be undesirable. You can pass in options and arguments explicitly:</p>
+<p>这就像从命令行调用“pytest”一样。它不会引发SystemExit，而是返回退出代码。如果不向它传递任何参数，则main将从进程的命令行参数(sys.argv)中读取参数，这可能是不希望看到的。你可以显式地传入选项和参数:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">retcode</span> = pytest.main([<span class="hljs-string">&quot;-x&quot;</span>, <span class="hljs-string">&quot;mytestdir&quot;</span>])<br></code></pre></td></tr></table></figure>
+
+<p>您可以为<code> pytest.main</code> 指定其他插件：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># content of myinvoke.py</span><br>import sys<br><br>import pytest<br><br><br>class MyPlugin:<br>    def pytest_sessionfinish(self):<br>        print(<span class="hljs-string">&quot;*** test run reporting finishing&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    sys.<span class="hljs-keyword">exit</span>(pytest.main([<span class="hljs-string">&quot;-qq&quot;</span>], plugins=[MyPlugin()]))<br></code></pre></td></tr></table></figure>
+
+<p>Running it will show that <code>MyPlugin</code> was added and its hook was invoked:</p>
+<p>运行它将显示 MyPlugin 已添加并且其钩子已被调用：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-symbol">$</span> python myinvoke.py<br><span class="hljs-comment">*** test run reporting finishing</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Note</p>
+<p>Calling <code>pytest.main()</code> will result in importing your tests and any modules that they import. Due to the caching mechanism of python’s import system, making subsequent calls to <code>pytest.main()</code> from the same process will not reflect changes to those files between the calls. For this reason, making multiple calls to <code>pytest.main()</code> from the same process (in order to re-run tests, for example) is not recommended.</p>
+</blockquote>
+<blockquote>
+<p>注意<br>调用pytest.main()将导致导入测试和它们导入的任何模块。由于python导入系统的缓存机制，从同一进程对pytest.main()的后续调用将不会反映调用之间对这些文件的更改。出于这个原因，不建议从同一进程多次调用pytest.main()(例如，为了重新运行测试)。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/pytest/" class="print-no-link">#pytest</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>python之pytest命令行调用（二）</div>
+      <div>http://example.com/2024/01/20/python之pytest命令行调用（二）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/20/python%E4%B9%8Bpytest%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="【python】之pytest使用指南快速入门(一)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】之pytest使用指南快速入门(一)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/18/FastAPI4%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" title="【python】FastAPI依赖注入（四）">
+                        <span class="hidden-mobile">【python】FastAPI依赖注入（四）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
