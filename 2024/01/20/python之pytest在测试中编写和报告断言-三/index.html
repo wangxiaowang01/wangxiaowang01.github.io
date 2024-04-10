@@ -16,14 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="如何在测试中编写和报告断言使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def test_f">
+<meta property="og:type" content="article">
 <meta property="og:title" content="python之pytest在测试中编写和报告断言(三)">
 <meta property="og:url" content="http://example.com/2024/01/20/python%E4%B9%8Bpytest%E5%9C%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%BC%96%E5%86%99%E5%92%8C%E6%8A%A5%E5%91%8A%E6%96%AD%E8%A8%80-%E4%B8%89/index.html">
 <meta property="og:site_name" content="Wang">
+<meta property="og:description" content="如何在测试中编写和报告断言使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def test_f">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
 <meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
-<meta property="article:modified_time" content="2024-04-10T00:58:41.195Z">
+<meta property="article:modified_time" content="2024-04-10T08:50:42.898Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
@@ -222,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.1k 字
         
       </span>
     
@@ -233,7 +235,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -275,7 +277,24 @@
             
               <div class="markdown-body">
                 
-                
+                <h1 id="如何在测试中编写和报告断言"><a href="#如何在测试中编写和报告断言" class="headerlink" title="如何在测试中编写和报告断言"></a>如何在测试中编写和报告断言</h1><h2 id="使用-assert-语句断言"><a href="#使用-assert-语句断言" class="headerlink" title="使用 assert 语句断言"></a>使用 <code>assert</code> 语句断言</h2><p>pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：</p>
+<blockquote>
+<p>assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># content of test_assert1.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-keyword">assert</span> f() == <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+<p>断言函数返回某个值。如果此断言失败，将看到函数调用的返回值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">$ pytest test_assert1.py<br>=========================== test session starts ============================<br>platform linux -- Python <span class="hljs-number">3.</span>x.y, pytest-<span class="hljs-number">8.</span>x.y, pluggy-<span class="hljs-number">1.</span>x.y<br>rootdir: /home/sweet/project<br>collected <span class="hljs-number">1</span> item<br><br>test_assert1.py F     <span class="hljs-comment"># F就是失败                                                [100%]</span><br><br>================================= FAILURES =================================<br>______________________________ test_function _______________________________<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>&gt;       <span class="hljs-keyword">assert</span> f() == <span class="hljs-number">4</span><br>E       <span class="hljs-keyword">assert</span> <span class="hljs-number">3</span> == <span class="hljs-number">4</span><br>E        +  where <span class="hljs-number">3</span> = f()<br><br>test_assert1.py:<span class="hljs-number">6</span>: AssertionError<br>========================= short test summary info ==========================<br>FAILED test_assert1.py::test_function - <span class="hljs-keyword">assert</span> <span class="hljs-number">3</span> == <span class="hljs-number">4</span><br>============================ <span class="hljs-number">1</span> failed <span class="hljs-keyword">in</span> <span class="hljs-number">0.12</span>s =============================<br></code></pre></td></tr></table></figure>
+
+<p>Pytest支持显示最常见的子表达式的值，包括调用、属性、比较、二进制和一元操作符。</p>
+<p>如果使用如下断言指定消息：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">assert</span> a % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>, <span class="hljs-string">&quot;value was odd, should be even&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>它将会与回溯中的断言检查一起打印。</p>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_study</span>(<span class="hljs-params">self</span>):<br>    a = <span class="hljs-number">1</span>+<span class="hljs-number">1</span><br>    <span class="hljs-keyword">assert</span>  a == <span class="hljs-number">0</span>, <span class="hljs-string">&quot;如果断言失败，就会在AssertionError中打印这句话，如果成功就不会打印&quot;</span><br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
