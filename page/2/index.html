@@ -25,6 +25,8 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
   
   <title>Wang</title>
 
@@ -58,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -68,6 +70,46 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
   
@@ -222,23 +264,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
-          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【python】闭包之回调函数异步应用场景">
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="python之pytest命令行调用（二）">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
-          【python】闭包之回调函数异步应用场景
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_self">
+          python之pytest命令行调用（二）
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+      <a class="index-excerpt " href="/2024/01/20/python%E4%B9%8Bpytest%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_self">
         <div>
-          python 闭包函数 的用途闭包函数在Python中有多种用途，下面是一些常见的应用场景：  封装数据：闭包函数可以用于创建对象的私有变量，将变量隐藏在函数内部，只能通过特定的函数访问和修改。这样可以避免全局变量的污染，并增加代码的封装性和安全性。 保留状态：闭包函数可以捕获并保留其定义时的上下文环境。这意味着函数可以记住其被创建时的状态，可以在后续调用中继续使用这些状态。这在需要保持持久状态的
+          如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This w
         </div>
       </a>
 
@@ -246,8 +288,426 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-05 15:04" pubdate>
-              2024-03-05
+            <time datetime="2024-01-20 10:41" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/pytest/">#pytest</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E5%9C%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%BC%96%E5%86%99%E5%92%8C%E6%8A%A5%E5%91%8A%E6%96%AD%E8%A8%80-%E4%B8%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="python之pytest在测试中编写和报告断言(三)">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E5%9C%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%BC%96%E5%86%99%E5%92%8C%E6%8A%A5%E5%91%8A%E6%96%AD%E8%A8%80-%E4%B8%89/" target="_self">
+          python之pytest在测试中编写和报告断言(三)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/20/python%E4%B9%8Bpytest%E5%9C%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%BC%96%E5%86%99%E5%92%8C%E6%8A%A5%E5%91%8A%E6%96%AD%E8%A8%80-%E4%B8%89/" target="_self">
+        <div>
+          如何在测试中编写和报告断言使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def test_f
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 10:41" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/pytest/">#pytest</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/18/FastAPI4%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" target="_self">
+          <img src="/img/neom-AGZgrNeq7Kg-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI依赖注入（四）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/18/FastAPI4%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" target="_self">
+          【python】FastAPI依赖注入（四）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/18/FastAPI4%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" target="_self">
+        <div>
+          7-1 什么是依赖注入场景：  你的一个网站有两个查询接口，一个是图书列表借口，一个是用户列表借口，两个接口有相同的分页查询逻辑，此时你该如何实现？ 看看下面的普通代码实现方式 12345678910111213141516171819from fastapi import FastAPIapp = FastAPI()BOOKS = [&#123;&quot;id&quot;: i, &quot;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-18 14:10" pubdate>
+              2024-01-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/18/FastAPI3%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" target="_self">
+          <img src="/img/bing_2022_OHR.DolbadarnCastle.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI表单和文件上传（三）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/18/FastAPI3%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" target="_self">
+          【python】FastAPI表单和文件上传（三）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/18/FastAPI3%E8%A1%A8%E5%8D%95%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" target="_self">
+        <div>
+          6-1  什么是Form 表单很多网站都支持上传文件，比如说：注册时上传头像；填写问卷时上传附件等等。 Form表单其实是前端HTML语言中的一个标签语言，用来向服务端上传普通数据和文件。 示例1：Form表单的基本使用（浏览器直接打开该文件即可渲染出form表单页面） 1234567891011121314151617&lt;!DOCTYPE html&gt;&lt;html lang=&quo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-18 13:54" pubdate>
+              2024-01-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/16/FastAPI2%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BD%93/" target="_self">
+          <img src="/img/wUyMk7ziLT0.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI请求头体（二）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/16/FastAPI2%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BD%93/" target="_self">
+          【python】FastAPI请求头体（二）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/16/FastAPI2%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BD%93/" target="_self">
+        <div>
+          3-1使用Header 接收请求头参数需求场景：假设现在我们有个图书网站，需要客户端在请求头上携带有效的token，才可以获取图书数据，那FastAPI该如何获取客户端传过来的请求头参数呢？ 示例1：FastAPI获取，指定请求头的值（比如，请求头的key 是token） 123456789101112from fastapi import FastAPI, Header # 引入Header类a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-16 10:52" pubdate>
+              2024-01-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/15/FastAPI1%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0/" target="_self">
+          <img src="/img/bing_2020_OHR.HuntsMesa.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI简单学习和路径参数（一）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/15/FastAPI1%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0/" target="_self">
+          【python】FastAPI简单学习和路径参数（一）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/15/FastAPI1%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0/" target="_self">
+        <div>
+          FastApi学习一、快速上手第一个FastApi123456789101112131415161718192021222324# main.pyimport uvicornfrom fastapi import FastAPIapp = FastAPI()@app.get(&quot;/&quot;)async def root():    return &#123;&quot;message&
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-15 14:21" pubdate>
+              2024-01-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%80%A7%E8%83%BD%E6%B5%8B%E7%AE%97%E5%92%8C%E5%A4%A7O%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="python读书笔记之性能测算和大O算法分析（十三）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%80%A7%E8%83%BD%E6%B5%8B%E7%AE%97%E5%92%8C%E5%A4%A7O%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/" target="_self">
+          python读书笔记之性能测算和大O算法分析（十三）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E6%80%A7%E8%83%BD%E6%B5%8B%E7%AE%97%E5%92%8C%E5%A4%A7O%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/" target="_self">
+        <div>
+          第 13 章　性能测量和大O算法分析 　　对于大多数小型程序而言，性能可能没那么重要。我们也许会花一小时来为任务编写一个自动化脚本，而这个脚本只要几秒钟就能运行完。就算时间再长一些，也不过是我们端着咖啡杯回到办公桌旁的时长。  　　有些情况下，对于花时间学习如何提升脚本速度要持谨慎态度，因为我们需要先学习程序的运行速度测量方法，否则无法知道所做的修改是否提升了程序的速度。而这就是Python模块t
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-09 15:02" pubdate>
+              2024-01-09
             </time>
           </div>
         
@@ -291,23 +751,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
-          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【python】之装饰器的基础实现和常见装饰器">
+        <a href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88%E5%87%BD%E6%95%B0%EF%BC%88%E5%8D%81%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="python读书笔记之编写高效函数（十）">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
-          【python】之装饰器的基础实现和常见装饰器
+        <a href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88%E5%87%BD%E6%95%B0%EF%BC%88%E5%8D%81%EF%BC%89/" target="_self">
+          python读书笔记之编写高效函数（十）
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
+      <a class="index-excerpt " href="/2024/01/09/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88%E5%87%BD%E6%95%B0%EF%BC%88%E5%8D%81%EF%BC%89/" target="_self">
         <div>
-          原理实现方式应用场景及常见装饰器 在Python接口自动化测试中，装饰器可以用于增强测试函数的功能或改变其行为。以下是一些可能使用的装饰器示例：  设置和清理环境【setup和teardown】@setup：用于在测试开始前初始化环境或配置。123456789101112131415161718192021222324252627class CustomTestRunner:    def __i
+          十　编写高效的函数 　　函数就像是程序中的程序，通过拆分函数可以将代码分解成更小的单元。它能让我们不必编写重复的代码，减少错误的发生。但编写高效的函数要求我们在命名、大小、参数和复杂性等方面做出很多决策。本章将讲解编写函数的不同方法，分析各种取舍的利弊，深入探讨如何在函数的大小之间进行权衡，参数数量如何影响函数的复杂度，以及如何使用运算符*和**编写可变参数函数。本章还将讨论函数式编程范式以及按这
         </div>
       </a>
 
@@ -315,8 +775,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-05 14:04" pubdate>
-              2024-03-05
+            <time datetime="2024-01-09 15:01" pubdate>
+              2024-01-09
             </time>
           </div>
         
@@ -360,23 +820,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
-          <img src="/img/nasa-hubble-space-telescope-um9l5devkQw-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之异步async-await（八）">
+        <a href="/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" target="_self">
+          <img src="/img/marek.jpg" srcset="/img/loading.gif" lazyload alt="【other】Linux常用命令">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
-          【python】FastAPI之异步async-await（八）
+        <a href="/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" target="_self">
+          【other】Linux常用命令
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
+      <a class="index-excerpt " href="/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" target="_self">
         <div>
-          12-1 fastapi是异步Web框架【重点】FastAPI这个web框架是异步框架，那它到底是如何体现异步的呢？ 本质上，实现异步的方式有三种：多进程、多线程和协程，FastAPI实现异步使用了多线程(线程池)和协程的方式。  当我们写普通形式的代码时：即使用 def 定义路径函数，FastAPI内部帮我们使用多线程（线程池）实现异步并发 当我们写async形式的代码时：即使用 async d
+          一 关机1.1 关机重启相关操作命令1234567shutdown -h nowshutdown -h 5poweroff # 重启shutdown -r now shutdown -r 5reboot   二 目录操作命令2.1 增删改查1234567891011cd  # 进入ls # 查看mkdir # 增 创建rm -rf # 删除mv [选项] [源文件路径][目标文件路径]#源目录 #
         </div>
       </a>
 
@@ -384,8 +844,84 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-04 20:33" pubdate>
-              2024-03-04
+            <time datetime="2024-01-09 11:45" pubdate>
+              2024-01-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/linux/ubuntu/" class="category-chain-item">ubuntu</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/other/">#other</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/08/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1%EF%BC%88%E5%85%AB%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="python读书笔记之常见陷阱（八）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/08/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1%EF%BC%88%E5%85%AB%EF%BC%89/" target="_self">
+          python读书笔记之常见陷阱（八）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/08/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1%EF%BC%88%E5%85%AB%EF%BC%89/" target="_self">
+        <div>
+          八　常见的Python陷阱8.1　循环列表的同时不要增删其中的元素使用for或while在列表上进行循环（也就是迭代）的同时增删其中的元素很可能会导致错误。想想这种情况：你要迭代一个包含各种描述衣服的字符串的列表，希望每次发现&#39;sock&#39;时插入另一个&#39;sock&#39;，从而保证列表中的&#39;sock&#39;数是偶数。这个任务看起来很简单：遍历列表中的字符串，当发现某
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-08 15:01" pubdate>
+              2024-01-08
             </time>
           </div>
         
@@ -417,7 +953,7 @@
             
               <a href="/tags/python/">#python</a>
             
-              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
             
           </div>
         
@@ -429,23 +965,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
-          <img src="/img/david-becker-z8wovoRIZwo-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI7之APIRouter与请求响应的进阶用法（七）">
+        <a href="/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" target="_self">
+          <img src="/img/bing_2019_OHR.MeerkatMob.jpg" srcset="/img/loading.gif" lazyload alt="【other】docker相关基础介绍">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
-          【python】FastAPI7之APIRouter与请求响应的进阶用法（七）
+        <a href="/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" target="_self">
+          【other】docker相关基础介绍
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
+      <a class="index-excerpt " href="/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" target="_self">
         <div>
-          10-1 APIRouter基本使用【重点】场景： 如果我们写一个网站，或者写一个APP，那整个项目是比较复杂的，此时不应该把所有代码放在一个文件中。 前面我们通过把代码拆分到不同文件的方式，可以解决一些代码混乱的问题，但是却不能更好的解决。 比如一个项目中可能含有不同的模块，那不同的模块应该分开管理，这样项目才便于维护和管理。。 FastAPI的解决方式 APIRouter就是FastAPI为了
+          一、docker基础介绍1.1 docker 是什么？ docker 是一个开源的应用容器引擎 docker 诞生于2013年，基于Go语言实现， docker可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，现在也支持Windows 和 Mac OS 容器是完全使用沙箱机制，相互隔离 容器性能开销极低  1.2 docker 安装123456
         </div>
       </a>
 
@@ -453,215 +989,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-04 17:51" pubdate>
-              2024-03-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">#python</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
-          <img src="/img/neom-El92hmAt91o-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之登录认证（六）">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
-          【python】FastAPI之登录认证（六）
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
-        <div>
-          9-1 用户注册对于很多应用来说，注册接口是必可不少的。想要实现注册接口，其实很简单，但是你会发现会有很多种选择：  注册时有需要哪些字段？ 注册接口使用什么请求方式？ 前端朝后端传数据时，放在查询参数中、请求体中？ 如果放在请求体中，使用JSON格式还是表单格式？  解决方式 你会发现就一个简单的注册接口，其实还是有很多问题需要我们思考的。  首先，注册接口一般是将用户的个人信息提交给服务端，因
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-02 16:49" pubdate>
-              2024-03-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">#python</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
-          <img src="/img/nasa-hubble-space-telescope-ZsJuNhJSiR4-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之数据库操作（五）">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
-          【python】FastAPI之数据库操作（五）
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
-        <div>
-          8-1 关系型数据库由于之前学过数据库基础知识，这里不做介绍只做对比 场景的数据库一般表现为软件，比如  MySQL、Oracle、SQL Server、PostgreSQL、DB2、SQLite等等（关系型数据库）。 Redis、Memcached、MangoDb等等（键值型数据库）。  关系型数据库  关系型数据库，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，可以类比EXC
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-28 19:33" pubdate>
-              2024-02-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">#python</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-          <img src="/img/bing_2018_OyamaLeaves.jpg" srcset="/img/loading.gif" lazyload alt="【other】UML类图简单学习笔记">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-          【other】UML类图简单学习笔记
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
-        <div>
-          UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-26 10:48" pubdate>
-              2024-02-26
+            <time datetime="2024-01-08 14:48" pubdate>
+              2024-01-08
             </time>
           </div>
         
@@ -691,11 +1020,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+              <a href="/tags/other/">#other</a>
             
-              <a href="/tags/UML/">#UML</a>
-            
-              <a href="/tags/%E8%A7%86%E9%87%8E/">#视野</a>
+              <a href="/tags/docker/">#docker</a>
             
           </div>
         
@@ -707,23 +1034,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
-          <img src="/img/javier-miranda-N7mrKzGhKro-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】之设计模式【未完】">
+        <a href="/2024/01/04/Python%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%80%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【Python】笔记之判断一个字段串是否包含某一字符串">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
-          【python】之设计模式【未完】
+        <a href="/2024/01/04/Python%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%80%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
+          【Python】笔记之判断一个字段串是否包含某一字符串
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+      <a class="index-excerpt " href="/2024/01/04/Python%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%80%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
         <div>
-          前言第1章 简介1.1 面向对象相关1.2 面相对象的3个设计设计原则第2章–单例设计模式【创建型模式】2.1 理解单例12.1.1实现单例 –代码解读1234567891011121314151617181920212223242526272829# 单例模式class Singleton(object):    def __new__(cls): # __new__是在实例化的时候调用的方法
+          Python笔记之判断一个字段串是否包含某一字符串成员判断之 in一般用的多的是用in 来判断是否存在 返回Ture 或 False 12345str = &quot;string test string test&quot;find1 = &quot;str&quot;find2 = &quot;test&quot;print(find1 in str)      # Trueprint(fin
         </div>
       </a>
 
@@ -731,8 +1058,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-23 11:45" pubdate>
-              2024-02-23
+            <time datetime="2024-01-04 15:02" pubdate>
+              2024-01-04
             </time>
           </div>
         
@@ -776,23 +1103,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
-          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【linux】Ubuntu上使用Charles">
+        <a href="/2024/01/04/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E7%A8%8B%E6%9C%AF%E8%AF%AD%EF%BC%88%E4%B8%83%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【python】读书笔记之编程术语（七）">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
-          【linux】Ubuntu上使用Charles
+        <a href="/2024/01/04/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E7%A8%8B%E6%9C%AF%E8%AF%AD%EF%BC%88%E4%B8%83%EF%BC%89/" target="_self">
+          【python】读书笔记之编程术语（七）
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
+      <a class="index-excerpt " href="/2024/01/04/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E7%A8%8B%E6%9C%AF%E8%AF%AD%EF%BC%88%E4%B8%83%EF%BC%89/" target="_self">
         <div>
-          Ubuntu上使用Charles 下载 使用官网链接下载  https://www.charlesproxy.com/download/下载.tar.gz包后解压，进入解压目录/charles/bin  执行charles文件可打开charles 命令行方式下载安装  1234wget -q -O - https://www.charlesproxy.com/packages/apt/Public
+          第 7 章　编程术语7.1.1　作为语言的Python和作为解释器的PythonPython这个词有很多含义。Python编程语言的名字来自于英国喜剧团体Monty Python，而不是“蟒蛇”（尽管市面上的Python教程和文档有用“蟒蛇”来进行解释的）。同样，Python在计算机编程方面也有两种含义。 我们说“Python运行一个程序”或者“Python将抛出一个异常”时，我们是在谈论Pyth
         </div>
       </a>
 
@@ -800,8 +1127,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-02-23 11:15" pubdate>
-              2024-02-23
+            <time datetime="2024-01-04 15:01" pubdate>
+              2024-01-04
             </time>
           </div>
         
@@ -816,7 +1143,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  <a href="/categories/python/" class="category-chain-item">python</a>
   
   
 
@@ -831,11 +1158,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
+              <a href="/tags/python/">#python</a>
+            
               <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-              <a href="/tags/ubuntu/">#ubuntu</a>
             
           </div>
         
@@ -847,23 +1172,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
-          <img src="/img/madara-6upLDuaneSs-unsplash%20(1).jpg" srcset="/img/loading.gif" lazyload alt="【thought】思考之质量内建的一些理解">
+        <a href="/2024/01/03/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8Bpython%E4%B9%8B%E7%A6%85%EF%BC%88%E5%85%AD%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【python】读书笔记之python之禅（六）">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
-          【thought】思考之质量内建的一些理解
+        <a href="/2024/01/03/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8Bpython%E4%B9%8B%E7%A6%85%EF%BC%88%E5%85%AD%EF%BC%89/" target="_self">
+          【python】读书笔记之python之禅（六）
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
+      <a class="index-excerpt " href="/2024/01/03/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8Bpython%E4%B9%8B%E7%A6%85%EF%BC%88%E5%85%AD%EF%BC%89/" target="_self">
         <div>
-          质量内建的理解质量的标准： 质量的标准是多维度的。可以是功能性的，也可以是体验方面的，或者以更低的成本交付、 测试的本质：是验证交付的产品符合产品设计的预期标准，以及是否存在可能影响产品质量或者用户体验的风险。软件工程的本质也是聚焦质量交付，为了在不断迭代的过程中解决质量不可控而产生的一系列方法论和最佳时间， 我们都知道一句话叫做：“质量是设计和构建出来的，而不是测试出来的。” 对于质量建设， 作
+          第 6 章　编写Python风格的代码 对于编程语言来说，“强大”是一个毫无意义的形容词。每一种编程语言都称自己是强大的。官方的Python教程一开始就说“Python是一种易于学习、功能强大的编程语言”，但没有哪种算法只能用某种特定的语言编写，也没有哪种衡量单位来量化某种编程语言的“厉害程度”（尽管可以衡量程序员为他们最喜欢的编程语言争取地位的声音大小）。  　　每种语言都有自己的设计模式和缺陷
         </div>
       </a>
 
@@ -871,8 +1196,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-20 20:47" pubdate>
-              2024-01-20
+            <time datetime="2024-01-03 15:01" pubdate>
+              2024-01-03
             </time>
           </div>
         
@@ -887,7 +1212,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/thought/" class="category-chain-item">thought</a>
+  <a href="/categories/python/" class="category-chain-item">python</a>
   
   
 
@@ -902,11 +1227,427 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
+              <a href="/tags/python/">#python</a>
+            
               <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
             
-              <a href="/tags/%E6%80%9D%E8%80%83/">#思考</a>
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/02/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%EF%BC%88%E4%BA%94%EF%BC%89/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【python】读书笔记之代码的坏味道（五）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/02/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%EF%BC%88%E4%BA%94%EF%BC%89/" target="_self">
+          【python】读书笔记之代码的坏味道（五）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/02/python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%EF%BC%88%E4%BA%94%EF%BC%89/" target="_self">
+        <div>
+          Python 读书笔记之代码的坏味道2 、文件系统2.1.1文件系统 在Windows上，文件夹和文件名使用反斜杠（\）分隔；在macOS和Linux上，则是使用正斜杠（&#x2F;）分隔。为了使Python脚本跨平台兼容，可以使用pathlib模块和/运算符。 导入pathlib的典型方法是使用语句from pathlib import Path。因为Path是pathlib中最常用的类，所以使
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-02 15:01" pubdate>
+              2024-01-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
             
-              <a href="/tags/%E8%B4%A8%E9%87%8F%EF%BC%8C%E6%91%98%E6%8A%84/">#质量，摘抄</a>
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/25/Python%E4%B9%8BUI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%88%9D%E7%AA%A5/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【python】之UI自动化初窥">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/12/25/Python%E4%B9%8BUI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%88%9D%E7%AA%A5/" target="_self">
+          【python】之UI自动化初窥
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2023/12/25/Python%E4%B9%8BUI%E8%87%AA%E5%8A%A8%E5%8C%96%E5%88%9D%E7%AA%A5/" target="_self">
+        <div>
+          UI自动化之Selenium 和 PlaywrightSelenium概述：Selenium 是最广泛使用的开源 Web UI（用户界面）自动化测试套件之一。Selenium 支持的语言包括C#，Java，Perl，PHP，Python 和 Ruby。目前，Selenium Web 驱动程序最受 Python 和 C＃欢迎。 Selenium 测试脚本可以使用任何支持的编程语言进行编码，并且可以直
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-25 17:54" pubdate>
+              2023-12-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/24/httprunner%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/" target="_self">
+          <img src="/img/bing_2022_OHR.NaqsheRustam.jpg" srcset="/img/loading.gif" lazyload alt="【python】httprunner接口自动化框架">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/12/24/httprunner%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/" target="_self">
+          【python】httprunner接口自动化框架
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2023/12/24/httprunner%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/" target="_self">
+        <div>
+          httprunner接口自动化框架一、为什么选择httprunner？ HttpRunner是一个开源的 API 测试工具环境搭建，相比于其它 API 测试工具，HttpRunner 最大的不同在于设计理念： 约定大于配置：测试用例是标准结构化的，格式统一，方便协作和维护； 标准开放：基于开放的标准，支持HAR&#x2F;Postman&#x2F;Swagger等工具对接，轻松实现用例生成和转换；
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-24 14:11" pubdate>
+              2023-12-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
+            
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96/">#接口自动化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/23/WSL%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          <img src="/img/bing_2018_OyamaLeaves.jpg" srcset="/img/loading.gif" lazyload alt="【other】WSL基础使用指南">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/12/23/WSL%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          【other】WSL基础使用指南
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2023/12/23/WSL%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+        <div>
+          WSL使用指南1、WSL介绍和安装一、简介 Windows Subsystem for Linux（简称WSL）是一个在Windows 10\11上能够运行原生Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，其目标是使纯正的Ubuntu、Debian等映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。 优势：开发人员
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-23 23:11" pubdate>
+              2023-12-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/other/" class="category-chain-item">other</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/wsl/">#wsl</a>
+            
+              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
+            
+              <a href="/tags/windows/">#windows</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/15/djangoAdmin%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" target="_self">
+          <img src="/img/124.jpeg" srcset="/img/loading.gif" lazyload alt="【python】djangoAdmin部署记录">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/12/15/djangoAdmin%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" target="_self">
+          【python】djangoAdmin部署记录
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2023/12/15/djangoAdmin%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" target="_self">
+        <div>
+          部署笔记环境准备 Python &gt;&#x3D; 3.8.0 (推荐3.9+版本)nodejs &gt;&#x3D; 14.0 (推荐最新)Mysql &gt;&#x3D; 5.7.0 (可选，默认数据库sqlite3，推荐8.0版本)Redis(可选，最新版)  后端代码拉代码部署123456789101112131415# 拉代码进入后端项目目录:cd backend在项目根目录中，复制
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-15 20:42" pubdate>
+              2023-12-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/12/07/go%E8%AF%AD%E8%A8%80%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%EF%BC%88goroutine%E3%80%81channel%E3%80%81SELECT%EF%BC%89/" target="_self">
+          <img src="/img/PoenariCastle.jpg" srcset="/img/loading.gif" lazyload alt="【Golang】go语言之并发编程基础（goroutine、channel、SELECT）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/12/07/go%E8%AF%AD%E8%A8%80%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%EF%BC%88goroutine%E3%80%81channel%E3%80%81SELECT%EF%BC%89/" target="_self">
+          【Golang】go语言之并发编程基础（goroutine、channel、SELECT）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2023/12/07/go%E8%AF%AD%E8%A8%80%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%EF%BC%88goroutine%E3%80%81channel%E3%80%81SELECT%EF%BC%89/" target="_self">
+        <div>
+          并发编程go中的串行和并行还有并发的概念 串行（Sequential）： 串行是一种执行方式，串联行走，按照顺序逐一的执行任务或者操作， 在串行执行中，每个任务必须等待前一个任务执行完了之后才能开始执行 场景：串行执行通常用于单核或者单线程环境，其中一次只能执行一个任务，意味着任务要找现行顺序执行，一个接一个，直到所有的任务都完成 串行执行通常具有可预测行，因为任务的执行顺序是确定的， 缺点就是在
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-07 15:38" pubdate>
+              2023-12-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
             
           </div>
         
@@ -918,7 +1659,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
@@ -972,6 +1713,30 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
   
   
 </div>
@@ -1024,6 +1789,8 @@
 
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

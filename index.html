@@ -25,6 +25,8 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
   
   <title>Wang</title>
 
@@ -58,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -68,6 +70,46 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
   
@@ -217,39 +259,6 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/04/11/Untitled/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/04/11/Untitled/" target="_self">
-        <div>
-          
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-11 11:22" pubdate>
-              2024-04-11
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
 
   <div class="row mx-auto index-card">
     
@@ -874,11 +883,778 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【python】闭包之回调函数异步应用场景">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+          【python】闭包之回调函数异步应用场景
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/03/05/python%E4%B9%8B%E9%97%AD%E5%8C%85%E4%B9%8B%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+        <div>
+          python 闭包函数 的用途闭包函数在Python中有多种用途，下面是一些常见的应用场景：  封装数据：闭包函数可以用于创建对象的私有变量，将变量隐藏在函数内部，只能通过特定的函数访问和修改。这样可以避免全局变量的污染，并增加代码的封装性和安全性。 保留状态：闭包函数可以捕获并保留其定义时的上下文环境。这意味着函数可以记住其被创建时的状态，可以在后续调用中继续使用这些状态。这在需要保持持久状态的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-05 15:04" pubdate>
+              2024-03-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
+          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【python】之装饰器的基础实现和常见装饰器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
+          【python】之装饰器的基础实现和常见装饰器
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/03/05/python%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_self">
+        <div>
+          原理实现方式应用场景及常见装饰器 在Python接口自动化测试中，装饰器可以用于增强测试函数的功能或改变其行为。以下是一些可能使用的装饰器示例：  设置和清理环境【setup和teardown】@setup：用于在测试开始前初始化环境或配置。123456789101112131415161718192021222324252627class CustomTestRunner:    def __i
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-05 14:04" pubdate>
+              2024-03-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
+          <img src="/img/nasa-hubble-space-telescope-um9l5devkQw-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之异步async-await（八）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
+          【python】FastAPI之异步async-await（八）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/03/04/FastAPI8%E4%B9%8B%E5%BC%82%E6%AD%A5async-await/" target="_self">
+        <div>
+          12-1 fastapi是异步Web框架【重点】FastAPI这个web框架是异步框架，那它到底是如何体现异步的呢？ 本质上，实现异步的方式有三种：多进程、多线程和协程，FastAPI实现异步使用了多线程(线程池)和协程的方式。  当我们写普通形式的代码时：即使用 def 定义路径函数，FastAPI内部帮我们使用多线程（线程池）实现异步并发 当我们写async形式的代码时：即使用 async d
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-04 20:33" pubdate>
+              2024-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
+          <img src="/img/david-becker-z8wovoRIZwo-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI7之APIRouter与请求响应的进阶用法（七）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
+          【python】FastAPI7之APIRouter与请求响应的进阶用法（七）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/03/04/FastAPI7%E4%B9%8BAPIRouter%E4%B8%8E%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%9A%84%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95/" target="_self">
+        <div>
+          10-1 APIRouter基本使用【重点】场景： 如果我们写一个网站，或者写一个APP，那整个项目是比较复杂的，此时不应该把所有代码放在一个文件中。 前面我们通过把代码拆分到不同文件的方式，可以解决一些代码混乱的问题，但是却不能更好的解决。 比如一个项目中可能含有不同的模块，那不同的模块应该分开管理，这样项目才便于维护和管理。。 FastAPI的解决方式 APIRouter就是FastAPI为了
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-04 17:51" pubdate>
+              2024-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
+          <img src="/img/neom-El92hmAt91o-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之登录认证（六）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
+          【python】FastAPI之登录认证（六）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/03/02/FastAPI6%E4%B9%8B%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" target="_self">
+        <div>
+          9-1 用户注册对于很多应用来说，注册接口是必可不少的。想要实现注册接口，其实很简单，但是你会发现会有很多种选择：  注册时有需要哪些字段？ 注册接口使用什么请求方式？ 前端朝后端传数据时，放在查询参数中、请求体中？ 如果放在请求体中，使用JSON格式还是表单格式？  解决方式 你会发现就一个简单的注册接口，其实还是有很多问题需要我们思考的。  首先，注册接口一般是将用户的个人信息提交给服务端，因
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-02 16:49" pubdate>
+              2024-03-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
+          <img src="/img/nasa-hubble-space-telescope-ZsJuNhJSiR4-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】FastAPI之数据库操作（五）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
+          【python】FastAPI之数据库操作（五）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/02/28/FastAPI5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" target="_self">
+        <div>
+          8-1 关系型数据库由于之前学过数据库基础知识，这里不做介绍只做对比 场景的数据库一般表现为软件，比如  MySQL、Oracle、SQL Server、PostgreSQL、DB2、SQLite等等（关系型数据库）。 Redis、Memcached、MangoDb等等（键值型数据库）。  关系型数据库  关系型数据库，是指采用了关系模型来组织数据的数据库，其以行和列的形式存储数据，可以类比EXC
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-02-28 19:33" pubdate>
+              2024-02-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%BC%96%E7%A8%8B%EF%BC%8Cweb%E5%BC%80%E5%8F%91/">#编程，web开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          <img src="/img/bing_2018_OyamaLeaves.jpg" srcset="/img/loading.gif" lazyload alt="【other】UML类图简单学习笔记">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          【other】UML类图简单学习笔记
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/02/26/UML%E7%B1%BB%E5%9B%BE%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+        <div>
+          UML图是软件工程建模中对程序设计描述的设计图类的总称，可以让我们更清晰的了解项目的结构。 常见UML图包含类图、对象图、组件图、部署图、用例图等结构行为图以及序列图、协作图、状态图、活动图等动态行为图，想要拓展的可以参考网上博客—&gt;九种常见UML图  本文是最常用的UML类图的笔记  一、UML类图简介类图以反映类的结构(属性、操作)以及类之间的关系为主要目的，描述了软件系统的结构，是一
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-02-26 10:48" pubdate>
+              2024-02-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/other/" class="category-chain-item">other</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/UML/">#UML</a>
+            
+              <a href="/tags/%E8%A7%86%E9%87%8E/">#视野</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+          <img src="/img/javier-miranda-N7mrKzGhKro-unsplash.jpg" srcset="/img/loading.gif" lazyload alt="【python】之设计模式【未完】">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+          【python】之设计模式【未完】
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/02/23/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          前言第1章 简介1.1 面向对象相关1.2 面相对象的3个设计设计原则第2章–单例设计模式【创建型模式】2.1 理解单例12.1.1实现单例 –代码解读1234567891011121314151617181920212223242526272829# 单例模式class Singleton(object):    def __new__(cls): # __new__是在实例化的时候调用的方法
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-02-23 11:45" pubdate>
+              2024-02-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
+          <img src="/img/neom(2).jpg" srcset="/img/loading.gif" lazyload alt="【linux】Ubuntu上使用Charles">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
+          【linux】Ubuntu上使用Charles
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/02/23/Ubuntu%E4%B8%8A%E4%BD%BF%E7%94%A8Charles/" target="_self">
+        <div>
+          Ubuntu上使用Charles 下载 使用官网链接下载  https://www.charlesproxy.com/download/下载.tar.gz包后解压，进入解压目录/charles/bin  执行charles文件可打开charles 命令行方式下载安装  1234wget -q -O - https://www.charlesproxy.com/packages/apt/Public
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-02-23 11:15" pubdate>
+              2024-02-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/linux/">#linux</a>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
+          <img src="/img/madara-6upLDuaneSs-unsplash%20(1).jpg" srcset="/img/loading.gif" lazyload alt="【thought】思考之质量内建的一些理解">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
+          【thought】思考之质量内建的一些理解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" target="_self">
+        <div>
+          质量内建的理解质量的标准： 质量的标准是多维度的。可以是功能性的，也可以是体验方面的，或者以更低的成本交付、 测试的本质：是验证交付的产品符合产品设计的预期标准，以及是否存在可能影响产品质量或者用户体验的风险。软件工程的本质也是聚焦质量交付，为了在不断迭代的过程中解决质量不可控而产生的一系列方法论和最佳时间， 我们都知道一句话叫做：“质量是设计和构建出来的，而不是测试出来的。” 对于质量建设， 作
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 20:47" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/thought/" class="category-chain-item">thought</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/%E6%80%9D%E8%80%83/">#思考</a>
+            
+              <a href="/tags/%E8%B4%A8%E9%87%8F%EF%BC%8C%E6%91%98%E6%8A%84/">#质量，摘抄</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          <img src="/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg" srcset="/img/loading.gif" lazyload alt="【python】之pytest使用指南快速入门(一)">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/20/python%E4%B9%8Bpytest%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          【python】之pytest使用指南快速入门(一)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/01/20/python%E4%B9%8Bpytest%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+        <div>
+          介绍The pytest framework makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries. pytest框架可以轻松编写小型、可读的测试，并且可以扩展以支持应用程序和库的复杂功能测试。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 10:41" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">#python</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/pytest/">#pytest</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
@@ -932,6 +1708,30 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
   
   
 </div>
@@ -984,6 +1784,8 @@
 
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
