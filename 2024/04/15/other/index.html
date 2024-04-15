@@ -16,27 +16,27 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="11.1 json序列化Go语言中的序列化和反序列化是一种解码思路 可以将结构体进行序列化为JSON字符串格式， 注意：不是将类型转化为JSON，go语言没有JSON格式类型， 是将数据，转化为 JSON格式风格的数据，供其他语言使用， 比如说，python中，也没有json这种数据格式，把一串json导入到Python，打印它的类型，打印出来就是string字符串类型，将json转化成字典，就是">
+    <meta name="description" content="餐厅合集（未完）人类活动促成了食物的相聚，食物的离合，也在调动人类的聚散，西方人称作“命运”，中国人叫它“缘分”。 人们懂得用五味杂陈形容人生，因为懂得味道是每个人心中固守的情怀。 在这个时代，每一个人都经历了太多的苦痛和喜悦，中国人总会将苦涩藏在心里，而把幸福变成食物，呈现在四季的餐桌之上。 中国人善于用食物来缩短他乡与故乡的距离。 1、一个成功的厨师，并不只依赖青春，更仰仗厚重的经验。 2、广">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Golang】go语言之json、YAML的序列化和反序列化">
-<meta property="og:url" content="http://example.com/2023/12/06/go%E8%AF%AD%E8%A8%80json%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:title" content="【other】餐厅合集">
+<meta property="og:url" content="http://example.com/2024/04/15/other/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="11.1 json序列化Go语言中的序列化和反序列化是一种解码思路 可以将结构体进行序列化为JSON字符串格式， 注意：不是将类型转化为JSON，go语言没有JSON格式类型， 是将数据，转化为 JSON格式风格的数据，供其他语言使用， 比如说，python中，也没有json这种数据格式，把一串json导入到Python，打印它的类型，打印出来就是string字符串类型，将json转化成字典，就是">
+<meta property="og:description" content="餐厅合集（未完）人类活动促成了食物的相聚，食物的离合，也在调动人类的聚散，西方人称作“命运”，中国人叫它“缘分”。 人们懂得用五味杂陈形容人生，因为懂得味道是每个人心中固守的情怀。 在这个时代，每一个人都经历了太多的苦痛和喜悦，中国人总会将苦涩藏在心里，而把幸福变成食物，呈现在四季的餐桌之上。 中国人善于用食物来缩短他乡与故乡的距离。 1、一个成功的厨师，并不只依赖青春，更仰仗厚重的经验。 2、广">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/bing_2022_OHR.GlassBridge.jpg">
-<meta property="article:published_time" content="2023-12-06T03:43:56.000Z">
-<meta property="article:modified_time" content="2024-03-06T09:42:48.762Z">
+<meta property="og:image" content="http://example.com/img/marek.jpg">
+<meta property="article:published_time" content="2024-04-15T03:45:04.000Z">
+<meta property="article:modified_time" content="2024-04-15T07:38:28.380Z">
 <meta property="article:author" content="Wangxiaowang">
-<meta property="article:tag" content="go">
-<meta property="article:tag" content="编程">
+<meta property="article:tag" content="other">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/bing_2022_OHR.GlassBridge.jpg">
+<meta name="twitter:image" content="http://example.com/img/marek.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【Golang】go语言之json、YAML的序列化和反序列化 - Wang</title>
+  <title>【other】餐厅合集 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/bing_2022_OHR.GlassBridge.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/bing_2022_OHR.TwoJackLake.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【Golang】go语言之json、YAML的序列化和反序列化"></span>
+            <span id="subtitle" data-typed-text="【other】餐厅合集"></span>
           
         </div>
 
@@ -253,8 +253,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-06 11:43" pubdate>
-          2023年12月6日 中午
+        <time datetime="2024-04-15 11:45" pubdate>
+          2024年4月15日 中午
         </time>
       </span>
     
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          2k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          29 分钟
+          17 分钟
         
       </span>
     
@@ -313,33 +313,119 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【Golang】go语言之json、YAML的序列化和反序列化</h1>
+            <h1 id="seo-header">【other】餐厅合集</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="11-1-json序列化"><a href="#11-1-json序列化" class="headerlink" title="11.1 json序列化"></a>11.1 json序列化</h1><p>Go语言中的序列化和反序列化是一种解码<strong>思路</strong></p>
-<p>可以将结构体进行序列化为<strong>JSON字符串格式</strong>，</p>
-<p><code>注意：不是将类型转化为JSON，go语言没有JSON格式类型，</code></p>
-<p>是将数据，转化为 JSON格式风格的数据，供其他语言使用，</p>
-<p>比如说，python中，也没有json这种数据格式，把一串json导入到Python，打印它的类型，打印出来就是string字符串类型，将json转化成字典，就是将字符串转成字典</p>
-<p>带入到go语言中也是一样的概念，只是go语言可以通过结构体去转化成json(序列化)，变成一种键值对的格式（也有不是键值对格式的json）</p>
-<p>go语言序列化（结构体转json）和反序列化的实现方式：通过json.Marshal(person) person就是结构体实例化的数据，json.Unmarshal(jsondata)就是反序列化（结构体转json）</p>
-<p>结构体转JSON</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Myaccount <span class="hljs-keyword">struct</span> &#123;<br>	Name   <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;name&quot;`</span><br>	PWD    <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;pwd&quot;`</span><br>	Amount <span class="hljs-type">int</span>    <span class="hljs-string">`json:&quot;amount&quot;`</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	account := Myaccount&#123;<span class="hljs-string">&quot;and&quot;</span>, <span class="hljs-string">&quot;123&quot;</span>, <span class="hljs-number">18</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;打印一下：&quot;</span>, account) <span class="hljs-comment">// 打印一下： &#123;and 123 18&#125;</span><br>	<span class="hljs-comment">// 序列化方法</span><br>	data1, _ := json.Marshal(account)<br>    fmt.Println(<span class="hljs-string">&quot;序列化后的data1:&quot;</span>, <span class="hljs-type">string</span>(data1)) <span class="hljs-comment">// 序列化后的data1: &#123;&quot;name&quot;:&quot;and&quot;,&quot;pwd&quot;:&quot;123&quot;,&quot;amount&quot;:18&#125;</span><br>	fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, data1) <span class="hljs-comment">// 打印出来的类型是无符号8位整形[]uint8，无正负符号8位整形</span><br>	data2, _ := json.MarshalIndent(account, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)<span class="hljs-comment">// MarshalIndent带缩进</span><br><br>	fmt.Println(<span class="hljs-string">&quot;序列化后的data2=&quot;</span>, <span class="hljs-type">string</span>(data2))    <span class="hljs-comment">// 序列化后的data2= &#123;</span><br> <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;and&quot;</span>,<br> <span class="hljs-string">&quot;pwd&quot;</span>: <span class="hljs-string">&quot;123&quot;</span>,<br> <span class="hljs-string">&quot;amount&quot;</span>: <span class="hljs-number">18</span><br>&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;data2的格式是：%T\n&quot;</span>, data2) <span class="hljs-comment">// []uint8</span><br><span class="hljs-comment">// 反序列化方法，就用json.Unmarshal()方法</span><br>	<span class="hljs-keyword">var</span> account2 Myaccount <span class="hljs-comment">// 定义一个变量account2，类型是Myaccount结构体</span><br>	json.Ummarshal(data1,&amp;account2)<br>	fmt.Println(<span class="hljs-string">&quot;account2=&quot;</span>, account2)<span class="hljs-comment">// account2=&#123;and 123 18&#125; ,打印出来的就是结构体了</span><br>	fmt.Printf(<span class="hljs-string">&quot;%T\n&quot;</span>, account2) <span class="hljs-comment">// 类型就是main.Myaccount</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 再写一个</span><br><span class="hljs-keyword">type</span> MyScore <span class="hljs-keyword">struct</span> &#123;<br>	Name  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;name&quot;`</span><br>	Class <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;class&quot;`</span><br>	Score <span class="hljs-type">int</span>    <span class="hljs-string">`json:&quot;score&quot;`</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    TomScore := MyScore&#123;<span class="hljs-string">&quot;Tom&quot;</span>, <span class="hljs-string">&quot;2班&quot;</span>, <span class="hljs-number">99</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;TomSocre=&quot;</span>, TomScore)<br>	<span class="hljs-comment">// 将TomScore进行序列化</span><br>	JsonTomScore, _ := json.Marshal(TomScore)<br>	fmt.Println(<span class="hljs-string">&quot;JsonTomScore=&quot;</span>, <span class="hljs-type">string</span>(JsonTomScore))<br>	<span class="hljs-comment">// 优化缩进后的</span><br>	JsonTomScore2, _ := json.MarshalIndent(TomScore, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)<br>	fmt.Println(<span class="hljs-string">&quot;JsonTomScore2=&quot;</span>, <span class="hljs-type">string</span>(JsonTomScore2))<br>	<span class="hljs-comment">// 反序列化</span><br>	<span class="hljs-keyword">var</span> tom MyScore<br>	json.Unmarshal(JsonTomScore, &amp;tom)<br>	fmt.Println(<span class="hljs-string">&quot;tom=&quot;</span>, tom)<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<blockquote>
-<p>序列化和反序列化，目前用到的是结构体类型数据转成json格式，和json格式转成结构体类型的数据</p>
-</blockquote>
-<h1 id="Yaml-序列化和反序列化（yaml与结构体互转）"><a href="#Yaml-序列化和反序列化（yaml与结构体互转）" class="headerlink" title="Yaml 序列化和反序列化（yaml与结构体互转）"></a>Yaml 序列化和反序列化（yaml与结构体互转）</h1><ul>
-<li>思路和方式跟json的是一样的，只是用了一个库：**”gopkg.in&#x2F;yaml.v3”**</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;gopkg.in/yaml.v3&quot;</span><br>	<span class="hljs-string">&quot;io/ioutil&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> MyYAML <span class="hljs-keyword">struct</span> &#123;<br>	Name  <span class="hljs-type">string</span> <span class="hljs-string">`yaml:&quot;name&quot;`</span><br>	Age   <span class="hljs-type">int</span>    <span class="hljs-string">`yaml:&quot;age&quot;`</span><br>	Email <span class="hljs-type">string</span> <span class="hljs-string">`yaml:&quot;email,omitempty&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 序列化yaml 和序列化json一样的  yaml.Marshal</span><br>	YamlStruct := MyYAML&#123;<span class="hljs-string">&quot;andy&quot;</span>, <span class="hljs-number">11</span>, <span class="hljs-string">&quot;110@163.com&quot;</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;YamlStruct=&quot;</span>, YamlStruct)<br>	YamlDate, _ := yaml.Marshal(YamlStruct)<br>	fmt.Println(<span class="hljs-string">&quot;YamlDate=&quot;</span>, <span class="hljs-type">string</span>(YamlDate))<br>	<span class="hljs-comment">// 下面反序列化yaml,也是和json一样思路，yaml.UnMarshal</span><br>	<span class="hljs-comment">// 不过在这之前你要有一个yaml文件，读取这个yaml文件后才能去打印出来</span><br>	yamlDataFile, err := ioutil.ReadFile(<span class="hljs-string">&quot;data.yml&quot;</span>) <span class="hljs-comment">// 读取yml文件</span><br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to read YAML file: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-keyword">var</span> MyYamlStruct MyYAML<br>	err = yaml.Unmarshal(yamlDataFile, &amp;MyYamlStruct) <span class="hljs-comment">// 把数据赋值到结构体里，用指针，改变他的值</span><br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		log.Fatalf(<span class="hljs-string">&quot;Failed to unmarshal YAML: %v&quot;</span>, err)<br>	&#125;<br>	<span class="hljs-comment">// 打印数据出来，</span><br>	fmt.Printf(<span class="hljs-string">&quot;Name: %s, Age: %d, Email: %s\n&quot;</span>, MyYamlStruct.Name, MyYamlStruct.Age, MyYamlStruct.Email)<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
+                <h1 id="餐厅合集（未完）"><a href="#餐厅合集（未完）" class="headerlink" title="餐厅合集（未完）"></a>餐厅合集（未完）</h1><p>人类活动促成了食物的相聚，食物的离合，也在调动人类的聚散，西方人称作“命运”，中国人叫它“缘分”。</p>
+<p>人们懂得用五味杂陈形容人生，因为懂得味道是每个人心中固守的情怀。</p>
+<p>在这个时代，每一个人都经历了太多的苦痛和喜悦，中国人总会将苦涩藏在心里，而把幸福变成食物，呈现在四季的餐桌之上。</p>
+<p>中国人善于用食物来缩短他乡与故乡的距离。</p>
+<p>1、一个成功的厨师，并不只依赖青春，更仰仗厚重的经验。</p>
+<p>2、广厦千间，夜眠仅需六尺；家财万贯，日食不过三餐！</p>
+<p>3、无论靠山还是靠水，劳动者们都有专属于自己家人的美味。</p>
+<p>5、无论是埋头种田，还是低头吃饭，他们总不会忘记，抬头看一看天。</p>
+<p>7、中国人对食物的感情多半是思乡，是怀旧，是留恋童年的味道</p>
+<p>9、半生闯荡，带来家业丰厚，儿孙满堂，行走一生的脚步，起点，终点，归根到底，都是家所在的地方，这是中国人秉持千年的信仰，朴素，但有力量。</p>
+<p>10、东方和西方，江南和塞北。人们的迁徙促成了食物的相逢，食物的离合见证了人的聚散。</p>
+<h1 id="川菜"><a href="#川菜" class="headerlink" title="川菜"></a>川菜</h1><p>香火肥肠(南山店) </p>
+<p>渝月川菜</p>
+<p>大树脚云南菜</p>
+<h1 id="湘菜"><a href="#湘菜" class="headerlink" title="湘菜"></a>湘菜</h1><p>湘田田·湖南土菜(新安店)</p>
+<p>天宝兄弟 湘菜</p>
+<p>江味龙虾馆 南山 龙虾</p>
+<p>湘椒 湘菜</p>
+<h1 id="广东菜"><a href="#广东菜" class="headerlink" title="广东菜"></a>广东菜</h1><p>潮香四海·家传潮汕菜(南山店)</p>
+<p>悦满楼（宝安）</p>
+<p>电白鸭粥店（西丽）</p>
+<p>胡须佬鸡煲四季火锅店</p>
+<p>百年果林椰子鸡 椰子鸡</p>
+<p>化州肥仔大排档(建安二路店)</p>
+<p>点都德(龙华优城店) 广东早茶</p>
+<p>79号渔船海鲜饭店 海鲜 </p>
+<h1 id="浙菜"><a href="#浙菜" class="headerlink" title="浙菜"></a>浙菜</h1><p>江南厨子-苏浙菜（万象天地店）</p>
+<p>钱塘潮 精致江浙菜</p>
+<h1 id="京菜"><a href="#京菜" class="headerlink" title="京菜"></a>京菜</h1><p>雪乡情东北菜（南山）</p>
+<p>旺顺阁  北京菜</p>
+<p>京炙坊 北京菜</p>
+<h1 id="日料"><a href="#日料" class="headerlink" title="日料"></a>日料</h1><p>摩打食堂（壹方城）</p>
+<p>Green Table GT 西餐</p>
+<p>森some fusion</p>
+<p>[BROWNSTONE布朗石西班牙餐厅酒吧(]</p>
+<h1 id="东南亚菜"><a href="#东南亚菜" class="headerlink" title="东南亚菜"></a>东南亚菜</h1><p>何止料理(海上世界店) 东南亚菜</p>
+<p>PATPONG帕蓬-泰国餐厅</p>
+<p>冬阴功泰国菜(蛇口店) </p>
+<h1 id="火锅"><a href="#火锅" class="headerlink" title="火锅"></a>火锅</h1><p>汶和记粥底火锅 </p>
+<p>牛百鲜牛腩煲火锅</p>
+<p>八合里牛肉火锅</p>
+<p>二当家（流塘）</p>
+<p>新起点脆肉皖火锅</p>
+<p>杨氏南门涮肉（流塘）</p>
+<p>車记碳烤肥牛·团建聚餐(流塘店)</p>
+<h1 id="小吃"><a href="#小吃" class="headerlink" title="小吃"></a>小吃</h1><p>陈记鲜虾云吞面(蛇口店)</p>
+<p>Pelicana百利家炸鸡(宝安壹方城店)</p>
+<p>方铲铲板凳（车公庙）</p>
+<p>成都钟姐钵钵鸡（南山）</p>
+<p>百利家炸鸡</p>
+<p>新西园饮食店</p>
+<p>周螺记 螺蛳粉</p>
+<p>shankshark</p>
+<p>成都瓜串串 </p>
+<h1 id="其他特色"><a href="#其他特色" class="headerlink" title="其他特色"></a>其他特色</h1><p>台湾茶餐厅(甲岸店)</p>
+<p>西北领头羊 新疆菜</p>
+<p>沃尔玛</p>
+<p>七月柿 创意菜</p>
+<h1 id="甜点"><a href="#甜点" class="headerlink" title="甜点"></a>甜点</h1><h2 id="百草堂祖传凉茶铺–蛇口"><a href="#百草堂祖传凉茶铺–蛇口" class="headerlink" title="百草堂祖传凉茶铺–蛇口"></a>百草堂祖传凉茶铺–蛇口</h2><p>夏天即将来袭，第一家首推百草堂祖传凉茶铺，多年老店了，</p>
+<p>坐标：</p>
+<p>几年前吃过，因为每次来都要排队，所以很久没来啦，今天周一来的，人不是特别多，</p>
+<p>他们家原来是连续几年的深圳必吃榜商家，后来下榜啦，没想到再后来又冲上来了，深圳绝无仅有的一家店呀，完全是出品太棒了！</p>
+<p>「椰汁香芋红豆芋圆」里面的椰奶很香甜，如此丰富的配料，盲点都不会出错啦</p>
+<p>「双皮奶」令人惊艳，软乎乎 甜丝丝的 入口即化，也不会甜的很腻</p>
+<p>「杨枝甘露」简直不要太棒啦啊，无脑冲就对了，吃到嘴里的第一口，不由得嗯~出声来，嘴巴都在冒着幸福感满满的爱心。深圳第一杨枝甘露</p>
+<p>「芒果椰奶西米芋圆」西米煮的很好，芒果还是超大一块！配上椰奶的浓郁香气，超满足</p>
+<p>食客们的嘴是诚实的、对于食材的讲究、和制法味觉体验的好坏都是心知肚明的；优秀的品质建立了它多年以来深圳必吃第一甜品的地位，愿称它为深圳地标美食店</p>
+<h2 id="叻冰"><a href="#叻冰" class="headerlink" title="叻冰"></a>叻冰</h2><p>叻冰应该是深圳最最最有名的冰激凌店了</p>
+<p>叻（le）：广东话里厉害的意思，</p>
+<p>和其他冰激凌不同，这里是中式的：雪葩</p>
+<p>也就是拿水果榨汁或者其他处理之后，再加水冷冻炒</p>
+<p>没有糖也没有其他添加</p>
+<p>水果菜单也不定期更具季节更换应季水果</p>
+<p>进店后店员会问你是不是第一次来，会很耐心的跟你介绍他们家的所有口味，</p>
+<p>店员会拿出试吃的小杯子让你把所有的冰试吃一下</p>
+<p>从口味比较淡渐渐的吃到口味浓</p>
+<p>每吃一种也会进行适当的介绍：选取的哪儿的水果</p>
+<p>最后吃完了，你就可以选择刚才试吃你喜欢的那几款了</p>
+<p>「黄皮雪葩」</p>
+<p>「榴莲雪葩」榴莲选择的是泰国的金枕榴莲</p>
+<p>比一般的榴莲味道更加香甜</p>
+<p>榴莲雪葩因为成本就很高的原因会略贵一些</p>
+<p>榴莲雪葩的柔顺感会更强烈，口感更佳细腻</p>
+<p>大概是用果肉做的原因，并没有太大的沙冰感</p>
+<p>反而有一种奶油冰激凌的细腻的感觉</p>
+<p>榴莲雪葩的口味很香甜，带着淡淡的奶香</p>
+<p>奶奶的，甜滋滋的味道，一颗球很快就被吃完了</p>
+<p>如果你喜欢吃榴莲，选择这个绝对没错</p>
+<p>「百香果雪葩」颜色微微黄绿色，还有多类似芝麻的东西</p>
+<p>不知道我的一开始以为是奇异果</p>
+<p>来到店里才之后，是选择的黄色百香果</p>
+<p>红色百香果会比较酸，黄色会比较甜</p>
+<p>黑色芝麻是被打算的百香果籽，听说有益健康</p>
+<p>百香果雪葩的口感就会比较沙冰</p>
+<p>因为水果本身就是很清爽的水果</p>
+<p>百香果雪葩有着浓郁的百香果香气</p>
+<p>间起来香香甜甜，吃起来则是酸甜口感</p>
+<p>十分适合烧烤等油腻的饭后来吃，很是清爽舒服</p>
+<p>「哈密瓜雪葩」哈密瓜雪葩属于口味比较淡的那种</p>
+<p>因为这里的雪葩不加糖，想要很甜的只能靠水果自己努力</p>
+<p>哈密瓜是选择新疆的哈密瓜来做的</p>
+<p>雪葩的口感很清爽，微微的甜中带着哈密瓜的清香</p>
+<p>相比榴莲，它更适合喜欢淡淡口味的小伙伴</p>
+<p>清甜的瓜香味，细腻的冰沙在口中融化</p>
+<p>很适合深圳炎热夏天的晚上</p>
+<p>「龙眼」一种广东的清香只扑向你的鼻头</p>
+<p>「桃子」春夏晴天的桃香………</p>
+<p>还有太多的口味来不及细细描写了，等待着你的品尝</p>
 
                 
               </div>
@@ -358,8 +444,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/linux/ubuntu/" class="category-chain-item">ubuntu</a>
+  
+  
+
   
 
       </span>
@@ -373,9 +466,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/go/" class="print-no-link">#go</a>
+        <a href="/tags/other/" class="print-no-link">#other</a>
       
-        <a href="/tags/%E7%BC%96%E7%A8%8B/" class="print-no-link">#编程</a>
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
       
     </div>
   
@@ -387,8 +480,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【Golang】go语言之json、YAML的序列化和反序列化</div>
-      <div>http://example.com/2023/12/06/go语言json序列化和反序列化/</div>
+      <div>【other】餐厅合集</div>
+      <div>http://example.com/2024/04/15/other/</div>
     </div>
     <div class="license-meta">
       
@@ -400,7 +493,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月6日</div>
+          <div>2024年4月15日</div>
         </div>
       
       
@@ -432,15 +525,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/06/go%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%8E%A5%E5%8F%A3(interface)/" title="【Golang】go语言之接口(interface)">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【Golang】go语言之接口(interface)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/04/10/vscodeError/" title="记一次因为在项目中使用相对路径引发的血案">
+                        <span class="hidden-mobile">记一次因为在项目中使用相对路径引发的血案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

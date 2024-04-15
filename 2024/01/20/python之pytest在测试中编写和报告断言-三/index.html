@@ -16,16 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="如何在测试中编写和报告断言使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def test_f">
+    <meta name="description" content="三 如何在测试中编写和报告断言3.1 使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python之pytest在测试中编写和报告断言(三)">
 <meta property="og:url" content="http://example.com/2024/01/20/python%E4%B9%8Bpytest%E5%9C%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%BC%96%E5%86%99%E5%92%8C%E6%8A%A5%E5%91%8A%E6%96%AD%E8%A8%80-%E4%B8%89/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="如何在测试中编写和报告断言使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def test_f">
+<meta property="og:description" content="三 如何在测试中编写和报告断言3.1 使用 assert 语句断言pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：  assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False  1234567# content of test_assert1.pydef f():    return 3def">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
 <meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
-<meta property="article:modified_time" content="2024-04-11T07:49:10.438Z">
+<meta property="article:modified_time" content="2024-04-15T02:27:04.913Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
@@ -277,7 +277,7 @@
         
         
         
-          63 分钟
+          64 分钟
         
       </span>
     
@@ -319,7 +319,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="如何在测试中编写和报告断言"><a href="#如何在测试中编写和报告断言" class="headerlink" title="如何在测试中编写和报告断言"></a>如何在测试中编写和报告断言</h1><h2 id="使用-assert-语句断言"><a href="#使用-assert-语句断言" class="headerlink" title="使用 assert 语句断言"></a>使用 <code>assert</code> 语句断言</h2><p>pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：</p>
+                <h1 id="三-如何在测试中编写和报告断言"><a href="#三-如何在测试中编写和报告断言" class="headerlink" title="三 如何在测试中编写和报告断言"></a>三 如何在测试中编写和报告断言</h1><h2 id="3-1-使用-assert-语句断言"><a href="#3-1-使用-assert-语句断言" class="headerlink" title="3.1 使用 assert 语句断言"></a>3.1 使用 <code>assert</code> 语句断言</h2><p>pytest 允许使用标准 Python 断言来验证 Python 测试中的期望和值。例如，可以编写以下内容：</p>
 <blockquote>
 <p>assert 是Python中的关键字，assert 后面跟的如果为Ture 就通过，为False</p>
 </blockquote>
@@ -336,7 +336,7 @@
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_study</span>(<span class="hljs-params">self</span>):<br>    a = <span class="hljs-number">1</span>+<span class="hljs-number">1</span><br>    <span class="hljs-keyword">assert</span>  a == <span class="hljs-number">0</span>, <span class="hljs-string">&quot;如果断言失败，就会在AssertionError中打印这句话，如果成功就不会打印&quot;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="关于预期异常的断言"><a href="#关于预期异常的断言" class="headerlink" title="关于预期异常的断言"></a>关于预期异常的断言</h2><p>为了编写关于引发的异常的断言，你可以使用 <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.raises"><code>pytest.raises()</code></a>如下上下文管理器</p>
+<h2 id="3-2-关于预期异常的断言"><a href="#3-2-关于预期异常的断言" class="headerlink" title="3.2 关于预期异常的断言"></a>3.2 关于预期异常的断言</h2><p>为了编写关于引发的异常的断言，你可以使用 <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.raises"><code>pytest.raises()</code></a>如下上下文管理器</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_zero_division</span>():<br>    <span class="hljs-keyword">with</span> pytest.raises(ZeroDivisionError): <span class="hljs-comment"># pytest.raises 断言解释器报错</span><br>        <span class="hljs-number">1</span> / <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 
 <p>如果您需要访问实际的异常信息，您可以使用：</p>
@@ -346,7 +346,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_foo_not_implemented</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>():<br>        <span class="hljs-keyword">raise</span> NotImplementedError<br><br>    <span class="hljs-keyword">with</span> pytest.raises(RuntimeError) <span class="hljs-keyword">as</span> excinfo:<br>        foo()<br>    <span class="hljs-keyword">assert</span> excinfo.<span class="hljs-built_in">type</span> <span class="hljs-keyword">is</span> RuntimeError <span class="hljs-comment"># 这是官方文档的，是错的，因为NotImplementedError是RuntimeError的子类 所以不是is 而是换成issubclass</span><br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">issubclass</span>(excinfo.<span class="hljs-built_in">type</span>, RuntimeError) <span class="hljs-comment"># 这里所执行的foo()抛出的错误是NotImplementedError 所以断言通过了</span><br>    <br><span class="hljs-comment"># 另写一个例子</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">foo</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/<span class="hljs-number">0</span> <span class="hljs-comment"># 运行foo()会抛出一个ZeroDivisionError 0为除数异常</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_arithmetic_error</span>():<br>    <span class="hljs-keyword">with</span> pytest.raises(Exception) <span class="hljs-keyword">as</span> excinfo: <span class="hljs-comment"># pytest.raises()可以传Exception，Exception是所有错误的基类，这里也可以传ArithmeticError </span><br>        foo()<br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">issubclass</span>(excinfo.<span class="hljs-built_in">type</span>, ArithmeticError)<br></code></pre></td></tr></table></figure>
 
 <p>即使函数引发 NotImplementedError，pytest.raises() 调用也会成功，因为 <code>NotImplementedError</code> 是 <code>RuntimeError</code> 的子类；但是下面的断言语句将捕获该问题。</p>
-<h3 id="匹配异常消息"><a href="#匹配异常消息" class="headerlink" title="匹配异常消息"></a>匹配异常消息</h3><p>可以将 match 关键字参数传递给上下文管理器，以测试正则表达式是否与异常的字符串表示形式匹配（类似于 unittest 中的 TestCase.assertRaisesRegex 方法）：</p>
+<h3 id="3-2-1-匹配异常消息"><a href="#3-2-1-匹配异常消息" class="headerlink" title="3.2.1 匹配异常消息"></a>3.2.1 匹配异常消息</h3><p>可以将 match 关键字参数传递给上下文管理器，以测试正则表达式是否与异常的字符串表示形式匹配（类似于 unittest 中的 TestCase.assertRaisesRegex 方法）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">myfunc</span>():<br>    <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&quot;Exception 123 raised&quot;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_match</span>():<br>    <span class="hljs-keyword">with</span> pytest.raises(ValueError, <span class="hljs-keyword">match</span>=<span class="hljs-string">r&quot;.* 123 .*&quot;</span>):<br>        myfunc()<br></code></pre></td></tr></table></figure>
 
 <p>笔记:</p>
@@ -354,14 +354,14 @@
 <li>match 参数与 <code>re.search() </code>函数匹配，因此在上面的示例中 <code>match=&#39;123&#39; </code>也可以工作</li>
 <li>匹配参数还与 PEP-678 <code>__notes__ </code>匹配。</li>
 </ul>
-<h3 id="匹配例外组exception-groups"><a href="#匹配例外组exception-groups" class="headerlink" title="匹配例外组exception groups"></a>匹配例外组exception groups</h3><p>您还可以使用<code>excinfo.group_contains()</code>方法来测试作为 <code>ExceptionGroup</code> 的一部分返回的异常</p>
+<h3 id="3-2-2-匹配例外组exception-groups"><a href="#3-2-2-匹配例外组exception-groups" class="headerlink" title="3.2.2 匹配例外组exception groups"></a>3.2.2 匹配例外组exception groups</h3><p>您还可以使用<code>excinfo.group_contains()</code>方法来测试作为 <code>ExceptionGroup</code> 的一部分返回的异常</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_exception_in_group</span>():<br>    <span class="hljs-keyword">with</span> pytest.raises(ExceptionGroup) <span class="hljs-keyword">as</span> excinfo:<br>        <span class="hljs-keyword">raise</span> ExceptionGroup(<br>            <span class="hljs-string">&quot;Group message&quot;</span>,<br>            [<br>                RuntimeError(<span class="hljs-string">&quot;Exception 123 raised&quot;</span>),<br>            ],<br>        )<br>    <span class="hljs-keyword">assert</span> excinfo.group_contains(RuntimeError, <span class="hljs-keyword">match</span>=<span class="hljs-string">r&quot;.* 123 .*&quot;</span>)<br>    <span class="hljs-keyword">assert</span> <span class="hljs-keyword">not</span> excinfo.group_contains(TypeError)<br></code></pre></td></tr></table></figure>
 
 <p>可选的 match 关键字参数的工作方式与 pytest.raises() 相同。</p>
 <p>默认情况下，group_contains()将在嵌套的ExceptionGroup实例的任何级别上递归地搜索匹配的异常。如果您只想在特定级别匹配异常，则可以指定depth关键字参数;直接包含在top ExceptionGroup中的异常将匹配depth&#x3D;1。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_exception_in_group_at_given_depth</span>():<br>    <span class="hljs-keyword">with</span> pytest.raises(ExceptionGroup) <span class="hljs-keyword">as</span> excinfo:<br>        <span class="hljs-keyword">raise</span> ExceptionGroup(<br>            <span class="hljs-string">&quot;Group message&quot;</span>,<br>            [<br>                RuntimeError(),<br>                ExceptionGroup(<br>                    <span class="hljs-string">&quot;Nested group&quot;</span>,<br>                    [<br>                        TypeError(),<br>                    ],<br>                ),<br>            ],<br>        )<br>    <span class="hljs-keyword">assert</span> excinfo.group_contains(RuntimeError, depth=<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">assert</span> excinfo.group_contains(TypeError, depth=<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">assert</span> <span class="hljs-keyword">not</span> excinfo.group_contains(RuntimeError, depth=<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">assert</span> <span class="hljs-keyword">not</span> excinfo.group_contains(TypeError, depth=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
 
-<h3 id="xfail-mark-和-pytest-raises"><a href="#xfail-mark-和-pytest-raises" class="headerlink" title="xfail mark 和 pytest.raises"></a>xfail mark 和 pytest.raises</h3><p>也可以为pytest.mark指定一个raise参数。Xfail它以一种更具体的方式检查测试是否失败，而不仅仅是引发任何异常:</p>
+<h3 id="3-2-3-xfail-mark-和-pytest-raises"><a href="#3-2-3-xfail-mark-和-pytest-raises" class="headerlink" title="3.2.3 xfail mark 和 pytest.raises"></a>3.2.3 xfail mark 和 pytest.raises</h3><p>也可以为pytest.mark指定一个raise参数。Xfail它以一种更具体的方式检查测试是否失败，而不仅仅是引发任何异常:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>():<br>    <span class="hljs-keyword">raise</span> IndexError()<br><br><br><span class="hljs-meta">@pytest.mark.xfail(<span class="hljs-params">raises=IndexError</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_f</span>():<br>    f()<br><br>testcases/test_case.py x                                                 [<span class="hljs-number">100</span>%]<br><br>============================== <span class="hljs-number">1</span> xfailed <span class="hljs-keyword">in</span> <span class="hljs-number">0.01</span>s ==============================<br></code></pre></td></tr></table></figure>
 
 <p>如果测试因引发<code>IndexError</code>或子类而失败，也会“xfail”。</p>
@@ -369,7 +369,7 @@
 <li>使用带有参数的pytest.mark.xfail <code>raises</code>更适合记录未修复的bug（其中可以描述“应该”发生什么）或者依赖项中的错误</li>
 <li>大多数情况下，测试你自己故意引发的异常错误的代码的情况，更适合使用<code>pytest.raises()</code>可能会更好一点，</li>
 </ul>
-<h2 id="利用上下文相关的比较"><a href="#利用上下文相关的比较" class="headerlink" title="利用上下文相关的比较"></a>利用上下文相关的比较</h2><p>pytest 对在遇到比较时提供上下文相关信息有丰富的支持。例如：</p>
+<h2 id="3-3-利用上下文相关的比较"><a href="#3-3-利用上下文相关的比较" class="headerlink" title="3.3 利用上下文相关的比较"></a>3.3 利用上下文相关的比较</h2><p>pytest 对在遇到比较时提供上下文相关信息有丰富的支持。例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># content of test_assert2.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_set_comparison</span>():<br>    set1 = <span class="hljs-built_in">set</span>(<span class="hljs-string">&quot;1308&quot;</span>)<br>    set2 = <span class="hljs-built_in">set</span>(<span class="hljs-string">&quot;8035&quot;</span>)<br>    <span class="hljs-keyword">assert</span> set1 == set2<br><br></code></pre></td></tr></table></figure>
 
 <p>运行后报错：</p>
@@ -382,7 +382,7 @@
 <li>比较字典：不同的条目</li>
 </ul>
 <p>有关更多示例，请参阅报告演示 <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/example/reportingdemo.html#tbreportdemo">reporting demo</a> </p>
-<h2 id="为失败的断言定义自己的解释"><a href="#为失败的断言定义自己的解释" class="headerlink" title="为失败的断言定义自己的解释"></a>为失败的断言定义自己的解释</h2><p>可以通过实现 pytest_assertrepr_compare 钩子来添加您自己的详细解释。—&gt;会在“如何编写钩子函数”里讲</p>
+<h2 id="3-4-为失败的断言定义自己的解释"><a href="#3-4-为失败的断言定义自己的解释" class="headerlink" title="3.4 为失败的断言定义自己的解释"></a>3.4 为失败的断言定义自己的解释</h2><p>可以通过实现 pytest_assertrepr_compare 钩子来添加您自己的详细解释。—&gt;会在“如何编写钩子函数”里讲</p>
 <p><strong>pytest_assertrepr_compare</strong>(<em>config</em>, <em>op</em>, <em>left</em>, <em>right</em>)</p>
 <p><strong>pytest_assertrepr_compare</strong>(<em>config</em>, <em>op</em>, <em>left</em>, <em>right</em>)[<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/_modules/_pytest/hookspec.html#pytest_assertrepr_compare">source]</a></p>
 <p>   Return explanation for comparisons in failing assert expressions.</p>
@@ -403,7 +403,7 @@
 <p>可以运行测试模块并获取conftest文件中定义的自定义输出：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">$ pytest -q test_foocompare.py<br>F                                                                    [<span class="hljs-number">100</span>%]<br>================================= FAILURES =================================<br>_______________________________ test_compare _______________________________<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_compare</span>():<br>        f1 = Foo(<span class="hljs-number">1</span>)<br>        f2 = Foo(<span class="hljs-number">2</span>)<br>&gt;       <span class="hljs-keyword">assert</span> f1 == f2<br>E       <span class="hljs-keyword">assert</span> Comparing Foo instances:<br>E            vals: <span class="hljs-number">1</span> != <span class="hljs-number">2</span><br><br>test_foocompare.py:<span class="hljs-number">12</span>: AssertionError<br>========================= short test summary info ==========================<br>FAILED test_foocompare.py::test_compare - <span class="hljs-keyword">assert</span> Comparing Foo instances:<br><span class="hljs-number">1</span> failed <span class="hljs-keyword">in</span> <span class="hljs-number">0.12</span>s<br></code></pre></td></tr></table></figure>
 
-<h2 id="Assertion-introspection-details"><a href="#Assertion-introspection-details" class="headerlink" title="Assertion introspection details"></a>Assertion introspection details</h2><p>不做多介绍了，没啥用</p>
+<h2 id="3-5-Assertion-introspection-details"><a href="#3-5-Assertion-introspection-details" class="headerlink" title="3.5 Assertion introspection details"></a>3.5 Assertion introspection details</h2><p>不做多介绍了，没啥用</p>
 
                 
               </div>

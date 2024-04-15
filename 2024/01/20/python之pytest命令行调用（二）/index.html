@@ -16,16 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This w">
+    <meta name="description" content="二 如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python之pytest命令行调用（二）">
 <meta property="og:url" content="http://example.com/2024/01/20/python%E4%B9%8Bpytest%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%B0%83%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This w">
+<meta property="og:description" content="二 如何用命令行调用pytestSee also Complete pytest command-line flag reference 也可以点击链接查看完整的命令行介绍（那可太全面了）  In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
 <meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
-<meta property="article:modified_time" content="2024-04-09T23:56:37.830Z">
+<meta property="article:modified_time" content="2024-04-15T02:27:04.913Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
@@ -277,7 +277,7 @@
         
         
         
-          42 分钟
+          43 分钟
         
       </span>
     
@@ -319,14 +319,14 @@
             
               <div class="markdown-body">
                 
-                <h1 id="如何用命令行调用pytest"><a href="#如何用命令行调用pytest" class="headerlink" title="如何用命令行调用pytest"></a>如何用命令行调用pytest</h1><p>See also</p>
+                <h1 id="二-如何用命令行调用pytest"><a href="#二-如何用命令行调用pytest" class="headerlink" title="二 如何用命令行调用pytest"></a>二 如何用命令行调用pytest</h1><p>See also</p>
 <p><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#command-line-flags">Complete pytest command-line flag reference</a></p>
 <p>也可以点击链接查看完整的命令行介绍（那可太全面了）</p>
 <blockquote>
 <p>In general, pytest is invoked with the command pytest (see below for other ways to invoke pytest).  This will execute all tests in all files whose names follow the form test_*.py or *_test.py in the current directory and its subdirectories.  More generally, pytest follows standard test discovery rules.</p>
 </blockquote>
 <p>通常，pytest是用命令pytest调用的(参见下面的其他调用pytest的方法)。这将执行当前目录及其子目录中所有文件名以test_*.py或*_test.py形式结尾的文件中的所有测试。更一般地说，pytest遵循标准的<code>测试发现规则</code>。</p>
-<h2 id="指定要运行的测试"><a href="#指定要运行的测试" class="headerlink" title="指定要运行的测试"></a>指定要运行的测试</h2><p>Pytest 支持多种从命令行运行和选择测试的方法。</p>
+<h2 id="2-1-指定要运行的测试"><a href="#2-1-指定要运行的测试" class="headerlink" title="2.1 指定要运行的测试"></a>2.1 指定要运行的测试</h2><p>Pytest 支持多种从命令行运行和选择测试的方法。</p>
 <p><strong>Run tests in a module：在模块中运行测试 （模块就是py文件）</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pytest test_mod.py<br></code></pre></td></tr></table></figure>
 
@@ -367,17 +367,17 @@
 
 <p>This will import <code>pkg.testing</code> and use its filesystem location to find and run tests from.</p>
 <p>这将导入 pkg.testing 并使用其文件系统位置来查找并运行测试。（这个用的少）</p>
-<h2 id="获取有关版本、选项名称、环境变量的帮助"><a href="#获取有关版本、选项名称、环境变量的帮助" class="headerlink" title="获取有关版本、选项名称、环境变量的帮助"></a>获取有关版本、选项名称、环境变量的帮助</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">pytest --version   <span class="hljs-comment"># shows where pytest was imported from 版本</span><br>pytest --fixtures  <span class="hljs-comment"># show available builtin function arguments显示可用的内置函数参数</span><br>pytest -h | --<span class="hljs-built_in">help</span> <span class="hljs-comment"># show help on command line and config file options显示帮助</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-2-获取有关版本、选项名称、环境变量的帮助"><a href="#2-2-获取有关版本、选项名称、环境变量的帮助" class="headerlink" title="2.2 获取有关版本、选项名称、环境变量的帮助"></a>2.2 获取有关版本、选项名称、环境变量的帮助</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">pytest --version   <span class="hljs-comment"># shows where pytest was imported from 版本</span><br>pytest --fixtures  <span class="hljs-comment"># show available builtin function arguments显示可用的内置函数参数</span><br>pytest -h | --<span class="hljs-built_in">help</span> <span class="hljs-comment"># show help on command line and config file options显示帮助</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="分析测试执行持续时间"><a href="#分析测试执行持续时间" class="headerlink" title="分析测试执行持续时间"></a>分析测试执行持续时间</h2><p><em>6.0版本更改</em></p>
+<h2 id="2-3-分析测试执行持续时间"><a href="#2-3-分析测试执行持续时间" class="headerlink" title="2.3 分析测试执行持续时间"></a>2.3 分析测试执行持续时间</h2><p><em>6.0版本更改</em></p>
 <p>To get a list of the slowest 10 test durations over 1.0s long要获取长度超过 1.0 秒的最慢 10 个测试持续时间的列表：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">pytest <span class="hljs-attribute">--durations</span>=10 <span class="hljs-attribute">--durations-min</span>=1.0 # durations持续时间<br></code></pre></td></tr></table></figure>
 
 <p>By default, pytest will not show test durations that are too small (&lt;0.005s) unless <code>-vv</code> is passed on the command-line.</p>
 <p>默认情况下，pytest 不会显示太短（&lt;0.005s）的测试持续时间，除非在命令行上传递 -vv。</p>
-<h2 id="管理插件的加载"><a href="#管理插件的加载" class="headerlink" title="管理插件的加载"></a>管理插件的加载</h2><h3 id="早期加载插件"><a href="#早期加载插件" class="headerlink" title="早期加载插件"></a>早期加载插件</h3><p>You can early-load plugins (internal and external) explicitly in the command-line with the <code>-p</code> option:</p>
+<h2 id="2-4-管理插件的加载"><a href="#2-4-管理插件的加载" class="headerlink" title="2.4 管理插件的加载"></a>2.4 管理插件的加载</h2><h3 id="2-4-1-早期加载插件"><a href="#2-4-1-早期加载插件" class="headerlink" title="2.4.1 早期加载插件"></a>2.4.1 早期加载插件</h3><p>You can early-load plugins (internal and external) explicitly in the command-line with the <code>-p</code> option:</p>
 <p>可以使用 -p 选项在命令行中显式提前加载插件（内部和外部）：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">pytest -<span class="hljs-selector-tag">p</span> mypluginmodule<br></code></pre></td></tr></table></figure>
 
@@ -393,19 +393,19 @@
 <li><p>插件的入口点名称。这是注册插件时传递给 setuptools 的名称。例如，要提前加载 pytest-cov 插件，您可以使用：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">pytest -<span class="hljs-selector-tag">p</span> pytest_cov<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="禁用插件"><a href="#禁用插件" class="headerlink" title="禁用插件"></a>禁用插件</h3><p>To disable loading specific plugins at invocation time, use the <code>-p</code> option together with the prefix <code>no:</code>.</p>
+<h3 id="2-4-2-禁用插件"><a href="#2-4-2-禁用插件" class="headerlink" title="2.4.2 禁用插件"></a>2.4.2 禁用插件</h3><p>To disable loading specific plugins at invocation time, use the <code>-p</code> option together with the prefix <code>no:</code>.</p>
 <p>要禁止在调用时加载特定插件，请使用 -p 选项和前缀 no:。</p>
 <p>示例：要禁用加载插件 doctest（该插件负责从文本文件执行 doctest 测试），请像这样调用 pytest：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">pytest</span> -p <span class="hljs-literal">no</span>:doctest<br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="调用-pytest-的其他方式"><a href="#调用-pytest-的其他方式" class="headerlink" title="调用 pytest 的其他方式"></a>调用 pytest 的其他方式</h2><h3 id="过-python-m-pytest-调用-pytest"><a href="#过-python-m-pytest-调用-pytest" class="headerlink" title="过 python -m pytest 调用 pytest"></a>过 python -m pytest 调用 pytest</h3><p>可以从命令行通过 Python 解释器调用测试</p>
+<h2 id="2-5-调用-pytest-的其他方式"><a href="#2-5-调用-pytest-的其他方式" class="headerlink" title="2.5 调用 pytest 的其他方式"></a>2.5 调用 pytest 的其他方式</h2><h3 id="2-5-1-过-python-m-pytest-调用-pytest"><a href="#2-5-1-过-python-m-pytest-调用-pytest" class="headerlink" title="2.5.1 过 python -m pytest 调用 pytest"></a>2.5.1 过 python -m pytest 调用 pytest</h3><p>可以从命令行通过 Python 解释器调用测试</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python</span> -m pytest<span class="hljs-meta"> [...]</span><br></code></pre></td></tr></table></figure>
 
 <p>This is almost equivalent to invoking the command line script <code>pytest [...]</code> directly, except that calling via <code>python</code> will also add the current directory to <code>sys.path</code>.</p>
 <p>这几乎相当于直接调用命令行脚本 pytest […]，只不过通过 python 调用还会将当前目录添加到 sys.path 中。</p>
-<h3 id="从-Python-代码调用-pytest【常用】"><a href="#从-Python-代码调用-pytest【常用】" class="headerlink" title="从 Python 代码调用 pytest【常用】"></a>从 Python 代码调用 pytest【常用】</h3><p>可以直接从Python代码调用pytest：</p>
+<h3 id="2-5-2-从-Python-代码调用-pytest【常用】"><a href="#2-5-2-从-Python-代码调用-pytest【常用】" class="headerlink" title="2.5.2 从 Python 代码调用 pytest【常用】"></a>2.5.2 从 Python 代码调用 pytest【常用】</h3><p>可以直接从Python代码调用pytest：</p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">retcode</span> <span class="hljs-operator">=</span> pytest.main()<br></code></pre></td></tr></table></figure>
 
 <p>this acts as if you would call “pytest” from the command line. It will not raise <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/exceptions.html#SystemExit"><code>SystemExit</code></a> but return the <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/exit-codes.html#exit-codes">exit code</a> instead. If you don’t pass it any arguments, <code>main</code> reads the arguments from the command line arguments of the process (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/sys.html#sys.argv"><code>sys.argv</code></a>), which may be undesirable. You can pass in options and arguments explicitly:</p>
