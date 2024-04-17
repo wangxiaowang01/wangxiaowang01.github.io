@@ -19,14 +19,19 @@
     <meta name="description" content="pytest之Monkeypatching猴子补丁有时测试需要调用依赖于全局设置的功能或调用不易测试的代码（例如网络访问）。夹具monkeypatch可帮助您安全地设置&#x2F;删除属性、字典项或环境变量，或进行修改sys.path以供导入。 概念： 在运行时动态修改模块、类或函数，通常是添加功能或修正缺陷。 猴子补丁在代码运行时（内存中）发挥作用，不会修改源码，因此只对当前运行的程序实例有效。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python 之 pytest mock 数据（七）">
-<meta property="og:url" content="http://example.com/2024/04/16/python-%E4%B9%8B-pytest-mock-%E6%95%B0%E6%8D%AE%EF%BC%88%E4%B8%83%EF%BC%89/index.html">
+<meta property="og:url" content="http://example.com/2024/01/20/python-%E4%B9%8B-pytest-mock-%E6%95%B0%E6%8D%AE%EF%BC%88%E4%B8%83%EF%BC%89/index.html">
 <meta property="og:site_name" content="Wang">
 <meta property="og:description" content="pytest之Monkeypatching猴子补丁有时测试需要调用依赖于全局设置的功能或调用不易测试的代码（例如网络访问）。夹具monkeypatch可帮助您安全地设置&#x2F;删除属性、字典项或环境变量，或进行修改sys.path以供导入。 概念： 在运行时动态修改模块、类或函数，通常是添加功能或修正缺陷。 猴子补丁在代码运行时（内存中）发挥作用，不会修改源码，因此只对当前运行的程序实例有效。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-16T05:57:17.000Z">
-<meta property="article:modified_time" content="2024-04-16T08:01:45.689Z">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
+<meta property="article:modified_time" content="2024-04-16T09:06:30.067Z">
 <meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="pytest">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -232,7 +237,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/marek.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -249,8 +254,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-16 13:57" pubdate>
-          2024年4月16日 下午
+        <time datetime="2024-01-20 10:41" pubdate>
+          2024年1月20日 上午
         </time>
       </span>
     
@@ -397,6 +402,17 @@
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/pytest/" class="print-no-link">#pytest</a>
+      
+    </div>
+  
 </div>
 
 
@@ -406,7 +422,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>python 之 pytest mock 数据（七）</div>
-      <div>http://example.com/2024/04/16/python-之-pytest-mock-数据（七）/</div>
+      <div>http://example.com/2024/01/20/python-之-pytest-mock-数据（七）/</div>
     </div>
     <div class="license-meta">
       
@@ -418,7 +434,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月16日</div>
+          <div>2024年1月20日</div>
         </div>
       
       
@@ -450,12 +466,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/01/20/%E6%80%9D%E8%80%83%E4%B9%8B%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" title="【thought】思考之质量内建的一些理解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【thought】思考之质量内建的一些理解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/15/other/" title="【other】餐厅合集">
-                        <span class="hidden-mobile">【other】餐厅合集</span>
+                      <a href="/2024/01/20/python-%E4%B9%8B-pytest-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E5%8C%96%E5%A4%B9%E5%85%B7%E6%B5%8B%E8%AF%95%EF%BC%88%E5%85%AD%EF%BC%89/" title="python 之 pytest 使用参数化夹具测试（六）">
+                        <span class="hidden-mobile">python 之 pytest 使用参数化夹具测试（六）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
