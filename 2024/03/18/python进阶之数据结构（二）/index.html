@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
 <meta property="article:published_time" content="2024-03-18T12:18:03.000Z">
-<meta property="article:modified_time" content="2024-03-21T14:35:14.557Z">
+<meta property="article:modified_time" content="2024-05-13T06:34:59.426Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="笔记">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.8k 字
+          6.9k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          57 分钟
+          58 分钟
         
       </span>
     
@@ -427,7 +427,7 @@
 <p>应用场景：有序列表、静态数据、快速查找</p>
 <h2 id="2-9-冒泡排序"><a href="#2-9-冒泡排序" class="headerlink" title="2.9 冒泡排序"></a>2.9 冒泡排序</h2><p>实现的逻辑：从第一个元素开始，逐个比对每一个元素，如果自己比对比的元素大，那么自己的索引就前进一个</p>
 <p><img src="/./img/python/image-20220419211719385.png" srcset="/img/loading.gif" lazyload alt="image-20220419211719385"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_sort</span>(<span class="hljs-params">test_list</span>):<br>    n=<span class="hljs-built_in">len</span>(test_list) <span class="hljs-comment"># n是数组长度</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n): <span class="hljs-comment"># 遍历循环n遍</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-i-<span class="hljs-number">1</span>): <span class="hljs-comment"># 遍历内遍历，次数是n遍-当前次-1 自己是确定的，所以排除</span><br>            <span class="hljs-keyword">if</span> test_list[j]&gt;test_list[j+<span class="hljs-number">1</span>]: <span class="hljs-comment"># 如果自己比后面的大</span><br>                test[j],test[j+<span class="hljs-number">1</span>]=test[j+<span class="hljs-number">1</span>],test[j] <span class="hljs-comment"># 那么自己跟后面的交换顺序</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">56</span>, <span class="hljs-number">65</span>, <span class="hljs-number">23</span>, <span class="hljs-number">12</span>, <span class="hljs-number">23</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">9</span>]<br><span class="hljs-built_in">print</span>(a)<br>l = <span class="hljs-built_in">len</span>(a) <span class="hljs-comment"># 10个元素，l就是10，但列表索引是0-9</span><br><span class="hljs-comment"># 第一层遍历列表的总长度</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,l): <span class="hljs-comment"># 注意，range里面第一个参为0时可不写,所以这里是0-10，就是i就是1-9</span><br>    <span class="hljs-comment"># 第二层，遍历列表的长度减去当前的位置减去1,比如说现在i是在1你range里面就是0-8</span><br>	<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,l-i-<span class="hljs-number">1</span>): <span class="hljs-comment"># l-i-1的目的是只需要遍历当前位置往后的位置上的数，不需要与当前位置往前的数作对比</span><br>		<span class="hljs-keyword">if</span> a[j]&gt;a[j+<span class="hljs-number">1</span>]: <span class="hljs-comment"># 如果当前位置比后面位置的大，就交换位置</span><br>			a[j],a[j+<span class="hljs-number">1</span>]=a[j+<span class="hljs-number">1</span>],a[j]<br><span class="hljs-built_in">print</span>(a)<br></code></pre></td></tr></table></figure>
 
 <p>优点：简单易懂，稳定，<strong>原地排序，不会生成新的列表</strong>，不改变相等值的位置</p>
 <p>缺点：性能差，不适合大规模数据排序</p>
