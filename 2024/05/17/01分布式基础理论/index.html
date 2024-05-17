@@ -16,16 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="对于一些词汇概念的讲解  1. 什么是区块链？区块链是一种分布式的、去中心化的数字账本技术，用于记录和验证交易的数据。 区块链的核心概念是将交易的数据记录在一个被称为“区块”的数据结构中， 并通过加密和共识算法保证数据的安全性和 一致性 每个区块包含了一批交易的信息，以及与之前区块的链接，形成了一个链式结构  链：串起来了才是链  2. 区块链有什么特点？在区块链中，参与者通过网络共享和维护这个">
+    <meta name="description" content="1.分布式理论基础1.1 CAP理论是分布式系统的基石Consistency(一致性):“all nodes see the same data at the same time”，即更新操作成功并返回客户端，所有节点在同一时间的数据完全一致，一致性的问题在并发系统中不可避免。（所有的节点在同一时刻看到的数据是相同的） 对于客户端，一致性指的是并发访问时更新过的数据如何获取 对于服务端，则是更新如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="00区块链基础知识">
-<meta property="og:url" content="http://example.com/2024/05/16/00%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:title" content="01分布式基础理论">
+<meta property="og:url" content="http://example.com/2024/05/17/01%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="对于一些词汇概念的讲解  1. 什么是区块链？区块链是一种分布式的、去中心化的数字账本技术，用于记录和验证交易的数据。 区块链的核心概念是将交易的数据记录在一个被称为“区块”的数据结构中， 并通过加密和共识算法保证数据的安全性和 一致性 每个区块包含了一批交易的信息，以及与之前区块的链接，形成了一个链式结构  链：串起来了才是链  2. 区块链有什么特点？在区块链中，参与者通过网络共享和维护这个">
+<meta property="og:description" content="1.分布式理论基础1.1 CAP理论是分布式系统的基石Consistency(一致性):“all nodes see the same data at the same time”，即更新操作成功并返回客户端，所有节点在同一时间的数据完全一致，一致性的问题在并发系统中不可避免。（所有的节点在同一时刻看到的数据是相同的） 对于客户端，一致性指的是并发访问时更新过的数据如何获取 对于服务端，则是更新如">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
-<meta property="article:published_time" content="2024-05-16T09:51:12.000Z">
-<meta property="article:modified_time" content="2024-05-17T09:55:44.561Z">
+<meta property="article:published_time" content="2024-05-17T09:07:48.000Z">
+<meta property="article:modified_time" content="2024-05-17T13:06:58.181Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -36,7 +36,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>00区块链基础知识 - Wang</title>
+  <title>01分布式基础理论 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +242,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="00区块链基础知识"></span>
+            <span id="subtitle" data-typed-text="01分布式基础理论"></span>
           
         </div>
 
@@ -253,8 +253,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-16 17:51" pubdate>
-          2024年5月16日 下午
+        <time datetime="2024-05-17 17:07" pubdate>
+          2024年5月17日 下午
         </time>
       </span>
     
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          1.4k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          19 分钟
+          12 分钟
         
       </span>
     
@@ -313,89 +313,32 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">00区块链基础知识</h1>
+            <h1 id="seo-header">01分布式基础理论</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>对于一些词汇概念的讲解</p>
-</blockquote>
-<h1 id="1-什么是区块链？"><a href="#1-什么是区块链？" class="headerlink" title="1. 什么是区块链？"></a>1. 什么是区块链？</h1><p>区块链是一种<code>分布式</code>的、去<code>中心化</code>的数字账本技术，用于记录和验证交易的数据。</p>
-<p>区块链的核心概念是将交易的数据记录在一个被称为“区块”的数据结构中，</p>
-<p>并通过<code>加密</code>和<code>共识算法</code>保证数据的<code>安全性</code>和 <code>一致性</code></p>
-<p>每个区块包含了一批交易的信息，以及与之前区块的链接，形成了一个链式结构</p>
-<blockquote>
-<p>链：串起来了才是链</p>
-</blockquote>
-<h1 id="2-区块链有什么特点？"><a href="#2-区块链有什么特点？" class="headerlink" title="2. 区块链有什么特点？"></a>2. 区块链有什么特点？</h1><p>在区块链中，参与者通过网络共享和维护这个账本的副本，而不是依赖于中央机构来验证交易。这种去中心化的特性使得区块链具有以下特点：</p>
-<ol>
-<li><code>透明性</code>：区块链中的交易和数据是公开可见的，任何人都可以查看账本的副本。这提供了一种透明的方式来验证交易和监督系统的运作。</li>
-<li><code>安全性</code>：区块链使用密码学技术对数据进行加密和验证，从而确保数据的安全性和完整性。由于数据存储在多个节点上，篡改数据变得非常困难。</li>
-<li><code>去中心化</code>：区块链没有中央机构或控制权，参与者通过共识算法来达成对账本的一致认可。这使得区块链具有更高的可信度和抗攻击能力。</li>
-<li><code>不可篡改性</code>：一旦数据被记录在区块链上，由于每个区块都包含了前一个区块的哈希值，任何对数据的篡改都将被其他节点检测到。</li>
-</ol>
-<h2 id="3-区块链的运作方式"><a href="#3-区块链的运作方式" class="headerlink" title="3.区块链的运作方式"></a>3.区块链的运作方式</h2><h3 id="3-1-哈希函数"><a href="#3-1-哈希函数" class="headerlink" title="3.1 哈希函数"></a>3.1 哈希函数</h3><p>理想的加密哈希函数具备5个主要属性：</p>
-<ol>
-<li><strong>确定性：</strong>相同的消息总是产生相同的哈希值。</li>
-<li><strong>快速：</strong>快速计算任何给定消息的哈希值。</li>
-<li><strong>抵抗性：</strong>除非尝试所有可能的消息，否则从其哈希值生成消息是不可行的。—无法返解</li>
-<li><strong>不相关：</strong>对消息的微小更改会极大地改变哈希值，以至于新值与旧值没有关系。–原始消息改1个字哈希大改</li>
-<li><strong>抗碰撞：</strong>不可能找到具有相同哈希值的两个不同消息。—每一个都是唯一的</li>
-</ol>
-<h3 id="3-2-区块、链"><a href="#3-2-区块、链" class="headerlink" title="3.2 区块、链"></a>3.2 区块、链</h3><ul>
-<li>有效区块是一组有序的<strong>交易</strong>。</li>
-<li>每个块都包含前一个块的<strong>哈希值。</strong>—按顺序排的</li>
-<li>区块的哈希值具有<strong>易证明难伪造。</strong></li>
+                <h1 id="1-分布式理论基础"><a href="#1-分布式理论基础" class="headerlink" title="1.分布式理论基础"></a>1.分布式理论基础</h1><h2 id="1-1-CAP理论是分布式系统的基石"><a href="#1-1-CAP理论是分布式系统的基石" class="headerlink" title="1.1 CAP理论是分布式系统的基石"></a>1.1 CAP理论是分布式系统的基石</h2><h3 id="Consistency-一致性"><a href="#Consistency-一致性" class="headerlink" title="Consistency(一致性):"></a>Consistency(一致性):</h3><p>“all nodes see the same data at the same time”，即更新操作成功并返回客户端，所有节点在同一时间的数据完全一致，一致性的问题在并发系统中不可避免。（所有的节点在同一时刻看到的数据是相同的）</p>
+<p>对于客户端，一致性指的是并发访问时更新过的数据如何获取</p>
+<p>对于服务端，则是更新如何复制分布到整个系统，以保证数据一致。</p>
+<h3 id="Availability-可用性"><a href="#Availability-可用性" class="headerlink" title="Availability (可用性):"></a>Availability (可用性):</h3><p>“Reads and writes always succeed”，即服务一直可用，而且是正常响应时间。良好的可用性是指系统能够很好的为用户服务，不出现用户操作失败或者访问超时等用户体验不好的情况。（可用嘛，就是总是能成功）</p>
+<h3 id="Partition-Tolerance-分区容错性"><a href="#Partition-Tolerance-分区容错性" class="headerlink" title="Partition Tolerance (分区容错性):"></a><strong>Partition Tolerance (分区容错性):</strong></h3><p>即分布式系统在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务。</p>
+<p>比如现在的分布式系统中有某一个或者几个机器宕掉了，其他剩下的机器还能够正常运转满足系统需求，对于用户而言并没有什么体验上的影响，（别人出问题了跟你不影响）</p>
+<h3 id="1-2-三者只能取其二"><a href="#1-2-三者只能取其二" class="headerlink" title="1.2 三者只能取其二"></a>1.2 三者只能取其二</h3><ul>
+<li><strong>CA without P：</strong> 如果不要求P（不允许分区），则保留C（强一致性）和A（可用性），但放弃P的同时也就意味着放弃了系统的扩展性，也就是分布式节点受限，这是有违背分布式系统的设计初衷。</li>
+<li><strong>CP without A：</strong> 如果不要求A（可用），强调各服务之间数据<code>强一致性</code>，而P（分区）会导致同步时间无限延长(等待数据同步完才能正常访问服务)，一旦发生网络故障或者消息丢失等情况，就要牺牲用户的体验。</li>
+<li><strong>AP wihtout C：</strong> 要高可用并允许分区，则需放弃一致性。一旦分区发生，节点之间可能会失去联系，为了高可用，每个节点只能用本地数据提供服务，这样会导致全局数据的不一致性。</li>
 </ul>
-<p><img src="/img/chain/image-03.png" srcset="/img/loading.gif" lazyload alt="image1"></p>
-<h2 id="4-交易的运作方式"><a href="#4-交易的运作方式" class="headerlink" title="4.交易的运作方式"></a>4.交易的运作方式</h2><h3 id="4-1-加密钱包"><a href="#4-1-加密钱包" class="headerlink" title="4.1 加密钱包"></a>4.1 加密钱包</h3><blockquote>
-<p>钱包并不存储加密资产，他们只存储私钥</p>
-</blockquote>
-<p>先理解三个重要概念：</p>
+<p>没有完美的分布式，要看你为了什么而去牺牲什么？你要分区那可能会造成数据不一致的可能性，你要你要强一致和高可用，那就要牺牲分区的高拓展性。没有完美的系统，</p>
+<h3 id="1-3-BASE理论（一种妥协）"><a href="#1-3-BASE理论（一种妥协）" class="headerlink" title="1.3 BASE理论（一种妥协）"></a>1.3 BASE理论（一种妥协）</h3><p>BASE是Basically Available（基本可用）、Soft state（软状态）和 Eventually consistent（最终一致性）三个短语的缩写</p>
+<p>BASE是对CAP中一致性和可用性权衡的结果，核心思想是：<strong>即使无法做到强一致性，采用适当的方式使系统达到最终一致性</strong>。</p>
+<p><strong>Basically Available:</strong> <strong>基本可用</strong>是指分布式系统在出现不可预知故障的时候，<strong>允许损失</strong>部分可用性，但不等价于系统不可用。</p>
 <ul>
-<li>私钥、公钥、地址：公私钥通过<code>非对称加密</code>生成，公钥用于分发，私钥用于个人保留，地址通过公钥推导</li>
-<li>加密与解密：消息传递通过公钥加密、私钥解密</li>
-<li>签名与验证：交易信息通过私钥签名、公钥验证签名</li>
+<li><strong>秒杀</strong>的场景下用户数量暴增，为保护系统稳定性，有部分用户可能被引导至一个降级页面</li>
 </ul>
-<p><img src="/img/chain/image-0401.png" srcset="/img/loading.gif" lazyload alt="image-0401"></p>
-<h3 id="4-2-以BTC为例，讲解一笔交易流程"><a href="#4-2-以BTC为例，讲解一笔交易流程" class="headerlink" title="4.2 以BTC为例，讲解一笔交易流程"></a>4.2 以BTC为例，讲解一笔交易流程</h3><blockquote>
-<p>用户B转账 1 bitcoin 到用户 A</p>
-</blockquote>
-<p><img src="/img/chain/image-0402.png" srcset="/img/loading.gif" lazyload alt="image-0402"></p>
-<ol>
-<li>用户B使用自己的私钥签名完成交易信息【确认用户B有足够的代币】</li>
-<li>将交易信息发送至节点，节点使用公钥验证交易信息，并存储在<code>内存池</code>中。</li>
-<li>节点将交易分组在区块中，并广播到其他节点。</li>
-<li>共识成功并出块后，用户A才能获取到1 bitcoin。</li>
-</ol>
-<h2 id="5-共识"><a href="#5-共识" class="headerlink" title="5.共识"></a>5.共识</h2><h3 id="5-1-工作量证明（PoW）"><a href="#5-1-工作量证明（PoW）" class="headerlink" title="5.1 工作量证明（PoW）"></a>5.1 工作量证明（PoW）</h3><blockquote>
-<p>去中心化程度高，消耗资源高<br>在 PoW 共识中，用户必须完成任意难度的任务，当与块中的有序交易结合时，会产生符合特定标准的哈希函数结果。</p>
-</blockquote>
-<ol>
-<li>称为“矿工”的节点通过暴力竞争来解决数学问题（找到特定规则的哈希值）—-大家一起挖呀挖</li>
-<li>第一个解决问题的矿工可以创建一个区块—–第一个挖到了哦</li>
-<li>其他节点检查该块是否有效。如果是，矿工将获得加密货币奖励。如果不是，矿工就浪费了时间和精力。</li>
-<li>所有的节点都将新块添加到其区块链副本中。—-</li>
-</ol>
-<h3 id="5-2-股权证明-PoS"><a href="#5-2-股权证明-PoS" class="headerlink" title="5.2 股权证明 (PoS)"></a>5.2 股权证明 (PoS)</h3><blockquote>
-<p>去中心化的一种妥协方案，更像选择代表人参与网络，相比工作量证明大大降低资源消耗</p>
-</blockquote>
-<ol>
-<li>称为验证者节点会抵押一些加密货币。投入一定数量的加密货币来参与和分配出块奖励。</li>
-<li>验证者节点所占的权重越高更有可能被选择来处理交易并创建区块。</li>
-<li>其他验证者节点检查该块是否有效。如果是，所有参与的验证者都会赚取收益。如果不是，创建该块的验证者可能会失去其权益或者获得惩罚。</li>
-</ol>
-<p>还有其他共识算法将后续介绍，比如：权威证明、委托权益证明等</p>
-<h1 id="延伸：-Cosmos的共识机制是什么？："><a href="#延伸：-Cosmos的共识机制是什么？：" class="headerlink" title="延伸： Cosmos的共识机制是什么？："></a>延伸： Cosmos的共识机制是什么？：</h1><p>Cosmos 是一个开放的区块链生态系统，它采用了一种具有扩展性和互联性的共识机制，称为 <strong>Tendermint</strong> 共识。</p>
-<p><strong>Tendermint</strong> 共识是一种基于<strong>权益证明</strong>（Proof-of-Stake, PoS）的共识算法。它的设计目标是实现高吞吐量、快速确认和良好的安全性。以下是 Tendermint 共识的主要特点：</p>
-<ol>
-<li>权益证明（Proof-of-Stake）：Tendermint 使用权益证明作为共识机制，参与共识的节点需要锁定一定数量的代币作为权益。这些权益代币用于确定节点在共识过程中的投票权重。</li>
-<li>BFT 共识算法：Tendermint 基于拜占庭容错（Byzantine Fault Tolerance, BFT）算法实现共识。它使用了一种称为 “Tendermint Core” 的共识引擎，该引擎通过节点之间的相互通信来达成共识。</li>
-<li>轮次制（Round-Robin）：在 Tendermint 中，节点按照轮次制进行共识过程。每个轮次中，一个节点被选为提议者（Proposer），负责提议一个区块。其他节点将根据提议者的区块进行投票，达成共识。每个轮次后，提议者会轮换到下一个节点。</li>
-<li>快速最终性（Fast Finality）：Tendermint 具有快速最终性的特点，一旦一个区块被大多数节点确认，它就被视为最终的并且不可逆的。这意味着确认的区块在整个网络中被广泛接受，提高了交易的安全性和确定性。</li>
-</ol>
-<p>Tendermint 共识机制在 Cosmos 生态系统中被用于连接多个独立的区块链（称为 “区块链间通信”，Inter-Blockchain Communication, IBC），实现跨链互操作性。它提供了一个安全且高效的共识算法，使得 Cosmos 网络中的不同区块链能够进行可靠的交互和数据传输。</p>
+<p><strong>Soft state:</strong> 允许系统中的数据存在中间状态，并认为中间状态不会影响系统整体可用性，即允许系统在不用节点之间数据同步存在延时</p>
+<p><strong>Eventually consistent:</strong> 强调所有的数据副本在经过一段时间同步后，最终能够达成一致的状态。最终保证一致，而不是实时保证系统一致性。</p>
+<p>BASE理论面向的是大型高可用可扩展的分布式系统，和传统的事物ACID特性是相反的，它完全不同于ACID的强一致性模型，而是通过牺牲强一致性来获得可用性，并允许数据在一段时间内是不一致的，但最终达到一致状态。但同时，在实际的分布式场景中，不同业务单元和组件对数据一致性的要求是不同的，因此在具体的分布式系统架构设计过程中，ACID特性和BASE理论往往又会结合在一起。</p>
 
                 
               </div>
@@ -443,8 +386,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>00区块链基础知识</div>
-      <div>http://example.com/2024/05/16/00区块链基础知识/</div>
+      <div>01分布式基础理论</div>
+      <div>http://example.com/2024/05/17/01分布式基础理论/</div>
     </div>
     <div class="license-meta">
       
@@ -456,7 +399,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月16日</div>
+          <div>2024年5月17日</div>
         </div>
       
       
@@ -488,18 +431,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/17/01%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" title="01分布式基础理论">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">01分布式基础理论</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/11/rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="rust学习记录">
-                        <span class="hidden-mobile">rust学习记录</span>
+                      <a href="/2024/05/16/00%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="00区块链基础知识">
+                        <span class="hidden-mobile">00区块链基础知识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
