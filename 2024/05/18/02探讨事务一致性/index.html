@@ -16,28 +16,27 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="如何用属性标记测试函数简单使用通过使用pytest.mark可以轻松地在测试函数上设置元数据。可以在API参考中找到内置标记的完整列表。 或者可以使用命令行pytest — —markers列出内置的和自定义的所有标记， 内置标记包含：  usefixtures - 使用fixutures的测试用例或者类 filterwarnings 过滤带警告的测试函数 skip 测试的时候跳过该测试用例 sk">
+    <meta name="description" content="1.事务的ACID特性在数据库中，“事务”是由多个操作构成的序列。广义上的事务一致性具化到了原子性、一致性、隔离性和持久性这4个方面。  原子性（Atomicity）：指事务是一个不可分割的操作单元，要么全部执行成功，要么全部失败回滚。如果事务中的任何一个操作失败，整个事务将回滚到最初的状态。 一致性（Consistency）：指事务将数据库从一个一致状态转变为另一个一致状态。在事务开始和结束时，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python 之 pytest标记（五）">
-<meta property="og:url" content="http://example.com/2024/01/20/python-%E4%B9%8B-pytest%E6%A0%87%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:title" content="02探讨事务一致性">
+<meta property="og:url" content="http://example.com/2024/05/18/02%E6%8E%A2%E8%AE%A8%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="如何用属性标记测试函数简单使用通过使用pytest.mark可以轻松地在测试函数上设置元数据。可以在API参考中找到内置标记的完整列表。 或者可以使用命令行pytest — —markers列出内置的和自定义的所有标记， 内置标记包含：  usefixtures - 使用fixutures的测试用例或者类 filterwarnings 过滤带警告的测试函数 skip 测试的时候跳过该测试用例 sk">
+<meta property="og:description" content="1.事务的ACID特性在数据库中，“事务”是由多个操作构成的序列。广义上的事务一致性具化到了原子性、一致性、隔离性和持久性这4个方面。  原子性（Atomicity）：指事务是一个不可分割的操作单元，要么全部执行成功，要么全部失败回滚。如果事务中的任何一个操作失败，整个事务将回滚到最初的状态。 一致性（Consistency）：指事务将数据库从一个一致状态转变为另一个一致状态。在事务开始和结束时，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
-<meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
-<meta property="article:modified_time" content="2024-04-15T11:20:17.017Z">
+<meta property="og:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
+<meta property="article:published_time" content="2024-05-18T03:20:10.000Z">
+<meta property="article:modified_time" content="2024-05-19T03:27:02.705Z">
 <meta property="article:author" content="Wangxiaowang">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="笔记">
-<meta property="article:tag" content="pytest">
+<meta property="article:tag" content="block">
+<meta property="article:tag" content="概念">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta name="twitter:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>python 之 pytest标记（五） - Wang</title>
+  <title>02探讨事务一致性 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -237,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/marek.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/bing_2017_RotenbergVineyards.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="python 之 pytest标记（五）"></span>
+            <span id="subtitle" data-typed-text="02探讨事务一致性"></span>
           
         </div>
 
@@ -254,8 +253,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-20 10:41" pubdate>
-          2024年1月20日 上午
+        <time datetime="2024-05-18 11:20" pubdate>
+          2024年5月18日 上午
         </time>
       </span>
     
@@ -266,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          809 字
         
       </span>
     
@@ -277,7 +276,7 @@
         
         
         
-          11 分钟
+          7 分钟
         
       </span>
     
@@ -314,38 +313,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">python 之 pytest标记（五）</h1>
+            <h1 id="seo-header">02探讨事务一致性</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="如何用属性标记测试函数"><a href="#如何用属性标记测试函数" class="headerlink" title="如何用属性标记测试函数"></a>如何用属性标记测试函数</h1><h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>通过使用<code>pytest.mark</code>可以轻松地在测试函数上设置元数据。可以在API参考中找到内置标记的完整列表。</p>
-<p>或者可以使用命令行<code>pytest — —markers</code>列出内置的和自定义的所有标记，</p>
-<p>内置标记包含：</p>
+                <h2 id="1-事务的ACID特性"><a href="#1-事务的ACID特性" class="headerlink" title="1.事务的ACID特性"></a>1.事务的ACID特性</h2><p>在数据库中，“事务”是由多个操作构成的序列。广义上的事务一致性具化到了原子性、一致性、隔离性和持久性这4个方面。</p>
+<ol>
+<li><code>原子性（Atomicity）：</code>指事务是一个不可分割的操作单元，要么全部执行成功，要么全部失败回滚。如果事务中的任何一个操作失败，整个事务将回滚到最初的状态。</li>
+<li><code>一致性（Consistency）：</code>指事务将数据库从一个一致状态转变为另一个一致状态。在事务开始和结束时，数据库必须满足预定义的一致性规则，以保持数据的有效性和完整性。</li>
+<li><code>隔离性（Isolation）：</code>指每个事务的执行应该与其他事务的执行相互隔离，以防止彼此干扰。隔离级别定义了事务之间的隔离程度，包括已提交读、可重复读、快照隔离和可串行化。</li>
+<li><code>持久性（Durability）：</code>指一旦事务提交，其结果就应该永久保存在数据库中，即使系统发生故障也不会丢失。数据库通过将事务日志持久化到磁盘来实现持久性。</li>
+</ol>
+<h3 id="1-1-原子性和一致性的差异"><a href="#1-1-原子性和一致性的差异" class="headerlink" title="1.1 原子性和一致性的差异"></a>1.1 原子性和一致性的差异</h3><p><code>原子性</code>关注事务内部状态，要不全部成功，要不全部失败</p>
+<p><code>一致性</code>关注数据可见性，中间状态的数据对外不可见，只有最初状态和最终状态的数据对外可见</p>
+<h3 id="1-2-持久性核心思想即应对系统故障"><a href="#1-2-持久性核心思想即应对系统故障" class="headerlink" title="1.2 持久性核心思想即应对系统故障"></a>1.2 持久性核心思想即应对系统故障</h3><blockquote>
+<p>目的都是保证在本地节点之外，至少有一份完整的日志可用于数据恢复。</p>
+</blockquote>
+<p><strong>存储硬件无损、可恢复故障：</strong> 主要依托于预写日志（Write Ahead Log, WAL）保证第一时间存储数据。WAL采用顺序写入的方式，可以保证数据库的低延时响应。</p>
+<p><strong>存储硬件损坏、不可恢复的故障：</strong> 需要用到日志复制技术，将本地日志及时同步到其他节点。</p>
 <ul>
-<li><code>usefixtures</code> - 使用fixutures的测试用例或者类</li>
-<li><code>filterwarnings</code> 过滤带警告的测试函数</li>
-<li><code>skip</code> 测试的时候跳过该测试用例</li>
-<li><code>skipif</code>：根据条件跳过测试。后面可以写条件</li>
-<li><code>xfail</code>标记预期失败的测试用例，即使测试失败也不会报告为错误。</li>
-<li><code>parametrize</code>：参数化测试，用于通过不同的参数运行同一个测试多次。</li>
-<li><code>timeout</code>：设置测试的最大运行时间，超时将中止测试。</li>
+<li>单体数据库自带的同步或半同步的方式，其中半同步方式具有一定的容错能力</li>
+<li>日志存储到共享存储系统上，后者会通过冗余存储保证日志的安全性</li>
+<li>基于Paxos&#x2F;Raft的共识算法同步日志数据，在分布式数据库中被广泛使用</li>
 </ul>
-<p>创建自定义标记或将标记应用于整个测试类或模块非常容易。这些标记可以被插件使用，也通常用于使用-m选项在命令行上选择测试。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-meta">@pytest.mark.usefixtures</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-comment"># 测试代码</span><br><span class="hljs-meta">@pytest.mark.skip</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-comment"># 测试代码</span><br><span class="hljs-meta">@pytest.mark.skipif(<span class="hljs-params">condition, reason=optional_reason</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-comment"># 测试代码</span><br><span class="hljs-meta">@pytest.mark.xfail</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-comment"># 测试代码</span><br><span class="hljs-meta">@pytest.mark.parametrize(<span class="hljs-params"><span class="hljs-string">&quot;param&quot;</span>, [value1, value2, ...]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>(<span class="hljs-params">param</span>):<br>    <span class="hljs-comment"># 测试代码</span><br><span class="hljs-meta">@pytest.mark.timeout(<span class="hljs-params">timeout_value</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_function</span>():<br>    <span class="hljs-comment"># 测试代码</span><br></code></pre></td></tr></table></figure>
-
-<p>要运行带有自定义标记 <code>my_marker</code> 的测试项，可以使用以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pytest -m my_marker</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="注册标记"><a href="#注册标记" class="headerlink" title="注册标记"></a>注册标记</h2><p>可以在<code>pytest.ini</code>中自定义标记：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[pytest]</span><br><span class="hljs-attr">markers</span> =<br>    slow: marks tests as slow (deselect with &#x27;-m &quot;not slow&quot;&#x27;)<br>    serial<br></code></pre></td></tr></table></figure>
-
-<p>或者在 <code>pyproject.toml</code> 文件中，如下所示：（toml类似于ini文件，也是一种存储配置文件的方式）</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[tool.pytest.ini_options]</span><br><span class="hljs-attr">markers</span> = [<br>    <span class="hljs-string">&quot;slow: marks tests as slow (deselect with &#x27;-m \&quot;not slow\&quot;&#x27;)&quot;</span>,<br>    <span class="hljs-string">&quot;serial&quot;</span>,<br>]<br></code></pre></td></tr></table></figure>
-
-<p>或者可以在pytest钩子里面注册标记</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">pytest_configure</span>(<span class="hljs-params">config</span>):<br>    config.addinivalue_line(<br>        <span class="hljs-string">&quot;markers&quot;</span>, <span class="hljs-string">&quot;env(name): mark test to run only on named environment&quot;</span><br>    )<br></code></pre></td></tr></table></figure>
-
+<h3 id="1-3-隔离性分为多个隔离级别"><a href="#1-3-隔离性分为多个隔离级别" class="headerlink" title="1.3 隔离性分为多个隔离级别"></a>1.3 隔离性分为多个隔离级别</h3><blockquote>
+<p>较低的隔离级别就是在正确性上做妥协，将一些异常现象交给应用系统的开发人员去解决，从而获得更好的性能。</p>
+</blockquote>
 
                 
               </div>
@@ -354,15 +348,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/blockChain/" class="category-chain-item">blockChain</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/" class="print-no-link">#python</a>
+        <a href="/tags/block/" class="print-no-link">#block</a>
       
-        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
-      
-        <a href="/tags/pytest/" class="print-no-link">#pytest</a>
+        <a href="/tags/%E6%A6%82%E5%BF%B5/" class="print-no-link">#概念</a>
       
     </div>
   
@@ -374,8 +387,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>python 之 pytest标记（五）</div>
-      <div>http://example.com/2024/01/20/python-之-pytest标记（五）/</div>
+      <div>02探讨事务一致性</div>
+      <div>http://example.com/2024/05/18/02探讨事务一致性/</div>
     </div>
     <div class="license-meta">
       
@@ -387,7 +400,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月20日</div>
+          <div>2024年5月18日</div>
         </div>
       
       
@@ -419,9 +432,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/20/python-%E4%B9%8B-pytest-%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%EF%BC%88%E5%85%AB%EF%BC%89/" title="python 之 pytest 常用插件（八）">
+                      <a href="/2024/05/19/02%E9%92%B1%E5%8C%85/" title="02钱包">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">python 之 pytest 常用插件（八）</span>
+                        <span class="hidden-mobile">02钱包</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -429,8 +442,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/20/python%E4%B9%8Bpytest%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="【python】之pytest使用指南快速入门(一)">
-                        <span class="hidden-mobile">【python】之pytest使用指南快速入门(一)</span>
+                      <a href="/2024/05/17/01%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" title="01分布式基础理论">
+                        <span class="hidden-mobile">01分布式基础理论</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
