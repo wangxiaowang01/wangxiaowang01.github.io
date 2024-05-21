@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/bing_2018_OyamaLeaves.jpg">
 <meta property="article:published_time" content="2024-05-19T03:30:32.000Z">
-<meta property="article:modified_time" content="2024-05-20T13:01:46.707Z">
+<meta property="article:modified_time" content="2024-05-21T02:08:23.331Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k 字
+          15k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          121 分钟
+          125 分钟
         
       </span>
     
@@ -733,8 +733,16 @@
 <li><strong>劣势</strong>：操作过程可能较为复杂；需要多个参与者的<strong>协作</strong>；可能涉及较高的协调成本。</li>
 </ul>
 <h1 id="10-社交恢复钱包"><a href="#10-社交恢复钱包" class="headerlink" title="10. 社交恢复钱包"></a>10. 社交恢复钱包</h1><p>社交恢复钱包现在是属于不流行阶段，其使用门槛稍微高了一些，而且现有的社交恢复的技术解决方案不够完美，这也是社交恢复钱包直到今天为止做得不太好的原因。</p>
-<h2 id="9-1-守护者恢复"><a href="#9-1-守护者恢复" class="headerlink" title="9.1. 守护者恢复"></a>9.1. 守护者恢复</h2><p>守护者恢复是使用合约的方式来实现的，用户的钱包是一个合约钱包，由一个 EOA 地址控制；用户可以给这个钱包设置 <strong>N 个守护者</strong>，当用户的私钥<strong>丢失</strong>时，可以让这些守护者<strong>联合签名</strong>一个交易替换这个合约钱包的 <strong>owner</strong>。</p>
+<h2 id="10-1-守护者恢复"><a href="#10-1-守护者恢复" class="headerlink" title="10-1 守护者恢复"></a>10-1 守护者恢复</h2><p>守护者恢复是使用合约的方式来实现的，用户的钱包是一个合约钱包，由一个 EOA 地址控制；用户可以给这个钱包设置 <strong>N 个守护者</strong>，当用户的私钥<strong>丢失</strong>时，可以让这些守护者<strong>联合签名</strong>一个交易替换这个合约钱包的 <strong>owner</strong>。</p>
 <p><img src="/img/web3/protector.png" srcset="/img/loading.gif" lazyload alt="protector"></p>
+<p>在守护者恢复机制中，用户可以指定一组<strong>信任</strong>的联系人（<strong>守护者</strong>），他们可以在用户<strong>丢失</strong>私钥时帮助恢复钱包。这个过程通常涉及以下步骤：</p>
+<ol>
+<li><strong>设置守护者</strong>：用户在钱包中设置<strong>一组</strong>信任的联系人（守护者），通常需要他们的<strong>公钥</strong>或钱包地址。</li>
+<li><strong>私钥丢失</strong>：当用户<strong>丢失</strong>了对钱包的访问权限，例如<strong>忘记</strong>了密码或<strong>丢失</strong>了硬件钱包。</li>
+<li><strong>请求恢复</strong>：用户向守护者发出<strong>帮助恢复</strong>的请求。</li>
+<li><strong>多签名交易</strong>：守护者<strong>们</strong>需要按照预设的规则（例如，需要一定数量的守护者同意）签署一个特殊的多签名交易，以<strong>证明</strong>他们的身份和同意恢复操作。</li>
+<li><strong>恢复钱包</strong>：一旦收集到<strong>足够</strong>数量的签名，就可以通过智能合约或其他机制来恢复钱包的访问权限。</li>
+</ol>
 <h2 id="9-2-密钥分片恢复"><a href="#9-2-密钥分片恢复" class="headerlink" title="9.2. 密钥分片恢复"></a>9.2. 密钥分片恢复</h2><p>密钥分片社交恢复钱包是使用<strong>门限秘密</strong>共享的密码学技术方案对钱包的助记词或私钥进行切片备份管理，当用户的助记词或私钥丢失，可以发起社交恢复的方式进行助记词和私钥的恢复，在密钥分片社交恢复钱包中，可以将助记词和私钥屏蔽，不在需要用户自己去备份助记词和私钥，而是通过社交的方式进行助记词和私钥的备份。</p>
 <blockquote>
 <p>门限秘密（Threshold Secret）是一种密码学技术，用于将秘密信息分割成多个部分，并指定一个门限值。只有达到或超过门限值的部分才能合并，从而重新构建原始的秘密信息。前面的MPC和多签都算是门限秘密</p>
@@ -751,6 +759,14 @@
 <li>逆门限共享秘密算法通过 K 份 shadow 恢复出 body</li>
 <li>body 和 head 做逆异或算法得到助记词和私钥。 关于密钥柜： 密码柜是一个密钥托管服务，用户可以自行运行密钥柜服务存储自己的密钥 shadow，也可以将密钥 shadow 加密之后保存到我们官方密钥柜，密钥柜对接的是各大区块链存储平台，我们将把密钥进行深层次加密之后把密钥上传到各大区块链存储平台，即使有一天密钥柜不运行了，用户也可以从各大区块链存储平台获取到自己加密的密钥分片，根据加密规则进行解密就可以得到明文的密钥 shadow，同时根据上面的设计图用户还可以通过隐私社交的方式备份自己的密钥 shadow</li>
 </ul>
+<p>私钥分片恢复机制则是一种基于秘密<strong>共享</strong>算法的方法，它将私钥<strong>分割</strong>成多个部分（分片），并将这些分片<strong>分散存储</strong>在不同的地点或人那里。以下是私钥分片恢复的一般步骤：</p>
+<ol>
+<li><strong>私钥分片</strong>：用户的私钥被<strong>分割</strong>成多个分片，每个分片都通过<strong>某种加密</strong>方法进行<strong>保</strong>护。</li>
+<li><strong>分片存储</strong>：这些分片可以存储在用户的多个设备上、云端服务、或者交给<strong>信任</strong>的朋友保管。</li>
+<li><strong>分片恢复</strong>：当用户需要恢复私钥时，他们<strong>需要收集一定数量</strong>的分片（根据设定的阈值，例如5个分片中的3个）。</li>
+<li><strong>重组私钥</strong>：收集到<strong>足够</strong>的分片后，用户可以通过一个解密过程重组原始的私钥。</li>
+<li><strong>访问钱包</strong>：一旦私钥被<strong>重组</strong>，用户就可以重新访问他们的钱包。</li>
+</ol>
 <h1 id="10-EVM-链-AA-钱包"><a href="#10-EVM-链-AA-钱包" class="headerlink" title="10. EVM 链 AA 钱包"></a>10. EVM 链 AA 钱包</h1><p>EIP4337 账户抽象钱包不仅仅是普通的钱包，它们本身就是智能合约, 主要有安全性高，gas 代付等特点，目前很多公司和项目方都已经或者正在集成账户抽象钱包，但是 AA 钱包目前不是一个很好的赛道，实际应用的公司并不多。</p>
 <p>AA 钱包和  gnosis safe 多签钱包一样，很多都是智能合约，故而我也在智能合约章节中仔细讲解它， 这里不在做过多的赘述。</p>
 <p>如果有兴趣，更多详情可以参阅：</p>
