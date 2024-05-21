@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="八　常见的Python陷阱8.1　循环列表的同时不要增删其中的元素使用for或while在列表上进行循环（也就是迭代）的同时增删其中的元素很可能会导致错误。想想这种情况：你要迭代一个包含各种描述衣服的字符串的列表，希望每次发现&#39;sock&#39;时插入另一个&#39;sock&#39;，从而保证列表中的&#39;sock&#39;数是偶数。这个任务看起来很简单：遍历列表中的字符串，当发现某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【python】读书笔记之常见陷阱（八）">
+<meta property="og:url" content="http://example.com/2024/01/08/618python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1%EF%BC%88%E5%85%AB%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="八　常见的Python陷阱8.1　循环列表的同时不要增删其中的元素使用for或while在列表上进行循环（也就是迭代）的同时增删其中的元素很可能会导致错误。想想这种情况：你要迭代一个包含各种描述衣服的字符串的列表，希望每次发现&#39;sock&#39;时插入另一个&#39;sock&#39;，从而保证列表中的&#39;sock&#39;数是偶数。这个任务看起来很简单：遍历列表中的字符串，当发现某">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-08T07:01:15.000Z">
+<meta property="article:modified_time" content="2024-05-21T02:30:00.568Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【python】读书笔记之常见陷阱（八） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/neom-El92hmAt91o-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【python】读书笔记之常见陷阱（八）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-08 15:01" pubdate>
+          2024年1月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          110 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【python】读书笔记之常见陷阱（八）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="八-常见的Python陷阱"><a href="#八-常见的Python陷阱" class="headerlink" title="八　常见的Python陷阱"></a>八　常见的Python陷阱</h1><h2 id="8-1-循环列表的同时不要增删其中的元素"><a href="#8-1-循环列表的同时不要增删其中的元素" class="headerlink" title="8.1　循环列表的同时不要增删其中的元素"></a>8.1　循环列表的同时不要增删其中的元素</h2><p>使用<code>for</code>或<code>while</code>在列表上进行循环（也就是迭代）的同时增删其中的元素很可能会导致错误。想想这种情况：你要迭代一个包含各种描述衣服的字符串的列表，希望每次发现<code>&#39;sock&#39;</code>时插入另一个<code>&#39;sock&#39;</code>，从而保证列表中的<code>&#39;sock&#39;</code>数是偶数。这个任务看起来很简单：遍历列表中的字符串，当发现某个字符串包含<code>&#39;sock&#39;</code>时（比如<code>&#39;red sock&#39;</code>），在列表后添加另外一个<code>&#39;red sock&#39;</code>字符串。</p>
+<p>但以下这段代码并不奏效。它陷入了死循环，必须使用CTRL-C才能中断：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>clothes = [<span class="hljs-string">&#x27;skirt&#x27;</span>, <span class="hljs-string">&#x27;red sock&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> clothing <span class="hljs-keyword">in</span> clothes: <span class="hljs-comment"># 迭代列表</span><br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;sock&#x27;</span> <span class="hljs-keyword">in</span> clothing: <span class="hljs-comment"># 寻找含有&#x27;sock&#x27;的字符串</span><br><span class="hljs-meta">... </span>        clothes.append(clothing) <span class="hljs-comment"># 添加&#x27;sock&#x27;</span><br><span class="hljs-meta">... </span>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Added a sock:&#x27;</span>, clothing) <span class="hljs-comment"># 告知用户</span><br>...<br>Added a sock: red sock<br>Added a sock: red sock<br>Added a sock: red sock<br>--snip--<br>Added a sock: red sock<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="hljs-number">3</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>KeyboardInterrupt<br></code></pre></td></tr></table></figure>
+
+<p>　　问题在于，当你把<code>&#39;red sock&#39;</code>追加到<code>clothes</code>列表中时，列表多出了第3项，需要被迭代的列表变成了<code>[&#39;skirt&#39;, &#39;red sock&#39;, &#39;red sock&#39;]</code>。在下一次迭代中，<code>for</code>循环遍历到了第2个<code>&#39;red sock&#39;</code>，同样的故事继续重演，它又追加了一个<code>&#39;red sock&#39;</code>字符串，列表变为<code>[&#39;skirt&#39;, &#39;red sock&#39;, &#39;red sock&#39;，&#39;red sock&#39;]</code>。这样一来，Python又需要多遍历一个字符串，如图8-1所示。这就是为什么我们看到控制台总是输出<code>&quot;Added a sock: red sock&quot;</code>。这种循环只有在计算机内存耗尽以至于程序崩溃或者按CTRL-C中断时才会停止。</p>
+<p><strong>在<code>for</code>循环的每一次迭代中，都有一个新的<code>&#39;red sock&#39;</code>被追加到列表中，作为下一次迭代的指向，形成死循环</strong></p>
+<p>　　要点是不要在迭代列表的时候将元素添加进列表。应该使用一个单独的列表作为修改后的列表，比如这个例子中的<code>newClothes</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>clothes = [<span class="hljs-string">&#x27;skirt&#x27;</span>, <span class="hljs-string">&#x27;red sock&#x27;</span>, <span class="hljs-string">&#x27;blue sock&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>newClothes = []<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> clothing <span class="hljs-keyword">in</span> clothes:<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;sock&#x27;</span> <span class="hljs-keyword">in</span> clothing:<br><span class="hljs-meta">... </span>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Appending:&#x27;</span>, clothing)<br><span class="hljs-meta">... </span>        newClothes.append(clothing) <span class="hljs-comment"># 我们修改newClothes列表，而非clothes列表</span><br>...<br>Appending: red sock<br>Appending: blue sock<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(newClothes)<br>[<span class="hljs-string">&#x27;red sock&#x27;</span>, <span class="hljs-string">&#x27;blue sock&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>clothes.extend(newClothes) <span class="hljs-comment"># 将newClothes中的项添加到clothes中</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(clothes)<br>[<span class="hljs-string">&#x27;skirt&#x27;</span>, <span class="hljs-string">&#x27;red sock&#x27;</span>, <span class="hljs-string">&#x27;blue sock&#x27;</span>, <span class="hljs-string">&#x27;red sock&#x27;</span>, <span class="hljs-string">&#x27;blue sock&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p><strong>当循环删除<code>&#39;mello&#39;</code>时，列表中的元素索引减1，导致索引<code>i</code>跳过了<code>&#39;yello&#39;</code></strong></p>
+<p>　　正确的做法是复制不想删除的项到一个新的列表，再用它替换原来的列表。在交互式shell中输入以下代码，可以得到前一个例子的正确版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>greetings = [<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;mello&#x27;</span>, <span class="hljs-string">&#x27;yello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>newGreetings = []<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> greetings:<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> word == <span class="hljs-string">&#x27;hello&#x27;</span>: <span class="hljs-comment"># 复制是&#x27;hello&#x27;的每一项</span><br><span class="hljs-meta">... </span>        newGreetings.append(word)<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>greetings = newGreetings <span class="hljs-comment"># 替换原来的列表</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(greetings)<br>[<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>　　这段代码只是一个用来创建列表的简单循环，通过列表推导式也可以做到。列表推导式在运行速度和内存使用上并不占优势，但可以在不损失可读性的前提下尽可能缩短打字时间。在交互式shell中输入上一个示例的等效代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>greetings = [<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;mello&#x27;</span>, <span class="hljs-string">&#x27;yello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>greetings = [word <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> greetings <span class="hljs-keyword">if</span> word == <span class="hljs-string">&#x27;hello&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(greetings)<br>[<span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>, <span class="hljs-string">&#x27;hello&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>　　列表推导式不仅更简洁，还避免了在迭代时修改列表所引发的“陷阱”</p>
+<blockquote>
+<p><strong>引用、内存使用和<code>sys.getsizeof()</code></strong></p>
+<p>　　创建一个新列表看起来比修改原有列表更消耗内存。但是，正如变量包含的只是值的引用而非实际值，列表包含的也是值的引用。在前面的代码中，<code>newGreetings.append(word)</code>并没有复制<code>word</code>变量中的字符串，而只是复制了对该字符串的引用。相比之下，这个引用比实际的字符串小很多。</p>
+<p>　　使用<code>sys.getsizeof()</code>函数可以证实这一点。该函数的返回值是参数对象在内存中占用的字节数。在这个交互式shell示例中，可以看到短字符串<code>&#39;cat&#39;</code>占用了52字节，而长字符串占用了85字节：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> sys<br><span class="hljs-meta">&gt;&gt;&gt; </span>sys.getsizeof(<span class="hljs-string">&#x27;cat&#x27;</span>)<br><span class="hljs-number">52</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>sys.getsizeof(<span class="hljs-string">&#x27;a much longer string than just &quot;cat&quot;&#x27;</span>)<br><span class="hljs-number">85</span><br></code></pre></td></tr></table></figure>
+
+<p>　　在我使用的Python版本中，字符串对象固有的开销占49字节，而字符串中每个实际字符再占用1字节。但包含了任意字符串的列表只占用72字节，无论字符串有多长。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>sys.getsizeof([<span class="hljs-string">&#x27;cat&#x27;</span>])<br><span class="hljs-number">72</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>sys.getsizeof([<span class="hljs-string">&#x27;a much longer string than just &quot;cat&quot;&#x27;</span>])<br><span class="hljs-number">72</span><br></code></pre></td></tr></table></figure>
+
+<p>　　原因在于，从技术原理上讲，列表并不包含字符串，而只包含对字符串的引用。无论引用的数据有多大，引用本身的大小是一样的。像<code>newGreetings.append(word)</code>这样的代码并不是在复制<code>word</code>中的字符串，而是复制对字符串的引用。Python核心开发者Raymond Hettinger编写了一个函数，可以用来了解一个对象及其引用的全部对象占用的内存。</p>
+<p>　　所以你不必觉得与迭代列表时对其进行修改相比，创建新列表会浪费内存。即使在修改迭代列表时不出错，它也可能隐藏着某些不易察觉的bug，需要很长时间才能排查和修复。程序员的时间要比计算机的内存值钱得多。</p>
+</blockquote>
+<p>　　虽然在迭代列表（或者任何可迭代对象）时不应该从中增删元素，但修改列表的某项内容是被允许的。比如有一个字符串形式的数字列表<code>[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;]</code>，我们可以在迭代列表的同时将其转换成整数列表：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>numbers = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> i, number <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(numbers):<br><span class="hljs-meta">... </span>    numbers[i] = <span class="hljs-built_in">int</span>(number)<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>numbers<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
+
+<p>　　修改列表中的元素是可以的，改变列表中的元素个数才容易导致问题。</p>
+<h2 id="8-2-复制可变值时务必使用copy-copy-和copy-deepcopy"><a href="#8-2-复制可变值时务必使用copy-copy-和copy-deepcopy" class="headerlink" title="8.2　复制可变值时务必使用copy.copy()和copy.deepcopy()"></a>8.2　复制可变值时务必使用<code>copy.copy()</code>和<code>copy.deepcopy()</code></h2><p>　　最好把变量看作指向对象的标签或者代号，而不是包含对象的盒子。这种模型在涉及修改可变对象时特别有用，比如列表、字典和集合等对象的值是可以改变的。一个常见的错误是复制指向某个对象的变量到另一个变量时，误以为是在复制实际的对象。在Python中，赋值语句从来都不会复制对象，而只会复制对象的引用。关于这个问题，Python开发者Ned Batchelder在PyCon 2015上发表了一场精彩的演讲，题为“Facts and Myths about Python Names and Values”（关于Python名称和值的事实与谬误）。</p>
+<p>　　来看一个示例。在交互式shell中输入以下代码，需要注意的是，尽管我们只改变了<code>spam</code>变量，但<code>cheese</code>变量也发生了变化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>spam = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>cheese = spam<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam<br>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>cheese<br>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam[<span class="hljs-number">2</span>] = <span class="hljs-string">&#x27;MOOSE&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>spam<br>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;MOOSE&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>cheese<br>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;MOOSE&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(cheese), <span class="hljs-built_in">id</span>(spam)<br><span class="hljs-number">2356896337288</span>, <span class="hljs-number">2356896337288</span><br></code></pre></td></tr></table></figure>
+
+<p>　　如果误认为<code>cheese = spam</code>复制了<code>list</code>对象，那么你可能会惊讶于尽管只修改了<code>spam</code>，但<code>cheese</code>也发生了变化。赋值语句从来不复制对象，而只复制对象的引用。赋值语句<code>cheese = spam</code>使<code>cheese</code>在计算机内存中引用了与<code>spam</code>相同的列表对象，而非复制了列表对象。这就是改变了<code>spam</code>，<code>cheese</code>也随之改变的原因：两个变量指向了同一个列表对象。</p>
+<p>　　同样的原则也适用于作为函数调用参数的可变对象。在交互式shell中输入以下内容，注意全局变量<code>spam</code>和局部变量，参数（参数是在函数的<code>def</code>语句中定义的变量）<code>theList</code>指向同一个对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">printIdOfParam</span>(<span class="hljs-params">theList</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(theList))<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>eggs = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(eggs))<br><span class="hljs-number">2356893256136</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>printIdOfParam(eggs)<br><span class="hljs-number">2356893256136</span><br></code></pre></td></tr></table></figure>
+
+<p>　　注意<code>id(eggs)</code>和<code>id(theList)</code>返回的身份是一样的，意味着这两个变量指向同一个列表对象。<code>eggs</code>变量对应的列表对象并没有被复制到<code>theList</code>中，而是复制了对象的引用。一个引用只有几字节大小。假设Python复制了列表而非引用，会如何呢？如果<code>eggs</code>不止3项，而有10亿项，那么把它传递给<code>printIdOfParam()</code>时需要复制这个巨大的列表。仅仅是一个简单的函数调用，就将消耗几千兆字节的内存。这就是Python赋值只复制引用而不复制对象的原因。</p>
+<p>　　如果你真的想复制这个列表对象（而不仅仅是引用），那么一个可行的方案是使用<code>copy.copy()</code>函数复制对象。在交互式shell中输入以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> copy<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon = [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>ham = copy.copy(bacon)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(bacon), <span class="hljs-built_in">id</span>(ham)<br>(<span class="hljs-number">2356896337352</span>, <span class="hljs-number">2356896337480</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;CHANGED&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon<br>[<span class="hljs-string">&#x27;CHANGED&#x27;</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>ham<br>[<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">16</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(bacon), <span class="hljs-built_in">id</span>(ham)<br>(<span class="hljs-number">2356896337352</span>, <span class="hljs-number">2356896337480</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　<code>ham</code>变量指向了复制的列表对象，而非<code>bacon</code>所指向的原始列表对象，所以不会因为复制引用而导致错误。</p>
+<p>　　但正如之前的比喻所解释的，变量像是标签而非包含对象的盒子，列表包含的也是指向对象的标签而非实际的对象。如果列表中嵌套了其他列表，那么<code>copy.copy()</code>只会复制被嵌套列表项的引用。在交互式shell中输入以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> copy<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon = [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]]<br><span class="hljs-meta">&gt;&gt;&gt; </span>ham = copy.copy(bacon)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(bacon), <span class="hljs-built_in">id</span>(ham)<br>(<span class="hljs-number">2356896466248</span>, <span class="hljs-number">2356896375368</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon.append(<span class="hljs-string">&#x27;APPENDED&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon<br>[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-string">&#x27;APPENDED&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>ham<br>[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]]<br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;CHANGED&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>bacon<br>[[<span class="hljs-string">&#x27;CHANGED&#x27;</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-string">&#x27;APPENDED&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>ham<br>[[<span class="hljs-string">&#x27;CHANGED&#x27;</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(bacon[<span class="hljs-number">0</span>]), <span class="hljs-built_in">id</span>(ham[<span class="hljs-number">0</span>])<br>(<span class="hljs-number">2356896337480</span>, <span class="hljs-number">2356896337480</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　虽然<code>bacon</code>和<code>ham</code>是不同的列表对象，但它们都包含了两个同样的内部列表<code>[1, 2]</code>和<code>[3, 4]</code>。使用<code>copy.copy()</code>并不能处理这种情况1，正确的方法是使用<code>copy.deepcopy()</code>，它将复制列表对象内部的子列表对象（假如子列表还有子列表，也会层层递归）。在交互式shell中输入以下内容：</p>
+<p>1它只能返回最外层对象的副本。——译者注</p>
+<h2 id="8-3-不要用可变值作为默认参数"><a href="#8-3-不要用可变值作为默认参数" class="headerlink" title="8.3　不要用可变值作为默认参数"></a>8.3　不要用可变值作为默认参数</h2><p>Python允许为函数设置默认参数。当用户没有明确设定参数时，函数将使用默认参数执行。当函数的大多数调用使用相同的参数时，默认参数很有用，因为用户在某些情况下可以不必填写参数。比如在<code>split()</code>方法中传递<code>None</code>会使它在遇到空白字符时进行分割。<code>None</code>也是<code>split()</code>函数的默认参数：调用<code>&#39;cat dog&#39;.split()</code>等效于调用<code>&#39;cat dog&#39;.split(None)</code>。如果调用者不传入参数，函数就会使用对应的默认参数。</p>
+<p>　　但永远不要把一个可变对象（比如列表或者字典）设置为默认参数，因为它很容易导致错误。下面的例子进行了说明。这段代码定义了一个<code>addIngredient()</code>函数，它的作用是为一个代表三明治的列表添加某种调料字符串。因为这个列表的最前和最后一项通常是<code>&#39;bread&#39;</code>，所以它使用了可变列表<code>[&#39;bread&#39;, &#39;bread&#39;]</code>作为默认参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">addIngredient</span>(<span class="hljs-params">ingredient, sandwich=[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]</span>):<br><span class="hljs-meta">... </span>    sandwich.insert(<span class="hljs-number">1</span>, ingredient)<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> sandwich<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>mySandwich = addIngredient(<span class="hljs-string">&#x27;avocado&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>mySandwich<br>[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;avocado&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>　　但使用像<code>[&#39;bread&#39;, &#39;bread&#39;]</code>列表这种可变对象作为默认参数会导致一个不易察觉的问题：这个列表是在函数的<code>def</code>语句执行时被创建的2，而不是在每次函数调用时被创建的。这意味着只有一个<code>[&#39;bread&#39;, &#39;bread&#39;]</code>列表对象被创建，因为我们只定义了一次<code>addIngredient()</code>函数。每次调用函数都会重复使用同一个列表，这就导致了意想不到的行为，比如下面这种情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>mySandwich = addIngredient(<span class="hljs-string">&#x27;avocado&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>mySandwich<br>[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;avocado&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>anotherSandwich = addIngredient(<span class="hljs-string">&#x27;lettuce&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>anotherSandwich<br>[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;lettuce&#x27;</span>, <span class="hljs-string">&#x27;avocado&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>　　因为<code>addIngredient(&#39;lettuce&#39;)</code>使用了与之前调用相同的默认参数列表，而这个默认参数已经加入了<code>&#39;avocado&#39;</code>，所以这个函数返回的并不是预想的<code>[&#39;bread&#39;, &#39;lettuce&#39;, &#39;bread&#39;]</code>，而是<code>[&#39;bread&#39;, &#39;lettuce&#39;, &#39;avocado&#39;, &#39;bread&#39;]</code>。<code>&#39;avocado&#39;</code>字符串在新的调用结果中又出现了，因为<code>sandwich</code>参数的列表与上一次调用时是同一个。由于<code>def</code>语句只执行了一次，所以<code>[&#39;bread&#39;, &#39;bread&#39;]</code>列表只被创建了一次，而非每次函数调用时都会创建一个新的列表。</p>
+<p>当需要列表或者字典作为默认参数时，Python的解决方法是将默认参数设置为<code>None</code>，然后通过代码检查参数是否为<code>None</code>，如果是，则在函数每次调用时提供一个新的列表或者字典。这么做可以确保每次调用函数时都创建一个新的可变对象，而不是只在定义时创建一次，比如下面这个示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">addIngredient</span>(<span class="hljs-params">ingredient,sandwich=<span class="hljs-literal">None</span></span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> sandwich <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br><span class="hljs-meta">... </span>        sandwich = [<span class="hljs-string">&#x27;bread&#x27;</span>,<span class="hljs-string">&#x27;bread&#x27;</span>]<br><span class="hljs-meta">... </span>    sandwich.insert(<span class="hljs-number">1</span>,ingredient)<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> sandwich<br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>firstSandwich = addIngredient(<span class="hljs-string">&#x27;cranberries&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>firstSandwich<br>[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;cranberries&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>secondSandwich = addIngredient(<span class="hljs-string">&#x27;lettuce&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>secondSandwich<br>[<span class="hljs-string">&#x27;bread&#x27;</span>, <span class="hljs-string">&#x27;lettuce&#x27;</span>, <span class="hljs-string">&#x27;bread&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(firstSandwich) == <span class="hljs-built_in">id</span>(secondSandwich)<br><span class="hljs-literal">False</span> ❶<br></code></pre></td></tr></table></figure>
+
+<p>　　注意，<code>firstSandwich</code>和<code>secondSandwich</code>并不共享相同的列表引用❶，这是因为<code>sandwich = [&#39;bread&#39;, &#39;bread&#39;]</code>这行代码在每次调用<code>addIngredient()</code>时都会创建一个新的列表对象，而不是仅在函数定义时创建一次。</p>
+<p>　　可变数据类型包括列表、字典、集合，以及由类语句创建的对象，不要把这些类型的对象作为<code>def</code>语句中的默认参数。</p>
+<h2 id="8-4-不要通过字符串连接创建字符串"><a href="#8-4-不要通过字符串连接创建字符串" class="headerlink" title="8.4　不要通过字符串连接创建字符串"></a>8.4　不要通过字符串连接创建字符串</h2><p>在Python中，字符串是不可变的对象。这意味着字符串值不能被改变，那些看起来像是修改字符串的代码实际上都是在创建一个新的字符串对象。比如，下面的操作改变了<code>spam</code>变量的内容，并非是通过改变字符串的值，而是用一个新的具有不同身份的字符串值替换了它：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>spam = <span class="hljs-string">&#x27;Hello&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam), spam<br>(<span class="hljs-number">38330864</span>, <span class="hljs-string">&#x27;Hello&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam = spam + <span class="hljs-string">&#x27; world!&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam), spam<br>(<span class="hljs-number">38329712</span>, <span class="hljs-string">&#x27;Hello world!&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam = spam.upper()<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam), spam<br>(<span class="hljs-number">38329648</span>, <span class="hljs-string">&#x27;HELLO WORLD!&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam = <span class="hljs-string">&#x27;Hi&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam), spam<br>(<span class="hljs-number">38395568</span>, <span class="hljs-string">&#x27;Hi&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>spam = <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;spam&#125;</span> world!&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam), spam<br>(<span class="hljs-number">38330864</span>, <span class="hljs-string">&#x27;Hi world!&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>　　注意，每次调用<code>id(spam)</code>都返回了一个不同的身份，因为<code>spam</code>中的字符串对象并不是被修改了，而是被一个全新的、拥有不同身份的字符串对象取代了。通过使用f-string、字符串的<code>format()</code>方法或者<code>%s</code>格式标识符跟使用<code>+</code>进行字符串拼接一样，都会创建新的字符串对象。这一点通常无关紧要。Python是一种高级程序语言，它处理了许多类似的细节，以便你专注程序开发而非技术细节。</p>
+<p>但使用大量的字符串连接构建字符串会使你的程序变慢。循环的每一次迭代都会创建一个新的字符串对象，并丢弃旧的字符串对象。这种代码一般是<code>for</code>或<code>while</code>循环内的字符串连接，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>finalString = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>):<br><span class="hljs-meta">... </span>    finalString += <span class="hljs-string">&#x27;spam &#x27;</span><br>...<br><span class="hljs-meta">&gt;&gt;&gt; </span>finalString<br>spam spam spam spam spam spam spam spam spam spam spam spam --snip--<br></code></pre></td></tr></table></figure>
+
+<p>　　因为<code>finalString += &#39;spam&#39;</code>在循环中重复执行了100 000次，所以Python进行了100 000次字符串连接。CPU需要做的工作是：连接当前<code>finalString</code>和<code>&#39;spam&#39;</code>以创建一个临时字符串，将其放在内存里，在下一个迭代中又立即丢掉它。这做了大量的无用功，因为我们只关心最终的字符串，并不关心临时字符串。</p>
+<p>通过<code>append</code>形成列表的方法要比字符串连接的方法快10倍（第13章介绍了如何测量程序的运行速度）。<code>for</code>循环的迭代次数越多，两者的速度差异就越大。当<code>range(100000)</code>改为<code>range(100)</code>测量时，尽管字符串连接法还是比列表添加法慢，但差异微乎其微。不必每次都坚决避免使用字符串连接、f-string、字符串<code>format()</code>方法或<code>%s</code>格式标识符。只有在进行大量的字符串连接时，使用它们才会明显变慢。</p>
+<p>　　Python能够让程序员不必考虑底层细节，从而能更快地编写软件。正如前面提到的，程序员的时间比CPU的时间宝贵得多。但在有些情况下，了解一些细节（比如了解不可变的字符串和可变的列表之间的区别）是有必要的，它可以避免你坠入“陷阱”，比如使用连接方法来创建字符串这种并不聪明的做法。</p>
+<h2 id="8-5-不要指望sort-按照字母顺序排序"><a href="#8-5-不要指望sort-按照字母顺序排序" class="headerlink" title="8.5　不要指望sort()按照字母顺序排序"></a>8.5　不要指望<code>sort()</code>按照字母顺序排序</h2><p>美国信息交换标准代码（ASCII，发音为ask-ee）是文本字符与数字代码（被称为<strong>码位</strong>或序号）之间的映射。<code>sort()</code>方法采用ASCII-betical排序方法（一个常见术语，意为按照序号排序）而非字母序。在ASCII系统中，“A”用码位65表示，“B”用66表示，以此类推，直到“Z”用90表示。小写字母“a”则由码位97表示，“b”由98表示，以此类推，直到“z”由122表示。当按ASCII进行排序时，大写字母“Z”（码位90）排在小写字母“a”（码位97）之前。</p>
+<h2 id="8-6-不要假设浮点数是完全准确的"><a href="#8-6-不要假设浮点数是完全准确的" class="headerlink" title="8.6　不要假设浮点数是完全准确的"></a>8.6　不要假设浮点数是完全准确的</h2><p>计算机只能存储二进制数字，也就是1和0。为了表示人类熟悉的十进制数字，我们需要将3.14这类数字转换成二进制的0和1的序列。根据电气电子工程师学会（IEEE，发音为eye triple-ee）发布的IEEE 754标准，计算机将做这样的转换。为了方便使用，这些细节对程序员是隐藏的，可以直接输入带有小数点的十进制数字，不必关心十进制数字到二进制数字的转换过程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0.3</span><br><span class="hljs-number">0.3</span><br></code></pre></td></tr></table></figure>
+
+<p>　　浮点数的IEEE 754表示法并不总是与十进制的数字完全等同。虽然对具体示例进行详细讲解超出了本书的范围，但还是在这里举一个经典示例——0.1问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0.1</span> + <span class="hljs-number">0.1</span> + <span class="hljs-number">0.1</span><br><span class="hljs-number">0.30000000000000004</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0.3</span> == (<span class="hljs-number">0.1</span> + <span class="hljs-number">0.1</span> + <span class="hljs-number">0.1</span>)<br><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+
+<p>　　这个和正确结果存在细微差异的奇怪的结果是计算机表示和处理浮点数的方式存在舍入误差造成的。这不是Python的问题，而是IEEE 754标准的问题，它是一个在CPU浮点电路中实现的硬件标准，而非某种语言的软件标准。使用C++或JavaScript，甚至所有在使用IEEE 754标准的CPU上运行的语言（实际上世界上所有的CPU都遵循这一标准），都会得到相同的结果。</p>
+<p>果需要做到准确，例如进行科学计算或者金融计算，那么可以使用Python内置的<code>decimal</code>模块。尽管十进制对象的计算速度比较慢，但好处是能够精确地替代浮点值。比如<code>decimal.Decimal(&#39;0.1&#39;)</code>可以创建一个精确表示数字0.1的值，不会存在浮点数的舍入错误。</p>
+<h2 id="8-7-不要使用链式-运算符"><a href="#8-7-不要使用链式-运算符" class="headerlink" title="8.7　不要使用链式!=运算符"></a>8.7　不要使用链式<code>!=</code>运算符</h2><p>链式比较运算符，如<code>18 &lt; age &lt; 35</code>，或链式赋值运算符，比如<code>six = halfDozen = 6</code>，分别是<code>(18 &lt; age) and (age &lt; 35)</code>以及<code>six = 6; halfDozen = 6</code>的简写。</p>
+<p>　　但不要使用链式比较运算符<code>!=</code>。你也许以为下面这段代码是在检查3个变量是否有不同的值，因为它的结果为<code>True</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = <span class="hljs-string">&#x27;cat&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>b = <span class="hljs-string">&#x27;dog&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>c = <span class="hljs-string">&#x27;moose&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>a != b != c<br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<p>　　但实际上，它相当于<code>(a != b) and (b != c)</code>，这意味着即使<code>a</code>等于<code>c</code>，表达式<code>a != b != c</code>的结果仍然为<code>True</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = <span class="hljs-string">&#x27;cat&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>b = <span class="hljs-string">&#x27;dog&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>c = <span class="hljs-string">&#x27;cat&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>a != b != c<br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<p>　　这个错误很难排查，代码也很误导人，所以最好彻底避免使用链式<code>!=</code>运算符。</p>
+<h2 id="8-8-不要忘记在仅有一项的元组中添加逗号"><a href="#8-8-不要忘记在仅有一项的元组中添加逗号" class="headerlink" title="8.8　不要忘记在仅有一项的元组中添加逗号"></a>8.8　不要忘记在仅有一项的元组中添加逗号</h2><p>在代码中写元组字面量时要记住，务必为仅有一项的元组添加拖尾逗号。<code>(42,)</code>是一个包含整数42的元组，而<code>(42)</code>只是整数42。<code>(42)</code>中的括号类似于表达式<code>(20 + 1) * 2</code>中的括号，是一个添加了括号的表达式，它的值为整数42。</p>
+<h1 id="九-Python的奇特难懂之处"><a href="#九-Python的奇特难懂之处" class="headerlink" title="九　Python的奇特难懂之处"></a>九　Python的奇特难懂之处</h1><h2 id="9-1-为什么256是256，而257不是257"><a href="#9-1-为什么256是256，而257不是257" class="headerlink" title="9.1　为什么256是256，而257不是257"></a>9.1　为什么256是256，而257不是257</h2><p>　　<code>==</code>运算符比较两个对象的值是否相等，<code>is</code>运算符则比较它们的身份是否相同。尽管整数<code>42</code>和浮点数<code>42.0</code>的值是相等的，但它们是不同的对象，保存在计算机内存的不同位置。通过<code>id()</code>函数检查它们的ID是否相同可以确认这一点：</p>
+<p>当然，现实中的程序一般只会用到整数的值，不会在乎它的身份，根本不会使用<code>is</code>运算符比较整数、浮点数、字符串、布尔型或者其他简单数据类型的值。有个例外：当判断<code>None</code>时要使用<code>is None</code>而非<code>== None</code>，正如6.4.3节所提到的。除此之外，你几乎不会遇到这个问题。</p>
+<h2 id="9-4-传递空列表给all"><a href="#9-4-传递空列表给all" class="headerlink" title="9.4　传递空列表给all()"></a>9.4　传递空列表给<code>all()</code></h2><p>内置函数<code>all()</code>接受一个序列值，比如列表。如果该序列中的所有值都是真值，则返回<code>True</code>，如果其中存在假值，则返回<code>False</code>。可以认为<code>all([False，True，True])</code>等效于表达式<code>False and True and True</code>。</p>
+<p>　　你可以将<code>all()</code>和列表推导式结合起来使用。首先基于列表创建一个布尔值的列表，然后使用<code>all()</code>计算。比如，在交互式shell中输入以下内容：</p>
+<p>最好把<code>all([])</code>看作在计算“这个列表中不存在假值”，而不是“这个列表中都是真值”，否则会得到一些奇怪的结果。在交互式shell中输入以下内容：</p>
+<h2 id="9-5-布尔值是整数值"><a href="#9-5-布尔值是整数值" class="headerlink" title="9.5　布尔值是整数值"></a>9.5　布尔值是整数值</h2><p>Python认为浮点数42.0等于整数值42，同时也认为布尔值<code>True</code>和<code>False</code>分别等于1和0。在Python中，<code>bool</code>数据类型是<code>int</code>数据类型的一个子类（第16章将讨论类和子类）。你可以使用<code>int()</code>将布尔值转换为整数：</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【python】读书笔记之常见陷阱（八）</div>
+      <div>http://example.com/2024/01/08/618python读书笔记之常见陷阱（八）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/09/Linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" title="【linux】Linux常用命令">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【linux】Linux常用命令</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/08/docker%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" title="【other】docker相关基础介绍">
+                        <span class="hidden-mobile">【other】docker相关基础介绍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

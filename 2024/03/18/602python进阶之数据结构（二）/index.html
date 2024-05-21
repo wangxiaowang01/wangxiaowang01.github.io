@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2 数据结构2.1基本数据结构可变：列表、字典、集合 不可变：数字、浮点、字符串、元组（需元组内无可变） 直接访问：数字 顺序访问（序列类型）：字符串、列表、元组 Key值访问（映射关系）：字典  2.2 深浅拷贝【什么是拷贝】：原封不动地复制一份新的，在不同的内存地址上，修改旧的不会影响新的。 变量赋值不是拷贝   变量赋值不是拷贝操作，因为变量名list1和变量名list2指向的是一块相同的内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【python】进阶之数据结构（二）">
+<meta property="og:url" content="http://example.com/2024/03/18/602python%E8%BF%9B%E9%98%B6%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="2 数据结构2.1基本数据结构可变：列表、字典、集合 不可变：数字、浮点、字符串、元组（需元组内无可变） 直接访问：数字 顺序访问（序列类型）：字符串、列表、元组 Key值访问（映射关系）：字典  2.2 深浅拷贝【什么是拷贝】：原封不动地复制一份新的，在不同的内存地址上，修改旧的不会影响新的。 变量赋值不是拷贝   变量赋值不是拷贝操作，因为变量名list1和变量名list2指向的是一块相同的内">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-03-18T12:18:03.000Z">
+<meta property="article:modified_time" content="2024-05-13T06:34:59.426Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【python】进阶之数据结构（二） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/44.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【python】进阶之数据结构（二）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-18 20:18" pubdate>
+          2024年3月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          58 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【python】进阶之数据结构（二）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="2-数据结构"><a href="#2-数据结构" class="headerlink" title="2 数据结构"></a>2 数据结构</h1><h2 id="2-1基本数据结构"><a href="#2-1基本数据结构" class="headerlink" title="2.1基本数据结构"></a>2.1基本数据结构</h2><p>可变：列表、字典、集合</p>
+<p>不可变：数字、浮点、字符串、元组（需元组内无可变）</p>
+<p>直接访问：数字</p>
+<p>顺序访问（序列类型）：字符串、列表、元组</p>
+<p>Key值访问（映射关系）：字典 </p>
+<h2 id="2-2-深浅拷贝"><a href="#2-2-深浅拷贝" class="headerlink" title="2.2 深浅拷贝"></a>2.2 深浅拷贝</h2><p>【什么是拷贝】：原封不动地复制一份新的，在不同的内存地址上，修改旧的不会影响新的。</p>
+<p>变量赋值不是拷贝</p>
+<p><img src="/../img/python/image-20220419175739670.png" srcset="/img/loading.gif" lazyload alt="image-20220419175739670.png"></p>
+<ul>
+<li><p>变量赋值不是拷贝操作，因为变量名<code>list1</code>和变量名<code>list2</code>指向的是一块相同的内存地址</p>
+</li>
+<li><p>赋值操作后，无论是通过<code>list1</code>还是<code>list2</code>修改列表的元素，都会影响对方。</p>
+</li>
+<li><p>浅拷贝修改原始数据会影响对方</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">11</span>, <span class="hljs-number">22</span>]]<br>list2 = list1.copy()		<span class="hljs-comment"># 使用列表的copy方法或使用copy模块中的copy方法，都是浅拷贝</span><br><br><span class="hljs-comment"># 浅拷贝后：id(list1) 不等于 id(list2)，说明拷贝了一个新列表。</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/python/image-20220419180226331.png" srcset="/img/loading.gif" lazyload alt="image-20220419180226331"></p>
+<ul>
+<li>执行浅拷贝操作，将在开辟一块新的内存空间，然后将<code>list2</code>绑定到这块内存空间上。</li>
+<li>新内存空间中有三个位置用来存放其三个元素的内存地址。</li>
+<li>新拷贝的列表的三个位置分别绑定旧列表三个位置上的元素的内存地址。</li>
+<li>所以修改旧列表的中的字列表时，会影响新列表中的值，因为它们还同步一部分内存空间。</li>
+</ul>
+<p>【深拷贝】：使用copy.deepcopy()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> copy			<span class="hljs-comment"># 导入内置copy模块</span><br>list1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, [<span class="hljs-number">11</span>, <span class="hljs-number">22</span>]]<br>list2 = copy.deepcopy(list1)	<span class="hljs-comment"># 调用deepcopy()实现深拷贝</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/./img/python/image-20220419180757393.png" srcset="/img/loading.gif" lazyload alt="image-20220419180757393"></p>
+<ul>
+<li>深拷贝时，当元素是可变数据类型时，会重新开辟一块内存空间，存放这个元素对象的内存地址，且该元素内部的可变数据类型也会再重新开辟内存空间，层层检测，层层拷贝。</li>
+<li>此时，新旧列表的子元素都不会共享内存地址，所有不会相互影响。</li>
+</ul>
+<p>深拷贝不会，互相独立的</p>
+<p>【总结】</p>
+<ul>
+<li>深浅拷贝讨论的拷贝对象是可变数据类型</li>
+<li>深浅拷贝的区别在于：是否区分元素的可变还是不可变类型的判断;</li>
+<li>列表的切片也是浅拷贝，copy模块的<code>copy.copy()</code>函数是浅拷贝操作，和列表的内置方法<code>copy()</code>功能相同。</li>
+<li>容器型数据类型的拷贝都存在深浅拷贝问题。</li>
+<li>深浅拷贝没有有优缺点。</li>
+</ul>
+<h2 id="2-3-推导式"><a href="#2-3-推导式" class="headerlink" title="2.3 推导式"></a>2.3 推导式</h2><p>【推导式】也成生成式（comprehensions）是 Python 独有的一种高级特性，它可以使用简单的一行代码实现列表、字典等数据类型的创建或数据类型的转换等任务。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 普通写法：</span><br>nums = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">101</span>):<br>    nums.append(i*i)<br><br><span class="hljs-comment"># 推导式写法：</span><br>nums = [i*i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">101</span>)]<br></code></pre></td></tr></table></figure>
+
+<p>【列表推导式】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 【列表推导式】</span><br><span class="hljs-comment"># 方式1</span><br>nums = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 方式2</span><br>a = &#123;<span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;jack&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>: <span class="hljs-number">18</span>&#125;<br>keys = [key <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> a]	<br></code></pre></td></tr></table></figure>
+
+<p>【字段推导式】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式1</span><br>nums = &#123;i: i*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>)&#125;<br><br><span class="hljs-comment"># 方式2</span><br>li = [[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], (<span class="hljs-number">3</span>,<span class="hljs-number">4</span>)]<br><span class="hljs-built_in">dict</span>(x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> li)			<span class="hljs-comment"># &#123;1: 2, 3: 4&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>【集合推导式】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式1</span><br>b = &#123;i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>)&#125;<br><br><span class="hljs-comment"># 方式2</span><br>a = <span class="hljs-built_in">set</span>(i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>))<br></code></pre></td></tr></table></figure>
+
+<p>【元组推导式】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式1</span><br><span class="hljs-built_in">tuple</span>(x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>))		<span class="hljs-comment"># (1, 2, 3, 4)</span><br><br><span class="hljs-comment"># 数据类型转换</span><br>nums = [<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br><span class="hljs-built_in">tuple</span>(x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> nums)				<span class="hljs-comment"># (3, 4, 5, 6)</span><br><br><span class="hljs-comment"># 元组推导式，按理说应该使用()定义，括号内循环的方式生成元组生成式，</span><br><span class="hljs-comment"># 但是()被python中的生成器占用，所以只能使用tuple</span><br></code></pre></td></tr></table></figure>
+
+<p>list_a &#x3D; [m for i in iterable for m in i ]</p>
+<h3 id="2-4-1-三元表达式"><a href="#2-4-1-三元表达式" class="headerlink" title="2.4.1 三元表达式"></a>2.4.1 三元表达式</h3><p>在Python中，三元表达式是一种简洁的条件表达式，用于根据条件选择不同的值。它的语法形式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">value_if_true <span class="hljs-keyword">if</span> condition <span class="hljs-keyword">else</span> value_if_false<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>condition</code> 是一个条件表达式，如果条件为真，则返回 <code>value_if_true</code>；否则返回 <code>value_if_false</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">10</span><br>y = <span class="hljs-number">20</span><br><br>max_value = x <span class="hljs-keyword">if</span> x &gt; y <span class="hljs-keyword">else</span> y<br><span class="hljs-built_in">print</span>(max_value)  <span class="hljs-comment"># 输出 20</span><br></code></pre></td></tr></table></figure>
+
+<p>三元表达式通常用于简单的条件选择，可以在一行代码中快速进行条件判断和值的选择。它比使用完整的 <code>if-else</code> 语句更为简洁和紧凑。</p>
+<h2 id="2-4-namedtuple-有名元组【重点】"><a href="#2-4-namedtuple-有名元组【重点】" class="headerlink" title="2.4 namedtuple 有名元组【重点】"></a>2.4 namedtuple 有名元组【重点】</h2><p>可以想象成一个元组但是他有名字，也叫具名元组</p>
+<p>兼顾元组的特性，一旦定义不能被修改</p>
+<p>可以通过对象点的方式访问，。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> namedtuple<br><br>Point = namedtuple(<span class="hljs-string">&quot;Point&quot;</span>, [<span class="hljs-string">&quot;x&quot;</span>, <span class="hljs-string">&quot;y&quot;</span>])		<span class="hljs-comment"># 新建一个Point类型，具有x y两个字段</span><br>p = Point(<span class="hljs-number">11</span>, y=<span class="hljs-number">22</span>)			<span class="hljs-comment"># 实例化p  11赋值给x, 22赋值给y</span><br><br><span class="hljs-built_in">print</span>(p[<span class="hljs-number">0</span>], p[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(p.x, p.y)				<span class="hljs-comment"># 属性取值</span><br><span class="hljs-built_in">print</span>(p._asdict())			<span class="hljs-comment"># 返回一个字典：&#123;&quot;x&quot;: 11, &quot;y&quot;: 22&#125;</span><br><br>d = &#123;<span class="hljs-string">&quot;x&quot;</span>: <span class="hljs-number">11</span>, <span class="hljs-string">&quot;y&quot;</span>: <span class="hljs-number">22</span>&#125;<br><span class="hljs-built_in">print</span>(Point(**d))		<span class="hljs-comment"># 通过字典新建 这个好用</span><br><br>p._replace(x=<span class="hljs-number">100</span>)		<span class="hljs-comment"># 返回一个新namedtuple</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> namedtuple<br><br><span class="hljs-comment"># 定义有名元组的类</span><br>Person = namedtuple(<span class="hljs-string">&#x27;Person&#x27;</span>, [<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>, <span class="hljs-string">&#x27;city&#x27;</span>])<br><br><span class="hljs-comment"># 原始字典</span><br>person_dict = &#123;<br>    <span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;Alice&#x27;</span>,<br>    <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">25</span>,<br>    <span class="hljs-string">&#x27;city&#x27;</span>: <span class="hljs-string">&#x27;New York&#x27;</span><br>&#125;<br><br><span class="hljs-comment"># 将字典转换为有名元组</span><br>person_tuple = Person(**person_dict)<br><br><span class="hljs-built_in">print</span>(person_tuple.name)  <span class="hljs-comment"># 输出 &#x27;Alice&#x27;</span><br><span class="hljs-built_in">print</span>(person_tuple.age)   <span class="hljs-comment"># 输出 25</span><br><span class="hljs-built_in">print</span>(person_tuple.city)  <span class="hljs-comment"># 输出 &#x27;New York&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>首先通过 <code>namedtuple</code> 函数定义了一个名为 <code>Person</code> 的有名元组类，它有三个字段：<code>name</code>、<code>age</code> 和 <code>city</code>。然后，定义了一个字典 <code>person_dict</code>，包含了相应的字段值。接下来，使用 <code>**</code> 运算符将字典中的键值对作为参数传递给 <code>Person</code> 类的构造函数，创建了一个有名元组对象 <code>person_tuple</code>。</p>
+<p>优点：通过访问有名元组对象的字段，可以获取字典中对应的值。</p>
+<p>缺点：</p>
+<p>1、不可变性（定义了就不能变）</p>
+<p>2、额外的内存消耗：需要开辟额外的内存空间来存储字段名称和值，大规模数据时可能会影响性能</p>
+<p>3、有限的功能：轻量级，缺乏灵活性，</p>
+<p>4、不支持动态字段操作：不可以动态添加和删除</p>
+<h2 id="2-5-OrderedDict-顺序字典"><a href="#2-5-OrderedDict-顺序字典" class="headerlink" title="2.5 OrderedDict 顺序字典"></a>2.5 OrderedDict 顺序字典</h2><p>python3.6之前的字典是不按插入先后顺序排序的，但是可以实现这种功能，就是OrderedDict类型字典</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderedDict</span>(<span class="hljs-title class_ inherited__">dict</span>):<br>    <span class="hljs-string">&#x27;Dictionary that remembers insertion order&#x27;</span><br>    <span class="hljs-keyword">pass</span><br><span class="hljs-comment"># 示例1：基本使用</span><br><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> OrderedDict<br><br><span class="hljs-comment"># 初始化时可以传键值对参数</span><br>order_dict = OrderedDict(name=<span class="hljs-string">&quot;jack&quot;</span>, age=<span class="hljs-number">18</span>)<br><span class="hljs-built_in">print</span>(order_dict)<br><br><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> order_dict.items():<br>    <span class="hljs-built_in">print</span>(k, v)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):						<span class="hljs-comment"># 也可以循环插入键值对</span><br>    order_dict[i] = i * <span class="hljs-number">10</span><br><br><span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> order_dict.items():<br>    <span class="hljs-built_in">print</span>(k, v)<br>    <br><span class="hljs-comment"># 示例2：独有方法move_to_end()</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">move_to_end</span>(<span class="hljs-params">self, key, last=<span class="hljs-literal">True</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Move an existing element to the end (or beginning if last is false).</span><br><span class="hljs-string">    Raise KeyError if the element does not exist.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 将age这个key移动到最后</span><br>order_dict.move_to_end(<span class="hljs-string">&quot;age&quot;</span>)<br><span class="hljs-built_in">print</span>(order_dict.keys())<br></code></pre></td></tr></table></figure>
+
+
+
+<p>python3.6之后的字典默认按照插入的先后顺序展示</p>
+<h2 id="2-6-defaultdict-不会错误的字典"><a href="#2-6-defaultdict-不会错误的字典" class="headerlink" title="2.6 defaultdict  不会错误的字典"></a>2.6 defaultdict  不会错误的字典</h2><p>普通的字典访问不存在的键时会抛出keyError异常</p>
+<p>defaultdict类型字典在访问不存在的key时不会异常，会返回default</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python">示例<span class="hljs-number">1</span>：基本使用<br><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> defaultdict<br><br><br>dd = defaultdict()		<span class="hljs-comment"># 因为没有default_factory，所以此时dd和普通dict没有区别</span><br><br>dd = defaultdict(<span class="hljs-built_in">int</span>)	<span class="hljs-comment"># default_factory为int</span><br>d[<span class="hljs-number">1</span>] = <span class="hljs-number">100</span><br><span class="hljs-built_in">print</span>(d[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(d[<span class="hljs-number">2</span>])		<span class="hljs-comment"># 因为不存在2这个key，所以返回int的默认值，即0</span><br><br><br>dd = defaultdict(<span class="hljs-built_in">list</span>)	<span class="hljs-comment"># default_factory为list</span><br><span class="hljs-built_in">print</span>(d[<span class="hljs-number">2</span>])		<span class="hljs-comment"># 因为不存在2这个key，所以返回list的默认值，即[]</span><br>示例<span class="hljs-number">2</span>：default_factory可以为可调用对象<br><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> defaultdict<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">default_value</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">500</span><br><br><br>dd = defaultdict(default_value)<br>v1 = dd[<span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span>(v1)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-7-deque-双向队列"><a href="#2-7-deque-双向队列" class="headerlink" title="2.7 deque 双向队列"></a>2.7 deque 双向队列</h2><p>deque双向队列（double-end queue）类似于list的容器</p>
+<p>deque 可以快速的在队列的头部和尾部添加、删除元素</p>
+<p>list只能在尾部追加，不可以从头部加元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">dq = deque()<br>dq.append(<span class="hljs-number">100</span>)<br>dq.appendleft(<span class="hljs-number">300</span>) <span class="hljs-comment"># 从左边加元素</span><br>dq.pop()<br>dq.popleft() <span class="hljs-comment"># 从左边弹出元素</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> dq:<br>    <span class="hljs-built_in">print</span>(i)<br><br><span class="hljs-built_in">print</span>(dq.pop())<br><span class="hljs-built_in">print</span>(dq.popleft())		<span class="hljs-comment"># 从左边弹出元素</span><br><br>dq.rotate(<span class="hljs-number">2</span>)            <span class="hljs-comment"># 把右边2个元素依次放在左边, 默认1，复数则相反方向</span><br><span class="hljs-comment"># 示例2：将可迭代对象变成双向队列</span><br><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br><br>ll = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br><br>dq = deque(ll)<br><span class="hljs-built_in">print</span>(dq.popleft())<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-8-二分查找"><a href="#2-8-二分查找" class="headerlink" title="2.8 二分查找"></a>2.8 二分查找</h2><ul>
+<li>最简单的查找算法是遍历，但遍历的效率太低了。</li>
+<li>二分查找（也叫折半查找）</li>
+<li>二分查找的原理是，选择一个有序列表，确定最左边的值和最右边的值和最中间的位置值，比较待查元素和中间位置值，这样每次比较就可以排除一般的查找范围。</li>
+<li>二分查找的前提是有序，特点是速度快，大数据查找的时候快一点</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 实现方式： </span><br><span class="hljs-comment"># 1、定义最左侧和最右侧的下标，</span><br><span class="hljs-comment"># 2、开始循环，</span><br><span class="hljs-comment"># 3、定义 中间值的下标</span><br><span class="hljs-comment"># 4、如果中间值大于查找值，那么就缩小范围，最右侧结束下标变成中间值-1 </span><br><span class="hljs-comment"># 5、反之，如果中间值小于查找值，那么就缩小范围，最左侧下标变成中间值+1</span><br><span class="hljs-comment"># 返回 -1 查找到了，就返回-1，如果没找到会一直找，</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">query_target</span>(<span class="hljs-params">list_test ,target</span>):<br>    left = <span class="hljs-number">0</span><br>    right = <span class="hljs-built_in">len</span>(list_test)-<span class="hljs-number">1</span><br>    wile left&lt;=right:<br>        mid = (left+right)//<span class="hljs-number">2</span><br>        <span class="hljs-keyword">if</span> list_test[mid]==target:<br>            <span class="hljs-keyword">return</span> mid<br>        <span class="hljs-keyword">elif</span> list_test[mid]&gt;target:<br>            right=mid-<span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            left=mid+<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>优点：简单，高效快速</p>
+<p>缺点：要求被查列表必须有序、递归占用空间、不适合动态数据</p>
+<p>应用场景：有序列表、静态数据、快速查找</p>
+<h2 id="2-9-冒泡排序"><a href="#2-9-冒泡排序" class="headerlink" title="2.9 冒泡排序"></a>2.9 冒泡排序</h2><p>实现的逻辑：从第一个元素开始，逐个比对每一个元素，如果自己比对比的元素大，那么自己的索引就前进一个</p>
+<p><img src="/./img/python/image-20220419211719385.png" srcset="/img/loading.gif" lazyload alt="image-20220419211719385"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">a = [<span class="hljs-number">1</span>, <span class="hljs-number">56</span>, <span class="hljs-number">65</span>, <span class="hljs-number">23</span>, <span class="hljs-number">12</span>, <span class="hljs-number">23</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">9</span>]<br><span class="hljs-built_in">print</span>(a)<br>l = <span class="hljs-built_in">len</span>(a) <span class="hljs-comment"># 10个元素，l就是10，但列表索引是0-9</span><br><span class="hljs-comment"># 第一层遍历列表的总长度</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,l): <span class="hljs-comment"># 注意，range里面第一个参为0时可不写,所以这里是0-10，就是i就是1-9</span><br>    <span class="hljs-comment"># 第二层，遍历列表的长度减去当前的位置减去1,比如说现在i是在1你range里面就是0-8</span><br>	<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,l-i-<span class="hljs-number">1</span>): <span class="hljs-comment"># l-i-1的目的是只需要遍历当前位置往后的位置上的数，不需要与当前位置往前的数作对比</span><br>		<span class="hljs-keyword">if</span> a[j]&gt;a[j+<span class="hljs-number">1</span>]: <span class="hljs-comment"># 如果当前位置比后面位置的大，就交换位置</span><br>			a[j],a[j+<span class="hljs-number">1</span>]=a[j+<span class="hljs-number">1</span>],a[j]<br><span class="hljs-built_in">print</span>(a)<br></code></pre></td></tr></table></figure>
+
+<p>优点：简单易懂，稳定，<strong>原地排序，不会生成新的列表</strong>，不改变相等值的位置</p>
+<p>缺点：性能差，不适合大规模数据排序</p>
+<p>应用场景：小规模排序，</p>
+<h2 id="2-10-选择排序"><a href="#2-10-选择排序" class="headerlink" title="2.10 选择排序"></a>2.10 选择排序</h2><p>实现逻辑：</p>
+<p>1、找到数据中最小的元素，将这个元素与第一个元素交换位置</p>
+<p>2、在剩下元素中找最小的元素，将这个元素与剩余元素中的第一个元素交换位置</p>
+<p>3、循环</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">selection_sort</span>(<span class="hljs-params">list1</span>):<br>    n=<span class="hljs-built_in">len</span>(list1)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-<span class="hljs-number">1</span>):<br>        min_index = i<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>,n):<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">list</span>[j]&lt;list1[min_index]:<br>                min_index = j<br>        arr[i],arr[min_index]=arr[min_index],arr[i]<br></code></pre></td></tr></table></figure>
+
+<p>【代码实现v2】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 参考冒泡排序的原地交换思路，实现原地交换的选择排序</span><br><span class="hljs-comment"># 首先默认min_index等于无序区第一个位置，如果后面位置上的数比默认位置上的数小，即重置最小数的位置，</span><br><span class="hljs-comment"># 这样每趟循环后，min_index都是无序区最小数的位置。</span><br><span class="hljs-comment"># 将无序区第一个位置的数和min_index上的数交换，实现原地交换</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">select_sort</span>(<span class="hljs-params">li</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(li) - <span class="hljs-number">1</span>):    <span class="hljs-comment"># i表示循环趟数</span><br>        min_index = i               <span class="hljs-comment"># 默认无序区的第一个位置上的元素最小，最为比较的参考对象</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(li)):    <span class="hljs-comment"># j比较的起始位置，可以从i+1开始，减少一次和自己比较的循环</span><br>            <span class="hljs-keyword">if</span> li[j] &lt; li[min_index]:<br>                min_index = j               <span class="hljs-comment"># 记录最小数的位置</span><br>        <span class="hljs-comment"># 一趟循环后，找到无序区最小数的位置，交换无序区第一个位置的数和无序区最小的数</span><br>        li[i], li[min_index] = li[min_index], li[i]<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-11-python内置排序算法"><a href="#2-11-python内置排序算法" class="headerlink" title="2.11 python内置排序算法"></a>2.11 python内置排序算法</h2><p>sort() 原地排序，不会生成新的数据，只对列表用</p>
+<p>sorted() ，生成一份新数据，对所有可迭代对象都用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 示例1：基本使用</span><br>l1 = [<span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br>l2 = [<span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>]<br>l1.sort(reverse=<span class="hljs-literal">True</span>)		<span class="hljs-comment"># reverse=True降序排</span><br><br>l2 = <span class="hljs-built_in">sorted</span>(l2)<br><span class="hljs-comment"># 示例2：高级用法</span><br><span class="hljs-comment"># key指定排序规则</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_sort</span>(<span class="hljs-params">x</span>):<br>    <span class="hljs-keyword">return</span> x[<span class="hljs-string">&quot;id&quot;</span>]<br>ll.sort(key=my_sort)<br><span class="hljs-comment"># 匿名函数</span><br>ll = [&#123;<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">5</span>&#125;, &#123;<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">3</span>&#125;]<br>ll.sort(key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">&quot;id&quot;</span>])<br><br>readonly option <span class="hljs-keyword">is</span> <span class="hljs-built_in">set</span> (add! tooverride)<br><span class="hljs-comment"># 按权重排序</span><br><span class="hljs-comment"># id=3排第一位，id=5排第二位， id=1排第三位</span><br>weights = &#123;<span class="hljs-number">3</span>: <span class="hljs-number">1</span>, <span class="hljs-number">5</span>: <span class="hljs-number">2</span>, <span class="hljs-number">1</span>: <span class="hljs-number">3</span>&#125;<br><br>ll.sort(key=<span class="hljs-keyword">lambda</span> x: weights[x[<span class="hljs-string">&quot;id&quot;</span>]])<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【python】进阶之数据结构（二）</div>
+      <div>http://example.com/2024/03/18/602python进阶之数据结构（二）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/18/603python%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/" title="【python】进阶之函数详解（三）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】进阶之函数详解（三）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/18/601python%E8%BF%9B%E9%98%B6%E4%B9%8B%E5%9F%BA%E7%A1%80%E5%9B%9E%E9%A1%BE%EF%BC%88%E4%B8%80%EF%BC%89/" title="【python】进阶之基础回顾（一）">
+                        <span class="hidden-mobile">【python】进阶之基础回顾（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

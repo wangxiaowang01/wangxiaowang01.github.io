@@ -1,0 +1,858 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第 6 章　编写Python风格的代码 对于编程语言来说，“强大”是一个毫无意义的形容词。每一种编程语言都称自己是强大的。官方的Python教程一开始就说“Python是一种易于学习、功能强大的编程语言”，但没有哪种算法只能用某种特定的语言编写，也没有哪种衡量单位来量化某种编程语言的“厉害程度”（尽管可以衡量程序员为他们最喜欢的编程语言争取地位的声音大小）。  　　每种语言都有自己的设计模式和缺陷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【python】读书笔记之python之禅（六）">
+<meta property="og:url" content="http://example.com/2024/01/06/616python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8Bpython%E4%B9%8B%E7%A6%85%EF%BC%88%E5%85%AD%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="第 6 章　编写Python风格的代码 对于编程语言来说，“强大”是一个毫无意义的形容词。每一种编程语言都称自己是强大的。官方的Python教程一开始就说“Python是一种易于学习、功能强大的编程语言”，但没有哪种算法只能用某种特定的语言编写，也没有哪种衡量单位来量化某种编程语言的“厉害程度”（尽管可以衡量程序员为他们最喜欢的编程语言争取地位的声音大小）。  　　每种语言都有自己的设计模式和缺陷">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-06T07:01:15.000Z">
+<meta property="article:modified_time" content="2024-05-21T02:30:46.888Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【python】读书笔记之python之禅（六） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/neom-El92hmAt91o-unsplash.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【python】读书笔记之python之禅（六）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-06 15:01" pubdate>
+          2024年1月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          132 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【python】读书笔记之python之禅（六）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第-6-章-编写Python风格的代码"><a href="#第-6-章-编写Python风格的代码" class="headerlink" title="第 6 章　编写Python风格的代码"></a>第 6 章　编写Python风格的代码</h1><blockquote>
+<p>对于编程语言来说，“强大”是一个毫无意义的形容词。每一种编程语言都称自己是强大的。官方的Python教程一开始就说“Python是一种易于学习、功能强大的编程语言”，但没有哪种算法只能用某种特定的语言编写，也没有哪种衡量单位来量化某种编程语言的“厉害程度”（尽管可以衡量程序员为他们最喜欢的编程语言争取地位的声音大小）。</p>
+</blockquote>
+<p>　　每种语言都有自己的设计模式和缺陷，它们构成了语言的优势和劣势。要想像一个真正的Python大师一样编写代码，你需要懂的不仅仅是语法和标准库，还要学习它的习惯用法，或Python特定的编程方法。Python语言的某些特性有助于编写Python风格的代码。</p>
+<p>　　在本章中，我将提供几种编写Python风格代码的方法，以及与之对应的非Python风格的写法。对Python风格的理解可能因人而异，但通常包括本章所呈现的示例和实践。有经验的程序员都会使用这些技术，熟悉这些技术可以让你一眼看懂实际的工程代码。</p>
+<h2 id="6-1-Python之禅"><a href="#6-1-Python之禅" class="headerlink" title="6.1　Python之禅"></a>6.1　Python之禅</h2><p>　　Tim Peters的“Python之禅”汇集了Python语言设计和Python编程的20条准则。你的Python代码不一定必须遵循这些准则，但它们不无裨益。“Python之禅”也是一个复活节彩蛋，或者说是隐藏的笑话，当运行<code>import this</code>时就会出现。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fortran">&gt;&gt;&gt; <span class="hljs-keyword">import</span> this<br>The Zen of Python, by Tim Peters<br><br>Beautiful is better than ugly.<br>Explicit is better than <span class="hljs-keyword">implicit</span>.<br>--snip--<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>　神奇的是，实际上只有19条准则写了出来。据Python之父Guido van Rossum所说，缺失的第20条箴言是Tim Peters的搞怪的行内笑话，Tim留出地方让Guido来写，但看起来他一直没做到。</p>
+</blockquote>
+<p>　　总体来说，这些准则是程序员可以支持或者反对的观点。就像一些优秀的道德准则一样，它们在一定程度上有些自相矛盾，但能提供更大的灵活性。以下是我对这些箴言的解释。</p>
+<blockquote>
+<p>　　　　<strong>美丽胜于丑陋。</strong>美丽的代码指易于阅读和理解的代码。程序员经常快速编写代码，不考虑可读性。虽然计算机会运行可读性不强的代码，但这样的代码对于程序员而言不容易维护和调试。虽然美是主观的，但不考虑可读性的代码在别人看来往往是丑陋的。Python之所以受欢迎，是因为它的语法不像其他语言那样充斥着神秘的标点符号，Python很容易编写。</p>
+<p>　　　　<strong>明确胜于隐含。</strong>如果我给这条箴言的解释是“这是不言而喻的”，那它就是一个糟糕的解释。代码应该是详细明确的，应避免把代码的功能隐匿在晦涩的、且需要对语言非常熟悉才能理解的语言特性中。</p>
+<p>　　　　<strong>简单胜于复杂。复杂胜于更复杂。</strong>这两句箴言告诉我们，任何东西都既可以用简单的技术建造，也可以用复杂的技术建造。如果你有一个小问题用铲子就可以解决，使用50吨级的液压推土机就有些大材小用。但如果是个大工程，那么操作一台推土机比协调100名铲运工要简单得多。所以，要选择简单而非复杂，但也要知道简单方案的局限性。</p>
+<p>　　　　<strong>扁平胜于嵌套。</strong>程序员喜欢将代码按照类别进行组织，特别是类别又包含子类别，而子类别又包含更细的子类别。这些层级结构往往并不会增强代码的组织性，而是增强了官僚性。只在一个顶层模块或者数据结构中编写代码并无不妥。如果你的代码看起来像<code>spam.eggs.bacon.ham()</code>或<code>spam[&#39;eggs&#39;][&#39;bacon&#39;][&#39;ham&#39;]</code>，那它就太过复杂了。</p>
+<p>　　　　<strong>稀疏胜于密集。</strong>程序员经常喜欢把尽可能多的功能塞进尽可能少的代码中，就像下面这一行：<code>print(&#39;\n&#39;.join(&quot;%i bytes = %i bits which has %i possiblevalues.&quot; % (j, j*8, 256**j-1) for j in (1 &lt;&lt; i for i in range(8))))</code>。尽管这样的代码可以给朋友留下深刻印象，但会惹怒同事，因为他们得费尽心思理解这段代码。不要让代码一次做太多的事情。分散在多行的代码往往比密集的单行代码更容易阅读。这句箴言与“简单胜于复杂”类似。</p>
+<p>　　​	<strong>可读性很重要。</strong>尽管对于那些从1970年就开始用C语言编程的人而言，<code>strcmp()</code>显而易见指的是“string compare”（字符串比较）函数，但现代计算机的内存足以让你编写完整的函数名称。不要从完整的名称中删除某些字母或者写过分简洁的代码。花点时间为变量和函数想出具有描述性且具体的名称。代码各个部分之间的空行与书中起分隔作用的段落一样，可以让读者知道哪些部分应该放在一起阅读。这句箴言与“美丽胜于丑陋”类似。</p>
+<p>　　　　<strong>特殊情况并没有特殊到打破规则的地步。不过，实用性胜于纯粹性。</strong>这两句箴言看起来相互矛盾。在编程过程中，有很多“最佳实践”值得程序员努力践行。一方面，绕过这些实践，快速实现需求的想法也许很诱人，但可能会导致一堆不一致、不可读的代码烂摊子。另一方面，妥协遵守一些规则可能会导致高度抽象、不可读的代码。比如，Java试图让所有代码都符合面向对象的范式，这往往会导致即使很小的程序也有很多模板代码。随着经验不断积累，你在这两条箴言之间取舍将会变得越来越容易。时间长了，你不仅可以学会遵循规则，而且将学会何时打破规则。</p>
+<p>　　　　<strong>除非必要，否则错误不该被悄无声息地忽略。</strong>程序员经常忽略错误信息，但这并不意味着程序也是这样。当函数返回错误代码或<code>None</code>而不是提示异常时，“无声的错误”就会发生。这条箴言的意思是，程序快速失败和崩溃要比不提示错误并继续运行好。后来发生的不可避免的错误将更加难以调试，因为它们是在出现源头问题之后很久才被发现的。尽管你随时可以忽略程序引起的错误，但要确保这样做有充足的理由。</p>
+<p>　　　　<strong>面对模棱两可的问题，不要猜测。</strong>计算机使人类变得迷信，有句话是“重启计算机，包治百病”。但计算机没有神奇的魔法。代码未能正常执行是有明确原因的，只有通过仔细、批判性的思考才能解决问题。拒绝通过盲目尝试来解决问题，这样做往往只会掩盖问题，而不能真正解决问题。</p>
+<p>　　　　<strong>应该有一个，最好只有一个明显的方法能使用。</strong>这是对Perl编程语言的座右铭“有不止一种方法能用”的抨击。事实证明，有三四种方法完成同样的任务是一把双刃剑：坏处是为了能读懂其他人写的代码，你不得不学会所有可能的写法；好处是在编写代码时，你可以灵活地使用多种写法。不过，这种灵活性是得不偿失的，最好只有一个明显的方法能使用。</p>
+<p>　　　　<strong>除非你是荷兰人，否则这种方法可能并不那么显而易见。</strong>这是一句玩笑话。Python的创造者Guido van Rossum是荷兰人。<strong>1</strong></p>
+<p>　　　<strong>有总比没有好。然而不经思考就做还不如不做。****2</strong>这两句箴言是说，运行速度慢的代码显然比不上运行速度快的代码。但是，多等待程序运行一会儿总比程序尽快运行完却发现结果是错的要好。</p>
+<p>　　　　<strong>如果实现很难解释，它就是个坏主意；如果实现很容易解释，这可能是一个好主意。</strong>许多事情随着时间的推移变得越来越复杂，比如税法、恋爱关系、Python编程书。软件也不例外。这句箴言提醒我们，如果代码复杂到让专业人员无法理解和调试的程度，那就是坏代码。但是，很容易被解释的代码也不一定就是好代码。遗憾的是，写出尽可能简单的代码并非易事。</p>
+<p>　　　　<strong>命名空间是一个很棒的主意，可以多用。</strong>命名空间是标识符的独立容器，用来防止命名冲突。例如，内置函数<code>open()</code>和<code>webbrowser.open()</code>函数有相同的名字，但对应不同的函数。导入<code>webbrowser</code>不会覆盖内置的<code>open()</code>函数，因为这两个<code>open()</code>函数存在于不同的命名空间，分别是内置命名空间和<code>webbrowser</code>模块的命名空间。但要记住，扁平胜于嵌套。尽管命名空间确实很好，但你应该只为防止命名冲突而使用命名空间，而不是添加不必要的分</p>
+</blockquote>
+<h2 id="6-2-学着喜欢强制缩进"><a href="#6-2-学着喜欢强制缩进" class="headerlink" title="6.2　学着喜欢强制缩进"></a>6.2　学着喜欢强制缩进</h2><h2 id="6-3-使用timeit模块衡量性能"><a href="#6-3-使用timeit模块衡量性能" class="headerlink" title="6.3　使用timeit模块衡量性能"></a>6.3　使用<code>timeit</code>模块衡量性能</h2><h2 id="6-4-常被误用的语法"><a href="#6-4-常被误用的语法" class="headerlink" title="6.4　常被误用的语法"></a>6.4　常被误用的语法</h2><p>　　如果Python不是你的第一门编程语言，那么你可能会用其他编程语言的代码编写策略来写Python代码。或者因为不知道有更多既定的最佳实践，你学了一种并不常见的Python编写方式。这种不优雅的代码也能用，但你可以学习更多编写Python代码的标准方法以节省时间和精力。本节讲述了程序员常见的错误，以及该如何编写代码。</p>
+<h3 id="6-4-1-使用enumerate-而不是range"><a href="#6-4-1-使用enumerate-而不是range" class="headerlink" title="6.4.1　使用enumerate()而不是range()"></a>6.4.1　使用<code>enumerate()</code>而不是<code>range()</code></h3><p>　　当在一个列表或者其他序列上循环时，一些程序员使用<code>range()</code>函数和<code>len()</code>函数生成从0到序列长度−1的索引整数。在这些<code>for</code>循环中通常使用变量<code>i</code>（代表index）。例如在交互式shell中输入下面这个不符合Python风格的示例：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">animals = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;moose&#x27;</span>]</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(animals)):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(i, animals[i])</span><br><span class="hljs-meta prompt_">...</span><br>0 cat<br>1 dog<br>2 moose<br></code></pre></td></tr></table></figure>
+
+<p><code>range(len())</code>的传统写法比较直接，但不够理想，因为它的可读性不好。更好的做法是将列表或者序列传递给内置的<code>enumerate()</code>函数，它将返回索引的整数值和当前索引对应的项。比如，可以编写下面这种Python风格的代码：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">animals = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;moose&#x27;</span>]</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">for</span> i, animal <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(animals):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(i, animal)</span><br><span class="hljs-meta prompt_">...</span><br>0 cat<br>1 dog<br>2 moos<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>enumerate()</code>替代<code>range(len())</code>可以让你的代码整洁一点。如果你只需要列表中的项而不需要索引，可以用下面这种Python风格的方式迭代列表：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">animals = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;moose&#x27;</span>]</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">for</span> animal <span class="hljs-keyword">in</span> animals:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(animal)</span><br><span class="hljs-meta prompt_">...</span><br>cat<br>dog<br>moose<br></code></pre></td></tr></table></figure>
+
+<p>调用<code>enumerate()</code>并直接在一个序列上进行迭代要比使用传统的<code>range(len())</code>方式好。</p>
+<h3 id="6-4-2-使用with语句代替open-和close"><a href="#6-4-2-使用with语句代替open-和close" class="headerlink" title="6.4.2　使用with语句代替open()和close()"></a>6.4.2　使用<code>with</code>语句代替<code>open()</code>和<code>close()</code></h3><p>　　<code>open()</code>函数将返回一个文件对象，该对象包含读取和写入文件的方法。当操作完成后需要调用<code>close()</code>方法释放文件，以便其他程序读取和写入。你可以单独使用这些函数，但这样做不符合Python风格。比如，将文本“Hello, world!”写入一个名为spam.txt的文件中：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">fileObj = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;spam.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">fileObj.write(<span class="hljs-string">&#x27;Hello, world!&#x27;</span>)</span><br>13<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">fileObj.close()</span><br></code></pre></td></tr></table></figure>
+
+<p>这样编写代码可能会导致文件未被关闭，比如下面这个示例，如果<code>try</code>块中出现了异常，程序就会跳过<code>close()</code>调用：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">try</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    fileObj = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;spam.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    eggs = <span class="hljs-number">42</span> / <span class="hljs-number">0</span>    <span class="hljs-comment"># 这里会产生以0为除数的错误</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    fileObj.close()  <span class="hljs-comment"># 这一行永远不会被执行</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python"><span class="hljs-keyword">except</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Some error occurred.&#x27;</span>)</span><br>Some error occurred.<br></code></pre></td></tr></table></figure>
+
+<p>在遇到以0为除数的错误时，程序会转移到<code>except</code>块执行，跳过了<code>close()</code>调用，且文件一直保持打开状态。这可能会导致文件出现损坏，而这个错误很难被追溯到<code>try</code>块上。更好的做法是使用<code>with</code>语句，它可以在执行顺序离开<code>with</code>语句块时自动调用<code>close()</code>。下面的Python风格的示例和本节第一个示例有相同的作用：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;spam.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> fileObj:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    fileObj.write(<span class="hljs-string">&#x27;Hello, world!&#x27;</span>)</span><br><span class="hljs-meta prompt_">...</span><br></code></pre></td></tr></table></figure>
+
+<p>尽管没有明确地调用<code>close()</code>，但当执行顺序离开这个块的时候，<code>with</code>语句会自动调用它。</p>
+<h3 id="6-4-3-用is跟None做比较而不用"><a href="#6-4-3-用is跟None做比较而不用" class="headerlink" title="6.4.3　用is跟None做比较而不用=="></a>6.4.3　用<code>is</code>跟<code>None</code>做比较而不用<code>==</code></h3><p>　　<code>==</code>相等运算符是比较两个对象的值，而<code>is</code>身份运算符是比较两个对象的身份。第7章将解释值和身份的区别。两个对象可以存储相同的值，但它们是两个独立的对象，拥有不同的身份。将某个值跟<code>None</code>比较时，绝大多数情况下应使用<code>is</code>，而非<code>==</code>。</p>
+<p>　　在特殊情况下，如果使用了<strong>运算符重载</strong>，即使<code>spam</code>指向<code>None</code>，表达式<code>spam == None</code>也会等于<code>True</code>。<code>spam is None</code>将检查<code>spam</code>变量中的值是否真的是<code>None</code>，由于<code>None</code>是<code>NoneType</code>数据类型唯一的值，因此在任何Python程序中只有一个<code>None</code>对象。当变量指向<code>None</code>时，<code>is None</code>比较表达式总是为<code>True</code>。第17章将描述<code>==</code>运算符重载的具体细节，可先看看这个示例：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SomeClass</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__eq__</span>(<span class="hljs-params">self, other</span>):</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">        <span class="hljs-keyword">if</span> other <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span></span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">spam = SomeClass()</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">spam == <span class="hljs-literal">None</span></span><br>True<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">spam <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span></span><br>False<br></code></pre></td></tr></table></figure>
+
+<p>很少会以这种方式重载<code>==</code>运算符，但为了以防万一，推荐一直使用<code>is None</code>而非<code>== None</code>，这是Python的惯用写法。</p>
+<p>　　而且，不应该在值为<code>True</code>和<code>False</code>的情况下使用<code>is</code>运算符。可以使用<code>==</code>相等运算符将值与<code>True</code>或者<code>False</code>比较，比如<code>spam == True</code>或者<code>spam == False</code>。更常见的是根本不使用运算符和布尔值，把代码写成<code>if spam:</code>或者<code>if not spam:</code>，而不是<code>if spam == True</code>或<code>if spam == False</code>。</p>
+<h2 id="6-5-格式化字符串"><a href="#6-5-格式化字符串" class="headerlink" title="6.5　格式化字符串"></a>6.5　格式化字符串</h2><p>　　几乎每个使用不同编程语言编写的计算机程序中都有字符串。这种数据类型很常见，所以Python中有许多操作和格式化字符串的方法。本节将重点介绍一些最佳实践。</p>
+<h3 id="6-5-1-如果字符串有很多反斜杠，请使用原始字符串"><a href="#6-5-1-如果字符串有很多反斜杠，请使用原始字符串" class="headerlink" title="6.5.1　如果字符串有很多反斜杠，请使用原始字符串"></a>6.5.1　如果字符串有很多反斜杠，请使用原始字符串</h3><p>　　转义字符允许你在字符串字面量中插入原本不能包含的文本。例如在<code>&#39;Zophie\&#39;s chair&#39;</code>中，需要反斜杠<code>\</code>，这样会使第二个单引号成为字符串的一部分，而不是表示字符串到此结束。因为反斜杠具有这种特殊的转义作用，所以如果真的想在字符串中放入一个反斜杠字符，那么必须以<code>\\</code>的形式输入。</p>
+<p>　　<strong>原始字符串</strong>是具有<code>r</code>前缀的字符串字面量，它们不把反斜杠视为转义字符，而是作为普通字符。比如下面这个Windows文件路径的字符串需要多个转义的反斜杠，这和Python风格不同：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;The file is in C:\\Users\\Al\\Desktop\\Info\\Archive\\Spam&#x27;</span>)</span><br>The file is in C:\Users\Al\Desktop\Info\Archive\Spam<br></code></pre></td></tr></table></figure>
+
+<p>而下面这个原始字符串（注意带有<code>r</code>前缀）提供相同的字符串值，它的可读性更好：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">r&#x27;The file is in C:\Users\Al\Desktop\Info\Archive\Spam&#x27;</span>)</span><br>The file is in C:\Users\Al\Desktop\Info\Archive\Spam<br></code></pre></td></tr></table></figure>
+
+<p>　　原始字符串并不是一种不同的字符串数据类型，它只是用来输入包含多个反斜杠字符的字符串字面量的便捷方式。它常用来输入正则表达式或者Windows文件路径的字符串。这些字符串中经常有多个反斜杠字符，如果逐个使用<code>\\</code>转义会费时费力。</p>
+<h3 id="6-5-2-使用f-string格式化字符串"><a href="#6-5-2-使用f-string格式化字符串" class="headerlink" title="6.5.2　使用f-string格式化字符串"></a>6.5.2　使用f-string格式化字符串</h3><p>　　<strong>字符串格式化</strong>，也被称为<strong>字符串插值</strong>，用来创建嵌套其他字符串的字符串，此方法的发展历史很长。<strong>3</strong>最初是使用<code>+</code>运算符将字符串连接在一起，但这导致代码中出现很多引号和加号，比如<code>&#39;Hello, &#39; + name + &#39;. Today is &#39; + day + &#39; and it is &#39; + weather + &#39;.&#39;</code>，而<code>%s</code>转换格式符的出现则简化了语法：<code>&#39;Hello, %s. Today is %s and it is %s.&#39; % (name, day, weather)</code>。这两种方法都将<code>name</code>、<code>day</code>和<code>weather</code>变量中的字符串插入到字符串字面量中以得到一个新的字符串值，比如<code>&#39;Hello, Al. Today is Sunday and it is sunny.&#39;</code>。</p>
+<p><strong>3</strong>伴随着Python的发展，Python提出了多种字符串格式化方法。——译者注</p>
+<p><code>format()</code>字符串方法添加了格式规范迷你语言，它使用<code>&#123;&#125;</code>括号对，与<code>%s</code>转换格式符使用方式类似。不过这个方法有些复杂，可能会产生不可读的代码，所以我不推荐使用它。</p>
+<p>　　从Python 3.6开始，<strong>f-string</strong>（format string的缩写）提供了一种更方便的方法来创建嵌套其他字符串的字符串。类似于原始字符串会在第一个引号前使用前缀<code>r</code>，f-string使用前缀<code>f</code>。可以在f-string的大括号中加入变量名称，以插入存储在这些变量中的字符串：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">name, day, weather = <span class="hljs-string">&#x27;Al&#x27;</span>, <span class="hljs-string">&#x27;Sunday&#x27;</span>, <span class="hljs-string">&#x27;sunny&#x27;</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-string">f&#x27;Hello, <span class="hljs-subst">&#123;name&#125;</span>. Today is <span class="hljs-subst">&#123;day&#125;</span> and it is <span class="hljs-subst">&#123;weather&#125;</span>.&#x27;</span></span><br>&#x27;Hello, Al. Today is Sunday and it is sunny.&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>大括号中也可以包含完整的表达式：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&gt;&gt;&gt; <span class="hljs-built_in">width</span>, <span class="hljs-built_in">length</span> = <span class="hljs-number">10</span>, <span class="hljs-number">12</span><br>&gt;&gt;&gt; f&#x27;A &#123;<span class="hljs-built_in">width</span>&#125; by &#123;<span class="hljs-built_in">length</span>&#125; <span class="hljs-built_in">room</span> has an area of &#123;<span class="hljs-built_in">width</span> * <span class="hljs-built_in">length</span>&#125;.&#x27;<br>&#x27;A <span class="hljs-number">10</span> by <span class="hljs-number">12</span> <span class="hljs-built_in">room</span> has an area of <span class="hljs-number">120</span>.&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>　　如果要在f-string中包含大括号字符，可以使用额外的括号来转义它：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">spam = <span class="hljs-number">42</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-string">f&#x27;This prints the value in spam: <span class="hljs-subst">&#123;spam&#125;</span>&#x27;</span></span><br>&#x27;This prints the value in spam: 42&#x27;<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-string">f&#x27;This prints literal curly braces: &#123;&#123;spam&#125;&#125;&#x27;</span></span><br>&#x27;This prints literal curly braces: &#123;spam&#125;&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>　　由于可以把变量名和表达式直接写在字符串内，因此代码的可读性比旧的字符串格式化方法强。</p>
+<p>　　格式化字符串有这么多方法，这似乎违背了“Python之禅”的箴言：“应该有一个，最好只有一个明显的方法能使用。”但在我看来，f-string是对语言的一种改进，而且正如另一条准则所说，“实用性胜于纯粹性”，所以它无可厚非。如果你只用Python 3.6或者更高版本编写代码，请使用f-string。如果你写的代码是由早期的Python版本运行，那就继续用<code>format()</code>方法或者<code>%s</code>转换格式符。</p>
+<h2 id="6-6-制作列表的浅副本"><a href="#6-6-制作列表的浅副本" class="headerlink" title="6.6　制作列表的浅副本"></a>6.6　制作列表的浅副本</h2><p>　　使用<code>slice</code>语法可以很容易地基于现有的字符串或者列表创建新的字符串或列表。在交互式shell中输入以下内容看一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">&#x27;Hello, world!&#x27;</span>[<span class="hljs-number">7</span>:<span class="hljs-number">12</span>] <span class="hljs-comment"># 基于长字符串创建短字符串</span><br><span class="hljs-string">&#x27;world&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">&#x27;Hello, world!&#x27;</span>[:<span class="hljs-number">5</span>] <span class="hljs-comment"># 基于长字符串创建短字符串</span><br><span class="hljs-string">&#x27;Hello&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;rat&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>][<span class="hljs-number">2</span>:] <span class="hljs-comment"># 基于长列表创建短列表</span><br>[<span class="hljs-string">&#x27;rat&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>要使用冒号对开始索引位置和结束索引位置进行分隔，以使内容从旧列表复制到新列表中。当省略冒号前的起始索引时，比如<code>&#39;Hello, world!&#39;[:5]</code>，起始索引默认为0。同理，当省略冒号后的结束索引时，比如<code>[&#39;cat&#39;,&#39;dog&#39;,&#39;rat&#39;,&#39;eel&#39;][2:]</code>，结束索引默认为列表结尾。</p>
+<p>　　如果两个索引都被省略，起始索引是0（列表开头），结束索引是列表结尾，这实际上会创建一个列表的副本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>spam = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;rat&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>eggs = spam[:]<br><span class="hljs-meta">&gt;&gt;&gt; </span>eggs<br>[<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;rat&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">id</span>(spam) == <span class="hljs-built_in">id</span>(eggs)<br><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+
+<p>　　注意，<code>spam</code>和<code>eggs</code>指向的列表对象的身份是不同的。<code>eggs = spam[:]</code>创建了<code>spam</code>列表的浅副本。而<code>eggs = spam</code>只复制了列表的引用。<code>[:]</code>这种写法看起来有些奇怪，而使用<code>copy</code>模块的<code>copy()</code>函数创建列表的浅副本会有更好的可读性：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">import</span> copy</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">spam = [<span class="hljs-string">&#x27;cat&#x27;</span>, <span class="hljs-string">&#x27;dog&#x27;</span>, <span class="hljs-string">&#x27;rat&#x27;</span>, <span class="hljs-string">&#x27;eel&#x27;</span>]</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">eggs = copy.copy(spam)</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">id</span>(spam) == <span class="hljs-built_in">id</span>(eggs)</span><br>False<br></code></pre></td></tr></table></figure>
+
+<p>你应该了解这个奇怪的语法，以避免在读到这样的Python代码时感到费解，但我不建议在代码中使用它，因为<code>[:]</code>和<code>copy.copy()</code>都能创建浅副本。</p>
+<h2 id="6-7-以Python风格使用字典"><a href="#6-7-以Python风格使用字典" class="headerlink" title="6.7　以Python风格使用字典"></a>6.7　以Python风格使用字典</h2><p>　　字典的键−值对（第7章将进一步讨论）可以维护一份数据到另一份数据的映射，这种灵活性使其成为很多Python程序的常用数据类型。因此，了解Python代码中常用的字典用法大有益处。</p>
+<p>　　如果想进一步了解字典，可以参考Brandon Rhodes的关于什么是字典，以及它如何工作的演讲。他在PyCon大会上所做的“The Mighty Dictionary”（强大的字典）和“The Dictionary Even Mightier”（更强大的字典）演讲应该对你有所帮助。</p>
+<h3 id="6-7-1-在字典中使用get-和setdefault"><a href="#6-7-1-在字典中使用get-和setdefault" class="headerlink" title="6.7.1　在字典中使用get()和setdefault()"></a>6.7.1　在字典中使用<code>get()</code>和<code>setdefault()</code></h3><p>　　试图访问一个不存在的字典键会导致<code>KeyError</code>。为了避免它，程序员经常会写出一些不符合Python风格的代码，比如这样：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets = &#123;<span class="hljs-string">&#x27;dogs&#x27;</span>: <span class="hljs-number">2</span>&#125;</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;cats&#x27;</span> <span class="hljs-keyword">in</span> numberOfPets: <span class="hljs-comment"># 检查其中是否有cats键</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;I have&#x27;</span>, numberOfPets[<span class="hljs-string">&#x27;cats&#x27;</span>], <span class="hljs-string">&#x27;cats.&#x27;</span>)</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python"><span class="hljs-keyword">else</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;I have 0 cats.&#x27;</span>)</span><br><span class="hljs-meta prompt_">...</span><br>I have 0 cats.<br></code></pre></td></tr></table></figure>
+
+<p>这段代码检查<code>numberOfPets</code>字典中是否存在一个为字符串“cats”的键。如果存在，<code>print()</code>调用会获取<code>numberOfPets[&#39;cats&#39;]</code>的值作为信息的一部分展示给用户。如果不存在，另一个<code>print()</code>调用不会访问<code>numberOfPets[&#39;cats&#39;]</code>，而是展示其他字符串，这样就不会显示<code>KeyError</code>。</p>
+<p>　　由于这种代码模式很常见，因此字典提供了<code>get()</code>方法，允许当键不存在的时候返回指定的默认值。下面这段Python风格的代码跟前面的代码功效相同：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets = &#123;<span class="hljs-string">&#x27;dogs&#x27;</span>: <span class="hljs-number">2</span>&#125;</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;I have&#x27;</span>, numberOfPets.get(<span class="hljs-string">&#x27;cats&#x27;</span>, <span class="hljs-number">0</span>), <span class="hljs-string">&#x27;cats.&#x27;</span>)</span><br>I have 0 cats.<br></code></pre></td></tr></table></figure>
+
+<p><code>numberOfPets.get(&#39;cats&#39;, 0)</code>这个调用会检查<code>numberOfPets</code>字典是否存在<code>&#39;cats&#39;</code>键。如果存在，该方法返回<code>&#39;cats&#39;</code>键对应的值，如果不存在则返回第二个参数，也就是<code>0</code>。使用<code>get()</code>方法指定键不存在时返回的默认值，要比使用<code>if-else</code>语句简单明了。</p>
+<p>　　另一种情况是，当键不存在时，为其设置默认值。如果字典<code>numberOfPets</code>没有<code>&#39;cats&#39;</code>键，<code>numberOfPets[&#39;cats&#39;] += 10</code>会导致<code>KeyError</code>。你可能想预先检查键是否缺失，如果缺失则为其设置默认值：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets = &#123;<span class="hljs-string">&#x27;dogs&#x27;</span>: <span class="hljs-number">2</span>&#125;</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;cats&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> numberOfPets:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    numberOfPets[<span class="hljs-string">&#x27;cats&#x27;</span>] = <span class="hljs-number">0</span></span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets[<span class="hljs-string">&#x27;cats&#x27;</span>] += <span class="hljs-number">10</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets[<span class="hljs-string">&#x27;cats&#x27;</span>]</span><br>10<br></code></pre></td></tr></table></figure>
+
+<p>这种模式也很常见，字典提供了一个符合Python风格的<code>setdefault()</code>方法。下面这段代码与前一段等效：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets = &#123;<span class="hljs-string">&#x27;dogs&#x27;</span>: <span class="hljs-number">2</span>&#125;</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">numberOfPets.setdefault(<span class="hljs-string">&#x27;cats&#x27;</span>, <span class="hljs-number">0</span>) <span class="hljs-comment"># 如果&#x27;cats&#x27;键存在，则什么也不做</span></span><br>0<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">workDetails[<span class="hljs-string">&#x27;cats&#x27;</span>] += <span class="hljs-number">10</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">workDetails[<span class="hljs-string">&#x27;cats&#x27;</span>]</span><br>10<br></code></pre></td></tr></table></figure>
+
+<p>如果你还在用<code>if</code>语句检查字典中是否存在某个键，在键不存在时设置默认值，请使用<code>setdefault()</code>代替。</p>
+<h3 id="6-7-2-使用collections-defaultdict-设置默认值"><a href="#6-7-2-使用collections-defaultdict-设置默认值" class="headerlink" title="6.7.2　使用collections.defaultdict()设置默认值"></a>6.7.2　使用<code>collections.defaultdict()</code>设置默认值</h3><p>　　使用<code>collections.defaultdict()</code>可以彻底避免<code>KeyError</code>。导入<code>collections</code>模块并调用<code>collections.defaultdict()</code>，传递数据类型作为默认值，就可以创建一个默认的字典。比如，通过向<code>collections.defaultdict()</code>传递<code>int</code>可以创建一个类似字典的对象，当键不存在时，使用0作为默认值。在交互式shell中输入以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> collections<br><span class="hljs-meta">&gt;&gt;&gt; </span>scores = collections.defaultdict(<span class="hljs-built_in">int</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>scores<br>defaultdict(&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;int&#x27;</span>&gt;, &#123;&#125;)<br><span class="hljs-meta">&gt;&gt;&gt; </span>scores[<span class="hljs-string">&#x27;Al&#x27;</span>] += <span class="hljs-number">1</span> <span class="hljs-comment"># 不需要提前设置&#x27;Al&#x27;键的值</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>scores<br>defaultdict(&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;int&#x27;</span>&gt;, &#123;<span class="hljs-string">&#x27;Al&#x27;</span>: <span class="hljs-number">1</span>&#125;)<br><span class="hljs-meta">&gt;&gt;&gt; </span>scores[<span class="hljs-string">&#x27;Zophie&#x27;</span>] <span class="hljs-comment"># 不需要提前设置&#x27;Zophie&#x27;键的值</span><br><span class="hljs-number">0</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>scores[<span class="hljs-string">&#x27;Zophie&#x27;</span>] += <span class="hljs-number">40</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>scores<br>defaultdict(&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;int&#x27;</span>&gt;, &#123;<span class="hljs-string">&#x27;Al&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Zophie&#x27;</span>: <span class="hljs-number">40</span>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>注意，你是在传递<code>int()</code>函数，而不是调用它，所以要省略<code>int()</code>中的括号。正确的写法是<code>collections.defaultdict(int)</code>。也可以传递<code>list</code>，使用空列表作为默认值。在交互式shell中输入以下内容：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">import</span> collections</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">booksReadBy = collections.defaultdict(<span class="hljs-built_in">list</span>)</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">booksReadBy[<span class="hljs-string">&#x27;Al&#x27;</span>].append(<span class="hljs-string">&#x27;Oryx and Crake&#x27;</span>)</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">booksReadBy[<span class="hljs-string">&#x27;Al&#x27;</span>].append(<span class="hljs-string">&#x27;American Gods&#x27;</span>)</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">len</span>(booksReadBy[<span class="hljs-string">&#x27;Al&#x27;</span>])</span><br>2<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">len</span>(booksReadBy[<span class="hljs-string">&#x27;Zophie&#x27;</span>]) <span class="hljs-comment"># 默认值是一个空列表</span></span><br>0<br></code></pre></td></tr></table></figure>
+
+<p>如果需要对任意一个键设置默认值，使用<code>collections.defaultdict()</code>要比使用常规字典再反复调用<code>setdefault()</code>方便得多。</p>
+<h3 id="6-7-3-使用字典代替switch语句"><a href="#6-7-3-使用字典代替switch语句" class="headerlink" title="6.7.3　使用字典代替switch语句"></a>6.7.3　使用字典代替<code>switch</code>语句</h3><p>Java之类的语言有<code>switch</code>语句，与<code>if-elif-else</code>类似，用来根据变量是多个可能值中的哪一个来执行不同的代码。Python没有<code>switch</code>语句，所以Python程序员有时会写出下面这个示例中的代码。这段代码根据<code>season</code>变量的不同值来执行不同的赋值语句。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 下列if和elif条件语句中都有“season ==”：</span><br><span class="hljs-keyword">if</span> season == <span class="hljs-string">&#x27;Winter&#x27;</span>:<br>    holiday = <span class="hljs-string">&#x27;New Year\&#x27;s Day&#x27;</span><br><span class="hljs-keyword">elif</span> season == <span class="hljs-string">&#x27;Spring&#x27;</span>:<br>    holiday = <span class="hljs-string">&#x27;May Day&#x27;</span><br><span class="hljs-keyword">elif</span> season == <span class="hljs-string">&#x27;Summer&#x27;</span>:<br>    holiday = <span class="hljs-string">&#x27;Juneteenth&#x27;</span><br><span class="hljs-keyword">elif</span> season == <span class="hljs-string">&#x27;Fall&#x27;</span>:<br>    holiday = <span class="hljs-string">&#x27;Halloween&#x27;</span><br><span class="hljs-keyword">else</span>:<br>    holiday = <span class="hljs-string">&#x27;Personal day off&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这段代码符合Python风格，但是有点啰唆。Java的<code>switch</code>语句默认会有fall-through特性，如果块不用<code>break</code>语句结束，就会继续执行下一个块。忘记添加<code>break</code>语句是个常见的错误来源。这个Python示例中所有<code>if-elif</code>语句的功能都比较类似，对于这种情况，一些Python程序员更喜欢通过字典来做这种工作。下面这段简洁的代码与上一个示例功效一致：</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sml">holiday = &#123;<span class="hljs-symbol">&#x27;Winter&#x27;</span>: <span class="hljs-symbol">&#x27;New</span> <span class="hljs-type">Year</span>\<span class="hljs-symbol">&#x27;s</span> <span class="hljs-type">Day&#x27;</span>,<br>           <span class="hljs-symbol">&#x27;Spring&#x27;</span>: <span class="hljs-symbol">&#x27;May</span> <span class="hljs-type">Day&#x27;</span>,<br>           <span class="hljs-symbol">&#x27;Summer&#x27;</span>: <span class="hljs-symbol">&#x27;Juneteenth&#x27;</span>,<br>           <span class="hljs-symbol">&#x27;Fall&#x27;</span>:   <span class="hljs-symbol">&#x27;Halloween&#x27;</span>&#125;.get(season, <span class="hljs-symbol">&#x27;Personal</span> day off&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>这段代码只是一个简单的赋值语句。<code>holiday</code>中存储的值是<code>get()</code>方法调用的结果。如果字典中存在<code>season</code>的值对应的键，则返回对应的值，不存在时则返回<code>&#39;Personal day off&#39;</code>。使用字典会让代码更加简洁，但也可能降低可读性。所以，是否使用这种习惯用法取决于你。</p>
+<h2 id="6-8-条件表达式：Python“丑陋”的三元运算符"><a href="#6-8-条件表达式：Python“丑陋”的三元运算符" class="headerlink" title="6.8　条件表达式：Python“丑陋”的三元运算符"></a>6.8　条件表达式：Python“丑陋”的三元运算符</h2><p>　　<strong>三元运算符</strong>（在Python中的正式说法是<strong>条件表达式</strong>，有时也被称为<strong>三元选择表达式</strong>）是根据条件将某个表达式推导为两个值中的某一个值。通常，它是使用Python风格的<code>if-else</code>语句实现的：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">condition = <span class="hljs-literal">True</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-keyword">if</span> condition:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    message = <span class="hljs-string">&#x27;Access granted&#x27;</span></span><br><span class="hljs-meta prompt_">...</span> <span class="language-python"><span class="hljs-keyword">else</span>:</span><br><span class="hljs-meta prompt_">...</span> <span class="language-python">    message = <span class="hljs-string">&#x27;Access denied&#x27;</span></span><br><span class="hljs-meta prompt_">...</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">message</span><br>&#x27;Access granted&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>　　“三元”的本意是运算符有3个输入，但它在编程中的含义类似于条件表达式。条件表达式也能为这种模式提供一个更简洁的一行代码版本。在Python中，它们是通过关键字<code>if</code>和<code>else</code>的奇特组合实现的：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">valueIfTrue = <span class="hljs-string">&#x27;Access granted&#x27;</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">valueIfFalse = <span class="hljs-string">&#x27;Access denied&#x27;</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">condition = <span class="hljs-literal">True</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">message = valueIfTrue <span class="hljs-keyword">if</span> condition <span class="hljs-keyword">else</span> valueIfFalse ❶</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">message</span><br>&#x27;Access granted&#x27;<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-built_in">print</span>(valueIfTrue <span class="hljs-keyword">if</span> condition <span class="hljs-keyword">else</span> valueIfFalse) ❷</span><br>&#x27;Access granted&#x27;<br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">condition = <span class="hljs-literal">False</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">message = valueIfTrue <span class="hljs-keyword">if</span> condition <span class="hljs-keyword">else</span> valueIfFalse</span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">message</span><br>&#x27;Access denied&#x27;<br></code></pre></td></tr></table></figure>
+
+<p><code>valueIfTrue if condition else valueIfFalse</code>❶这段表达式在<code>condition</code>值为<code>True</code>时结果为<code>valueIfTrue</code>，在<code>condition</code>值为<code>False</code>时值为<code>valueIfFalse</code>。Guido van Rossum开玩笑地将这种语法设计称作“故意的丑陋”。大多数语言的三元运算符是先列出条件，之后再是条件为真时的值和条件为假时的值。任何使用表达式或者值的地方都可以使用条件表达式，包括作为函数调用的参数❷。</p>
+<p>　　为什么Python会在2.5版本中引入这种语法，即使违背了“美丽胜于丑陋”这条准则？因为虽然这种写法可读性不强，但很多程序员使用三元运算符，并希望Python也支持这种语法。巧用布尔运算符的短路运算可以创建一种三元运算符。表达式<code>condition and valueIfTrue or valueIfFalse</code>，在<code>condition</code>为<code>True</code>时结果为<code>valueIfTrue</code>，反之为<code>valueIfFalse</code>（实际上有一重要的例外，下面会讲到）。在交互式shell中输入以下内容：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python"><span class="hljs-comment"># 不符合Python风格的示例</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">valueIfTrue = <span class="hljs-string">&#x27;Access granted&#x27;</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">valueIfFalse = <span class="hljs-string">&#x27;Access denied&#x27;</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">condition = <span class="hljs-literal">True</span></span><br><span class="hljs-meta prompt_">&gt;&gt;&gt;</span> <span class="language-python">condition <span class="hljs-keyword">and</span> valueIfTrue <span class="hljs-keyword">or</span> valueIfFalse</span><br>&#x27;Access granted&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>这种<code>condition and valueIfTrue or valueIfFalse</code>风格的伪三元运算符有一个不易察觉的错误：如果<code>valueIfTrue</code>是一个假值（如<code>0</code>、<code>False</code>、<code>None</code>或空白字符串），即使条件为<code>True</code>，表达式的结果还是会为<code>valueIfFalse</code>。但这种伪三元运算符还在被程序员使用。“为什么Python没有三元运算符？”这是Python核心开发者经常被问到的问题。条件表达式的出现就是为了响应程序员想要三元运算符的呼声，避免程序员继续使用容易出错的伪三元运算符。但程序员也不愿意使用“丑陋”的条件运算符。尽管“美丽胜于丑陋”，但“实用性胜于纯粹性”，这就是Python“丑陋的三元运算符”体现的价值。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/python/" class="category-chain-item">python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【python】读书笔记之python之禅（六）</div>
+      <div>http://example.com/2024/01/06/616python读书笔记之python之禅（六）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/07/617python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E7%BC%96%E7%A8%8B%E6%9C%AF%E8%AF%AD%EF%BC%88%E4%B8%83%EF%BC%89/" title="【python】读书笔记之编程术语（七）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python】读书笔记之编程术语（七）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/03/615python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%EF%BC%88%E4%BA%94%EF%BC%89/" title="【python】读书笔记之代码的坏味道（五）">
+                        <span class="hidden-mobile">【python】读书笔记之代码的坏味道（五）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

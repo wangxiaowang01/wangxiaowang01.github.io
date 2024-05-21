@@ -1,0 +1,783 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="pytest之Monkeypatching猴子补丁有时测试需要调用依赖于全局设置的功能或调用不易测试的代码（例如网络访问）。夹具monkeypatch可帮助您安全地设置&#x2F;删除属性、字典项或环境变量，或进行修改sys.path以供导入。 概念： 在运行时动态修改模块、类或函数，通常是添加功能或修正缺陷。 猴子补丁在代码运行时（内存中）发挥作用，不会修改源码，因此只对当前运行的程序实例有效。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 之 pytest mock 数据（七）">
+<meta property="og:url" content="http://example.com/2024/01/20/667python-%E4%B9%8B-pytest-mock-%E6%95%B0%E6%8D%AE%EF%BC%88%E4%B8%83%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="pytest之Monkeypatching猴子补丁有时测试需要调用依赖于全局设置的功能或调用不易测试的代码（例如网络访问）。夹具monkeypatch可帮助您安全地设置&#x2F;删除属性、字典项或环境变量，或进行修改sys.path以供导入。 概念： 在运行时动态修改模块、类或函数，通常是添加功能或修正缺陷。 猴子补丁在代码运行时（内存中）发挥作用，不会修改源码，因此只对当前运行的程序实例有效。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+<meta property="article:published_time" content="2024-01-20T02:41:53.000Z">
+<meta property="article:modified_time" content="2024-04-16T09:06:30.067Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="pytest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/python/c82add914bb3ba65d55a4489cbec9396.jpeg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>python 之 pytest mock 数据（七） - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/marek.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python 之 pytest mock 数据（七）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-20 10:41" pubdate>
+          2024年1月20日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          89 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">python 之 pytest mock 数据（七）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="pytest之Monkeypatching猴子补丁"><a href="#pytest之Monkeypatching猴子补丁" class="headerlink" title="pytest之Monkeypatching猴子补丁"></a>pytest之Monkeypatching猴子补丁</h1><p>有时测试需要调用依赖于全局设置的功能或调用不易测试的代码（例如网络访问）。夹具<code>monkeypatch</code>可帮助您安全地设置&#x2F;删除属性、字典项或环境变量，或进行修改<code>sys.path</code>以供导入。</p>
+<p>概念：</p>
+<p>在运行时动态修改模块、类或函数，通常是添加功能或修正缺陷。</p>
+<p><strong>猴子补丁在代码运行时（内存中）发挥作用，不会修改源码，因此只对当前运行的程序实例有效。</strong></p>
+<p>因为猴子补丁破坏了封装，而且容易导致程序与补丁代码的实现细节紧密耦合，所以被视为临时的变通方案，不是集成代码的推荐方式。<br>在Python语言中，monkey patch 指的是对于一个类或者模块所进行的动态修改。在Python语言中，我们其实可以在运行时修改代码的行为。</p>
+<p>该<code>monkeypatch</code>装置提供了以下辅助方法，用于在测试中安全地修补和模拟功能：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setattr"><code>monkeypatch.setattr(obj, name, value, raising=True)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delattr"><code>monkeypatch.delattr(obj, name, raising=True)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setitem"><code>monkeypatch.setitem(mapping, name, value)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delitem"><code>monkeypatch.delitem(obj, name, raising=True)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setenv"><code>monkeypatch.setenv(name, value, prepend=None)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delenv"><code>monkeypatch.delenv(name, raising=True)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.syspath_prepend"><code>monkeypatch.syspath_prepend(path)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.chdir"><code>monkeypatch.chdir(path)</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.context"><code>monkeypatch.context()</code></a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">monkeypatch.<span class="hljs-built_in">setattr</span>(obj, name, value, raising=<span class="hljs-literal">True</span>)<br>monkeypatch.<span class="hljs-built_in">delattr</span>(obj, name, raising=<span class="hljs-literal">True</span>)<br>monkeypatch.setitem(mapping, name, value)<br>monkeypatch.delitem(obj, name, raising=<span class="hljs-literal">True</span>)<br>monkeypatch.setenv(name, value, prepend=<span class="hljs-literal">False</span>)<br>monkeypatch.delenv(name, raising=<span class="hljs-literal">True</span>)<br>monkeypatch.syspath_prepend(path)<br>monkeypatch.chdir(path)<br><br></code></pre></td></tr></table></figure>
+
+<p>请求测试函数或装置完成后，所有修改都将被撤消。 如果设置&#x2F;删除操作的目标不存在，则该<code>raising</code> 参数确定是否引发<code>KeyError</code>或。<code>AttributeError</code></p>
+<p>请考虑以下情形：</p>
+<ol>
+<li>修改函数的行为或类的属性以进行测试，例如，有一个 API 调用或数据库连接，你不会对其进行测试，但你知道预期的输出应该是什么。使用<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setattr"><code>monkeypatch.setattr</code></a>修补函数或属性以达到您想要的测试行为。这也可以包括自己定义自己的函数。使用<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delattr"><code>monkeypatch.delattr</code></a>删除测试的函数或属性。 </li>
+<li>修改字典的值例如，你有一个全局配置，想要针对某些测试用例进行修改。用于<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setitem"><code>monkeypatch.setitem</code></a>修补测试字典。<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delitem"><code>monkeypatch.delitem</code></a>可用于删除项目。</li>
+<li>修改环境变量以进行测试，例如，如果缺少环境变量，则测试程序行为，或者为已知变量设置多个值。 <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setenv"><code>monkeypatch.setenv</code></a>并可<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delenv"><code>monkeypatch.delenv</code></a>用于这些补丁。</li>
+<li>使用修改，并 在测试期间更改当前工作目录的上下文。<code>monkeypatch.setenv(&quot;PATH&quot;, value, prepend=os.pathsep)``$PATH</code><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.chdir"><code>monkeypatch.chdir</code></a></li>
+<li>使用<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.syspath_prepend"><code>monkeypatch.syspath_prepend</code></a>修改<code>sys.path</code>也会调用<code>pkg_resources.fixup_namespace_packages</code>和<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/importlib.html#importlib.invalidate_caches"><code>importlib.invalidate_caches()</code></a>。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.context"><code>monkeypatch.context</code></a>仅在特定范围内应用补丁，这有助于控制复杂装置或 stdlib 补丁的拆除。</li>
+</ol>
+<h2 id="Monkeypatching函数"><a href="#Monkeypatching函数" class="headerlink" title="Monkeypatching函数"></a>Monkeypatching函数</h2><p>思考一下你正在使用用户目录的情况。在测试环境中，您不希望测试依赖于正在运行的用户。<code>monkeypatch</code> 可用于模拟用户依赖的函数，使其始终返回你设定的特定值。</p>
+<p>代码示例：</p>
+<p>在此示例中，<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setattr"><code>monkeypatch.setattr</code></a>用于修补<code>Path.home</code> ，以便<code>Path(&quot;/abc&quot;)</code>在运行测试时始终使用已知的测试路径。这消除了对正在运行的用户的任何依赖，以达到测试目的。 <a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setattr"><code>monkeypatch.setattr</code></a>必须在调用将使用修补函数的函数之前调用。测试函数完成后，<code>Path.home</code>修改将被撤消。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><br><span class="hljs-built_in">print</span>(Path.home())<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getssh</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;Simple function to return expanded homedir ssh path.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> Path.home() / <span class="hljs-string">&quot;.ssh&quot;</span> <span class="hljs-comment"># Path.home()返回的是/home/user ，拼接后/home/user/ssh</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_getssh</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-comment"># mocked return function to replace Path.home</span><br>    <span class="hljs-comment"># always return &#x27;/abc&#x27;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mockreturn</span>(): <span class="hljs-comment"># 模拟返回</span><br>        <span class="hljs-keyword">return</span> Path(<span class="hljs-string">&quot;/abc&quot;</span>)<br><br>    <span class="hljs-comment"># Application of the monkeypatch to replace Path.home</span><br>    <span class="hljs-comment"># with the behavior of mockreturn defined above.</span><br>    monkeypatch.<span class="hljs-built_in">setattr</span>(Path, <span class="hljs-string">&quot;home&quot;</span>, mockreturn) <span class="hljs-comment"># 设置，当你调用Path.home时，使用mockreturn ，mockreturn返回的是/abc</span><br><br>    <span class="hljs-comment"># Calling getssh() will use mockreturn in place of Path.home</span><br>    <span class="hljs-comment"># for this test with the monkeypatch.</span><br>    x = getssh() <span class="hljs-comment"># 调用getssh()，实际调用的是mockreturn，返回的是/abc</span><br>    <span class="hljs-built_in">print</span>(x)<br>    <span class="hljs-keyword">assert</span> x == Path(<span class="hljs-string">&quot;/abc/.ssh&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Monkeypatching-返回对象：构建模拟类"><a href="#Monkeypatching-返回对象：构建模拟类" class="headerlink" title="Monkeypatching 返回对象：构建模拟类"></a>Monkeypatching 返回对象：构建模拟类</h2><p><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setattr"><code>monkeypatch.setattr</code></a>也可以与类结合使用，模拟函数所返回的是对象而不是值。定义一个简单的函数，它接受 API url 并返回 json 响应。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of app.py, a simple API retrieval example</span><br><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_json</span>(<span class="hljs-params">url</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Takes a URL, and returns the JSON.&quot;&quot;&quot;</span><br>    r = requests.get(url) <span class="hljs-comment"># 发起url请求</span><br>    <span class="hljs-keyword">return</span> r.json()<br></code></pre></td></tr></table></figure>
+
+<p>为了测试，我们需要模拟<code>r</code>返回的响应对象。模拟的<code>r</code>对象必须要有一个<code>.json()</code>返回字典的方法。接下来我们可以通过在测试文件中定义一个类来 mock <code>r</code>对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of test_app.py, a simple test for our API retrieval</span><br><span class="hljs-comment"># import requests for the purposes of monkeypatching</span><br><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-comment"># our app.py that includes the get_json() function</span><br><span class="hljs-comment"># this is the previous code block example</span><br><span class="hljs-keyword">import</span> app <span class="hljs-comment"># 导入app.py</span><br><br><br><span class="hljs-comment"># custom class to be the mock return value</span><br><span class="hljs-comment"># will override the requests.Response returned from requests.get</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MockResponse</span>:<br>    <span class="hljs-comment"># mock json() method always returns a specific testing dictionary</span><br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">json</span>():<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;mock_key&quot;</span>: <span class="hljs-string">&quot;mock_response&quot;</span>&#125; <span class="hljs-comment"># MockResponse的.json()方法总是返回一个字典</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_get_json</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-comment"># Any arguments may be passed and mock_get() will always return our</span><br>    <span class="hljs-comment"># mocked object, which only has the .json() method.</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_get</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        <span class="hljs-keyword">return</span> MockResponse() <span class="hljs-comment"># 返回MockResponse对象，这里返回的就是我们要mock的r对象</span><br><br>    <span class="hljs-comment"># apply the monkeypatch for requests.get to mock_get</span><br>    monkeypatch.<span class="hljs-built_in">setattr</span>(requests, <span class="hljs-string">&quot;get&quot;</span>, mock_get) <span class="hljs-comment"># 给requests.get方法的返回值定义为我们的mock_get所返回的MockResponse对象</span><br>    <span class="hljs-comment"># 这里就相当于什么，相当于之前的 r = requests.get(&quot;https://fakeurl&quot;) 就等于我们的r = MockResponse()所返回的MockResponse对象</span><br><br>    <span class="hljs-comment"># app.get_json, which contains requests.get, uses the monkeypatch</span><br>    result = app.get_json(<span class="hljs-string">&quot;https://fakeurl&quot;</span>) <span class="hljs-comment"># 这里就相当于就是 r.json()也相当于是我们mock的对象的mock_get()所返回的&#123;&quot;mock_key&quot;: &quot;mock_response&quot;&#125;)</span><br>    <span class="hljs-keyword">assert</span> result[<span class="hljs-string">&quot;mock_key&quot;</span>] == <span class="hljs-string">&quot;mock_response&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>测试成功，打印一下返回内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">============================= test session starts ==============================<br>platform linux -- Python <span class="hljs-number">3.10</span><span class="hljs-number">.12</span>, pytest-<span class="hljs-number">8.1</span><span class="hljs-number">.1</span>, pluggy-<span class="hljs-number">1.4</span><span class="hljs-number">.0</span> -- /home/wang/code/fastApiStudy/venvadmin/<span class="hljs-built_in">bin</span>/python<br>cachedir: .pytest_cache<br>rootdir: /home/wang/code/<br>configfile: pytest.ini<br>plugins: anyio-<span class="hljs-number">4.2</span><span class="hljs-number">.0</span><br>collecting ... collected <span class="hljs-number">1</span> item<br><br>testcases/test_app.py::test_get_json <br>result: &#123;<span class="hljs-string">&#x27;mock_key&#x27;</span>: <span class="hljs-string">&#x27;mock_response&#x27;</span>&#125; <span class="hljs-comment"># 打印出来就是我们设置的</span><br>PASSED<br><br>============================== <span class="hljs-number">1</span> passed <span class="hljs-keyword">in</span> <span class="hljs-number">0.03</span>s ===============================<br>Finished running tests!<br></code></pre></td></tr></table></figure>
+
+<p>也可以根据测试场景构建一些复杂的类给到<code>mockresponse</code></p>
+<p>例如这个类返回的属性中始终会有一个<code>ok</code>的属性，</p>
+<p>或者根据输入的不同的字符串给<code>.json()方法</code>返回不同的值</p>
+<p>也可以使用以下方式在测试之间共享此模拟<code>fixture</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"> contents of test_app.py, a simple test <span class="hljs-keyword">for</span> our API retrieval<br><span class="hljs-keyword">import</span> pytest<br><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-comment"># app.py that includes the get_json() function</span><br><span class="hljs-keyword">import</span> app<br><br><br><span class="hljs-comment"># custom class to be the mock return value of requests.get()</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MockResponse</span>:<br><span class="hljs-meta">    @staticmethod</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">json</span>():<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;mock_key&quot;</span>: <span class="hljs-string">&quot;mock_response&quot;</span>&#125;<br><br><br><span class="hljs-comment"># monkeypatched requests.get moved to a fixture</span><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_response</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Requests.get() mocked to return &#123;&#x27;mock_key&#x27;:&#x27;mock_response&#x27;&#125;.&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_get</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        <span class="hljs-keyword">return</span> MockResponse()<br><br>    monkeypatch.<span class="hljs-built_in">setattr</span>(requests, <span class="hljs-string">&quot;get&quot;</span>, mock_get) <span class="hljs-comment"># 设置属性</span><br><br><br><span class="hljs-comment"># notice our test uses the custom fixture instead of monkeypatch directly</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_get_json</span>(<span class="hljs-params">mock_response</span>):<br>    result = app.get_json(<span class="hljs-string">&quot;https://fakeurl&quot;</span>)<br>    <span class="hljs-keyword">assert</span> result[<span class="hljs-string">&quot;mock_key&quot;</span>] == <span class="hljs-string">&quot;mock_response&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>此外，如果设计mock想要应用于所有的测试用例，则<code>fixture</code>可以在<code>conftest.py</code>文件中定义 ，并在<code>pytest.ini</code>配置文件中使用<code>withautouse=True</code>这个选项选项。</p>
+<h2 id="全局补丁示例：阻止远程操作的“请求”"><a href="#全局补丁示例：阻止远程操作的“请求”" class="headerlink" title="全局补丁示例：阻止远程操作的“请求”"></a>全局补丁示例：阻止远程操作的“请求”</h2><p>如果你想阻止“requests”库在所有测试中执行http请求，你可以执行以下操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of conftest.py</span><br><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-meta">@pytest.fixture(<span class="hljs-params">autouse=<span class="hljs-literal">True</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">no_requests</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Remove requests.sessions.Session.request for all tests.&quot;&quot;&quot;</span><br>    monkeypatch.<span class="hljs-built_in">delattr</span>(<span class="hljs-string">&quot;requests.sessions.Session.request&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>此自动使用装置将针对每个测试功能执行，它将删除该方法<code>request.session.Session.request</code> ，以便在测试中创建 http 请求的任何尝试都将失败。</p>
+<h2 id="Monkeypatching-环境变量"><a href="#Monkeypatching-环境变量" class="headerlink" title="Monkeypatching 环境变量"></a>Monkeypatching 环境变量</h2><p>如果您正在使用环境变量，则经常需要安全地更改值或将其从系统中删除以进行测试。提供了一种使用and方法<code>monkeypatch</code>执行此操作的机制。我们的示例代码用于测试：<code>setenv``delenv</code></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># contents of our original code file e.g. code.py</span><br><span class="hljs-keyword">import</span> os<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_os_user_lower</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;Simple retrieval function.</span><br><span class="hljs-string">    Returns lowercase USER or raises OSError.&quot;&quot;&quot;</span><br>    username = os.getenv(<span class="hljs-string">&quot;USER&quot;</span>)<br><br>    <span class="hljs-keyword">if</span> username <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">raise</span> OSError(<span class="hljs-string">&quot;USER environment is not set.&quot;</span>)<br><br>    <span class="hljs-keyword">return</span> username.lower()<br></code></pre></td></tr></table></figure>
+
+<p>有两种可能的路径。首先，<code>USER</code>环境变量被设置为一个值。其次，<code>USER</code>环境变量不存在。使用这<code>monkeypatch</code> 两种路径都可以安全地进行测试，而不会影响运行环境：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of our test file e.g. test_code.py</span><br><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_upper_to_lower</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Set the USER env var to assert the behavior.&quot;&quot;&quot;</span><br>    monkeypatch.setenv(<span class="hljs-string">&quot;USER&quot;</span>, <span class="hljs-string">&quot;TestingUser&quot;</span>) <span class="hljs-comment"># 设置环境变量</span><br>    <span class="hljs-keyword">assert</span> get_os_user_lower() == <span class="hljs-string">&quot;testinguser&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_raise_exception</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Remove the USER env var and assert OSError is raised.&quot;&quot;&quot;</span><br>    monkeypatch.delenv(<span class="hljs-string">&quot;USER&quot;</span>, raising=<span class="hljs-literal">False</span>)<br><br>    <span class="hljs-keyword">with</span> pytest.raises(OSError):<br>        _ = get_os_user_lower()<br></code></pre></td></tr></table></figure>
+
+<p>此行为可以移至<code>fixture</code>结构中并在测试之间共享：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of our test file e.g. test_code.py</span><br><span class="hljs-keyword">import</span> pytest<br><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_env_user</span>(<span class="hljs-params">monkeypatch</span>):<br>    monkeypatch.setenv(<span class="hljs-string">&quot;USER&quot;</span>, <span class="hljs-string">&quot;TestingUser&quot;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_env_missing</span>(<span class="hljs-params">monkeypatch</span>):<br>    monkeypatch.delenv(<span class="hljs-string">&quot;USER&quot;</span>, raising=<span class="hljs-literal">False</span>)<br><br><br><span class="hljs-comment"># notice the tests reference the fixtures for mocks</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_upper_to_lower</span>(<span class="hljs-params">mock_env_user</span>):<br>    <span class="hljs-keyword">assert</span> get_os_user_lower() == <span class="hljs-string">&quot;testinguser&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_raise_exception</span>(<span class="hljs-params">mock_env_missing</span>):<br>    <span class="hljs-keyword">with</span> pytest.raises(OSError):<br>        _ = get_os_user_lower()<br></code></pre></td></tr></table></figure>
+
+<h2 id="Monkeypatching-字典"><a href="#Monkeypatching-字典" class="headerlink" title="Monkeypatching 字典"></a>Monkeypatching 字典</h2><p><a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.setitem"><code>monkeypatch.setitem</code></a>可用于在测试期间安全地将字典的值设置为特定值。以下是简化的连接字符串示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of app.py to generate a simple connection string</span><br>DEFAULT_CONFIG = &#123;<span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;user1&quot;</span>, <span class="hljs-string">&quot;database&quot;</span>: <span class="hljs-string">&quot;db1&quot;</span>&#125;<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_connection_string</span>(<span class="hljs-params">config=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Creates a connection string from input or defaults.&quot;&quot;&quot;</span><br>    config = config <span class="hljs-keyword">or</span> DEFAULT_CONFIG<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;User Id=<span class="hljs-subst">&#123;config[<span class="hljs-string">&#x27;user&#x27;</span>]&#125;</span>; Location=<span class="hljs-subst">&#123;config[<span class="hljs-string">&#x27;database&#x27;</span>]&#125;</span>;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>为了测试目的，我们可以将<code>DEFAULT_CONFIG</code>字典修补为特定值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of test_app.py</span><br><span class="hljs-comment"># app.py with the connection string function (prior code block)</span><br><span class="hljs-keyword">import</span> app<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_connection</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-comment"># Patch the values of DEFAULT_CONFIG to specific</span><br>    <span class="hljs-comment"># testing values only for this test.</span><br>    monkeypatch.setitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;test_user&quot;</span>)<br>    monkeypatch.setitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;database&quot;</span>, <span class="hljs-string">&quot;test_db&quot;</span>)<br><br>    <span class="hljs-comment"># expected result based on the mocks</span><br>    expected = <span class="hljs-string">&quot;User Id=test_user; Location=test_db;&quot;</span><br><br>    <span class="hljs-comment"># the test uses the monkeypatched dictionary settings</span><br>    result = app.create_connection_string()<br>    <span class="hljs-keyword">assert</span> result == expected<br></code></pre></td></tr></table></figure>
+
+<p>您可以使用<a target="_blank" rel="noopener" href="https://docs.pytest.org/en/8.0.x/reference/reference.html#pytest.MonkeyPatch.delitem"><code>monkeypatch.delitem</code></a>来删除值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of test_app.py</span><br><span class="hljs-keyword">import</span> pytest<br><br><span class="hljs-comment"># app.py with the connection string function</span><br><span class="hljs-keyword">import</span> app<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_missing_user</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-comment"># patch the DEFAULT_CONFIG t be missing the &#x27;user&#x27; key</span><br>    monkeypatch.delitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;user&quot;</span>, raising=<span class="hljs-literal">False</span>)<br><br>    <span class="hljs-comment"># Key error expected because a config is not passed, and the</span><br>    <span class="hljs-comment"># default is now missing the &#x27;user&#x27; entry.</span><br>    <span class="hljs-keyword">with</span> pytest.raises(KeyError):<br>        _ = app.create_connection_string()<br></code></pre></td></tr></table></figure>
+
+<p>装置的模块化使您可以灵活地为每个潜在模拟定义单独的装置，并在所需的测试中引用它们。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># contents of test_app.py</span><br><span class="hljs-keyword">import</span> pytest<br><br><span class="hljs-comment"># app.py with the connection string function</span><br><span class="hljs-keyword">import</span> app<br><br><br><span class="hljs-comment"># all of the mocks are moved into separated fixtures</span><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_test_user</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Set the DEFAULT_CONFIG user to test_user.&quot;&quot;&quot;</span><br>    monkeypatch.setitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;test_user&quot;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_test_database</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Set the DEFAULT_CONFIG database to test_db.&quot;&quot;&quot;</span><br>    monkeypatch.setitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;database&quot;</span>, <span class="hljs-string">&quot;test_db&quot;</span>)<br><br><br><span class="hljs-meta">@pytest.fixture</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mock_missing_default_user</span>(<span class="hljs-params">monkeypatch</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Remove the user key from DEFAULT_CONFIG&quot;&quot;&quot;</span><br>    monkeypatch.delitem(app.DEFAULT_CONFIG, <span class="hljs-string">&quot;user&quot;</span>, raising=<span class="hljs-literal">False</span>)<br><br><br><span class="hljs-comment"># tests reference only the fixture mocks that are needed</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_connection</span>(<span class="hljs-params">mock_test_user, mock_test_database</span>):<br>    expected = <span class="hljs-string">&quot;User Id=test_user; Location=test_db;&quot;</span><br><br>    result = app.create_connection_string()<br>    <span class="hljs-keyword">assert</span> result == expected<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_missing_user</span>(<span class="hljs-params">mock_missing_default_user</span>):<br>    <span class="hljs-keyword">with</span> pytest.raises(KeyError):<br>        _ = app.create_connection_string()<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/pytest/" class="print-no-link">#pytest</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>python 之 pytest mock 数据（七）</div>
+      <div>http://example.com/2024/01/20/667python-之-pytest-mock-数据（七）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/20/666python-%E4%B9%8B-pytest-%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E5%8C%96%E5%A4%B9%E5%85%B7%E6%B5%8B%E8%AF%95%EF%BC%88%E5%85%AD%EF%BC%89/" title="python 之 pytest 使用参数化夹具测试（六）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python 之 pytest 使用参数化夹具测试（六）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/20/668python-%E4%B9%8B-pytest-%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%EF%BC%88%E5%85%AB%EF%BC%89/" title="python 之 pytest 常用插件（八）">
+                        <span class="hidden-mobile">python 之 pytest 常用插件（八）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
