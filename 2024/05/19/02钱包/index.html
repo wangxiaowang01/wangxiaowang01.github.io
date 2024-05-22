@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/web3/btb4.jpg">
 <meta property="article:published_time" content="2024-05-19T03:30:32.000Z">
-<meta property="article:modified_time" content="2024-05-21T03:01:49.223Z">
+<meta property="article:modified_time" content="2024-05-22T03:05:50.911Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -276,7 +276,7 @@
         
         
         
-          132 分钟
+          136 分钟
         
       </span>
     
@@ -441,24 +441,50 @@
 <h1 id="4-去中心化钱包-HD-钱包"><a href="#4-去中心化钱包-HD-钱包" class="headerlink" title="4. 去中心化钱包(HD 钱包)"></a>4. 去中心化钱包(HD 钱包)</h1><h2 id="4-1-去中心化钱包架构图"><a href="#4-1-去中心化钱包架构图" class="headerlink" title="4.1. 去中心化钱包架构图"></a>4.1. 去中心化钱包架构图</h2><p><img src="/img/web3/hdwallet.png" srcset="/img/loading.gif" lazyload alt="hdwallet"></p>
 <p>去中心化钱包的私钥是管理在用户设备中的，除了用户本人和牛逼的黑客，没有人接触得到。一般的去中心化钱包都是确定性分层钱包；先生成助记词，助记词导出主私钥，主私钥扩展子私钥和公钥的方式，公钥再导出地址。</p>
 <p>去中心化钱包的私钥一般是加密之后存储在本地设备 sqlite 或者数据文件里面，当要签名交易的时候，需要用户输入密码解密私钥之后再签名。</p>
-<p>去中心化钱包一般有以下几个业务流程：</p>
-<ul>
-<li>收款</li>
-<li>转账</li>
-<li>转账记录</li>
-<li>闪兑</li>
-<li>Dapp 浏览器</li>
-</ul>
 <p>去中心化钱包比较出名的有 Tp，ImToken，MetaMask 等，我们项目实战中将会带大家用 RN 开发一款类似 TP 的钱包。</p>
 <h2 id="4-2-去中心化钱包细节业务流程"><a href="#4-2-去中心化钱包细节业务流程" class="headerlink" title="4.2.去中心化钱包细节业务流程"></a>4.2.去中心化钱包细节业务流程</h2><ul>
-<li>收款：查询本地设备数据库把地址展示到界面上。</li>
-<li>转账</li>
-</ul>
-<p><img src="/img/web3/transfer.png" srcset="/img/loading.gif" lazyload alt="transfer"></p>
+<li><p>离线地址生成</p>
 <ul>
-<li>转账记录：根据地址查询交易记录和根据 Hash 查询交易详情,这笔转账是谁转给谁的</li>
-<li>闪兑：钱包里面的闪兑一般对接 1inch 或者其他的 aggrator 实现兑换功能</li>
-<li>Dapp 浏览器：Dapp 浏览器是指 Dapp 可以在里面运行，能够正常的和钱包进行交互，有以下几种主流的实现方式 Web View 中包裹 Dapp, 通过 Js 注入 Windows 对象的方式通信，一般钱包开发直接使用这种方式 Websocket 进行 Dapp 和钱包之间的通信</li>
+<li>助记词会编码加钱包密码，一般用sqlitle或者wallet.data文件</li>
+<li>地址生成过程：chilldkey会有pubkey和prikey，pubkey会生成address，这个是离线的</li>
+</ul>
+</li>
+<li><p>收款：查询本地设备数据库把地址展示到界面上。</p>
+</li>
+<li><p>查询余额：</p>
+<ul>
+<li><p>BTC是UTXO模型，链上没有rpc可以获得余额，需要electumX获取</p>
+<p>ETH：eth get balances eth具备账户模型</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/web3/%E7%94%A8%E6%88%B7%E6%9F%A5%E8%AF%A2%E4%BD%99%E9%A2%9D%E6%B5%81%E7%A8%8B.jpg" srcset="/img/loading.gif" lazyload alt="用户查询余额流程"></p>
+<ul>
+<li>转账<ul>
+<li>第一步：检测余额是否足够</li>
+<li>第二步：请求签名参数：<ul>
+<li>ETH：获取三个：Nonce(Number once的缩写)、gasprice、 gaslimite </li>
+<li>BTC：fee</li>
+<li>Atom ：Account Number（唯一账户编号） Sequence（顺序）fess(手续费)</li>
+</ul>
+</li>
+<li>第三步：组装交易，组装完之后生成一个32位的代签名的MsgHash<ul>
+<li>第四步：签名，用前面的Msghash和本地的privkey做一次sign签名，签名完成之后就会得到已经完成签名的报文，这个报文和pubkey组织完整的交易。</li>
+</ul>
+</li>
+<li>第五步：广播出去：上面的完整的交易调链上的接口广播出去，叫法不同：SendRawTransaction、PushTx、SendTx 、Broadcast</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/web3/%E7%A6%BB%E7%BA%BF%E7%AD%BE%E5%90%8D%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" srcset="/img/loading.gif" lazyload alt="离线签名流程图"></p>
+<ul>
+<li><p>转账记录：根据地址查询交易记录和根据 Hash 查询交易详情,这笔转账是谁转给谁的</p>
+</li>
+<li><p>闪兑：钱包里面的闪兑一般对接 1inch 或者其他的 aggrator 实现兑换功能</p>
+</li>
+<li><p>Dapp 浏览器：Dapp 浏览器是指 Dapp 可以在里面运行，能够正常的和钱包进行交互，有以下几种主流的实现方式 Web View 中包裹 Dapp, 通过 Js 注入 Windows 对象的方式通信，一般钱包开发直接使用这种方式 Websocket 进行 Dapp 和钱包之间的通信</p>
+</li>
 </ul>
 <blockquote>
 <p>也称为非托管钱包，它允许用户完全控制自己的私钥和资金，而不需要依赖于第三方服务</p>
