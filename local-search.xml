@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>03密码学</title>
+    <link href="/2024/05/23/03%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    <url>/2024/05/23/03%E5%AF%86%E7%A0%81%E5%AD%A6/</url>
+    
+    <content type="html"><![CDATA[<h1 id="公钥密码学理论"><a href="#公钥密码学理论" class="headerlink" title="公钥密码学理论"></a>公钥密码学理论</h1><blockquote><p>两种加密方式：对称加密和非对称加密</p></blockquote><h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><p>区别：主要区别就是密钥对的区别</p><p>对称加密（单秘钥加密），<strong>加解密都是只有一把key</strong> ，使用相同的秘钥进行加密和解密炒作</p><p>发送方使用密钥对数据进行加密，接收方使用相同的密钥对密文进行解密，从而还原出原始的明文数据。</p><p>比较有名的是 DES 3DES AES TDEA blowful rc245</p><p>对称加密的特点包括：</p><ol><li><strong>速度和效率</strong>: 对称加密使用相同的密钥进行加密和解密，因此加密和解密的过程非常快速和高效。</li><li><strong>简单性</strong>: 对称加密算法相对简单，实现起来较为容易。</li><li><strong>适用于大数据量</strong>: 对称加密适用于大数据量的加密和解密，因为它的处理速度较快。</li><li><strong>密钥管理</strong>: 对称加密需要确保密钥的安全性，因为任何拥有密钥的人都可以对数据进行解密。因此，对称加密在密钥的生成、分发和管理方面需要特别注意。</li><li><strong>密钥分发</strong>: 密钥的安全分发是对称加密的一个挑战。发送方和接收方必须事先共享密钥，这要求在安全可靠的通信渠道上进行密钥交换。</li></ol><h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>非对称加密 （公钥密码学、<strong>双密码加密</strong>。现在的加密体系），</p><p>双秘钥是哪两个？：</p><ul><li><p><strong>privatekey</strong> ：私有,进行加密（俗称私钥）私钥是用于解密的密钥，必须保密，并且只有密钥的持有者可以使用私钥进行解密。私钥用于解密公钥加密的数据。</p></li><li><p><strong>publickey</strong>：公开的，所有人都知道，进行解密（俗称公钥）公钥是用于加密的密钥，可以公开分享给其他人。任何人都可以使用公钥对数据进行加密，但无法使用公钥进行解密。</p></li></ul><p>非对称加密的运作过程如下：</p><ul><li>发送方使用接收方的公钥对数据进行加密。</li><li>加密后的数据通过不安全的通信渠道发送给接收方。</li><li>接收方使用自己的私钥对收到的密文进行解密，得到原始的明文数据。</li></ul><p>非对称加密的特点包括：</p><ol><li><strong>安全性</strong>: 非对称加密提供了更高的安全性，因为公钥用于加密数据，而私钥用于解密数据。即使公钥被公开获取，也无法轻易破解密文，因为只有私钥持有者才能解密数据。</li><li><strong>密钥分发</strong>: 非对称加密解决了密钥分发的问题。发送方只需获取接收方的公钥，而无需共享私钥。这使得非对称加密在保护数据传输的同时，简化了密钥管理的复杂性。</li><li><strong>数字签名</strong>: 非对称加密还可以用于数字签名，即使用私钥对数据进行加密，证明数据的完整性和认证发送方身份。接收方可以使用发送方的公钥进行验证。</li><li><strong>计算复杂性</strong>: 相对于对称加密，非对称加密的计算复杂性较高，处理速度较慢。因此，非对称加密通常用于加密小数据量或者进行密钥交换，而不是对大量数据进行加密</li></ol><p>非对称加密比较有名的是：RSA  ECC（椭圆曲线）GPG（用过，加密文件）</p><p>ECC分支：</p><ul><li>ECDSA  <strong>特别算法Secp256K1</strong>啥的</li><li>EDDSA <strong>特别算法Ed25519</strong>啥的</li></ul><h1 id="1-DES"><a href="#1-DES" class="headerlink" title="1. DES"></a>1. DES</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol><li>秘钥长度：<strong>56</strong>位</li><li>分组密码：处理64位的分组数据</li><li>加密和解密都需要同一把私钥</li><li>16轮加密包含：拓展、置换、S盒替代、再次置换（16轮加密流程可以了解下）</li><li>安全性：已被攻破，实际项目不会用，</li><li>复杂性和速度。</li><li>3DES替换，目前还安全</li></ol><p> 安全性：特别经典，但已被攻破</p><h1 id="2-3DES"><a href="#2-3DES" class="headerlink" title="2. 3DES"></a>2. 3DES</h1><p>3DES就是3重DES加密，目前也不用了，现在主流都是<strong>AES</strong>，</p><h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><ol><li>秘钥长度：56位，由于引入了对称秘钥的3次应用，所以实际秘钥长度是3个56，</li><li>分组密码：处理64位的分组数据</li><li>加密和解密都需要同一把私钥</li><li>3个16轮加密包含：拓展、置换、S盒替代、再次置换（16轮加密流程可以了解下）</li><li>安全性：比DES高的多，目前是安全的。</li><li>复杂性和速度性能会有损耗。</li></ol><h1 id="3-AES："><a href="#3-AES：" class="headerlink" title="3.AES："></a>3.AES：</h1><h2 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h2><ol><li>秘钥长度：比较灵活，可以是128位 192位 256位</li><li>分组密码：128位的分组密码（分组的意思就是如果数据块太长了，就只能按照128位去分组，分完组之后再加密）</li><li>加密和解密都需要同一把私钥</li><li>基于置换和代换网络，轮数取决于秘钥长度：AES-128使用10轮加密，AES-192使用12轮加密，AES-256使用14轮加密。通过增加轮数，AES提供了更高的安全级别，每一轮都有初始轮、主要轮、最终轮，主要轮都有四个步骤：字节替代（SubBytes）、行移位（ShiftRows）、列混淆（MixColumns）和轮密钥加（AddRoundKey），</li><li>安全性：目前是安全的，没被破解</li><li>应用：文件加密解密，数据加密解密，</li></ol><h1 id="4-DES-、3DES、AES-对比"><a href="#4-DES-、3DES、AES-对比" class="headerlink" title="4. DES 、3DES、AES 对比"></a>4. DES 、3DES、AES 对比</h1><h2 id="共同点："><a href="#共同点：" class="headerlink" title="共同点："></a>共同点：</h2><ol><li>单秘钥对称加密</li><li>分组密码</li><li>都有多轮</li></ol><h2 id="不同点："><a href="#不同点：" class="headerlink" title="不同点："></a>不同点：</h2><ol><li>DES已被破解</li><li>3DES是DES的补充，安全性有保障，实际应用少，</li><li>DES（64位）和AES（128、192、256）秘钥长度不一样，</li><li>AES安全性好一点，目前暂未被破解。</li></ol><h2 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h2><p>文件数据加密，无法做秘钥签名，因为是单秘钥的</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>blockChain</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>block</tag>
+      
+      <tag>概念</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>02钱包</title>
     <link href="/2024/05/19/02%E9%92%B1%E5%8C%85/"/>
     <url>/2024/05/19/02%E9%92%B1%E5%8C%85/</url>
