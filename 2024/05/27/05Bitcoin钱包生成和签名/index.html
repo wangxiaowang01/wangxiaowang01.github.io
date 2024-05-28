@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/web3/bitcoin2.jpg">
 <meta property="article:published_time" content="2024-05-27T09:20:36.000Z">
-<meta property="article:modified_time" content="2024-05-27T11:56:25.456Z">
+<meta property="article:modified_time" content="2024-05-28T01:36:42.339Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.5k 字
         
       </span>
     
@@ -423,14 +423,25 @@
 </ul>
 <p>张三的120，<strong>转118块给自己，转2块给李四，</strong>对应到交易里面，就是这笔交易有<strong>1个输入，2个输出</strong>！</p>
 <p>下面来一个多输入，多输出的案例</p>
-<p>考虑如下场景：用户A和用户B之间发生了一个交易T3，A 向 B 转 100 元。 A的100元，来自T1：C向A转的80元 + T2：D向A转的30元（共110元，但A只转了100元给B，10元找零返回给A的账号）。 同理，C向A转的这80元，来自用户E、F的某次交易…… D向A转的这30元，来自用户E的某次交易……</p>
-<p>这个交易就有2个输入，2个输出： 2个输入（也就是2个UTXO）： </p>
+<p>考虑如下场景：</p>
+<p>用户A和用户B之间发生了一个交易T3，A 向 B 转 100 元。</p>
+<p> A的100元来自2笔交易：来自T1：C向A转的80元 + T2：D向A转的30元（共110元，但A只转了100元给B，10元找零返回给A的账号）。 </p>
+<p>同理，C向A转的这80元，来自用户E、F的某次交易…… D向A转的这30元，来自用户E的某次交易……</p>
+<p>这个交易就有2个输入，2个输出：</p>
+<p> 2个输入（也就是2个UTXO）： </p>
 <ul>
 <li><p>T1: C向A转的80元 </p>
 </li>
 <li><p>T2：D向A转的30元</p>
 </li>
 </ul>
+<p>2个输出：</p>
+<ul>
+<li>B：100元 </li>
+<li>A：10元（找零）</li>
+</ul>
+<p>当你理解上面的例子时，我们再来说一下UTXO，理解上面的例子对你理解UTXO会特别有帮助。</p>
+<p>- </p>
 
                 
               </div>
