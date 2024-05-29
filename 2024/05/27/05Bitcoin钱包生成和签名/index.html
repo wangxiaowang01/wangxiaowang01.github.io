@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/web3/bitcoin2.jpg">
 <meta property="article:published_time" content="2024-05-27T09:20:36.000Z">
-<meta property="article:modified_time" content="2024-05-28T01:36:42.339Z">
+<meta property="article:modified_time" content="2024-05-28T06:16:59.503Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          5.8k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          21 分钟
+          49 分钟
         
       </span>
     
@@ -403,8 +403,7 @@
 <li>内容：提供了一种更高效和安全的签名算法，允许多重签名聚合，提高了交易的隐私性和可扩展性。</li>
 </ul>
 <h2 id="3-UTXO-介绍"><a href="#3-UTXO-介绍" class="headerlink" title="3.UTXO 介绍"></a>3.UTXO 介绍</h2><p>UTXO（Unspent Transaction Output，未花费交易输出）模型是比特币及其他一些加密货币使用的一种记账方法。它与账户模型不同，通过追踪未花费的交易输出来记录每个地址的余额。以下是UTXO模型的详细介绍：</p>
-<p>3.1 模型解说</p>
-<p>说说一个名词，叫做 Transaction交易，Transaction 和 UTXO 是相辅相成的，先举例：</p>
+<h3 id="3-1-模型解说"><a href="#3-1-模型解说" class="headerlink" title="3.1 模型解说"></a>3.1 模型解说</h3><p>说说一个名词，叫做 Transaction交易，Transaction 和 UTXO 是相辅相成的，先举例：</p>
 <p>张三：通过挖矿得到了120个比特币，</p>
 <p>现在张三饿了，想要花费2个比特币去购买一个面包（假设）。</p>
 <p>现在假设李四是面包店营业主</p>
@@ -441,7 +440,42 @@
 <li>A：10元（找零）</li>
 </ul>
 <p>当你理解上面的例子时，我们再来说一下UTXO，理解上面的例子对你理解UTXO会特别有帮助。</p>
-<p>- </p>
+<ul>
+<li>比特币的交易中不是通过账户的增减来实现的，而是一笔笔关联的<strong>输入&#x2F;输出交易事务</strong>。</li>
+<li>每一笔的交易都要花费“<strong>输入</strong>”，然后产生“<strong>输出</strong>”，这个产生的“<strong>输出</strong>”就是所谓的“<strong>未花费过的交易输出</strong>”，也就是<strong>UTXO</strong>。每一笔交易事务都有一个唯一的编号，称为<strong>交易事务ID</strong>，这是通过哈希算法计算而来的，当需要<strong>引用</strong>某一笔交易事务中的<strong>“输出”</strong>时，主要提供<strong>交易事务ID</strong>和所处<strong>“输出”</strong>列表中的<strong>序号</strong>就可以了。</li>
+<li>由于没有账户的概念，因此<strong>当“输入”部分的金额大于所需的“输出”时</strong>，必须给自己<strong>找零</strong>，这个找零也是作为交易的一部分包含在“输出”中。</li>
+<li>旧的 UTXO不断消亡，新的UTXO不断产生。所有的UTXO，组成了UTXO Set 的数据库，存在于每个节点</li>
+<li>任何1笔 UTXO，有且仅可能被1个交易花费1次</li>
+<li>1 个 UTXO，具有如下的表达形式： 1 个 UTXO &#x3D; 1个Transaction ID + Output Index</li>
+</ul>
+<h3 id="2-UTXO模型的区块链钱包余额形式"><a href="#2-UTXO模型的区块链钱包余额形式" class="headerlink" title="2. UTXO模型的区块链钱包余额形式"></a>2. UTXO模型的区块链钱包余额形式</h3><p>深刻理解了UTXO的概念，钱包就很容易理解了，</p>
+<p>某个人的钱包的余额 &#x3D; 属于他的UTXO的总和；在这里，你会发现一个不同于现实世界的“银行”里的一个概念，在银行里，会存储每个账号剩余多少钱。但这里，我们存储的并不是每个账号的余额，而存的是<strong>1笔笔的交易</strong>，也就是<strong>1 笔笔的UTXO</strong>，每个账户的余额是通过<strong>UTXO计算</strong>出来的，而不是<strong>直接存储</strong>余额。</p>
+<h1 id="二-Bitcoin-钱包地址类型"><a href="#二-Bitcoin-钱包地址类型" class="headerlink" title="二. Bitcoin 钱包地址类型"></a>二. Bitcoin 钱包地址类型</h1><p>Bitcoin 钱包地址有几种不同的类型，每种类型都有其特定的用途和特点。主要的几种类型包括：</p>
+<h4 id="P2PKH（Pay-to-PubKeyHash）地址-💡💡"><a href="#P2PKH（Pay-to-PubKeyHash）地址-💡💡" class="headerlink" title="P2PKH（Pay-to-PubKeyHash）地址 💡💡"></a><strong>P2PKH（Pay-to-PubKeyHash）地址</strong> 💡💡</h4><ul>
+<li><p>格式：以1开头，例如，1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa。 💡💡</p>
+</li>
+<li><p>特点：这是最传统和最常见的地址类型，广泛用于比特币的早期交易。 💡💡</p>
+</li>
+<li><p>优点：兼容性好，几乎所有钱包和交易所都支持。 💡💡</p>
+</li>
+<li><p>缺点：随着时间的推移，这种地址类型的使用效率较低，交易费用可能会较高。</p>
+</li>
+</ul>
+<h4 id="P2SH（Pay-to-Script-Hash）地址-💡💡"><a href="#P2SH（Pay-to-Script-Hash）地址-💡💡" class="headerlink" title="P2SH（Pay-to-Script-Hash）地址 💡💡"></a><strong>P2SH（Pay-to-Script-Hash）地址</strong> 💡💡</h4><ul>
+<li>格式：以3开头，例如，3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy。 💡💡</li>
+<li>特点：这种地址允许更复杂的交易脚本，例如多重签名地址。 💡💡</li>
+<li>优点：支持更复杂的交易和脚本，安全性更高。 💡💡</li>
+<li>缺点：创建和管理比P2PKH地址更复杂。</li>
+</ul>
+<h4 id="Bech32（SegWit）地址-💡💡"><a href="#Bech32（SegWit）地址-💡💡" class="headerlink" title="Bech32（SegWit）地址 💡💡"></a><strong>Bech32（SegWit）地址</strong> 💡💡</h4><p>格式：以 bc1 开头，例如，bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwfvenl。 💡💡</p>
+<p>特点：这是比特币改进提案BIP-0173中引入的新地址格式，旨在提高交易效率和减少费用。 💡💡</p>
+<p>优点：交易费用更低，处理速度更快，且有助于减少交易体积。 💡💡</p>
+<p>缺点：并非所有的钱包和交易所都支持这种地址类型，尽管支持率在逐步增加。</p>
+<p>每种地址类型都有其特定的应用场景和优缺点，用户可以根据自己的需求选择合适的地址类型来存储和交易比特币</p>
+<h1 id="三-Bitcoin-离线地址生成代码"><a href="#三-Bitcoin-离线地址生成代码" class="headerlink" title="三. Bitcoin 离线地址生成代码"></a>三. Bitcoin 离线地址生成代码</h1><h2 id="NodeJs-代码"><a href="#NodeJs-代码" class="headerlink" title="NodeJs 代码"></a>NodeJs 代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">createAddress</span> (<span class="hljs-attr">params</span>: any): any &#123;<br>    <span class="hljs-keyword">const</span> &#123;seedHex, receiveOrChange, addressIndex, network, method &#125; = params<br>    <span class="hljs-keyword">const</span> root = bip32.<span class="hljs-title function_">fromSeed</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(seedHex, <span class="hljs-string">&#x27;hex&#x27;</span>));<br>    <span class="hljs-keyword">let</span> path = <span class="hljs-string">&quot;m/44&#x27;/0&#x27;/0&#x27;/0/&quot;</span> + addressIndex + <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">if</span> (receiveOrChange === <span class="hljs-string">&#x27;1&#x27;</span>) &#123;<br>        path = <span class="hljs-string">&quot;m/44&#x27;/0&#x27;/0&#x27;/1/&quot;</span> + addressIndex + <span class="hljs-string">&#x27;&#x27;</span>;<br>    &#125;<br>    <span class="hljs-keyword">const</span> child = root.<span class="hljs-title function_">derivePath</span>(path);<br>    <span class="hljs-keyword">let</span> <span class="hljs-attr">address</span>: string<br>    <span class="hljs-keyword">switch</span>(method) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;p2pkh&quot;</span>:<br>            <span class="hljs-keyword">const</span> p2pkhAddress = bitcoin.<span class="hljs-property">payments</span>.<span class="hljs-title function_">p2pkh</span>(&#123;<br>                <span class="hljs-attr">pubkey</span>: child.<span class="hljs-property">publicKey</span>,<br>                <span class="hljs-attr">network</span>: bitcoin.<span class="hljs-property">networks</span>[network]<br>            &#125;);<br>            address = p2pkhAddress.<span class="hljs-property">address</span><br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;p2wpkh&quot;</span>:<br>            <span class="hljs-keyword">const</span> p2wpkhAddress = bitcoin.<span class="hljs-property">payments</span>.<span class="hljs-title function_">p2wpkh</span>(&#123;<br>                <span class="hljs-attr">pubkey</span>: child.<span class="hljs-property">publicKey</span>,<br>                <span class="hljs-attr">network</span>: bitcoin.<span class="hljs-property">networks</span>[network]<br>            &#125;);<br>            address = p2wpkhAddress.<span class="hljs-property">address</span><br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;p2sh&quot;</span>:<br>            <span class="hljs-keyword">const</span> p2shAddress = bitcoin.<span class="hljs-property">payments</span>.<span class="hljs-title function_">p2sh</span>(&#123;<br>                <span class="hljs-attr">redeem</span>: bitcoin.<span class="hljs-property">payments</span>.<span class="hljs-title function_">p2wpkh</span>(&#123;<br>                    <span class="hljs-attr">pubkey</span>: child.<span class="hljs-property">publicKey</span>,<br>                    <span class="hljs-attr">network</span>: bitcoin.<span class="hljs-property">networks</span>[network]<br>                &#125;),<br>            &#125;);<br>            address = p2shAddress.<span class="hljs-property">address</span><br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-attr">default</span>:<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;This way can not support&quot;</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-attr">privateKey</span>: <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(child.<span class="hljs-property">privateKey</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-string">&#x27;hex&#x27;</span>),<br>        <span class="hljs-attr">publicKey</span>: <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(child.<span class="hljs-property">publicKey</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-string">&#x27;hex&#x27;</span>),<br>        address<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>代码中通过 method 来控制生成的地址类别</p>
+<h1 id="四-Bitcoin-离线签名代码"><a href="#四-Bitcoin-离线签名代码" class="headerlink" title="四. Bitcoin 离线签名代码"></a>四. Bitcoin 离线签名代码</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">buildAndSignTx</span> (<span class="hljs-attr">params</span>: &#123; <span class="hljs-attr">privateKey</span>: string; <span class="hljs-attr">signObj</span>: any; <span class="hljs-attr">network</span>: string; &#125;): string &#123;<br>    <span class="hljs-keyword">const</span> &#123; privateKey, signObj, network &#125; = params;<br>    <span class="hljs-keyword">const</span> net = bitcore.<span class="hljs-property">Networks</span>[network];<br>    <span class="hljs-keyword">const</span> inputs = signObj.<span class="hljs-property">inputs</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">input</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> &#123;<br>            <span class="hljs-attr">address</span>: input.<span class="hljs-property">address</span>,<br>            <span class="hljs-attr">txId</span>: input.<span class="hljs-property">txid</span>,<br>            <span class="hljs-attr">outputIndex</span>: input.<span class="hljs-property">vout</span>,<br>            <span class="hljs-attr">script</span>: <span class="hljs-keyword">new</span> bitcore.<span class="hljs-property">Script</span>.<span class="hljs-title function_">fromAddress</span>(input.<span class="hljs-property">address</span>).<span class="hljs-title function_">toHex</span>(),<br>            <span class="hljs-attr">satoshis</span>: input.<span class="hljs-property">amount</span><br>        &#125;<br>    &#125;);<br>    <span class="hljs-keyword">const</span> outputs = signObj.<span class="hljs-property">outputs</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">output</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> &#123;<br>            <span class="hljs-attr">address</span>: output.<span class="hljs-property">address</span>,<br>            <span class="hljs-attr">satoshis</span>: output.<span class="hljs-property">amount</span><br>        &#125;;<br>    &#125;);<br>    <span class="hljs-keyword">const</span> transaction = <span class="hljs-keyword">new</span> bitcore.<span class="hljs-title class_">Transaction</span>(net).<span class="hljs-title function_">from</span>(inputs).<span class="hljs-title function_">to</span>(outputs);<br>    transaction.<span class="hljs-property">version</span> = <span class="hljs-number">2</span>;<br>    transaction.<span class="hljs-title function_">sign</span>(privateKey);<br>    <span class="hljs-keyword">return</span> transaction.<span class="hljs-title function_">toString</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -533,6 +567,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/05/28/06Bitcoin%E9%92%B1%E5%8C%85Schnorr%E5%9C%B0%E5%9D%80%E7%94%9F%E6%88%90%E4%B8%8E%E7%AD%BE%E5%90%8D/" title="06Bitcoin钱包Schnorr地址生成与签名">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">06Bitcoin钱包Schnorr地址生成与签名</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
