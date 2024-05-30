@@ -16,27 +16,27 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.Schnorr签名1.1 签名流程密钥生成（Key Generation）……. 签名生成（Signature Generation）签名验证（Signature Verification）1.2 签名特点简洁性  Schnorr签名算法结构简单，签名过程和验证过程都较为直观。 这种简洁性有助于实现和分析安全性  安全性  不可伪造：基于离散对数问题的困难性，Schnorr签名在当前已知的计算">
+    <meta name="description" content="1.Schnorr签名1.1 签名流程密钥生成（Key Generation） 私钥 𝑘k 是一个随机选择的整数，范围为 [1,𝑛−1]，其中 𝑛 是椭圆曲线的阶。 公钥 𝑃P 是通过将私钥乘以椭圆曲线的基点 𝐺G 得到的，即 𝑃&#x3D;𝑘⋅𝐺。  签名生成（Signature Generation）假设消息为 𝑚。  生成随机数 𝑟：选择一个随机数 𝑟r 作为临时私钥，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="06Bitcoin钱包Schnorr地址生成与签名">
+<meta property="og:title" content="06 Bitcoin钱包Schnorr地址生成与签名">
 <meta property="og:url" content="http://example.com/2024/05/28/06Bitcoin%E9%92%B1%E5%8C%85Schnorr%E5%9C%B0%E5%9D%80%E7%94%9F%E6%88%90%E4%B8%8E%E7%AD%BE%E5%90%8D/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="1.Schnorr签名1.1 签名流程密钥生成（Key Generation）……. 签名生成（Signature Generation）签名验证（Signature Verification）1.2 签名特点简洁性  Schnorr签名算法结构简单，签名过程和验证过程都较为直观。 这种简洁性有助于实现和分析安全性  安全性  不可伪造：基于离散对数问题的困难性，Schnorr签名在当前已知的计算">
+<meta property="og:description" content="1.Schnorr签名1.1 签名流程密钥生成（Key Generation） 私钥 𝑘k 是一个随机选择的整数，范围为 [1,𝑛−1]，其中 𝑛 是椭圆曲线的阶。 公钥 𝑃P 是通过将私钥乘以椭圆曲线的基点 𝐺G 得到的，即 𝑃&#x3D;𝑘⋅𝐺。  签名生成（Signature Generation）假设消息为 𝑚。  生成随机数 𝑟：选择一个随机数 𝑟r 作为临时私钥，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/web3/bitcoin2.jpg">
+<meta property="og:image" content="http://example.com/img/web3/btb2.jpg">
 <meta property="article:published_time" content="2024-05-28T06:15:05.000Z">
-<meta property="article:modified_time" content="2024-05-28T09:04:44.198Z">
+<meta property="article:modified_time" content="2024-05-30T12:53:48.677Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/web3/bitcoin2.jpg">
+<meta name="twitter:image" content="http://example.com/img/web3/btb2.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>06Bitcoin钱包Schnorr地址生成与签名 - Wang</title>
+  <title>06 Bitcoin钱包Schnorr地址生成与签名 - Wang</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +242,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="06Bitcoin钱包Schnorr地址生成与签名"></span>
+            <span id="subtitle" data-typed-text="06 Bitcoin钱包Schnorr地址生成与签名"></span>
           
         </div>
 
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          508 字
+          7.8k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          5 分钟
+          65 分钟
         
       </span>
     
@@ -313,13 +313,44 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">06Bitcoin钱包Schnorr地址生成与签名</h1>
+            <h1 id="seo-header">06 Bitcoin钱包Schnorr地址生成与签名</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-Schnorr签名"><a href="#1-Schnorr签名" class="headerlink" title="1.Schnorr签名"></a>1.Schnorr签名</h1><h2 id="1-1-签名流程"><a href="#1-1-签名流程" class="headerlink" title="1.1 签名流程"></a>1.1 签名流程</h2><h3 id="密钥生成（Key-Generation）"><a href="#密钥生成（Key-Generation）" class="headerlink" title="密钥生成（Key Generation）"></a>密钥生成（Key Generation）</h3><p>…….</p>
-<h3 id="签名生成（Signature-Generation）"><a href="#签名生成（Signature-Generation）" class="headerlink" title="签名生成（Signature Generation）"></a>签名生成（Signature Generation）</h3><h3 id="签名验证（Signature-Verification）"><a href="#签名验证（Signature-Verification）" class="headerlink" title="签名验证（Signature Verification）"></a>签名验证（Signature Verification）</h3><h2 id="1-2-签名特点"><a href="#1-2-签名特点" class="headerlink" title="1.2 签名特点"></a>1.2 签名特点</h2><p><strong>简洁性</strong></p>
+                <h1 id="1-Schnorr签名"><a href="#1-Schnorr签名" class="headerlink" title="1.Schnorr签名"></a>1.Schnorr签名</h1><h2 id="1-1-签名流程"><a href="#1-1-签名流程" class="headerlink" title="1.1 签名流程"></a>1.1 签名流程</h2><h3 id="密钥生成（Key-Generation）"><a href="#密钥生成（Key-Generation）" class="headerlink" title="密钥生成（Key Generation）"></a>密钥生成（Key Generation）</h3><ul>
+<li>私钥 𝑘<em>k</em> 是一个随机选择的整数，范围为 [1,𝑛−1]，其中 𝑛 是椭圆曲线的阶。</li>
+<li>公钥 𝑃<em>P</em> 是通过将私钥乘以椭圆曲线的基点 𝐺<em>G</em> 得到的，即 𝑃&#x3D;𝑘⋅𝐺。</li>
+</ul>
+<h3 id="签名生成（Signature-Generation）"><a href="#签名生成（Signature-Generation）" class="headerlink" title="签名生成（Signature Generation）"></a>签名生成（Signature Generation）</h3><p>假设消息为 𝑚。</p>
+<ul>
+<li>生成随机数 𝑟：选择一个随机数 𝑟<em>r</em> 作为临时私钥，范围为 [1,𝑛−1]。</li>
+<li>计算非交互式挑战：计算 𝑅&#x3D;𝑟⋅𝐺，其中 𝐺 是椭圆曲线的基点。</li>
+<li>计算哈希值：计算哈希值 𝑒：</li>
+</ul>
+<p>𝑒&#x3D;H(𝑅∥𝑃∥𝑚)</p>
+<ul>
+<li>其中 H 是一个哈希函数，如 SHA-256，𝑅∥𝑃∥𝑚 表示 𝑅、公钥 𝑃 和消息 𝑚 的连接。</li>
+<li>计算签名：计算签名 𝑠：</li>
+</ul>
+<p>𝑠&#x3D;𝑟+𝑒⋅𝑘(mod𝑛)</p>
+<ul>
+<li>其中 𝑘 是私钥，𝑒 是哈希值，𝑛<em>n</em>是椭圆曲线的阶。</li>
+</ul>
+<p>签名由 (𝑅,𝑠)组成。</p>
+<h3 id="签名验证（Signature-Verification）"><a href="#签名验证（Signature-Verification）" class="headerlink" title="签名验证（Signature Verification）"></a>签名验证（Signature Verification）</h3><ul>
+<li>计算哈希值：重新计算哈希值 𝑒：</li>
+</ul>
+<p>𝑒&#x3D;H(𝑅∥𝑃∥𝑚)</p>
+<ul>
+<li>验证等式：验证以下等式是否成立：</li>
+</ul>
+<p>𝑠⋅𝐺&#x3D;𝑅+𝑒⋅𝑃</p>
+<ul>
+<li>如果等式成立，签名是有效的；否则无效</li>
+</ul>
+<p>看不懂没关系，我也看不懂，有个概念知道是这<strong>三个步骤</strong>即可</p>
+<h2 id="1-2-签名特点"><a href="#1-2-签名特点" class="headerlink" title="1.2 签名特点"></a>1.2 签名特点</h2><p><strong>简洁性</strong></p>
 <ul>
 <li>Schnorr签名算法结构简单，签名过程和验证过程都较为直观。</li>
 <li>这种简洁性有助于实现和分析安全性</li>
@@ -332,7 +363,7 @@
 <p><strong>高效性</strong>：</p>
 <ul>
 <li>计算效率：签名生成和验证的计算效率较高。尤其在批量签名验证中，Schnorr 签名具有显著的性能优势。</li>
-<li>签名长度：Schnorr 签名的长度较短，相比于 ECDSA 签名，Schnorr 签名占用的存储空间更少。</li>
+<li>签名长度：Schnorr 签名的长度较短，相比于 ECDSA 签名，Schnorr 签名占用的存储空间更少。因为签名越短—–&gt;所以花费的gas fees就越少，</li>
 </ul>
 <p><strong>扩展性和兼容性</strong></p>
 <p>Schnorr 签名支持多种扩展功能，如多重签名（MuSig）和聚合签名。这些扩展功能在增强隐私性和可扩展性方面表现出色。</p>
@@ -340,7 +371,82 @@
 <li>多重签名（MuSig）：Schnorr 签名允许多个签名者的公钥和签名聚合为单一的公钥和签名，这显著提高了多重签名的效率和隐私性。</li>
 <li>兼容性：Schnorr 签名与现有的椭圆曲线加密标准兼容，便于在现有系统中实现和部署。</li>
 </ul>
-<h2 id="1-3-签名算法Python代码实现"><a href="#1-3-签名算法Python代码实现" class="headerlink" title="1.3 签名算法Python代码实现"></a>1.3 签名算法Python代码实现</h2>
+<h2 id="1-3-签名算法Python代码实现"><a href="#1-3-签名算法Python代码实现" class="headerlink" title="1.3 签名算法Python代码实现"></a>1.3 签名算法Python代码实现</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># schnorr.py</span><br><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> ecdsa <span class="hljs-keyword">import</span> SECP256k1, SigningKey, VerifyingKey<br><span class="hljs-keyword">from</span> ecdsa.curves <span class="hljs-keyword">import</span> Curve<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SchnorrSignObj</span>:<br>    curve: Curve<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 椭圆曲线参数</span><br>        self.curve = SECP256k1 <span class="hljs-comment"># curve就是椭圆曲线对象，SECP256k1就是常见的椭圆曲线</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">schnorr_sign</span>(<span class="hljs-params">self, private_key, message</span>): <span class="hljs-comment"># 签名函数，传私钥和msg</span><br>        <span class="hljs-comment"># 生成私钥和公钥</span><br>        signing_key = SigningKey.from_string(private_key, curve=self.curve) <span class="hljs-comment"># 使用私钥和椭圆曲线对象生成一个签名对象</span><br>        verifying_key = signing_key.get_verifying_key() <span class="hljs-comment"># 从签名秘钥对象获得公钥，verifying_key就是公钥，返回一个公钥key可以用来验证签名</span><br><br>        <span class="hljs-comment"># 生成随机数 r</span><br>        r = SigningKey.generate(curve=self.curve).privkey.secret_multiplier <span class="hljs-comment"># 生成随机数作为签名的一部分</span><br>        R = VerifyingKey.from_public_point(r * self.curve.generator, curve=self.curve) <span class="hljs-comment"># 使用随机数r乘以椭圆曲线的生成元，得到签名中的挑战点R。</span><br><br>        <span class="hljs-comment"># 计算哈希 e</span><br>        e = hashlib.sha256(R.to_string() + verifying_key.to_string() + message).digest() <span class="hljs-comment"># 这个之前学过，sha256加密返回哈希计算结果的二进制表示，传入挑战点R+公钥+msg</span><br>        e = <span class="hljs-built_in">int</span>.from_bytes(e, <span class="hljs-string">&#x27;big&#x27;</span>) <span class="hljs-comment"># 将字节对象转成大整数，big表示大端字节数</span><br><br>        <span class="hljs-comment"># 计算签名 s</span><br>        s = (r + e * signing_key.privkey.secret_multiplier) % self.curve.order <span class="hljs-comment"># 计算签名中的s，根据Schnorr签名算法的计算公式，将随机数r和哈希e与私钥的倍数相加，并对椭圆曲线的阶数取模。</span><br>        <span class="hljs-keyword">return</span> R.to_string(), s.to_bytes(<span class="hljs-number">32</span>, <span class="hljs-string">&#x27;big&#x27;</span>) <span class="hljs-comment"># 返回挑战点 R 的字符串，和签名s的32字节大端字节串表示。</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">schnorr_verify</span>(<span class="hljs-params">self, public_key, message, signature</span>): <span class="hljs-comment"># 签名验证，传入公钥，msg， 签名signature</span><br>        <span class="hljs-comment"># 解析签名</span><br>        R = VerifyingKey.from_string(signature[<span class="hljs-number">0</span>], curve=self.curve) <span class="hljs-comment"># 从签名中解析挑战点 R ，传入对应的椭圆曲线对象</span><br>        s = <span class="hljs-built_in">int</span>.from_bytes(signature[<span class="hljs-number">1</span>], <span class="hljs-string">&#x27;big&#x27;</span>) <span class="hljs-comment"># 从签名消息中解析签名 s大端字节串表示</span><br><br>        <span class="hljs-comment"># 计算哈希 e</span><br>        e = hashlib.sha256(signature[<span class="hljs-number">0</span>] + public_key.to_string() + message).digest() <span class="hljs-comment"># sha256加密返回哈希计算结果的二进制表示，传入签名[0] + 公钥 + msg</span><br>        e = <span class="hljs-built_in">int</span>.from_bytes(e, <span class="hljs-string">&#x27;big&#x27;</span>) <span class="hljs-comment"># 将字节对象转成大整数，big表示大端字节数</span><br><br>        <span class="hljs-comment"># 验证签名</span><br>        sG = VerifyingKey.from_public_point(s * self.curve.generator, curve=self.curve) <span class="hljs-comment"># 从公钥获取指针（初始化验证公钥对象），传入将生成元乘以 s 值，得到一个新的点。self.curve：表示使用相同的椭圆曲线对象进行计算。</span><br>        <span class="hljs-comment"># R：是挑战点，它是一个椭圆曲线上的点，R.pubkey.point：表示挑战点 R 的公钥点。</span><br>        <span class="hljs-comment"># e：是哈希值，它是一个整数public_key.pubkey.point：表示公钥的点，</span><br>        <span class="hljs-comment"># public_key.pubkey.point：表示公钥的点。</span><br>        ReP = VerifyingKey.from_public_point(R.pubkey.point + e * public_key.pubkey.point, curve=self.curve) <br>        <span class="hljs-keyword">return</span> sG.to_string() == ReP.to_string() <span class="hljs-comment"># 验证是否通过</span><br></code></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test_schnorr.py</span><br><span class="hljs-keyword">import</span> schnorr <span class="hljs-keyword">as</span> schnorr<br><span class="hljs-comment"># from schnorr import SchnorrSignObj</span><br><span class="hljs-keyword">from</span> ecdsa <span class="hljs-keyword">import</span> SECP256k1, SigningKey, VerifyingKey<br><br><span class="hljs-comment"># 初始化类</span><br>schnorr_test = schnorr.SchnorrSignObj()<br><br><span class="hljs-comment"># 产生密钥并对交易签名</span><br>private_key = SigningKey.generate(curve=SECP256k1).to_string()<br>message = <span class="hljs-string">b&quot;Hello, Schnorr!2222&quot;</span><br>signature = schnorr_test.schnorr_sign(private_key, message)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Signature:&quot;</span>, signature)<span class="hljs-comment"># 打印的是字节</span><br><br><span class="hljs-comment"># 验证交易签名</span><br>public_key = VerifyingKey.from_string(<br>    SigningKey.from_string(private_key, curve=SECP256k1).get_verifying_key().to_string(), curve=SECP256k1)<br>is_valid = schnorr_test.schnorr_verify(public_key, message, signature)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Signature valid:&quot;</span>, is_valid) <span class="hljs-comment"># Signature valid Ture </span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-BIP86-协议"><a href="#2-BIP86-协议" class="headerlink" title="2. BIP86 协议"></a>2. BIP86 协议</h2><p><strong>2.1 结构路径</strong> BIP86 是一种专门为生成 Taproot 地址的路径标准，简化并优化了生成单密钥 Taproot 地址的过程。BIP86 的路径结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">m / 86&#x27; / coin_type&#x27; / account&#x27; / change / address_index<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Purpose: 固定为 86’，表示遵循 <strong>BIP86</strong> 标准。</li>
+<li>Coin Type: 定义特定加密货币的<strong>类型</strong>，如 0’ 表示<strong>比特币</strong>。</li>
+<li>Account: 账户<strong>索引</strong>，允许钱包管理多个独立账户。</li>
+<li>Change: 0 表示外部链（收款地址）<strong>，1 表示内部链（找零地址</strong>）。</li>
+<li>Address Index: 用于生成具体地址的<strong>索引</strong>。</li>
+</ul>
+<p><strong>2.2.地址生成方法</strong></p>
+<p>BIP86 使用新的路径结构生成 Taproot 地址，通过椭圆曲线算法派生公钥，并将其编码为 Bech32 格式的地址。生成的 Taproot 地址具有更高的隐私性、安全性和扩展性。</p>
+<p><strong>2.3.BIP86 的优势</strong></p>
+<ul>
+<li>简洁性：BIP86 提供了一种简洁而直观的路径结构，用于生成 Taproot 地址。</li>
+<li>安全性：BIP86 使用椭圆曲线算法生成公钥，具有与比特币的现有地址生成方法相当的安全性。</li>
+<li>可扩展性：BIP86 支持不同的币种和账户，具有良好的可扩展性。</li>
+</ul>
+<h2 id="3-BIP44-与-BIP86-的区别与联系"><a href="#3-BIP44-与-BIP86-的区别与联系" class="headerlink" title="3. BIP44 与 BIP86 的区别与联系"></a>3. BIP44 与 BIP86 的区别与联系</h2><p><strong>3.1.用途上的区别</strong></p>
+<ul>
+<li>BIP44: 通用的多币种、多账户管理，适用于生成多种类型的地址（P2PKH, P2SH, P2WPKH）。</li>
+<li>BIP86: <strong>专门</strong>为生成单密钥 Taproot 地址设计，简化了路径和使用场景。</li>
+</ul>
+<p><strong>3.2. 路径结构区别</strong></p>
+<ul>
+<li>BIP44: m&#x2F;44’&#x2F;coin_type’&#x2F;account’&#x2F;change&#x2F;address_index，包含<strong>多币种</strong>、多账户和<strong>多地址类型</strong>。</li>
+<li>BIP86: m&#x2F;86’&#x2F;coin_type’&#x2F;account’&#x2F;change&#x2F;address_index，专注于<strong>单密钥</strong> Taproot 地址生成。</li>
+</ul>
+<p><strong>3.3.复杂性区别</strong></p>
+<ul>
+<li>BIP44: 适用于更复杂的多币种和多账户需求，<strong>路径层次更丰富。</strong></li>
+<li>BIP86: 专注于单一用途（Taproot 地址），<strong>路径层次简化</strong>。</li>
+</ul>
+<p><strong>3.4.标准化区别</strong></p>
+<ul>
+<li>BIP44: 广泛应用于各种钱包和加密货币管理系统，已经成为生成确定性钱包路径的标准。</li>
+<li>BIP86: 主要用于比特币的 Taproot 地址生成，随着 Taproot 的采用而变得更加流行。</li>
+</ul>
+<p><strong>3.5.总结</strong></p>
+<ul>
+<li>BIP44 适用于多种类型地址生成，适合更<strong>复杂</strong>的钱包管理需求。</li>
+<li>BIP86 专注于生成比特币的 Taproot 地址，路径<strong>简化</strong>，<strong>专门</strong>为 Taproot 设计。</li>
+</ul>
+<p>还有BIP84协议，协议很多</p>
+<h2 id="4-Taproot-为什么需要-BIP86"><a href="#4-Taproot-为什么需要-BIP86" class="headerlink" title="4.Taproot 为什么需要 BIP86"></a>4.Taproot 为什么需要 BIP86</h2><p><strong>4.1. 专注于单密钥 Taproot 地址</strong> ：BIP86 专门设计用于生成单密钥 Taproot 地址。Taproot 是比特币的一项重要升级，旨在提高<strong>隐私性</strong>、<strong>可扩展性</strong>和智能合约功能。</p>
+<p><strong>4.2.符合新标准和优化</strong>： BIP86 引入了一些新的优化和改进，以支持比特币协议的新特性，如 Taproot 和 Schnorr 签名。Taproot 和 Schnorr 签名提供了更高的安全性和更好的隐私特性。BIP86 的设计是为了最大限度地利用这些新特性。</p>
+<p><strong>4.3.专注于比特币和未来扩展</strong></p>
+<p>BIP44 是一个通用的多币种和多账户路径标准，设计用于管理各种加密货币的地址。这种通用性虽然提供了很大的灵活性，但在特定的优化和新特性支持上可能不如专门设计的标准有效。BIP86 专门为比特币设计，更好地支持比特币的未来扩展和改进。</p>
+<p><strong>4.4.简化路径和提高效率</strong></p>
+<p>BIP86 路径简化，专注于单一用途，使其更适合于生成和管理比特币的 Taproot 地址。这种简化可以减少实现和使用中的复杂性，提高效率和安全性。</p>
+<p><strong>4.5.避免混淆和错误</strong></p>
+<p>BIP86 的专用路径减少了使用过程中可能出现的混淆和错误。由于它专门设计用于比特币的 Taproot 地址，开发者和用户不必在多个标准之间切换，减少了出错的可能性。</p>
+<p><strong>4.6.代码比较</strong></p>
+<p>BIP44 代码示范</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">create_address</span>(<span class="hljs-params">mnemonic</span>):<br>    seed = bip39.phrase_to_seed(mnemonic)<br>    bip32_root_key = BIP32Key.fromEntropy(seed)<br>    path = <span class="hljs-string">&quot;m/44&#x27;/0&#x27;/0&#x27;/0/0&quot;</span><br>    key = bip32_root_key<br>    <span class="hljs-keyword">for</span> level <span class="hljs-keyword">in</span> path.split(<span class="hljs-string">&#x27;/&#x27;</span>)[<span class="hljs-number">1</span>:]:<br>        <span class="hljs-keyword">if</span> level.endswith(<span class="hljs-string">&quot;&#x27;&quot;</span>):<br>            index = BIP32_HARDEN + <span class="hljs-built_in">int</span>(level[:-<span class="hljs-number">1</span>])<br>        <span class="hljs-keyword">else</span>:<br>            index = <span class="hljs-built_in">int</span>(level)<br>        key = key.ChildKey(index)<br>    address = key.Address()<br>    <span class="hljs-keyword">return</span> address<br></code></pre></td></tr></table></figure>
+
+<p>BIP86 代码示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> bip39<br><span class="hljs-keyword">import</span> bech32<br><span class="hljs-keyword">from</span> bip32 <span class="hljs-keyword">import</span> BIP32, HARDENED_INDEX<br><span class="hljs-keyword">from</span> hashlib <span class="hljs-keyword">import</span> sha256<br><span class="hljs-keyword">from</span> ecdsa <span class="hljs-keyword">import</span> SECP256k1, SigningKey<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_taproot_address</span>(<span class="hljs-params">mnemonic</span>):<br>    seed = bip39.phrase_to_seed(mnemonic)<br>    bip32 = BIP32.from_seed(seed)<br>    path = <span class="hljs-string">&quot;m/86&#x27;/0&#x27;/0&#x27;/0/0&quot;</span><br>    child_key = bip32.get_privkey_from_path(path)<br>    private_key = SigningKey.from_string(child_key, curve=SECP256k1)<br>    public_key = private_key.get_verifying_key().to_string(<span class="hljs-string">&quot;compressed&quot;</span>)<br>    tweak = sha256(<span class="hljs-string">b&#x27;TapTweak&#x27;</span> + public_key[<span class="hljs-number">1</span>:]).digest()<br>    tweaked_pubkey = <span class="hljs-built_in">bytearray</span>(public_key)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>):<br>        tweaked_pubkey[<span class="hljs-number">1</span> + i] ^= tweak[i]<br>    witver = <span class="hljs-number">1</span>  <span class="hljs-comment"># witness version for Taproot</span><br>    witprog = tweaked_pubkey[<span class="hljs-number">1</span>:<span class="hljs-number">33</span>]<br>    address = bech32.encode(<span class="hljs-string">&#x27;bc&#x27;</span>, witver, witprog)<br>    <span class="hljs-keyword">return</span> address<br></code></pre></td></tr></table></figure>
+
+<h1 id="5-Taproot-格式地址离线生成"><a href="#5-Taproot-格式地址离线生成" class="headerlink" title="5. Taproot 格式地址离线生成"></a>5. Taproot 格式地址离线生成</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> bip39<br><span class="hljs-keyword">import</span> bech32<br><span class="hljs-keyword">from</span> bip32 <span class="hljs-keyword">import</span> BIP32, HARDENED_INDEX<br><span class="hljs-keyword">from</span> hashlib <span class="hljs-keyword">import</span> sha256<br><span class="hljs-keyword">from</span> ecdsa <span class="hljs-keyword">import</span> SECP256k1, SigningKey<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_taproot_address</span>(<span class="hljs-params">mnemonic</span>):<br>    seed = bip39.phrase_to_seed(mnemonic)<br>    bip32 = BIP32.from_seed(seed)<br>    path = <span class="hljs-string">&quot;m/86&#x27;/0&#x27;/0&#x27;/0/0&quot;</span><br>    child_key = bip32.get_privkey_from_path(path)<br>    private_key = SigningKey.from_string(child_key, curve=SECP256k1)<br>    public_key = private_key.get_verifying_key().to_string(<span class="hljs-string">&quot;compressed&quot;</span>)<br>    tweak = sha256(<span class="hljs-string">b&#x27;TapTweak&#x27;</span> + public_key[<span class="hljs-number">1</span>:]).digest()<br>    tweaked_pubkey = <span class="hljs-built_in">bytearray</span>(public_key)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>):<br>        tweaked_pubkey[<span class="hljs-number">1</span> + i] ^= tweak[i]<br>    witver = <span class="hljs-number">1</span>  <span class="hljs-comment"># witness version for Taproot</span><br>    witprog = tweaked_pubkey[<span class="hljs-number">1</span>:<span class="hljs-number">33</span>]<br>    address = bech32.encode(<span class="hljs-string">&#x27;bc&#x27;</span>, witver, witprog)<br>    <span class="hljs-keyword">return</span> address<br></code></pre></td></tr></table></figure>
+
+<h1 id="6-离线签名"><a href="#6-离线签名" class="headerlink" title="6. 离线签名"></a>6. 离线签名</h1><ul>
+<li>构建交易: 创建并填充交易输入和输出。</li>
+<li>生成交易摘要: 使用交易数据生成 Taproot 交易摘要。</li>
+<li>签名交易: 使用私钥对交易摘要进行签名。</li>
+<li>构建完整交易: 将签名附加到交易中并生成最终的交易。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">buildAndsignTx</span>(<span class="hljs-params">input_list, output_list, private_key, taproot_pubkey</span>):<br>    tx = Transaction()<br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">input</span> <span class="hljs-keyword">in</span> input_list:<br>        tx.add_input(<span class="hljs-built_in">input</span>[<span class="hljs-string">&#x27;previous_txid&#x27;</span>], <span class="hljs-built_in">input</span>[<span class="hljs-string">&#x27;index&#x27;</span>])<br>    <span class="hljs-keyword">for</span> output <span class="hljs-keyword">in</span> output_list:<br>        tx.add_output(output[<span class="hljs-string">&quot;address&quot;</span>], output[<span class="hljs-string">&quot;value&quot;</span>])<br>    tx.version = <span class="hljs-number">2</span><br>    tx.locktime = <span class="hljs-number">0</span><br>    sighash = tx.signature_hash()<br>    <br>    tweaked_privkey = taproot_tweak_seckey(private_key, taproot_pubkey)<br>    signature = schnorr.sign(tweaked_privkey, sighash)<br>    <br>    witness = TaprootWitness(taproot_pubkey, signature)<br>    tx.inputs[<span class="hljs-number">0</span>].witness = witness<br><br>    signed_tx = tx.serialize()   <br>     <br>    <span class="hljs-keyword">return</span> signed_tx<br></code></pre></td></tr></table></figure>
+
+<p>离线签名搞出来，基本交易就OK了，中心化钱包和去中心化钱包的本质区别是私钥管理，签名是一样的。</p>
+
                 
               </div>
             
@@ -387,7 +493,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>06Bitcoin钱包Schnorr地址生成与签名</div>
+      <div>06 Bitcoin钱包Schnorr地址生成与签名</div>
       <div>http://example.com/2024/05/28/06Bitcoin钱包Schnorr地址生成与签名/</div>
     </div>
     <div class="license-meta">
@@ -432,12 +538,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/05/30/061%E9%92%B1%E5%8C%85%E9%83%A8%E5%88%86%E5%B0%8F%E6%80%BB%E7%BB%93/" title="0601 钱包部分小总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">0601 钱包部分小总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/05Bitcoin%E9%92%B1%E5%8C%85%E7%94%9F%E6%88%90%E5%92%8C%E7%AD%BE%E5%90%8D/" title="05Bitcoin钱包生成和签名">
-                        <span class="hidden-mobile">05Bitcoin钱包生成和签名</span>
+                      <a href="/2024/05/27/05Bitcoin%E9%92%B1%E5%8C%85%E7%94%9F%E6%88%90%E5%92%8C%E7%AD%BE%E5%90%8D/" title="05 Bitcoin钱包生成和签名">
+                        <span class="hidden-mobile">05 Bitcoin钱包生成和签名</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

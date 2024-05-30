@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wangxiaowang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.描述一下交易钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0601 钱包部分小总结">
+<meta property="og:url" content="http://example.com/2024/05/30/061%E9%92%B1%E5%8C%85%E9%83%A8%E5%88%86%E5%B0%8F%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Wang">
+<meta property="og:description" content="1.描述一下交易钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/web3/btb3.jpg">
+<meta property="article:published_time" content="2024-05-30T03:40:56.000Z">
+<meta property="article:modified_time" content="2024-05-30T12:54:02.125Z">
+<meta property="article:author" content="Wangxiaowang">
+<meta property="article:tag" content="block">
+<meta property="article:tag" content="概念">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/web3/btb3.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>0601 钱包部分小总结 - Wang</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"37fd8385820c4abc0e564a2c423b7511","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?37fd8385820c4abc0e564a2c423b7511";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/web3/bitcoin5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="0601 钱包部分小总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-30 11:40" pubdate>
+          2024年5月30日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">0601 钱包部分小总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-描述一下交易钱包的充值和提现流程"><a href="#1-描述一下交易钱包的充值和提现流程" class="headerlink" title="1.描述一下交易钱包的充值和提现流程"></a>1.描述一下交易钱包的充值和提现流程</h2><h3 id="充值"><a href="#充值" class="headerlink" title="充值"></a>充值</h3><ul>
+<li>交易所给用户提供地址，用户把钱转进来</li>
+<li>扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析</li>
+<li>交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后<strong>上账</strong>，并通知<strong>业务层</strong></li>
+</ul>
+<h3 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h3><p>1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成</p>
+<ul>
+<li>获取需要的签名参数（这里就看了）<ul>
+<li>ETH：获取三个：Nonce(Number once的缩写)、gasprice、 gaslimite </li>
+<li>BTC：Version、Input、Output、Locktime、Sequence、Hash Type这些</li>
+<li>Atom ：Account Number（唯一账户编号） Sequence（顺序）fess(手续费)</li>
+</ul>
+</li>
+<li>交易离线签名：<ul>
+<li>组织交易，先生成<strong>待签名</strong>消息摘要，</li>
+<li>将待签名的消息摘要递给签名机进行<strong>签名</strong>，</li>
+<li>签名机签名完成之后返回<strong>签名串</strong></li>
+</ul>
+</li>
+<li>广播出去：拿到了离线签名后构建完整的交易并发送区块链网络，将签名时计算出来的交易 Hash 或者发送交易时返回交易 Hash 更新到数据库</li>
+<li>扫链解析到这笔交易，说明提现成功。</li>
+</ul>
+<h2 id="2-HD-钱包助记词生成的流程"><a href="#2-HD-钱包助记词生成的流程" class="headerlink" title="2.HD 钱包助记词生成的流程"></a>2.HD 钱包助记词生成的流程</h2><ul>
+<li>第一步：随机熵生成</li>
+<li>第二步：计算校验和</li>
+<li>第三步：组合熵和校验和</li>
+<li>第四步：分割助记词索引</li>
+<li>第五步：映射为助记词</li>
+</ul>
+<h2 id="3-助记词的验证过程"><a href="#3-助记词的验证过程" class="headerlink" title="3.助记词的验证过程"></a>3.助记词的验证过程</h2><ul>
+<li>第一步：检查助记词数量</li>
+<li>第二步：检查助记词是否在词汇表</li>
+<li>第三步：将助记词转换成索引</li>
+<li>第四步：提取种子的校验和</li>
+<li>第五步：计算校验和</li>
+<li>第六步：验证校验和</li>
+</ul>
+<h2 id="4-BIP44-路径"><a href="#4-BIP44-路径" class="headerlink" title="4.BIP44 路径"></a>4.BIP44 路径</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">m<span class="hljs-regexp">/44&#x27;/</span>coin_type<span class="hljs-string">&#x27;/account&#x27;</span><span class="hljs-regexp">/change/</span>address_index<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-门限共享秘密拆分过程"><a href="#5-门限共享秘密拆分过程" class="headerlink" title="5.门限共享秘密拆分过程"></a>5.门限共享秘密拆分过程</h2><p>秘密—–&gt; n 份，k 份可恢复， 任意 k 份恢复出这个秘密，分别用门限共享算法和逆门限共享秘密算法</p>
+<h2 id="5-MPC-GG20-算法-Keygen-和-Sign-分别需要经过多少轮共识"><a href="#5-MPC-GG20-算法-Keygen-和-Sign-分别需要经过多少轮共识" class="headerlink" title="5.MPC GG20 算法 Keygen 和 Sign 分别需要经过多少轮共识"></a>5.MPC GG20 算法 Keygen 和 Sign 分别需要经过多少轮共识</h2><ul>
+<li>Keygen: 4 轮</li>
+<li>Sign: 7 轮</li>
+</ul>
+<h2 id="6-为什么-schnorr-比特币手续费可以降低"><a href="#6-为什么-schnorr-比特币手续费可以降低" class="headerlink" title="6.为什么 schnorr 比特币手续费可以降低"></a>6.为什么 schnorr 比特币手续费可以降低</h2><p>schnorr 签名聚合成一个签名，还有短密钥，这样签名的数据会比 ECDSA 短很多，所以相对于 ECDSA 签名的交易会便宜很多</p>
+<h2 id="7-为什么比特币早期时候不直接用-schnorr-签名算法"><a href="#7-为什么比特币早期时候不直接用-schnorr-签名算法" class="headerlink" title="7. 为什么比特币早期时候不直接用 schnorr 签名算法"></a>7. 为什么比特币早期时候不直接用 schnorr 签名算法</h2><p>因为当时 schnorr 算法在专利期</p>
+<h2 id="8-相比较之下-EDDSA-性能，安全性都会高一些，为什么比特币以太坊用了-ECDSA，没有用-EDDSA"><a href="#8-相比较之下-EDDSA-性能，安全性都会高一些，为什么比特币以太坊用了-ECDSA，没有用-EDDSA" class="headerlink" title="8. 相比较之下 EDDSA 性能，安全性都会高一些，为什么比特币以太坊用了 ECDSA，没有用 EDDSA"></a>8. 相比较之下 EDDSA 性能，安全性都会高一些，为什么比特币以太坊用了 ECDSA，没有用 EDDSA</h2><ul>
+<li>ECDSA 是基于更早的标准（如 FIPS 186-4 和 ANSI X9.62）发展的，因此在密码学界和工业界有较长的使用历史和广泛的标准化支持。它被大量系统和协议（如 TLS 和 Bitcoin）采用，形成了一个庞大的生态系统。</li>
+<li>虽然 EdDSA 有一些优势，如不容易受到侧信道攻击的影响（如时间攻击和缓存攻击），但 ECDSA 的安全性也已经过广泛的研究和验证。对于很多开发者和企业来说，使用一个已被长期验证的算法是更为保守和安全的选择。</li>
+<li>EdDSA 通常具有更高的签名速度和较快的验证速度，尤其是在大多数软件实现中。然而，对于已经高度优化的 ECDSA 实现，性能差异在许多应用中可能并不明显。</li>
+<li>EdDSA 的设计更为简单且更不易出错，特别是在处理随机数生成等方面。然而，ECDSA 由于使用历史更长，开发者更为熟悉其使用和管理。</li>
+</ul>
+<h2 id="9-中心化钱包开发里面的充值，提现，归集，转冷，冷转热开发业务流程描述"><a href="#9-中心化钱包开发里面的充值，提现，归集，转冷，冷转热开发业务流程描述" class="headerlink" title="9.中心化钱包开发里面的充值，提现，归集，转冷，冷转热开发业务流程描述"></a>9.中心化钱包开发里面的充值，提现，归集，转冷，冷转热开发业务流程描述</h2><p>💡💡接口返回的 to 是交易所系统里面的用户地址，这笔交易为充值交易；</p>
+<p> 💡💡接口返回的 from 是交易所系统里面的用户地址，这笔交易为提现交易； </p>
+<p>💡💡接口返回的 to 是交易所的归集地址，from 是系统的用户地址，这笔交易资金归集交易； </p>
+<p>💡💡接口返回的 to 地址是冷钱包地址，from 地址时热钱包地址，这笔交易热转冷的交易。 </p>
+<p>💡💡接口返回的 from 地址是冷钱包地址，to 地址时热钱包地址，这笔交易冷转热的交易。</p>
+<h3 id="充值-1"><a href="#充值-1" class="headerlink" title="充值"></a>充值</h3><p>扫链—&gt;解析交易–&gt;确认地址是系统地址则判断为充值—&gt;通知业务层，持久化存储</p>
+<ul>
+<li>获得最新块高；更新到数据库</li>
+<li>从数据库中获取上次解析交易的块高做为起始块高，最新块高为截止块高，如果数据库中没有记录，说明需要从头开始扫，起始块高为 0；</li>
+<li>解析区块里面的交易，to 地址是系统内部的用户地址，说明用户充值，更新交易到数据库中，将交易的状态设置为待确认。</li>
+<li>所在块的交易过了确认位，将交易状态更新位充值成功并通知业务层。</li>
+<li>解析到的充值交易需要在钱包的数据库里面维护 nonce, 当然也可以不维护，签名的时候去链上获取</li>
+</ul>
+<h3 id="提现-1"><a href="#提现-1" class="headerlink" title="提现"></a>提现</h3><p>1.获取签名参数—&gt;2.离线签名—3.广播出去—&gt;4.扫链确认—&gt;5.通知业务层，持久化存储</p>
+<ul>
+<li>获取离线签名需要的参数，给合适的手续费</li>
+<li>构建未签名的交易消息摘要，将消息摘要递给签名机签名</li>
+<li>构建完整的交易并进行序列化</li>
+<li>发送交易到区块链网络</li>
+<li>扫链获取到交易之后更新交易状态并上报业务层</li>
+</ul>
+<h3 id="归集"><a href="#归集" class="headerlink" title="归集"></a>归集</h3><p>归集就是转账，把分散的前归拢到归集地址，</p>
+<ul>
+<li>将用户地址上的资金转到归集地址，签名流程类似提现</li>
+<li>发送交易到区块链网络</li>
+<li>扫链获取到交易之后更新交易状态</li>
+</ul>
+<h3 id="转冷"><a href="#转冷" class="headerlink" title="转冷"></a>转冷</h3><ul>
+<li>将热钱包地址上的资金转到冷钱包地址，签名流程类似提现</li>
+<li>发送交易到区块链网络</li>
+<li>扫链获取到交易之后更新交易状态</li>
+</ul>
+<h3 id="冷转热"><a href="#冷转热" class="headerlink" title="冷转热"></a>冷转热</h3><ul>
+<li>手动操作转账到热钱包地址</li>
+<li>扫链获取到交易之后更新交易状态</li>
+</ul>
+<h2 id="10-有用过-rosetta-api-请简单描述起作用，并举几个钱包常用的接口说明"><a href="#10-有用过-rosetta-api-请简单描述起作用，并举几个钱包常用的接口说明" class="headerlink" title="10.有用过 rosetta api, 请简单描述起作用，并举几个钱包常用的接口说明"></a>10.有用过 rosetta api, 请简单描述起作用，并举几个钱包常用的接口说明</h2><p>Bitcoin Rosetta API 是由 Coinbase 提出的 Rosetta 标准的一部分，旨在为区块链和钱包提供一个统一的接口标准。这个标准化的接口使得与各种区块链的交互更加容易和一致，无论是对交易数据的读取还是写入。目前已经支持很多链，包含比特币，以太坊等主流链，也包含像 IoTex 和 Oasis 这样的非主流链。</p>
+<h3 id="用到的接口"><a href="#用到的接口" class="headerlink" title="用到的接口"></a>用到的接口</h3><p>&#x2F;network&#x2F;list：返回比特币主网和测试网信息。 &#x2F;network&#x2F;status：返回当前最新区块、已同步区块高度、区块链处理器的状态等。 &#x2F;block 和 &#x2F;block&#x2F;transaction：返回区块和交易的详细信息，包括交易的输入输出、金额、地址等。 &#x2F;account&#x2F;balance：通过查询比特币节点，返回指定地址的余额。</p>
+<h3 id="发送交易到区块链网络"><a href="#发送交易到区块链网络" class="headerlink" title="发送交易到区块链网络"></a>发送交易到区块链网络</h3><p>&#x2F;construction&#x2F;submit：通过比特币节点提交签名后的交易。</p>
+<h2 id="11-ETH2-0-的-epoch-slot-和-block-简述"><a href="#11-ETH2-0-的-epoch-slot-和-block-简述" class="headerlink" title="11.ETH2.0 的 epoch, slot 和 block 简述"></a>11.ETH2.0 的 epoch, slot 和 block 简述</h2><h3 id="Slot（时隙）"><a href="#Slot（时隙）" class="headerlink" title="Slot（时隙）"></a>Slot（时隙）</h3><p>定义：Slot 是以太坊2.0中最基本的时间单位，每个slot都有一个指定的时间长度。在每个 slot 中，可能会有一个区块被提议并添加到链中。 时间长度：一个 slot 的长度为 12 秒。这意味着每 12 秒会有一个新的 slot。 功能：在每个 slot 中，网络中的验证者将有机会提议一个新的区块。这些提议者是通过权益证明（PoS）随机选择的。</p>
+<h3 id="Epoch（纪元）"><a href="#Epoch（纪元）" class="headerlink" title="Epoch（纪元）"></a>Epoch（纪元）</h3><p>定义：Epoch 是由多个连续的slot组成的更长时间段。在 Eth2.0 中，Epoch 用于管理和组织验证者的活动。 组成：一个 Epoch 由 32 个 slot 组成。 时间长度：由于一个 slot 是12秒，一个 Epoch 的总长度是 384 秒（即6.4分钟）。 功能：Epoch 是用来实现共识机制的一部分。在每个 Epoch 结束时，网络会进行状态和共识的检查和调整，包括对验证者的奖励和惩罚。</p>
+<h3 id="Block（区块）"><a href="#Block（区块）" class="headerlink" title="Block（区块）"></a>Block（区块）</h3><p>定义：Block 是包含交易和其他相关数据的记录单元。在以太坊2.0中，每个slot可能会有一个区块被提议，但不保证每个 slot 都有区块。 内容：一个区块包含区块头、交易列表、状态根哈希、签名等数据。 创建过程：在每个 slot 开始时，网络会随机选出一个验证者来提议区块。该验证者将创建一个包含新交易和其他必要信息的区块，并广播到网络中。</p>
+<h2 id="12-中心化钱包开发中为什么需要确认位，您怎么理解这个确认位的"><a href="#12-中心化钱包开发中为什么需要确认位，您怎么理解这个确认位的" class="headerlink" title="12.中心化钱包开发中为什么需要确认位，您怎么理解这个确认位的"></a>12.中心化钱包开发中为什么需要确认位，您怎么理解这个确认位的</h2><p>在确认位过了之后交易回滚的难度很大，每条链不一样，根据历史和经验来定，以太坊的话可以参照区块状态来做</p>
+<h2 id="13-简单描述以太坊交易类型，并说明这个交易类型的作用"><a href="#13-简单描述以太坊交易类型，并说明这个交易类型的作用" class="headerlink" title="13.简单描述以太坊交易类型，并说明这个交易类型的作用"></a>13.简单描述以太坊交易类型，并说明这个交易类型的作用</h2><ul>
+<li>leagcy: 历史遗留交易类型，签名体为 gasLimit 和 gasPrice</li>
+<li>Eip1559: BaseFee 类型</li>
+<li>blob: EIP4844 交易类型</li>
+</ul>
+<h2 id="14-去中心化和中心化钱包开发中的异同点有哪些？"><a href="#14-去中心化和中心化钱包开发中的异同点有哪些？" class="headerlink" title="14.去中心化和中心化钱包开发中的异同点有哪些？"></a>14.去中心化和中心化钱包开发中的异同点有哪些？</h2><p><strong>1、密钥管理方式不同</strong></p>
+<p>HD 钱包私钥在本地设备，私钥用户自己控制 交易所钱包中心化服务器(CloadHSM, TEE 等)，私钥项目方控制</p>
+<p><strong>2、资金存在方式不同</strong></p>
+<p>HD 资金在用户钱包地址 交易所钱包资金在交易所热钱包或者冷钱包里面</p>
+<p><strong>3、业务逻辑不一致</strong></p>
+<p>中心化钱包：实时不断扫链更新交易数据和状态</p>
+<p> HD 钱包：根据用户的操作通过请求接口实现业务逻辑</p>
+<h2 id="15-发生硬分叉时，做为钱包的开发，您应当怎么去处理这种状况，-以-ETHPOW-和-ETH2-0-分叉这个过程"><a href="#15-发生硬分叉时，做为钱包的开发，您应当怎么去处理这种状况，-以-ETHPOW-和-ETH2-0-分叉这个过程" class="headerlink" title="15.发生硬分叉时，做为钱包的开发，您应当怎么去处理这种状况， 以 ETHPOW 和 ETH2.0 分叉这个过程"></a>15.发生硬分叉时，做为钱包的开发，您应当怎么去处理这种状况， 以 ETHPOW 和 ETH2.0 分叉这个过程</h2><p>认可共识比较</p>
+<h2 id="16-TON-支持合约吗？若支持，请说出其合约开发语言"><a href="#16-TON-支持合约吗？若支持，请说出其合约开发语言" class="headerlink" title="16.TON 支持合约吗？若支持，请说出其合约开发语言"></a>16.TON 支持合约吗？若支持，请说出其合约开发语言</h2><h2 id="17-比特币的地址有哪些格式，请说明"><a href="#17-比特币的地址有哪些格式，请说明" class="headerlink" title="17.比特币的地址有哪些格式，请说明"></a>17.比特币的地址有哪些格式，请说明</h2><h2 id="18-描述一下-UTXO-和账户模型的区别"><a href="#18-描述一下-UTXO-和账户模型的区别" class="headerlink" title="18.描述一下 UTXO 和账户模型的区别"></a>18.描述一下 UTXO 和账户模型的区别</h2><p> UTXO：未花费的交易输出</p>
+<p>在UTXO模型中，每个交易输出都被视为未使用的交易输出（UTXO）。UXTO代表了一定数量的加密货币，他们被锁定在一个特定的地址上，并且只能通过使用私钥来解锁。当进行交易时，需要使用先前未使用的UTXO作为输入，并将其消耗掉，同事生成新的UTXO作为输出。</p>
+<p>账户模型：</p>
+<p>每个账户被视为包含余额和状态的实体。用户拥有一个私钥对应账户地址，可以使用私钥对账户进行前面来进行交易。每个账户的余额存储在链上，当发生交易时，账户的余额会相应地增加或减少。</p>
+<h2 id="20-解释一下什么是-EVM-同源链，举例说明一下"><a href="#20-解释一下什么是-EVM-同源链，举例说明一下" class="headerlink" title="20.解释一下什么是 EVM 同源链，举例说明一下"></a>20.解释一下什么是 EVM 同源链，举例说明一下</h2><h2 id="21-ERC721-和-ERC1155-区别与联系"><a href="#21-ERC721-和-ERC1155-区别与联系" class="headerlink" title="21.ERC721 和 ERC1155 区别与联系"></a>21.ERC721 和 ERC1155 区别与联系</h2><h1 id="一些感悟"><a href="#一些感悟" class="headerlink" title="一些感悟"></a>一些感悟</h1><p>最核心的不是扫链，不是获取用户数据、交易数据，接口比较简单</p>
+<p>最核心的永远都是离线地址的生成和签名交易的生成</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/blockChain/" class="category-chain-item">blockChain</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/block/" class="print-no-link">#block</a>
+      
+        <a href="/tags/%E6%A6%82%E5%BF%B5/" class="print-no-link">#概念</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>0601 钱包部分小总结</div>
+      <div>http://example.com/2024/05/30/061钱包部分小总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wangxiaowang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/30/07-1%E6%AF%94%E7%89%B9%E5%B8%81%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E6%B5%81%E7%A8%8B/" title="07-1 比特币钱包开发简单流程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">07-1 比特币钱包开发简单流程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/28/06Bitcoin%E9%92%B1%E5%8C%85Schnorr%E5%9C%B0%E5%9D%80%E7%94%9F%E6%88%90%E4%B8%8E%E7%AD%BE%E5%90%8D/" title="06 Bitcoin钱包Schnorr地址生成与签名">
+                        <span class="hidden-mobile">06 Bitcoin钱包Schnorr地址生成与签名</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
