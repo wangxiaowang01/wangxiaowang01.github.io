@@ -8,7 +8,7 @@
     <link href="/2024/05/30/07-2Ethereum%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/"/>
     <url>/2024/05/30/07-2Ethereum%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/</url>
     
-    <content type="html"><![CDATA[<h1 id="1-以太坊基础知识"><a href="#1-以太坊基础知识" class="headerlink" title="1.以太坊基础知识"></a>1.以太坊基础知识</h1><p>Update bitcoin wallet dev</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="1-以太坊基础知识"><a href="#1-以太坊基础知识" class="headerlink" title="1.以太坊基础知识"></a>1.以太坊基础知识</h1><p>Update bitcoin wallet development of web3 learning</p><p>Update web3 learning Bitcoin wallet development</p><p>更新web3学习之比特币钱包开发</p><p>ETH-2.0</p><ul><li><p>共识算法： POS</p></li><li><p>共识层：信标链</p></li><li><hr></li></ul><h2 id="以太坊-RPC-接口"><a href="#以太坊-RPC-接口" class="headerlink" title="以太坊 RPC 接口"></a>以太坊 RPC 接口</h2><p>这里在做的就是扫链，钱包都要扫链</p><p>4.1.检查网络的 RPC 接口是否可以</p><p>先调接口看下链是不是处于活跃的状态，如果是才能继续下去</p><p>4.2.获取最新块高</p><p>调eth block number获取到最新的快高是多 比如说当前是第101个块</p><p>4.3.根据块高获取块里面的信息</p><p>从我之前上一次扫到的块（比如说第100）到我这一次扫到的块（第101）之间，扫到交易就下一步</p><p>4.4.根据交易 Hash 获取交易详情</p><p>扫到交易之后就要去解析交易。然后判断from 和to 的地址是什么地址，来判断是转出还是转入是归集还是冷热互转</p><p>4.5.获取交易状态</p><p>解析交易就是获取交易状态是成功的吗，fail 还是 success</p><p>4.6. 获取签名需要的参数 Nonce</p><p>4.7. 获取签名需要的参数 Gas</p><p>4.8. 发送交易到区块链网络</p><ul><li>请求参数</li><li>返回值</li></ul>]]></content>
     
     
     <categories>
