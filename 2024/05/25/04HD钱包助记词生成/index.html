@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/web3/encryption3.jpg">
 <meta property="article:published_time" content="2024-05-25T11:06:59.000Z">
-<meta property="article:modified_time" content="2024-06-05T13:06:58.787Z">
+<meta property="article:modified_time" content="2024-06-07T12:07:55.287Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="实战">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16k 字
+          17k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          132 分钟
+          141 分钟
         
       </span>
     
@@ -390,7 +390,7 @@
 <p>为什么提出助记词？是为了解决BIP-32中的种子(Seed)难于记忆和不方便备份的问题，</p>
 <p>所以BIP-39主要包含了2个功能：由<strong>熵源生成助记词</strong>，由<strong>助记词生成种子</strong>（Seed）</p>
 <p>所以是–&gt;BIP-39解决助记词—&gt;BIP-32 </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 由熵源生成助记词</span><br><span class="hljs-comment">// @参数 128 =&gt; 12个单词</span><br><span class="hljs-comment">// @参数 256 =&gt; 24个单词</span><br>entropy, _ := bip39.NewEntropy(<span class="hljs-number">128</span>) <br>mnemonic, _ := bip39.NewMnemonic(entropy) <span class="hljs-comment">// 这里也是参考上面的流程</span><br><span class="hljs-comment">// 这两行代码的原理可以参考上面的代码的流程： 熵-&gt;校验和-&gt;去头去尾拿索引-&gt;根据索引到词库拿词</span><br>fmt.Println(<span class="hljs-string">&quot;助记词：&quot;</span>, mnemonic)<br><br><span class="hljs-comment">// 由助记词生成种子(Seed)</span><br>seed := bip39.NewSeed(mnemonic, <span class="hljs-string">&quot;salt&quot;</span>) <span class="hljs-comment">// 问题在这里，</span><br><span class="hljs-comment">// 这里生成种子的方法里传了助记词和盐值进去得到种子</span><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 由熵源生成助记词</span><br><span class="hljs-comment">// @参数 128 =&gt; 12个单词</span><br><span class="hljs-comment">// @参数 256 =&gt; 24个单词</span><br>entropy, _ := bip39.NewEntropy(<span class="hljs-number">128</span>) <br>mnemonic, _ := bip39.NewMnemonic(entropy) <span class="hljs-comment">// 这里也是参考上面的流程</span><br><span class="hljs-comment">// 这两行代码的原理可以参考上面的代码的流程： 熵-&gt;校验和-&gt;去头去尾拿索引-&gt;根据索引到词库拿词</span><br>fmt.Println(<span class="hljs-string">&quot;助记词：&quot;</span>, mnemonic)<br><br><span class="hljs-comment">// 由助记词生成种子(Seed)</span><br>seed := bip39.NewSeed(mnemonic, <span class="hljs-string">&quot;salt&quot;</span>) <span class="hljs-comment">// 问题在这里，</span><br><span class="hljs-comment">// 这里生成种子的方法里传了助记词和盐值进去得到种子 kaccak256压缩成32byte后取最后20byte</span><br><br></code></pre></td></tr></table></figure>
 
 <p>生成seed的时候，加入盐值的目的一是增加暴力破解的难度，二是保护种子（seed），就是即使助记词被盗了，种子也是安全的。如果设置了salt，虽然多了一层保护，但是一旦忘记了，也就代表永久丢失钱包了，所以要结合实际情况去考虑</p>
 <p>这个盐值也叫密码口令（passphrase）,开头的hardhat配置里的passphrase就是这个盐值，和metamask的登录密码完全是两个东西。</p>
@@ -460,7 +460,10 @@
 </ul>
 <p><strong>注意：为了保护主私钥安全，所有主私钥派生的第一级账户，都采用强化派生。</strong> </p>
 <p>但是，你可以使用<code>m/0</code>，<code>m/1&#39;/0</code>，<code>m/0&#39;/1/2/3</code>这种任何路径你都可以随便输入，派生出来的都是正确的账户，只是这些不符合标准的钱包不一定能兼容的了这些链，且安全性不可知，所以统一准信行业标准（BIP-44）</p>
-<h3 id="实现一个以太坊的钱包（一个符合BIP-44标准的路径path）"><a href="#实现一个以太坊的钱包（一个符合BIP-44标准的路径path）" class="headerlink" title="实现一个以太坊的钱包（一个符合BIP-44标准的路径path）"></a>实现一个以太坊的钱包（一个符合BIP-44标准的路径path）</h3><p>1. </p>
+<h3 id="实现一个以太坊的钱包（一个符合BIP-44标准的路径path）"><a href="#实现一个以太坊的钱包（一个符合BIP-44标准的路径path）" class="headerlink" title="实现一个以太坊的钱包（一个符合BIP-44标准的路径path）"></a>实现一个以太坊的钱包（一个符合BIP-44标准的路径path）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 所以这个masterKey 的来源还要再写一遍</span><br>助记词==&gt;种子==&gt; 主私钥masterKey<br><span class="hljs-comment">// 这里的masterKey是什么？是主私钥，然后主私钥经过各种派生之后，生成的子私钥</span><br><span class="hljs-comment">// 以太坊的币种类型是60</span><br><span class="hljs-comment">// FirstHardenedChild = uint32(0x80000000) 是一个常量</span><br><span class="hljs-comment">// 以路径（path: &quot;m/44&#x27;/60&#x27;/0&#x27;/0/0&quot;）为例</span><br>key, _ := masterKey.NewChildKey(bip32.FirstHardenedChild + <span class="hljs-number">44</span>)  <span class="hljs-comment">// 这一步是在做强化派生， 对应 purpose&#x27; 44是符合BIP-44标准</span><br>key, _ = key.NewChildKey(bip32.FirstHardenedChild + <span class="hljs-type">uint32</span>(<span class="hljs-number">60</span>)) <span class="hljs-comment">// 还是强化派生，对应 coin_type类型60&#x27;</span><br>key, _ = key.NewChildKey(bip32.FirstHardenedChild + <span class="hljs-type">uint32</span>(<span class="hljs-number">0</span>))  <span class="hljs-comment">// 还是强化派生，对应account</span><br>key, _ = key.NewChildKey(<span class="hljs-type">uint32</span>(<span class="hljs-number">0</span>))                             <span class="hljs-comment">// 常规派生，对应 change</span><br>key, _ = key.NewChildKey(<span class="hljs-type">uint32</span>(<span class="hljs-number">0</span>))                             <span class="hljs-comment">// 常规派生，对应的 address_index</span><br><br><span class="hljs-comment">// path已经完毕，生成地址</span><br>ethPublicKey, _ := crypto.DecompressPubkey(key.PublicKey().Key)<br>fmt.Println(<span class="hljs-string">&quot;ethPublicKey:&quot;</span>, ethPublicKey)<br>ethAddre := crypto.PubkeyToAddress(*ethPublicKey).Hex()<br>fmt.Println(<span class="hljs-string">&quot;ethAddre:&quot;</span>, ethAddre)<br><span class="hljs-comment">// 尝试打印一下这个key的私钥算</span><br>fmt.Println(<span class="hljs-string">&quot;key:&quot;</span>, key.Key)                 <span class="hljs-comment">// 这个时候你直接打印Key是十进制的字节切片</span><br>privateKeyHex := hex.EncodeToString(key.Key) <span class="hljs-comment">// 这里在做的就是转化成16进制的字符，</span><br>fmt.Println(<span class="hljs-string">&quot;key:&quot;</span>, privateKeyHex)<br></code></pre></td></tr></table></figure>
+
+<p>所以这里总结一下，助记词–私钥–公钥–地址，这个过程中做了什么？</p>
+<p><img src="/img/web3/privatekeyprocess.png" srcset="/img/loading.gif" lazyload alt="privatekeyprocess"></p>
 
                 
               </div>
