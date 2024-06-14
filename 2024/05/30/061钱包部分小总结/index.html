@@ -16,16 +16,16 @@
   <meta name="author" content="Wangxiaowang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.描述一下交易钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
+    <meta name="description" content="1.描述一下交易所钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0601 钱包部分小总结">
 <meta property="og:url" content="http://example.com/2024/05/30/061%E9%92%B1%E5%8C%85%E9%83%A8%E5%88%86%E5%B0%8F%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Wang">
-<meta property="og:description" content="1.描述一下交易钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
+<meta property="og:description" content="1.描述一下交易所钱包的充值和提现流程充值 交易所给用户提供地址，用户把钱转进来 扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析 交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后上账，并通知业务层  提现1.获取签名参数–&gt;2.离线签名–&gt;3.广播出去—&gt;把交易哈希更新数据库—-&gt;扫链解析确认是否完成  获取需要的签名参数（这里就看了）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/web3/btb3.jpg">
 <meta property="article:published_time" content="2024-05-30T03:40:56.000Z">
-<meta property="article:modified_time" content="2024-06-13T12:31:54.986Z">
+<meta property="article:modified_time" content="2024-06-14T12:57:02.711Z">
 <meta property="article:author" content="Wangxiaowang">
 <meta property="article:tag" content="block">
 <meta property="article:tag" content="概念">
@@ -318,7 +318,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="1-描述一下交易钱包的充值和提现流程"><a href="#1-描述一下交易钱包的充值和提现流程" class="headerlink" title="1.描述一下交易钱包的充值和提现流程"></a>1.描述一下交易钱包的充值和提现流程</h2><h3 id="充值"><a href="#充值" class="headerlink" title="充值"></a>充值</h3><ul>
+                <h2 id="1-描述一下交易所钱包的充值和提现流程"><a href="#1-描述一下交易所钱包的充值和提现流程" class="headerlink" title="1.描述一下交易所钱包的充值和提现流程"></a>1.描述一下交易所钱包的充值和提现流程</h2><h3 id="充值"><a href="#充值" class="headerlink" title="充值"></a>充值</h3><ul>
 <li>交易所给用户提供地址，用户把钱转进来</li>
 <li>扫链：获取最新块高，从上一次解析的块开始到最新块高进行交易解析</li>
 <li>交易解析完之后，如果交易里面 to 是系统用户，则是充值，解析完成之后<strong>上账</strong>，并通知<strong>业务层</strong></li>
@@ -359,7 +359,7 @@
 
 <p>account 标记账户类型，便于分类，默认为0</p>
 <p>change ： 比特币特有的，找零地址就是1</p>
-<h2 id="5-门限共享秘密拆分过程"><a href="#5-门限共享秘密拆分过程" class="headerlink" title="5.门限共享秘密拆分过程"></a>5.门限共享秘密拆分过程</h2><p>秘密—–&gt; n 份，k 份可恢复， 任意 k 份恢复出这个秘密，分别用门限共享算法和逆门限共享秘密算法</p>
+<h2 id="5-门限共享秘密拆分过程MPC"><a href="#5-门限共享秘密拆分过程MPC" class="headerlink" title="5.门限共享秘密拆分过程MPC"></a>5.门限共享秘密拆分过程MPC</h2><p>秘密—–&gt; n 份，k 份可恢复， 任意 k 份恢复出这个秘密，分别用门限共享算法和逆门限共享秘密算法</p>
 <h2 id="5-MPC-GG20-算法-Keygen-和-Sign-分别需要经过多少轮共识"><a href="#5-MPC-GG20-算法-Keygen-和-Sign-分别需要经过多少轮共识" class="headerlink" title="5.MPC GG20 算法 Keygen 和 Sign 分别需要经过多少轮共识"></a>5.MPC GG20 算法 Keygen 和 Sign 分别需要经过多少轮共识</h2><ul>
 <li>Keygen: 4 轮</li>
 <li>Sign: 7 轮</li>
@@ -393,7 +393,7 @@
 <li>发送交易到区块链网络</li>
 <li>扫链获取到交易之后更新交易状态并上报业务层</li>
 </ul>
-<h3 id="归集"><a href="#归集" class="headerlink" title="归集"></a>归集</h3><p>归集就是转账，把分散的前归拢到归集地址，</p>
+<h3 id="归集"><a href="#归集" class="headerlink" title="归集"></a>归集</h3><p>归集就是转账，把分散的币归拢到归集地址，</p>
 <ul>
 <li>将用户地址上的资金转到归集地址，签名流程类似提现</li>
 <li>发送交易到区块链网络</li>
